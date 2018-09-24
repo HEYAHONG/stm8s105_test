@@ -14,7 +14,7 @@ CFLAGS+= -I./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc
 CFLAGS+= -I./
 CFLAGS+= -I./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src
 #use compiled lib
-CFLAGS+= -L./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/lib -lSTM8S103.lib
+CFLAGS+= -L./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/lib -lSTM8S103.lib -lstm8.lib
 
 
 SRC=$(wildcard *.asm) $(wildcard *.c) 
@@ -30,6 +30,7 @@ SYM_DST=$(patsubst %.rel,%.sym,$(OBJ_SRC))
 
 
 all: $(PROJECT).hex 
+	 -rm -rf $(OBJ_SRC) $(ASM_DST) $(LST_DST) $(RST_DST) $(SYM_DST)
 
 
 $(PROJECT).hex:$(PROJECT).ihx
