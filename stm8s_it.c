@@ -63,16 +63,16 @@ INTERRUPT_HANDLER(NonHandledInterrupt, 25)
   * @param  None
   * @retval None
   */
-/*
+
 INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler)
 {
-*/
+
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
-/*
+
 }
-*/
+
 /**
   * @brief Top Level Interrupt routine.
   * @param  None
@@ -348,6 +348,10 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
+	 UART1_ClearITPendingBit(UART1_IT_RXNE);
+	UART1_SendData8(UART1_ReceiveData8());
+//	while(1);
+	
  }
 #endif /* (STM8S208) || (STM8S207) || (STM8S103) || (STM8S001) || (STM8S903) || (STM8AF62Ax) || (STM8AF52Ax) */
 

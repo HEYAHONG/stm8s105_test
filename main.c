@@ -42,12 +42,40 @@ void Delay(uint16_t nCount)
     nCount--;
   }
 }
+void Init_UART1(void)
+{
+	UART1_DeInit();
+	UART1_Init((u32)115200, UART1_WORDLENGTH_8D, UART1_STOPBITS_1, 
+UART1_PARITY_NO, UART1_SYNCMODE_CLOCK_DISABLE, UART1_MODE_TXRX_ENABLE);
+	
+        UART1_ITConfig(UART1_IT_RXNE_OR, ENABLE);
+
+	UART1_Cmd(ENABLE);
+}
+
+void UART1_Send_Char(uint8_t dat)
+{
+  while(( UART1_GetFlagStatus(UART1_FLAG_TXE)==RESET));
+	
+		UART1_SendData8(dat);
+	
+}
+
+void UART1_Send_STR(unsigned char * src)
+{
+while(*src !='\0')
+{
+UART1_Send_Char(*src++);
+}
+}
 
 void main(void)
 {
 /* Initialize I/Os in Output Mode */
   GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
-
+//Initialize UART1
+ Init_UART1();
+ UART1_Send_STR("STM8 Started!\r\n");
   /* Infinite loop */
   while (1)
   {

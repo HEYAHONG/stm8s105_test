@@ -15,10 +15,11 @@ CFLAGS+= -I./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc
 CFLAGS+= -I./
 CFLAGS+= -I./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src
 #use compiled lib
-CFLAGS+= -L./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/lib -lSTM8S103.lib -lstm8.lib
+#CFLAGS+= -L./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/lib -lSTM8S103.lib -lstm8.lib
+#not use compiled lib
+CFLAGS+=-lstm8.lib
 
-
-SRC=$(wildcard *.asm) $(wildcard *.c) 
+SRC=$(wildcard *.c)  ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c  ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart1.c  ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_clk.c 
 
 OBJ1_SRC=$(patsubst %.c,%.rel,$(SRC))
 OBJ_SRC=$(patsubst %.asm,%.rel,$(OBJ1_SRC))
@@ -46,7 +47,7 @@ $(PROJECT).ihx:$(OBJ_SRC)
 %.rel:%.asm
 	$(SDCC) -c $(CFLAGS) $^ -o $@
 
-flash: $(PROJECT).hex
+flash:$(PROJECT).hex
 	$(STM8FLASH) -c stlinkv2 -p stm8s103f3 -w $(PROJECT).hex
 clean:
 	-rm -rf $(OBJ_SRC) $(ASM_DST) $(LST_DST) $(RST_DST) $(SYM_DST)
