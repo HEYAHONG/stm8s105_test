@@ -6,6 +6,7 @@ SDCC=sdcc
 PACKIHX=packihx
 MAKEBIN=makebin
 STM8FLASH=stm8flash
+SDAS=sdasstm8
 
 #select stm8s103
 CFLAGS+=  -DSTM8S103 -mstm8  -DUSE_STDPERIPH_DRIVER  
@@ -45,7 +46,7 @@ $(PROJECT).ihx:$(OBJ_SRC)
 %.rel:%.c
 	$(SDCC) -c $(CFLAGS) $^ -o $@
 %.rel:%.asm
-	$(SDCC) -c $(CFLAGS) $^ -o $@
+	$(SDAS)  $^ -o $@
 
 flash:$(PROJECT).hex
 	$(STM8FLASH) -c stlinkv2 -p stm8s103f3 -w $(PROJECT).hex
