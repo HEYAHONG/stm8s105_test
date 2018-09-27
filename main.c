@@ -76,7 +76,7 @@ int putchar(int dat) //support printf function
   while(( UART1_GetFlagStatus(UART1_FLAG_TXE)==RESET));
 
                 UART1_SendData8((u8)dat);
-retrun 0;
+return 0;
 }
 
 
@@ -87,6 +87,7 @@ void main(void)
   GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
 //Initialize UART1
  Init_UART1();
+enableInterrupts(); //使能中断
  printf("STM8 Started!\r\n");
   /* Infinite loop */
   while (1)
