@@ -116,6 +116,30 @@
  INTERRUPT void EEPROM_EEC_IRQHandler(void); /* EEPROM ECC CORRECTION */
 #endif /* _RAISONANCE_ */
 
+#if defined(STM8S103) && defined(_SDCC_)
+
+void TRAP_IRQHandler(void) __trap;
+void TLI_IRQHandler() __interrupt(0);
+void AWU_IRQHandler() __interrupt(1);
+void CLK_IRQHandler() __interrupt(2);
+void EXTI_PORTA_IRQHandler() __interrupt(3);
+void EXTI_PORTB_IRQHandler() __interrupt(4);
+void EXTI_PORTC_IRQHandler() __interrupt(5);
+void EXTI_PORTD_IRQHandler() __interrupt(6);
+void EXTI_PORTE_IRQHandler() __interrupt(7);
+void SPI_IRQHandler() __interrupt(10);
+void TIM1_UPD_OVF_TRG_BRK_IRQHandler() __interrupt(11);
+void TIM1_CAP_COM_IRQHandler() __interrupt(12);
+void TIM2_UPD_OVF_BRK_IRQHandler() __interrupt(13);
+void TIM2_CAP_COM_IRQHandler() __interrupt(14);
+void UART1_TX_IRQHandler() __interrupt(17);
+void UART1_RX_IRQHandler() __interrupt(18);
+void I2C_IRQHandler() __interrupt(19);
+void ADC1_IRQHandler() __interrupt(22);
+void TIM4_UPD_OVF_IRQHandler() __interrupt(23);
+void EEPROM_EEC_IRQHandler() __interrupt(24);
+#endif
+
 #endif /* __STM8S_IT_H */
 
 

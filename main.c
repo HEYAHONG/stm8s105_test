@@ -28,7 +28,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
-
+#include "stm8s_gpio.h"
+#include "stm8s_itc.h"
+#include "stm8s_uart1.h"
+#include "stdio.h"
 /* Private defines -----------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -68,14 +71,23 @@ while(*src !='\0')
 UART1_Send_Char(*src++);
 }
 }
+int putchar(int dat) //support printf function
+{
+  while(( UART1_GetFlagStatus(UART1_FLAG_TXE)==RESET));
+
+                UART1_SendData8((u8)dat);
+retrun 0;
+}
+
 
 void main(void)
 {
+
 /* Initialize I/Os in Output Mode */
   GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
 //Initialize UART1
  Init_UART1();
- UART1_Send_STR("STM8 Started!\r\n");
+ printf("STM8 Started!\r\n");
   /* Infinite loop */
   while (1)
   {
