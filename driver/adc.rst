@@ -61,60 +61,60 @@
                                      61 ;	-----------------------------------------
                                      62 ;	 function ReadADC
                                      63 ;	-----------------------------------------
-      009603                         64 _ReadADC:
+      008E03                         64 _ReadADC:
                                      65 ;	driver/adc.c: 6: ADC1_DeInit();
-      009603 CD 97 2A         [ 4]   66 	call	_ADC1_DeInit
+      008E03 CD 8F 2A         [ 4]   66 	call	_ADC1_DeInit
                                      67 ;	driver/adc.c: 7: ADC1_ClearFlag(ADC1_FLAG_EOC);//软件清除
-      009606 4B 80            [ 1]   68 	push	#0x80
-      009608 CD 9A 6D         [ 4]   69 	call	_ADC1_ClearFlag
-      00960B 84               [ 1]   70 	pop	a
+      008E06 4B 80            [ 1]   68 	push	#0x80
+      008E08 CD 92 6D         [ 4]   69 	call	_ADC1_ClearFlag
+      008E0B 84               [ 1]   70 	pop	a
                                      71 ;	driver/adc.c: 9: GPIO_Init(ADC_GPIO,ADC_PIN,GPIO_MODE_IN_FL_NO_IT);//AIN4 IO设置为悬浮输入
-      00960C 4B 00            [ 1]   72 	push	#0x00
-      00960E 4B 01            [ 1]   73 	push	#0x01
-      009610 4B 05            [ 1]   74 	push	#0x05
-      009612 4B 50            [ 1]   75 	push	#0x50
-      009614 CD 96 67         [ 4]   76 	call	_GPIO_Init
-      009617 5B 04            [ 2]   77 	addw	sp, #4
+      008E0C 4B 00            [ 1]   72 	push	#0x00
+      008E0E 4B 01            [ 1]   73 	push	#0x01
+      008E10 4B 05            [ 1]   74 	push	#0x05
+      008E12 4B 50            [ 1]   75 	push	#0x50
+      008E14 CD 8E 67         [ 4]   76 	call	_GPIO_Init
+      008E17 5B 04            [ 2]   77 	addw	sp, #4
                                      78 ;	driver/adc.c: 11: ADC1_PrescalerConfig(ADC1_PRESSEL_FCPU_D2);//预分频2
-      009619 4B 00            [ 1]   79 	push	#0x00
-      00961B CD 97 E2         [ 4]   80 	call	_ADC1_PrescalerConfig
-      00961E 84               [ 1]   81 	pop	a
+      008E19 4B 00            [ 1]   79 	push	#0x00
+      008E1B CD 8F E2         [ 4]   80 	call	_ADC1_PrescalerConfig
+      008E1E 84               [ 1]   81 	pop	a
                                      82 ;	driver/adc.c: 13: ADC1_ExternalTriggerConfig(ADC1_EXTTRIG_TIM,DISABLE);//不使用外部触发
-      00961F 4B 00            [ 1]   83 	push	#0x00
-      009621 4B 00            [ 1]   84 	push	#0x00
-      009623 CD 98 A4         [ 4]   85 	call	_ADC1_ExternalTriggerConfig
-      009626 5B 02            [ 2]   86 	addw	sp, #2
+      008E1F 4B 00            [ 1]   83 	push	#0x00
+      008E21 4B 00            [ 1]   84 	push	#0x00
+      008E23 CD 90 A4         [ 4]   85 	call	_ADC1_ExternalTriggerConfig
+      008E26 5B 02            [ 2]   86 	addw	sp, #2
                                      87 ;	driver/adc.c: 15: ADC1_SchmittTriggerConfig(ADC_SCHMITTTRIG,DISABLE);
-      009628 4B 00            [ 1]   88 	push	#0x00
-      00962A 4B 00            [ 1]   89 	push	#0x00
-      00962C CD 97 F3         [ 4]   90 	call	_ADC1_SchmittTriggerConfig
-      00962F 5B 02            [ 2]   91 	addw	sp, #2
+      008E28 4B 00            [ 1]   88 	push	#0x00
+      008E2A 4B 00            [ 1]   89 	push	#0x00
+      008E2C CD 8F F3         [ 4]   90 	call	_ADC1_SchmittTriggerConfig
+      008E2F 5B 02            [ 2]   91 	addw	sp, #2
                                      92 ;	driver/adc.c: 23: ADC1_ConversionConfig(ADC1_CONVERSIONMODE_SINGLE,//单次转换
-      009631 4B 08            [ 1]   93 	push	#0x08
-      009633 4B 00            [ 1]   94 	push	#0x00
-      009635 4B 00            [ 1]   95 	push	#0x00
-      009637 CD 98 71         [ 4]   96 	call	_ADC1_ConversionConfig
-      00963A 5B 03            [ 2]   97 	addw	sp, #3
+      008E31 4B 08            [ 1]   93 	push	#0x08
+      008E33 4B 00            [ 1]   94 	push	#0x00
+      008E35 4B 00            [ 1]   95 	push	#0x00
+      008E37 CD 90 71         [ 4]   96 	call	_ADC1_ConversionConfig
+      008E3A 5B 03            [ 2]   97 	addw	sp, #3
                                      98 ;	driver/adc.c: 29: ADC1_Cmd(ENABLE);//开启ADC
-      00963C 4B 01            [ 1]   99 	push	#0x01
-      00963E CD 97 8B         [ 4]  100 	call	_ADC1_Cmd
-      009641 84               [ 1]  101 	pop	a
+      008E3C 4B 01            [ 1]   99 	push	#0x01
+      008E3E CD 8F 8B         [ 4]  100 	call	_ADC1_Cmd
+      008E41 84               [ 1]  101 	pop	a
                                     102 ;	driver/adc.c: 30: ADC1_StartConversion();
-      009642 CD 98 C8         [ 4]  103 	call	_ADC1_StartConversion
+      008E42 CD 90 C8         [ 4]  103 	call	_ADC1_StartConversion
                                     104 ;	driver/adc.c: 31: while(!ADC1_GetFlagStatus(ADC1_FLAG_EOC));//等待转换完成
-      009645                        105 00101$:
-      009645 4B 80            [ 1]  106 	push	#0x80
-      009647 CD 9A 08         [ 4]  107 	call	_ADC1_GetFlagStatus
-      00964A 5B 01            [ 2]  108 	addw	sp, #1
-      00964C 4D               [ 1]  109 	tnz	a
-      00964D 27 F6            [ 1]  110 	jreq	00101$
+      008E45                        105 00101$:
+      008E45 4B 80            [ 1]  106 	push	#0x80
+      008E47 CD 92 08         [ 4]  107 	call	_ADC1_GetFlagStatus
+      008E4A 5B 01            [ 2]  108 	addw	sp, #1
+      008E4C 4D               [ 1]  109 	tnz	a
+      008E4D 27 F6            [ 1]  110 	jreq	00101$
                                     111 ;	driver/adc.c: 33: ADC1_ClearFlag(ADC1_FLAG_EOC);//软件清除
-      00964F 4B 80            [ 1]  112 	push	#0x80
-      009651 CD 9A 6D         [ 4]  113 	call	_ADC1_ClearFlag
-      009654 84               [ 1]  114 	pop	a
+      008E4F 4B 80            [ 1]  112 	push	#0x80
+      008E51 CD 92 6D         [ 4]  113 	call	_ADC1_ClearFlag
+      008E54 84               [ 1]  114 	pop	a
                                     115 ;	driver/adc.c: 35: return (u16)ADC1_GetConversionValue();//从ADC_DR中读取ADC值
                                     116 ;	driver/adc.c: 37: }
-      009655 CC 98 CD         [ 2]  117 	jp	_ADC1_GetConversionValue
+      008E55 CC 90 CD         [ 2]  117 	jp	_ADC1_GetConversionValue
                                     118 	.area CODE
                                     119 	.area CONST
                                     120 	.area INITIALIZER

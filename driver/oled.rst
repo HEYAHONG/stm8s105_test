@@ -67,894 +67,894 @@
                                      67 ;	-----------------------------------------
                                      68 ;	 function delay_ms
                                      69 ;	-----------------------------------------
-      009102                         70 _delay_ms:
-      009102 52 02            [ 2]   71 	sub	sp, #2
+      008902                         70 _delay_ms:
+      008902 52 02            [ 2]   71 	sub	sp, #2
                                      72 ;	driver/oled.c: 48: while(ms)
-      009104 16 05            [ 2]   73 	ldw	y, (0x05, sp)
-      009106 17 01            [ 2]   74 	ldw	(0x01, sp), y
-      009108                         75 00104$:
-      009108 1E 01            [ 2]   76 	ldw	x, (0x01, sp)
-      00910A 27 11            [ 1]   77 	jreq	00106$
+      008904 16 05            [ 2]   73 	ldw	y, (0x05, sp)
+      008906 17 01            [ 2]   74 	ldw	(0x01, sp), y
+      008908                         75 00104$:
+      008908 1E 01            [ 2]   76 	ldw	x, (0x01, sp)
+      00890A 27 11            [ 1]   77 	jreq	00106$
                                      78 ;	driver/oled.c: 51: while(a--);
-      00910C AE 07 08         [ 2]   79 	ldw	x, #0x0708
-      00910F                         80 00101$:
-      00910F 90 93            [ 1]   81 	ldw	y, x
-      009111 5A               [ 2]   82 	decw	x
-      009112 90 5D            [ 2]   83 	tnzw	y
-      009114 26 F9            [ 1]   84 	jrne	00101$
+      00890C AE 07 08         [ 2]   79 	ldw	x, #0x0708
+      00890F                         80 00101$:
+      00890F 90 93            [ 1]   81 	ldw	y, x
+      008911 5A               [ 2]   82 	decw	x
+      008912 90 5D            [ 2]   83 	tnzw	y
+      008914 26 F9            [ 1]   84 	jrne	00101$
                                      85 ;	driver/oled.c: 52: ms--;
-      009116 1E 01            [ 2]   86 	ldw	x, (0x01, sp)
-      009118 5A               [ 2]   87 	decw	x
-      009119 1F 01            [ 2]   88 	ldw	(0x01, sp), x
-      00911B 20 EB            [ 2]   89 	jra	00104$
-      00911D                         90 00106$:
+      008916 1E 01            [ 2]   86 	ldw	x, (0x01, sp)
+      008918 5A               [ 2]   87 	decw	x
+      008919 1F 01            [ 2]   88 	ldw	(0x01, sp), x
+      00891B 20 EB            [ 2]   89 	jra	00104$
+      00891D                         90 00106$:
                                      91 ;	driver/oled.c: 54: return;
                                      92 ;	driver/oled.c: 55: }
-      00911D 5B 02            [ 2]   93 	addw	sp, #2
-      00911F 81               [ 4]   94 	ret
+      00891D 5B 02            [ 2]   93 	addw	sp, #2
+      00891F 81               [ 4]   94 	ret
                                      95 ;	driver/oled.c: 77: void OLED_WR_Byte(u8 dat,u8 cmd)
                                      96 ;	-----------------------------------------
                                      97 ;	 function OLED_WR_Byte
                                      98 ;	-----------------------------------------
-      009120                         99 _OLED_WR_Byte:
-      009120 88               [ 1]  100 	push	a
+      008920                         99 _OLED_WR_Byte:
+      008920 88               [ 1]  100 	push	a
                                     101 ;	driver/oled.c: 80: if(cmd)
-      009121 0D 05            [ 1]  102 	tnz	(0x05, sp)
-      009123 27 0D            [ 1]  103 	jreq	00102$
+      008921 0D 05            [ 1]  102 	tnz	(0x05, sp)
+      008923 27 0D            [ 1]  103 	jreq	00102$
                                     104 ;	driver/oled.c: 81: OLED_DC_Set();
-      009125 4B 10            [ 1]  105 	push	#0x10
-      009127 4B 0A            [ 1]  106 	push	#0x0a
-      009129 4B 50            [ 1]  107 	push	#0x50
-      00912B CD 96 E2         [ 4]  108 	call	_GPIO_WriteHigh
-      00912E 5B 03            [ 2]  109 	addw	sp, #3
-      009130 20 0B            [ 2]  110 	jra	00103$
-      009132                        111 00102$:
+      008925 4B 10            [ 1]  105 	push	#0x10
+      008927 4B 0A            [ 1]  106 	push	#0x0a
+      008929 4B 50            [ 1]  107 	push	#0x50
+      00892B CD 8E E2         [ 4]  108 	call	_GPIO_WriteHigh
+      00892E 5B 03            [ 2]  109 	addw	sp, #3
+      008930 20 0B            [ 2]  110 	jra	00103$
+      008932                        111 00102$:
                                     112 ;	driver/oled.c: 83: OLED_DC_Clr();
-      009132 4B 10            [ 1]  113 	push	#0x10
-      009134 4B 0A            [ 1]  114 	push	#0x0a
-      009136 4B 50            [ 1]  115 	push	#0x50
-      009138 CD 96 E9         [ 4]  116 	call	_GPIO_WriteLow
-      00913B 5B 03            [ 2]  117 	addw	sp, #3
-      00913D                        118 00103$:
+      008932 4B 10            [ 1]  113 	push	#0x10
+      008934 4B 0A            [ 1]  114 	push	#0x0a
+      008936 4B 50            [ 1]  115 	push	#0x50
+      008938 CD 8E E9         [ 4]  116 	call	_GPIO_WriteLow
+      00893B 5B 03            [ 2]  117 	addw	sp, #3
+      00893D                        118 00103$:
                                     119 ;	driver/oled.c: 84: OLED_CS_Clr();
-      00913D 4B 20            [ 1]  120 	push	#0x20
-      00913F 4B 0A            [ 1]  121 	push	#0x0a
-      009141 4B 50            [ 1]  122 	push	#0x50
-      009143 CD 96 E9         [ 4]  123 	call	_GPIO_WriteLow
-      009146 5B 03            [ 2]  124 	addw	sp, #3
+      00893D 4B 20            [ 1]  120 	push	#0x20
+      00893F 4B 0A            [ 1]  121 	push	#0x0a
+      008941 4B 50            [ 1]  122 	push	#0x50
+      008943 CD 8E E9         [ 4]  123 	call	_GPIO_WriteLow
+      008946 5B 03            [ 2]  124 	addw	sp, #3
                                     125 ;	driver/oled.c: 85: for(i=0;i<8;i++)
-      009148 0F 01            [ 1]  126 	clr	(0x01, sp)
-      00914A                        127 00108$:
+      008948 0F 01            [ 1]  126 	clr	(0x01, sp)
+      00894A                        127 00108$:
                                     128 ;	driver/oled.c: 87: OLED_SCLK_Clr();
-      00914A 4B 02            [ 1]  129 	push	#0x02
-      00914C 4B 0A            [ 1]  130 	push	#0x0a
-      00914E 4B 50            [ 1]  131 	push	#0x50
-      009150 CD 96 E9         [ 4]  132 	call	_GPIO_WriteLow
-      009153 5B 03            [ 2]  133 	addw	sp, #3
+      00894A 4B 02            [ 1]  129 	push	#0x02
+      00894C 4B 0A            [ 1]  130 	push	#0x0a
+      00894E 4B 50            [ 1]  131 	push	#0x50
+      008950 CD 8E E9         [ 4]  132 	call	_GPIO_WriteLow
+      008953 5B 03            [ 2]  133 	addw	sp, #3
                                     134 ;	driver/oled.c: 88: if(dat&0x80)
-      009155 7B 04            [ 1]  135 	ld	a, (0x04, sp)
-      009157 2A 0D            [ 1]  136 	jrpl	00105$
+      008955 7B 04            [ 1]  135 	ld	a, (0x04, sp)
+      008957 2A 0D            [ 1]  136 	jrpl	00105$
                                     137 ;	driver/oled.c: 90: OLED_SDIN_Set();
-      009159 4B 04            [ 1]  138 	push	#0x04
-      00915B 4B 0A            [ 1]  139 	push	#0x0a
-      00915D 4B 50            [ 1]  140 	push	#0x50
-      00915F CD 96 E2         [ 4]  141 	call	_GPIO_WriteHigh
-      009162 5B 03            [ 2]  142 	addw	sp, #3
-      009164 20 0B            [ 2]  143 	jra	00106$
-      009166                        144 00105$:
+      008959 4B 04            [ 1]  138 	push	#0x04
+      00895B 4B 0A            [ 1]  139 	push	#0x0a
+      00895D 4B 50            [ 1]  140 	push	#0x50
+      00895F CD 8E E2         [ 4]  141 	call	_GPIO_WriteHigh
+      008962 5B 03            [ 2]  142 	addw	sp, #3
+      008964 20 0B            [ 2]  143 	jra	00106$
+      008966                        144 00105$:
                                     145 ;	driver/oled.c: 93: OLED_SDIN_Clr();
-      009166 4B 04            [ 1]  146 	push	#0x04
-      009168 4B 0A            [ 1]  147 	push	#0x0a
-      00916A 4B 50            [ 1]  148 	push	#0x50
-      00916C CD 96 E9         [ 4]  149 	call	_GPIO_WriteLow
-      00916F 5B 03            [ 2]  150 	addw	sp, #3
-      009171                        151 00106$:
+      008966 4B 04            [ 1]  146 	push	#0x04
+      008968 4B 0A            [ 1]  147 	push	#0x0a
+      00896A 4B 50            [ 1]  148 	push	#0x50
+      00896C CD 8E E9         [ 4]  149 	call	_GPIO_WriteLow
+      00896F 5B 03            [ 2]  150 	addw	sp, #3
+      008971                        151 00106$:
                                     152 ;	driver/oled.c: 94: OLED_SCLK_Set();
-      009171 4B 02            [ 1]  153 	push	#0x02
-      009173 4B 0A            [ 1]  154 	push	#0x0a
-      009175 4B 50            [ 1]  155 	push	#0x50
-      009177 CD 96 E2         [ 4]  156 	call	_GPIO_WriteHigh
-      00917A 5B 03            [ 2]  157 	addw	sp, #3
+      008971 4B 02            [ 1]  153 	push	#0x02
+      008973 4B 0A            [ 1]  154 	push	#0x0a
+      008975 4B 50            [ 1]  155 	push	#0x50
+      008977 CD 8E E2         [ 4]  156 	call	_GPIO_WriteHigh
+      00897A 5B 03            [ 2]  157 	addw	sp, #3
                                     158 ;	driver/oled.c: 95: dat<<=1;
-      00917C 08 04            [ 1]  159 	sll	(0x04, sp)
+      00897C 08 04            [ 1]  159 	sll	(0x04, sp)
                                     160 ;	driver/oled.c: 85: for(i=0;i<8;i++)
-      00917E 0C 01            [ 1]  161 	inc	(0x01, sp)
-      009180 7B 01            [ 1]  162 	ld	a, (0x01, sp)
-      009182 A1 08            [ 1]  163 	cp	a, #0x08
-      009184 25 C4            [ 1]  164 	jrc	00108$
+      00897E 0C 01            [ 1]  161 	inc	(0x01, sp)
+      008980 7B 01            [ 1]  162 	ld	a, (0x01, sp)
+      008982 A1 08            [ 1]  163 	cp	a, #0x08
+      008984 25 C4            [ 1]  164 	jrc	00108$
                                     165 ;	driver/oled.c: 97: OLED_CS_Set();
-      009186 4B 20            [ 1]  166 	push	#0x20
-      009188 4B 0A            [ 1]  167 	push	#0x0a
-      00918A 4B 50            [ 1]  168 	push	#0x50
-      00918C CD 96 E2         [ 4]  169 	call	_GPIO_WriteHigh
-      00918F 5B 03            [ 2]  170 	addw	sp, #3
+      008986 4B 20            [ 1]  166 	push	#0x20
+      008988 4B 0A            [ 1]  167 	push	#0x0a
+      00898A 4B 50            [ 1]  168 	push	#0x50
+      00898C CD 8E E2         [ 4]  169 	call	_GPIO_WriteHigh
+      00898F 5B 03            [ 2]  170 	addw	sp, #3
                                     171 ;	driver/oled.c: 98: OLED_DC_Set();
-      009191 4B 10            [ 1]  172 	push	#0x10
-      009193 4B 0A            [ 1]  173 	push	#0x0a
-      009195 4B 50            [ 1]  174 	push	#0x50
-      009197 CD 96 E2         [ 4]  175 	call	_GPIO_WriteHigh
+      008991 4B 10            [ 1]  172 	push	#0x10
+      008993 4B 0A            [ 1]  173 	push	#0x0a
+      008995 4B 50            [ 1]  174 	push	#0x50
+      008997 CD 8E E2         [ 4]  175 	call	_GPIO_WriteHigh
                                     176 ;	driver/oled.c: 99: }
-      00919A 5B 04            [ 2]  177 	addw	sp, #4
-      00919C 81               [ 4]  178 	ret
+      00899A 5B 04            [ 2]  177 	addw	sp, #4
+      00899C 81               [ 4]  178 	ret
                                     179 ;	driver/oled.c: 101: void OLED_Set_Pos(unsigned char x, unsigned char y)
                                     180 ;	-----------------------------------------
                                     181 ;	 function OLED_Set_Pos
                                     182 ;	-----------------------------------------
-      00919D                        183 _OLED_Set_Pos:
-      00919D 52 02            [ 2]  184 	sub	sp, #2
+      00899D                        183 _OLED_Set_Pos:
+      00899D 52 02            [ 2]  184 	sub	sp, #2
                                     185 ;	driver/oled.c: 103: OLED_WR_Byte(0xb0+y,OLED_CMD);
-      00919F 7B 06            [ 1]  186 	ld	a, (0x06, sp)
-      0091A1 AB B0            [ 1]  187 	add	a, #0xb0
-      0091A3 4B 00            [ 1]  188 	push	#0x00
-      0091A5 88               [ 1]  189 	push	a
-      0091A6 CD 91 20         [ 4]  190 	call	_OLED_WR_Byte
-      0091A9 5B 02            [ 2]  191 	addw	sp, #2
+      00899F 7B 06            [ 1]  186 	ld	a, (0x06, sp)
+      0089A1 AB B0            [ 1]  187 	add	a, #0xb0
+      0089A3 4B 00            [ 1]  188 	push	#0x00
+      0089A5 88               [ 1]  189 	push	a
+      0089A6 CD 89 20         [ 4]  190 	call	_OLED_WR_Byte
+      0089A9 5B 02            [ 2]  191 	addw	sp, #2
                                     192 ;	driver/oled.c: 104: OLED_WR_Byte(((x&0xf0)>>4)|0x10,OLED_CMD);
-      0091AB 7B 05            [ 1]  193 	ld	a, (0x05, sp)
-      0091AD 0F 01            [ 1]  194 	clr	(0x01, sp)
-      0091AF 88               [ 1]  195 	push	a
-      0091B0 A4 F0            [ 1]  196 	and	a, #0xf0
-      0091B2 97               [ 1]  197 	ld	xl, a
-      0091B3 4F               [ 1]  198 	clr	a
-      0091B4 95               [ 1]  199 	ld	xh, a
-      0091B5 84               [ 1]  200 	pop	a
-      0091B6 57               [ 2]  201 	sraw	x
-      0091B7 57               [ 2]  202 	sraw	x
-      0091B8 57               [ 2]  203 	sraw	x
-      0091B9 57               [ 2]  204 	sraw	x
-      0091BA 88               [ 1]  205 	push	a
-      0091BB 9F               [ 1]  206 	ld	a, xl
-      0091BC AA 10            [ 1]  207 	or	a, #0x10
-      0091BE 97               [ 1]  208 	ld	xl, a
-      0091BF 4B 00            [ 1]  209 	push	#0x00
-      0091C1 89               [ 2]  210 	pushw	x
-      0091C2 5B 01            [ 2]  211 	addw	sp, #1
-      0091C4 CD 91 20         [ 4]  212 	call	_OLED_WR_Byte
-      0091C7 5B 02            [ 2]  213 	addw	sp, #2
-      0091C9 84               [ 1]  214 	pop	a
+      0089AB 7B 05            [ 1]  193 	ld	a, (0x05, sp)
+      0089AD 0F 01            [ 1]  194 	clr	(0x01, sp)
+      0089AF 88               [ 1]  195 	push	a
+      0089B0 A4 F0            [ 1]  196 	and	a, #0xf0
+      0089B2 97               [ 1]  197 	ld	xl, a
+      0089B3 4F               [ 1]  198 	clr	a
+      0089B4 95               [ 1]  199 	ld	xh, a
+      0089B5 84               [ 1]  200 	pop	a
+      0089B6 57               [ 2]  201 	sraw	x
+      0089B7 57               [ 2]  202 	sraw	x
+      0089B8 57               [ 2]  203 	sraw	x
+      0089B9 57               [ 2]  204 	sraw	x
+      0089BA 88               [ 1]  205 	push	a
+      0089BB 9F               [ 1]  206 	ld	a, xl
+      0089BC AA 10            [ 1]  207 	or	a, #0x10
+      0089BE 97               [ 1]  208 	ld	xl, a
+      0089BF 4B 00            [ 1]  209 	push	#0x00
+      0089C1 89               [ 2]  210 	pushw	x
+      0089C2 5B 01            [ 2]  211 	addw	sp, #1
+      0089C4 CD 89 20         [ 4]  212 	call	_OLED_WR_Byte
+      0089C7 5B 02            [ 2]  213 	addw	sp, #2
+      0089C9 84               [ 1]  214 	pop	a
                                     215 ;	driver/oled.c: 105: OLED_WR_Byte((x&0x0f)|0x01,OLED_CMD);
-      0091CA A4 0F            [ 1]  216 	and	a, #0x0f
-      0091CC 95               [ 1]  217 	ld	xh, a
-      0091CD 4F               [ 1]  218 	clr	a
-      0091CE 02               [ 1]  219 	rlwa	x
-      0091CF AA 01            [ 1]  220 	or	a, #0x01
-      0091D1 4B 00            [ 1]  221 	push	#0x00
-      0091D3 88               [ 1]  222 	push	a
-      0091D4 CD 91 20         [ 4]  223 	call	_OLED_WR_Byte
+      0089CA A4 0F            [ 1]  216 	and	a, #0x0f
+      0089CC 95               [ 1]  217 	ld	xh, a
+      0089CD 4F               [ 1]  218 	clr	a
+      0089CE 02               [ 1]  219 	rlwa	x
+      0089CF AA 01            [ 1]  220 	or	a, #0x01
+      0089D1 4B 00            [ 1]  221 	push	#0x00
+      0089D3 88               [ 1]  222 	push	a
+      0089D4 CD 89 20         [ 4]  223 	call	_OLED_WR_Byte
                                     224 ;	driver/oled.c: 106: }
-      0091D7 5B 04            [ 2]  225 	addw	sp, #4
-      0091D9 81               [ 4]  226 	ret
+      0089D7 5B 04            [ 2]  225 	addw	sp, #4
+      0089D9 81               [ 4]  226 	ret
                                     227 ;	driver/oled.c: 108: void OLED_Display_On(void)
                                     228 ;	-----------------------------------------
                                     229 ;	 function OLED_Display_On
                                     230 ;	-----------------------------------------
-      0091DA                        231 _OLED_Display_On:
+      0089DA                        231 _OLED_Display_On:
                                     232 ;	driver/oled.c: 110: OLED_WR_Byte(0X8D,OLED_CMD);  //SET DCDC命令
-      0091DA 4B 00            [ 1]  233 	push	#0x00
-      0091DC 4B 8D            [ 1]  234 	push	#0x8d
-      0091DE CD 91 20         [ 4]  235 	call	_OLED_WR_Byte
-      0091E1 5B 02            [ 2]  236 	addw	sp, #2
+      0089DA 4B 00            [ 1]  233 	push	#0x00
+      0089DC 4B 8D            [ 1]  234 	push	#0x8d
+      0089DE CD 89 20         [ 4]  235 	call	_OLED_WR_Byte
+      0089E1 5B 02            [ 2]  236 	addw	sp, #2
                                     237 ;	driver/oled.c: 111: OLED_WR_Byte(0X14,OLED_CMD);  //DCDC ON
-      0091E3 4B 00            [ 1]  238 	push	#0x00
-      0091E5 4B 14            [ 1]  239 	push	#0x14
-      0091E7 CD 91 20         [ 4]  240 	call	_OLED_WR_Byte
-      0091EA 5B 02            [ 2]  241 	addw	sp, #2
+      0089E3 4B 00            [ 1]  238 	push	#0x00
+      0089E5 4B 14            [ 1]  239 	push	#0x14
+      0089E7 CD 89 20         [ 4]  240 	call	_OLED_WR_Byte
+      0089EA 5B 02            [ 2]  241 	addw	sp, #2
                                     242 ;	driver/oled.c: 112: OLED_WR_Byte(0XAF,OLED_CMD);  //DISPLAY ON
-      0091EC 4B 00            [ 1]  243 	push	#0x00
-      0091EE 4B AF            [ 1]  244 	push	#0xaf
-      0091F0 CD 91 20         [ 4]  245 	call	_OLED_WR_Byte
-      0091F3 5B 02            [ 2]  246 	addw	sp, #2
+      0089EC 4B 00            [ 1]  243 	push	#0x00
+      0089EE 4B AF            [ 1]  244 	push	#0xaf
+      0089F0 CD 89 20         [ 4]  245 	call	_OLED_WR_Byte
+      0089F3 5B 02            [ 2]  246 	addw	sp, #2
                                     247 ;	driver/oled.c: 113: }
-      0091F5 81               [ 4]  248 	ret
+      0089F5 81               [ 4]  248 	ret
                                     249 ;	driver/oled.c: 115: void OLED_Display_Off(void)
                                     250 ;	-----------------------------------------
                                     251 ;	 function OLED_Display_Off
                                     252 ;	-----------------------------------------
-      0091F6                        253 _OLED_Display_Off:
+      0089F6                        253 _OLED_Display_Off:
                                     254 ;	driver/oled.c: 117: OLED_WR_Byte(0X8D,OLED_CMD);  //SET DCDC命令
-      0091F6 4B 00            [ 1]  255 	push	#0x00
-      0091F8 4B 8D            [ 1]  256 	push	#0x8d
-      0091FA CD 91 20         [ 4]  257 	call	_OLED_WR_Byte
-      0091FD 5B 02            [ 2]  258 	addw	sp, #2
+      0089F6 4B 00            [ 1]  255 	push	#0x00
+      0089F8 4B 8D            [ 1]  256 	push	#0x8d
+      0089FA CD 89 20         [ 4]  257 	call	_OLED_WR_Byte
+      0089FD 5B 02            [ 2]  258 	addw	sp, #2
                                     259 ;	driver/oled.c: 118: OLED_WR_Byte(0X10,OLED_CMD);  //DCDC OFF
-      0091FF 4B 00            [ 1]  260 	push	#0x00
-      009201 4B 10            [ 1]  261 	push	#0x10
-      009203 CD 91 20         [ 4]  262 	call	_OLED_WR_Byte
-      009206 5B 02            [ 2]  263 	addw	sp, #2
+      0089FF 4B 00            [ 1]  260 	push	#0x00
+      008A01 4B 10            [ 1]  261 	push	#0x10
+      008A03 CD 89 20         [ 4]  262 	call	_OLED_WR_Byte
+      008A06 5B 02            [ 2]  263 	addw	sp, #2
                                     264 ;	driver/oled.c: 119: OLED_WR_Byte(0XAE,OLED_CMD);  //DISPLAY OFF
-      009208 4B 00            [ 1]  265 	push	#0x00
-      00920A 4B AE            [ 1]  266 	push	#0xae
-      00920C CD 91 20         [ 4]  267 	call	_OLED_WR_Byte
-      00920F 5B 02            [ 2]  268 	addw	sp, #2
+      008A08 4B 00            [ 1]  265 	push	#0x00
+      008A0A 4B AE            [ 1]  266 	push	#0xae
+      008A0C CD 89 20         [ 4]  267 	call	_OLED_WR_Byte
+      008A0F 5B 02            [ 2]  268 	addw	sp, #2
                                     269 ;	driver/oled.c: 120: }
-      009211 81               [ 4]  270 	ret
+      008A11 81               [ 4]  270 	ret
                                     271 ;	driver/oled.c: 122: void OLED_Clear(void)
                                     272 ;	-----------------------------------------
                                     273 ;	 function OLED_Clear
                                     274 ;	-----------------------------------------
-      009212                        275 _OLED_Clear:
-      009212 88               [ 1]  276 	push	a
+      008A12                        275 _OLED_Clear:
+      008A12 88               [ 1]  276 	push	a
                                     277 ;	driver/oled.c: 125: for(i=0;i<8;i++)
-      009213 0F 01            [ 1]  278 	clr	(0x01, sp)
-      009215                        279 00105$:
+      008A13 0F 01            [ 1]  278 	clr	(0x01, sp)
+      008A15                        279 00105$:
                                     280 ;	driver/oled.c: 127: OLED_WR_Byte (0xb0+i,OLED_CMD);    //设置页地址（0~7）
-      009215 7B 01            [ 1]  281 	ld	a, (0x01, sp)
-      009217 AB B0            [ 1]  282 	add	a, #0xb0
-      009219 4B 00            [ 1]  283 	push	#0x00
-      00921B 88               [ 1]  284 	push	a
-      00921C CD 91 20         [ 4]  285 	call	_OLED_WR_Byte
-      00921F 5B 02            [ 2]  286 	addw	sp, #2
+      008A15 7B 01            [ 1]  281 	ld	a, (0x01, sp)
+      008A17 AB B0            [ 1]  282 	add	a, #0xb0
+      008A19 4B 00            [ 1]  283 	push	#0x00
+      008A1B 88               [ 1]  284 	push	a
+      008A1C CD 89 20         [ 4]  285 	call	_OLED_WR_Byte
+      008A1F 5B 02            [ 2]  286 	addw	sp, #2
                                     287 ;	driver/oled.c: 128: OLED_WR_Byte (0x00,OLED_CMD);      //设置显示位置—列低地址
-      009221 4B 00            [ 1]  288 	push	#0x00
-      009223 4B 00            [ 1]  289 	push	#0x00
-      009225 CD 91 20         [ 4]  290 	call	_OLED_WR_Byte
-      009228 5B 02            [ 2]  291 	addw	sp, #2
+      008A21 4B 00            [ 1]  288 	push	#0x00
+      008A23 4B 00            [ 1]  289 	push	#0x00
+      008A25 CD 89 20         [ 4]  290 	call	_OLED_WR_Byte
+      008A28 5B 02            [ 2]  291 	addw	sp, #2
                                     292 ;	driver/oled.c: 129: OLED_WR_Byte (0x10,OLED_CMD);      //设置显示位置—列高地址
-      00922A 4B 00            [ 1]  293 	push	#0x00
-      00922C 4B 10            [ 1]  294 	push	#0x10
-      00922E CD 91 20         [ 4]  295 	call	_OLED_WR_Byte
-      009231 5B 02            [ 2]  296 	addw	sp, #2
+      008A2A 4B 00            [ 1]  293 	push	#0x00
+      008A2C 4B 10            [ 1]  294 	push	#0x10
+      008A2E CD 89 20         [ 4]  295 	call	_OLED_WR_Byte
+      008A31 5B 02            [ 2]  296 	addw	sp, #2
                                     297 ;	driver/oled.c: 130: for(n=0;n<128;n++)OLED_WR_Byte(0,OLED_DATA);
-      009233 4F               [ 1]  298 	clr	a
-      009234                        299 00103$:
-      009234 88               [ 1]  300 	push	a
-      009235 4B 01            [ 1]  301 	push	#0x01
-      009237 4B 00            [ 1]  302 	push	#0x00
-      009239 CD 91 20         [ 4]  303 	call	_OLED_WR_Byte
-      00923C 5B 02            [ 2]  304 	addw	sp, #2
-      00923E 84               [ 1]  305 	pop	a
-      00923F 4C               [ 1]  306 	inc	a
-      009240 A1 80            [ 1]  307 	cp	a, #0x80
-      009242 25 F0            [ 1]  308 	jrc	00103$
+      008A33 4F               [ 1]  298 	clr	a
+      008A34                        299 00103$:
+      008A34 88               [ 1]  300 	push	a
+      008A35 4B 01            [ 1]  301 	push	#0x01
+      008A37 4B 00            [ 1]  302 	push	#0x00
+      008A39 CD 89 20         [ 4]  303 	call	_OLED_WR_Byte
+      008A3C 5B 02            [ 2]  304 	addw	sp, #2
+      008A3E 84               [ 1]  305 	pop	a
+      008A3F 4C               [ 1]  306 	inc	a
+      008A40 A1 80            [ 1]  307 	cp	a, #0x80
+      008A42 25 F0            [ 1]  308 	jrc	00103$
                                     309 ;	driver/oled.c: 125: for(i=0;i<8;i++)
-      009244 0C 01            [ 1]  310 	inc	(0x01, sp)
-      009246 7B 01            [ 1]  311 	ld	a, (0x01, sp)
-      009248 A1 08            [ 1]  312 	cp	a, #0x08
-      00924A 25 C9            [ 1]  313 	jrc	00105$
+      008A44 0C 01            [ 1]  310 	inc	(0x01, sp)
+      008A46 7B 01            [ 1]  311 	ld	a, (0x01, sp)
+      008A48 A1 08            [ 1]  312 	cp	a, #0x08
+      008A4A 25 C9            [ 1]  313 	jrc	00105$
                                     314 ;	driver/oled.c: 132: }
-      00924C 84               [ 1]  315 	pop	a
-      00924D 81               [ 4]  316 	ret
+      008A4C 84               [ 1]  315 	pop	a
+      008A4D 81               [ 4]  316 	ret
                                     317 ;	driver/oled.c: 140: void OLED_ShowChar(u8 x,u8 y,u8 chr)
                                     318 ;	-----------------------------------------
                                     319 ;	 function OLED_ShowChar
                                     320 ;	-----------------------------------------
-      00924E                        321 _OLED_ShowChar:
-      00924E 52 04            [ 2]  322 	sub	sp, #4
+      008A4E                        321 _OLED_ShowChar:
+      008A4E 52 04            [ 2]  322 	sub	sp, #4
                                     323 ;	driver/oled.c: 143: c=chr-' ';//得到偏移后的值
-      009250 7B 09            [ 1]  324 	ld	a, (0x09, sp)
-      009252 A0 20            [ 1]  325 	sub	a, #0x20
-      009254 6B 04            [ 1]  326 	ld	(0x04, sp), a
+      008A50 7B 09            [ 1]  324 	ld	a, (0x09, sp)
+      008A52 A0 20            [ 1]  325 	sub	a, #0x20
+      008A54 6B 04            [ 1]  326 	ld	(0x04, sp), a
                                     327 ;	driver/oled.c: 144: if(x>Max_Column-1){x=0;y=y+2;}
-      009256 7B 07            [ 1]  328 	ld	a, (0x07, sp)
-      009258 A1 7F            [ 1]  329 	cp	a, #0x7f
-      00925A 23 08            [ 2]  330 	jrule	00105$
-      00925C 0F 07            [ 1]  331 	clr	(0x07, sp)
-      00925E 7B 08            [ 1]  332 	ld	a, (0x08, sp)
-      009260 AB 02            [ 1]  333 	add	a, #0x02
-      009262 6B 08            [ 1]  334 	ld	(0x08, sp), a
+      008A56 7B 07            [ 1]  328 	ld	a, (0x07, sp)
+      008A58 A1 7F            [ 1]  329 	cp	a, #0x7f
+      008A5A 23 08            [ 2]  330 	jrule	00105$
+      008A5C 0F 07            [ 1]  331 	clr	(0x07, sp)
+      008A5E 7B 08            [ 1]  332 	ld	a, (0x08, sp)
+      008A60 AB 02            [ 1]  333 	add	a, #0x02
+      008A62 6B 08            [ 1]  334 	ld	(0x08, sp), a
                                     335 ;	driver/oled.c: 145: if(SIZE ==16)
-      009264                        336 00105$:
+      008A64                        336 00105$:
                                     337 ;	driver/oled.c: 147: OLED_Set_Pos(x,y);
-      009264 7B 08            [ 1]  338 	ld	a, (0x08, sp)
-      009266 88               [ 1]  339 	push	a
-      009267 7B 08            [ 1]  340 	ld	a, (0x08, sp)
-      009269 88               [ 1]  341 	push	a
-      00926A CD 91 9D         [ 4]  342 	call	_OLED_Set_Pos
-      00926D 5B 02            [ 2]  343 	addw	sp, #2
+      008A64 7B 08            [ 1]  338 	ld	a, (0x08, sp)
+      008A66 88               [ 1]  339 	push	a
+      008A67 7B 08            [ 1]  340 	ld	a, (0x08, sp)
+      008A69 88               [ 1]  341 	push	a
+      008A6A CD 89 9D         [ 4]  342 	call	_OLED_Set_Pos
+      008A6D 5B 02            [ 2]  343 	addw	sp, #2
                                     344 ;	driver/oled.c: 148: for(i=0;i<8;i++)
-      00926F 0F 03            [ 1]  345 	clr	(0x03, sp)
-      009271                        346 00108$:
+      008A6F 0F 03            [ 1]  345 	clr	(0x03, sp)
+      008A71                        346 00108$:
                                     347 ;	driver/oled.c: 149: OLED_WR_Byte(F8X16[c*16+i],OLED_DATA);
-      009271 5F               [ 1]  348 	clrw	x
-      009272 7B 04            [ 1]  349 	ld	a, (0x04, sp)
-      009274 97               [ 1]  350 	ld	xl, a
-      009275 58               [ 2]  351 	sllw	x
-      009276 58               [ 2]  352 	sllw	x
-      009277 58               [ 2]  353 	sllw	x
-      009278 58               [ 2]  354 	sllw	x
-      009279 1F 01            [ 2]  355 	ldw	(0x01, sp), x
-      00927B 5F               [ 1]  356 	clrw	x
-      00927C 7B 03            [ 1]  357 	ld	a, (0x03, sp)
-      00927E 97               [ 1]  358 	ld	xl, a
-      00927F 72 FB 01         [ 2]  359 	addw	x, (0x01, sp)
-      009282 1C 80 48         [ 2]  360 	addw	x, #_F8X16
-      009285 F6               [ 1]  361 	ld	a, (x)
-      009286 4B 01            [ 1]  362 	push	#0x01
-      009288 88               [ 1]  363 	push	a
-      009289 CD 91 20         [ 4]  364 	call	_OLED_WR_Byte
-      00928C 5B 02            [ 2]  365 	addw	sp, #2
+      008A71 5F               [ 1]  348 	clrw	x
+      008A72 7B 04            [ 1]  349 	ld	a, (0x04, sp)
+      008A74 97               [ 1]  350 	ld	xl, a
+      008A75 58               [ 2]  351 	sllw	x
+      008A76 58               [ 2]  352 	sllw	x
+      008A77 58               [ 2]  353 	sllw	x
+      008A78 58               [ 2]  354 	sllw	x
+      008A79 1F 01            [ 2]  355 	ldw	(0x01, sp), x
+      008A7B 5F               [ 1]  356 	clrw	x
+      008A7C 7B 03            [ 1]  357 	ld	a, (0x03, sp)
+      008A7E 97               [ 1]  358 	ld	xl, a
+      008A7F 72 FB 01         [ 2]  359 	addw	x, (0x01, sp)
+      008A82 1C 80 48         [ 2]  360 	addw	x, #_F8X16
+      008A85 F6               [ 1]  361 	ld	a, (x)
+      008A86 4B 01            [ 1]  362 	push	#0x01
+      008A88 88               [ 1]  363 	push	a
+      008A89 CD 89 20         [ 4]  364 	call	_OLED_WR_Byte
+      008A8C 5B 02            [ 2]  365 	addw	sp, #2
                                     366 ;	driver/oled.c: 148: for(i=0;i<8;i++)
-      00928E 0C 03            [ 1]  367 	inc	(0x03, sp)
-      009290 7B 03            [ 1]  368 	ld	a, (0x03, sp)
-      009292 A1 08            [ 1]  369 	cp	a, #0x08
-      009294 25 DB            [ 1]  370 	jrc	00108$
+      008A8E 0C 03            [ 1]  367 	inc	(0x03, sp)
+      008A90 7B 03            [ 1]  368 	ld	a, (0x03, sp)
+      008A92 A1 08            [ 1]  369 	cp	a, #0x08
+      008A94 25 DB            [ 1]  370 	jrc	00108$
                                     371 ;	driver/oled.c: 150: OLED_Set_Pos(x,y+1);
-      009296 7B 08            [ 1]  372 	ld	a, (0x08, sp)
-      009298 4C               [ 1]  373 	inc	a
-      009299 88               [ 1]  374 	push	a
-      00929A 7B 08            [ 1]  375 	ld	a, (0x08, sp)
-      00929C 88               [ 1]  376 	push	a
-      00929D CD 91 9D         [ 4]  377 	call	_OLED_Set_Pos
-      0092A0 5B 02            [ 2]  378 	addw	sp, #2
+      008A96 7B 08            [ 1]  372 	ld	a, (0x08, sp)
+      008A98 4C               [ 1]  373 	inc	a
+      008A99 88               [ 1]  374 	push	a
+      008A9A 7B 08            [ 1]  375 	ld	a, (0x08, sp)
+      008A9C 88               [ 1]  376 	push	a
+      008A9D CD 89 9D         [ 4]  377 	call	_OLED_Set_Pos
+      008AA0 5B 02            [ 2]  378 	addw	sp, #2
                                     379 ;	driver/oled.c: 151: for(i=0;i<8;i++)
-      0092A2 0F 03            [ 1]  380 	clr	(0x03, sp)
-      0092A4                        381 00110$:
+      008AA2 0F 03            [ 1]  380 	clr	(0x03, sp)
+      008AA4                        381 00110$:
                                     382 ;	driver/oled.c: 152: OLED_WR_Byte(F8X16[c*16+i+8],OLED_DATA);
-      0092A4 5F               [ 1]  383 	clrw	x
-      0092A5 7B 03            [ 1]  384 	ld	a, (0x03, sp)
-      0092A7 97               [ 1]  385 	ld	xl, a
-      0092A8 72 FB 01         [ 2]  386 	addw	x, (0x01, sp)
-      0092AB 1C 00 08         [ 2]  387 	addw	x, #0x0008
-      0092AE 1C 80 48         [ 2]  388 	addw	x, #_F8X16
-      0092B1 F6               [ 1]  389 	ld	a, (x)
-      0092B2 4B 01            [ 1]  390 	push	#0x01
-      0092B4 88               [ 1]  391 	push	a
-      0092B5 CD 91 20         [ 4]  392 	call	_OLED_WR_Byte
-      0092B8 5B 02            [ 2]  393 	addw	sp, #2
+      008AA4 5F               [ 1]  383 	clrw	x
+      008AA5 7B 03            [ 1]  384 	ld	a, (0x03, sp)
+      008AA7 97               [ 1]  385 	ld	xl, a
+      008AA8 72 FB 01         [ 2]  386 	addw	x, (0x01, sp)
+      008AAB 1C 00 08         [ 2]  387 	addw	x, #0x0008
+      008AAE 1C 80 48         [ 2]  388 	addw	x, #_F8X16
+      008AB1 F6               [ 1]  389 	ld	a, (x)
+      008AB2 4B 01            [ 1]  390 	push	#0x01
+      008AB4 88               [ 1]  391 	push	a
+      008AB5 CD 89 20         [ 4]  392 	call	_OLED_WR_Byte
+      008AB8 5B 02            [ 2]  393 	addw	sp, #2
                                     394 ;	driver/oled.c: 151: for(i=0;i<8;i++)
-      0092BA 0C 03            [ 1]  395 	inc	(0x03, sp)
-      0092BC 7B 03            [ 1]  396 	ld	a, (0x03, sp)
-      0092BE A1 08            [ 1]  397 	cp	a, #0x08
-      0092C0 25 E2            [ 1]  398 	jrc	00110$
+      008ABA 0C 03            [ 1]  395 	inc	(0x03, sp)
+      008ABC 7B 03            [ 1]  396 	ld	a, (0x03, sp)
+      008ABE A1 08            [ 1]  397 	cp	a, #0x08
+      008AC0 25 E2            [ 1]  398 	jrc	00110$
                                     399 ;	driver/oled.c: 155: OLED_Set_Pos(x,y+1);
                                     400 ;	driver/oled.c: 161: }
-      0092C2 5B 04            [ 2]  401 	addw	sp, #4
-      0092C4 81               [ 4]  402 	ret
+      008AC2 5B 04            [ 2]  401 	addw	sp, #4
+      008AC4 81               [ 4]  402 	ret
                                     403 ;	driver/oled.c: 163: u32 oled_pow(u8 m,u8 n)
                                     404 ;	-----------------------------------------
                                     405 ;	 function oled_pow
                                     406 ;	-----------------------------------------
-      0092C5                        407 _oled_pow:
-      0092C5 52 09            [ 2]  408 	sub	sp, #9
+      008AC5                        407 _oled_pow:
+      008AC5 52 09            [ 2]  408 	sub	sp, #9
                                     409 ;	driver/oled.c: 165: u32 result=1;
-      0092C7 5F               [ 1]  410 	clrw	x
-      0092C8 5C               [ 1]  411 	incw	x
-      0092C9 0F 03            [ 1]  412 	clr	(0x03, sp)
-      0092CB 0F 02            [ 1]  413 	clr	(0x02, sp)
+      008AC7 5F               [ 1]  410 	clrw	x
+      008AC8 5C               [ 1]  411 	incw	x
+      008AC9 0F 03            [ 1]  412 	clr	(0x03, sp)
+      008ACB 0F 02            [ 1]  413 	clr	(0x02, sp)
                                     414 ;	driver/oled.c: 166: while(n--)result*=m;
-      0092CD 7B 0D            [ 1]  415 	ld	a, (0x0d, sp)
-      0092CF 6B 01            [ 1]  416 	ld	(0x01, sp), a
-      0092D1                        417 00101$:
-      0092D1 7B 01            [ 1]  418 	ld	a, (0x01, sp)
-      0092D3 0A 01            [ 1]  419 	dec	(0x01, sp)
-      0092D5 4D               [ 1]  420 	tnz	a
-      0092D6 27 1D            [ 1]  421 	jreq	00103$
-      0092D8 7B 0C            [ 1]  422 	ld	a, (0x0c, sp)
-      0092DA 6B 09            [ 1]  423 	ld	(0x09, sp), a
-      0092DC 90 5F            [ 1]  424 	clrw	y
-      0092DE 0F 06            [ 1]  425 	clr	(0x06, sp)
-      0092E0 7B 09            [ 1]  426 	ld	a, (0x09, sp)
-      0092E2 88               [ 1]  427 	push	a
-      0092E3 90 89            [ 2]  428 	pushw	y
-      0092E5 7B 09            [ 1]  429 	ld	a, (0x09, sp)
-      0092E7 88               [ 1]  430 	push	a
-      0092E8 89               [ 2]  431 	pushw	x
-      0092E9 1E 08            [ 2]  432 	ldw	x, (0x08, sp)
-      0092EB 89               [ 2]  433 	pushw	x
-      0092EC CD A4 F6         [ 4]  434 	call	__mullong
-      0092EF 5B 08            [ 2]  435 	addw	sp, #8
-      0092F1 17 02            [ 2]  436 	ldw	(0x02, sp), y
-      0092F3 20 DC            [ 2]  437 	jra	00101$
-      0092F5                        438 00103$:
+      008ACD 7B 0D            [ 1]  415 	ld	a, (0x0d, sp)
+      008ACF 6B 01            [ 1]  416 	ld	(0x01, sp), a
+      008AD1                        417 00101$:
+      008AD1 7B 01            [ 1]  418 	ld	a, (0x01, sp)
+      008AD3 0A 01            [ 1]  419 	dec	(0x01, sp)
+      008AD5 4D               [ 1]  420 	tnz	a
+      008AD6 27 1D            [ 1]  421 	jreq	00103$
+      008AD8 7B 0C            [ 1]  422 	ld	a, (0x0c, sp)
+      008ADA 6B 09            [ 1]  423 	ld	(0x09, sp), a
+      008ADC 90 5F            [ 1]  424 	clrw	y
+      008ADE 0F 06            [ 1]  425 	clr	(0x06, sp)
+      008AE0 7B 09            [ 1]  426 	ld	a, (0x09, sp)
+      008AE2 88               [ 1]  427 	push	a
+      008AE3 90 89            [ 2]  428 	pushw	y
+      008AE5 7B 09            [ 1]  429 	ld	a, (0x09, sp)
+      008AE7 88               [ 1]  430 	push	a
+      008AE8 89               [ 2]  431 	pushw	x
+      008AE9 1E 08            [ 2]  432 	ldw	x, (0x08, sp)
+      008AEB 89               [ 2]  433 	pushw	x
+      008AEC CD 9C F6         [ 4]  434 	call	__mullong
+      008AEF 5B 08            [ 2]  435 	addw	sp, #8
+      008AF1 17 02            [ 2]  436 	ldw	(0x02, sp), y
+      008AF3 20 DC            [ 2]  437 	jra	00101$
+      008AF5                        438 00103$:
                                     439 ;	driver/oled.c: 167: return result;
-      0092F5 16 02            [ 2]  440 	ldw	y, (0x02, sp)
+      008AF5 16 02            [ 2]  440 	ldw	y, (0x02, sp)
                                     441 ;	driver/oled.c: 168: }
-      0092F7 5B 09            [ 2]  442 	addw	sp, #9
-      0092F9 81               [ 4]  443 	ret
+      008AF7 5B 09            [ 2]  442 	addw	sp, #9
+      008AF9 81               [ 4]  443 	ret
                                     444 ;	driver/oled.c: 175: void OLED_ShowNum(u8 x,u8 y,u32 num,u8 len,u8 size2)
                                     445 ;	-----------------------------------------
                                     446 ;	 function OLED_ShowNum
                                     447 ;	-----------------------------------------
-      0092FA                        448 _OLED_ShowNum:
-      0092FA 52 07            [ 2]  449 	sub	sp, #7
+      008AFA                        448 _OLED_ShowNum:
+      008AFA 52 07            [ 2]  449 	sub	sp, #7
                                     450 ;	driver/oled.c: 178: u8 enshow=0;
-      0092FC 0F 05            [ 1]  451 	clr	(0x05, sp)
+      008AFC 0F 05            [ 1]  451 	clr	(0x05, sp)
                                     452 ;	driver/oled.c: 179: for(t=0;t<len;t++)
-      0092FE 0F 07            [ 1]  453 	clr	(0x07, sp)
-      009300                        454 00110$:
-      009300 7B 07            [ 1]  455 	ld	a, (0x07, sp)
-      009302 11 10            [ 1]  456 	cp	a, (0x10, sp)
-      009304 25 03            [ 1]  457 	jrc	00139$
-      009306 CC 93 94         [ 2]  458 	jp	00111$
-      009309                        459 00139$:
+      008AFE 0F 07            [ 1]  453 	clr	(0x07, sp)
+      008B00                        454 00110$:
+      008B00 7B 07            [ 1]  455 	ld	a, (0x07, sp)
+      008B02 11 10            [ 1]  456 	cp	a, (0x10, sp)
+      008B04 25 03            [ 1]  457 	jrc	00139$
+      008B06 CC 8B 94         [ 2]  458 	jp	00111$
+      008B09                        459 00139$:
                                     460 ;	driver/oled.c: 181: temp=(num/oled_pow(10,len-t-1))%10;
-      009309 7B 10            [ 1]  461 	ld	a, (0x10, sp)
-      00930B 10 07            [ 1]  462 	sub	a, (0x07, sp)
-      00930D 4A               [ 1]  463 	dec	a
-      00930E 88               [ 1]  464 	push	a
-      00930F 4B 0A            [ 1]  465 	push	#0x0a
-      009311 CD 92 C5         [ 4]  466 	call	_oled_pow
-      009314 5B 02            [ 2]  467 	addw	sp, #2
-      009316 89               [ 2]  468 	pushw	x
-      009317 90 89            [ 2]  469 	pushw	y
-      009319 1E 12            [ 2]  470 	ldw	x, (0x12, sp)
-      00931B 89               [ 2]  471 	pushw	x
-      00931C 1E 12            [ 2]  472 	ldw	x, (0x12, sp)
-      00931E 89               [ 2]  473 	pushw	x
-      00931F CD A4 45         [ 4]  474 	call	__divulong
-      009322 5B 08            [ 2]  475 	addw	sp, #8
-      009324 4B 0A            [ 1]  476 	push	#0x0a
-      009326 4B 00            [ 1]  477 	push	#0x00
-      009328 4B 00            [ 1]  478 	push	#0x00
-      00932A 4B 00            [ 1]  479 	push	#0x00
-      00932C 89               [ 2]  480 	pushw	x
-      00932D 90 89            [ 2]  481 	pushw	y
-      00932F CD A3 87         [ 4]  482 	call	__modulong
-      009332 5B 08            [ 2]  483 	addw	sp, #8
-      009334 9F               [ 1]  484 	ld	a, xl
-      009335 6B 06            [ 1]  485 	ld	(0x06, sp), a
+      008B09 7B 10            [ 1]  461 	ld	a, (0x10, sp)
+      008B0B 10 07            [ 1]  462 	sub	a, (0x07, sp)
+      008B0D 4A               [ 1]  463 	dec	a
+      008B0E 88               [ 1]  464 	push	a
+      008B0F 4B 0A            [ 1]  465 	push	#0x0a
+      008B11 CD 8A C5         [ 4]  466 	call	_oled_pow
+      008B14 5B 02            [ 2]  467 	addw	sp, #2
+      008B16 89               [ 2]  468 	pushw	x
+      008B17 90 89            [ 2]  469 	pushw	y
+      008B19 1E 12            [ 2]  470 	ldw	x, (0x12, sp)
+      008B1B 89               [ 2]  471 	pushw	x
+      008B1C 1E 12            [ 2]  472 	ldw	x, (0x12, sp)
+      008B1E 89               [ 2]  473 	pushw	x
+      008B1F CD 9C 45         [ 4]  474 	call	__divulong
+      008B22 5B 08            [ 2]  475 	addw	sp, #8
+      008B24 4B 0A            [ 1]  476 	push	#0x0a
+      008B26 4B 00            [ 1]  477 	push	#0x00
+      008B28 4B 00            [ 1]  478 	push	#0x00
+      008B2A 4B 00            [ 1]  479 	push	#0x00
+      008B2C 89               [ 2]  480 	pushw	x
+      008B2D 90 89            [ 2]  481 	pushw	y
+      008B2F CD 9B 87         [ 4]  482 	call	__modulong
+      008B32 5B 08            [ 2]  483 	addw	sp, #8
+      008B34 9F               [ 1]  484 	ld	a, xl
+      008B35 6B 06            [ 1]  485 	ld	(0x06, sp), a
                                     486 ;	driver/oled.c: 186: OLED_ShowChar(x+(size2/2)*t,y,' ');
-      009337 5F               [ 1]  487 	clrw	x
-      009338 7B 11            [ 1]  488 	ld	a, (0x11, sp)
-      00933A 97               [ 1]  489 	ld	xl, a
-      00933B 7B 07            [ 1]  490 	ld	a, (0x07, sp)
-      00933D 6B 04            [ 1]  491 	ld	(0x04, sp), a
-      00933F 7B 0A            [ 1]  492 	ld	a, (0x0a, sp)
-      009341 6B 03            [ 1]  493 	ld	(0x03, sp), a
-      009343 4B 02            [ 1]  494 	push	#0x02
-      009345 4B 00            [ 1]  495 	push	#0x00
-      009347 89               [ 2]  496 	pushw	x
-      009348 CD A5 72         [ 4]  497 	call	__divsint
-      00934B 5B 04            [ 2]  498 	addw	sp, #4
-      00934D 7B 04            [ 1]  499 	ld	a, (0x04, sp)
-      00934F 42               [ 4]  500 	mul	x, a
-      009350 9F               [ 1]  501 	ld	a, xl
-      009351 1B 03            [ 1]  502 	add	a, (0x03, sp)
-      009353 90 97            [ 1]  503 	ld	yl, a
+      008B37 5F               [ 1]  487 	clrw	x
+      008B38 7B 11            [ 1]  488 	ld	a, (0x11, sp)
+      008B3A 97               [ 1]  489 	ld	xl, a
+      008B3B 7B 07            [ 1]  490 	ld	a, (0x07, sp)
+      008B3D 6B 04            [ 1]  491 	ld	(0x04, sp), a
+      008B3F 7B 0A            [ 1]  492 	ld	a, (0x0a, sp)
+      008B41 6B 03            [ 1]  493 	ld	(0x03, sp), a
+      008B43 4B 02            [ 1]  494 	push	#0x02
+      008B45 4B 00            [ 1]  495 	push	#0x00
+      008B47 89               [ 2]  496 	pushw	x
+      008B48 CD 9D 72         [ 4]  497 	call	__divsint
+      008B4B 5B 04            [ 2]  498 	addw	sp, #4
+      008B4D 7B 04            [ 1]  499 	ld	a, (0x04, sp)
+      008B4F 42               [ 4]  500 	mul	x, a
+      008B50 9F               [ 1]  501 	ld	a, xl
+      008B51 1B 03            [ 1]  502 	add	a, (0x03, sp)
+      008B53 90 97            [ 1]  503 	ld	yl, a
                                     504 ;	driver/oled.c: 182: if(enshow==0&&t<(len-1))
-      009355 0D 05            [ 1]  505 	tnz	(0x05, sp)
-      009357 26 26            [ 1]  506 	jrne	00105$
-      009359 5F               [ 1]  507 	clrw	x
-      00935A 7B 10            [ 1]  508 	ld	a, (0x10, sp)
-      00935C 97               [ 1]  509 	ld	xl, a
-      00935D 5A               [ 2]  510 	decw	x
-      00935E 1F 01            [ 2]  511 	ldw	(0x01, sp), x
-      009360 5F               [ 1]  512 	clrw	x
-      009361 7B 07            [ 1]  513 	ld	a, (0x07, sp)
-      009363 97               [ 1]  514 	ld	xl, a
-      009364 13 01            [ 2]  515 	cpw	x, (0x01, sp)
-      009366 2E 17            [ 1]  516 	jrsge	00105$
+      008B55 0D 05            [ 1]  505 	tnz	(0x05, sp)
+      008B57 26 26            [ 1]  506 	jrne	00105$
+      008B59 5F               [ 1]  507 	clrw	x
+      008B5A 7B 10            [ 1]  508 	ld	a, (0x10, sp)
+      008B5C 97               [ 1]  509 	ld	xl, a
+      008B5D 5A               [ 2]  510 	decw	x
+      008B5E 1F 01            [ 2]  511 	ldw	(0x01, sp), x
+      008B60 5F               [ 1]  512 	clrw	x
+      008B61 7B 07            [ 1]  513 	ld	a, (0x07, sp)
+      008B63 97               [ 1]  514 	ld	xl, a
+      008B64 13 01            [ 2]  515 	cpw	x, (0x01, sp)
+      008B66 2E 17            [ 1]  516 	jrsge	00105$
                                     517 ;	driver/oled.c: 184: if(temp==0)
-      009368 0D 06            [ 1]  518 	tnz	(0x06, sp)
-      00936A 26 0F            [ 1]  519 	jrne	00102$
+      008B68 0D 06            [ 1]  518 	tnz	(0x06, sp)
+      008B6A 26 0F            [ 1]  519 	jrne	00102$
                                     520 ;	driver/oled.c: 186: OLED_ShowChar(x+(size2/2)*t,y,' ');
-      00936C 4B 20            [ 1]  521 	push	#0x20
-      00936E 7B 0C            [ 1]  522 	ld	a, (0x0c, sp)
-      009370 88               [ 1]  523 	push	a
-      009371 90 9F            [ 1]  524 	ld	a, yl
-      009373 88               [ 1]  525 	push	a
-      009374 CD 92 4E         [ 4]  526 	call	_OLED_ShowChar
-      009377 5B 03            [ 2]  527 	addw	sp, #3
+      008B6C 4B 20            [ 1]  521 	push	#0x20
+      008B6E 7B 0C            [ 1]  522 	ld	a, (0x0c, sp)
+      008B70 88               [ 1]  523 	push	a
+      008B71 90 9F            [ 1]  524 	ld	a, yl
+      008B73 88               [ 1]  525 	push	a
+      008B74 CD 8A 4E         [ 4]  526 	call	_OLED_ShowChar
+      008B77 5B 03            [ 2]  527 	addw	sp, #3
                                     528 ;	driver/oled.c: 187: continue;
-      009379 20 14            [ 2]  529 	jra	00107$
-      00937B                        530 00102$:
+      008B79 20 14            [ 2]  529 	jra	00107$
+      008B7B                        530 00102$:
                                     531 ;	driver/oled.c: 188: }else enshow=1;
-      00937B A6 01            [ 1]  532 	ld	a, #0x01
-      00937D 6B 05            [ 1]  533 	ld	(0x05, sp), a
-      00937F                        534 00105$:
+      008B7B A6 01            [ 1]  532 	ld	a, #0x01
+      008B7D 6B 05            [ 1]  533 	ld	(0x05, sp), a
+      008B7F                        534 00105$:
                                     535 ;	driver/oled.c: 191: OLED_ShowChar(x+(size2/2)*t,y,temp+'0');
-      00937F 7B 06            [ 1]  536 	ld	a, (0x06, sp)
-      009381 AB 30            [ 1]  537 	add	a, #0x30
-      009383 88               [ 1]  538 	push	a
-      009384 7B 0C            [ 1]  539 	ld	a, (0x0c, sp)
-      009386 88               [ 1]  540 	push	a
-      009387 90 9F            [ 1]  541 	ld	a, yl
-      009389 88               [ 1]  542 	push	a
-      00938A CD 92 4E         [ 4]  543 	call	_OLED_ShowChar
-      00938D 5B 03            [ 2]  544 	addw	sp, #3
-      00938F                        545 00107$:
+      008B7F 7B 06            [ 1]  536 	ld	a, (0x06, sp)
+      008B81 AB 30            [ 1]  537 	add	a, #0x30
+      008B83 88               [ 1]  538 	push	a
+      008B84 7B 0C            [ 1]  539 	ld	a, (0x0c, sp)
+      008B86 88               [ 1]  540 	push	a
+      008B87 90 9F            [ 1]  541 	ld	a, yl
+      008B89 88               [ 1]  542 	push	a
+      008B8A CD 8A 4E         [ 4]  543 	call	_OLED_ShowChar
+      008B8D 5B 03            [ 2]  544 	addw	sp, #3
+      008B8F                        545 00107$:
                                     546 ;	driver/oled.c: 179: for(t=0;t<len;t++)
-      00938F 0C 07            [ 1]  547 	inc	(0x07, sp)
-      009391 CC 93 00         [ 2]  548 	jp	00110$
-      009394                        549 00111$:
+      008B8F 0C 07            [ 1]  547 	inc	(0x07, sp)
+      008B91 CC 8B 00         [ 2]  548 	jp	00110$
+      008B94                        549 00111$:
                                     550 ;	driver/oled.c: 193: }
-      009394 5B 07            [ 2]  551 	addw	sp, #7
-      009396 81               [ 4]  552 	ret
+      008B94 5B 07            [ 2]  551 	addw	sp, #7
+      008B96 81               [ 4]  552 	ret
                                     553 ;	driver/oled.c: 195: void OLED_ShowString(u8 x,u8 y,u8 *chr)
                                     554 ;	-----------------------------------------
                                     555 ;	 function OLED_ShowString
                                     556 ;	-----------------------------------------
-      009397                        557 _OLED_ShowString:
-      009397 88               [ 1]  558 	push	a
+      008B97                        557 _OLED_ShowString:
+      008B97 88               [ 1]  558 	push	a
                                     559 ;	driver/oled.c: 198: while (chr[j]!='\0')
-      009398 0F 01            [ 1]  560 	clr	(0x01, sp)
-      00939A                        561 00103$:
-      00939A 5F               [ 1]  562 	clrw	x
-      00939B 7B 01            [ 1]  563 	ld	a, (0x01, sp)
-      00939D 97               [ 1]  564 	ld	xl, a
-      00939E 72 FB 06         [ 2]  565 	addw	x, (0x06, sp)
-      0093A1 F6               [ 1]  566 	ld	a, (x)
-      0093A2 27 24            [ 1]  567 	jreq	00106$
+      008B98 0F 01            [ 1]  560 	clr	(0x01, sp)
+      008B9A                        561 00103$:
+      008B9A 5F               [ 1]  562 	clrw	x
+      008B9B 7B 01            [ 1]  563 	ld	a, (0x01, sp)
+      008B9D 97               [ 1]  564 	ld	xl, a
+      008B9E 72 FB 06         [ 2]  565 	addw	x, (0x06, sp)
+      008BA1 F6               [ 1]  566 	ld	a, (x)
+      008BA2 27 24            [ 1]  567 	jreq	00106$
                                     568 ;	driver/oled.c: 199: {		OLED_ShowChar(x,y,chr[j]);
-      0093A4 88               [ 1]  569 	push	a
-      0093A5 7B 06            [ 1]  570 	ld	a, (0x06, sp)
-      0093A7 88               [ 1]  571 	push	a
-      0093A8 7B 06            [ 1]  572 	ld	a, (0x06, sp)
-      0093AA 88               [ 1]  573 	push	a
-      0093AB CD 92 4E         [ 4]  574 	call	_OLED_ShowChar
-      0093AE 5B 03            [ 2]  575 	addw	sp, #3
+      008BA4 88               [ 1]  569 	push	a
+      008BA5 7B 06            [ 1]  570 	ld	a, (0x06, sp)
+      008BA7 88               [ 1]  571 	push	a
+      008BA8 7B 06            [ 1]  572 	ld	a, (0x06, sp)
+      008BAA 88               [ 1]  573 	push	a
+      008BAB CD 8A 4E         [ 4]  574 	call	_OLED_ShowChar
+      008BAE 5B 03            [ 2]  575 	addw	sp, #3
                                     576 ;	driver/oled.c: 200: x+=8;
-      0093B0 7B 04            [ 1]  577 	ld	a, (0x04, sp)
-      0093B2 AB 08            [ 1]  578 	add	a, #0x08
-      0093B4 6B 04            [ 1]  579 	ld	(0x04, sp), a
+      008BB0 7B 04            [ 1]  577 	ld	a, (0x04, sp)
+      008BB2 AB 08            [ 1]  578 	add	a, #0x08
+      008BB4 6B 04            [ 1]  579 	ld	(0x04, sp), a
                                     580 ;	driver/oled.c: 201: if(x>120){x=0;y+=2;}
-      0093B6 7B 04            [ 1]  581 	ld	a, (0x04, sp)
-      0093B8 A1 78            [ 1]  582 	cp	a, #0x78
-      0093BA 23 08            [ 2]  583 	jrule	00102$
-      0093BC 0F 04            [ 1]  584 	clr	(0x04, sp)
-      0093BE 7B 05            [ 1]  585 	ld	a, (0x05, sp)
-      0093C0 AB 02            [ 1]  586 	add	a, #0x02
-      0093C2 6B 05            [ 1]  587 	ld	(0x05, sp), a
-      0093C4                        588 00102$:
+      008BB6 7B 04            [ 1]  581 	ld	a, (0x04, sp)
+      008BB8 A1 78            [ 1]  582 	cp	a, #0x78
+      008BBA 23 08            [ 2]  583 	jrule	00102$
+      008BBC 0F 04            [ 1]  584 	clr	(0x04, sp)
+      008BBE 7B 05            [ 1]  585 	ld	a, (0x05, sp)
+      008BC0 AB 02            [ 1]  586 	add	a, #0x02
+      008BC2 6B 05            [ 1]  587 	ld	(0x05, sp), a
+      008BC4                        588 00102$:
                                     589 ;	driver/oled.c: 202: j++;
-      0093C4 0C 01            [ 1]  590 	inc	(0x01, sp)
-      0093C6 20 D2            [ 2]  591 	jra	00103$
-      0093C8                        592 00106$:
+      008BC4 0C 01            [ 1]  590 	inc	(0x01, sp)
+      008BC6 20 D2            [ 2]  591 	jra	00103$
+      008BC8                        592 00106$:
                                     593 ;	driver/oled.c: 204: }
-      0093C8 84               [ 1]  594 	pop	a
-      0093C9 81               [ 4]  595 	ret
+      008BC8 84               [ 1]  594 	pop	a
+      008BC9 81               [ 4]  595 	ret
                                     596 ;	driver/oled.c: 206: void OLED_ShowCHinese(u8 x,u8 y,u8 no)
                                     597 ;	-----------------------------------------
                                     598 ;	 function OLED_ShowCHinese
                                     599 ;	-----------------------------------------
-      0093CA                        600 _OLED_ShowCHinese:
-      0093CA 52 06            [ 2]  601 	sub	sp, #6
+      008BCA                        600 _OLED_ShowCHinese:
+      008BCA 52 06            [ 2]  601 	sub	sp, #6
                                     602 ;	driver/oled.c: 208: u8 t,adder=0;
-      0093CC 0F 06            [ 1]  603 	clr	(0x06, sp)
+      008BCC 0F 06            [ 1]  603 	clr	(0x06, sp)
                                     604 ;	driver/oled.c: 209: OLED_Set_Pos(x,y);
-      0093CE 7B 0A            [ 1]  605 	ld	a, (0x0a, sp)
-      0093D0 88               [ 1]  606 	push	a
-      0093D1 7B 0A            [ 1]  607 	ld	a, (0x0a, sp)
-      0093D3 88               [ 1]  608 	push	a
-      0093D4 CD 91 9D         [ 4]  609 	call	_OLED_Set_Pos
-      0093D7 5B 02            [ 2]  610 	addw	sp, #2
+      008BCE 7B 0A            [ 1]  605 	ld	a, (0x0a, sp)
+      008BD0 88               [ 1]  606 	push	a
+      008BD1 7B 0A            [ 1]  607 	ld	a, (0x0a, sp)
+      008BD3 88               [ 1]  608 	push	a
+      008BD4 CD 89 9D         [ 4]  609 	call	_OLED_Set_Pos
+      008BD7 5B 02            [ 2]  610 	addw	sp, #2
                                     611 ;	driver/oled.c: 210: for(t=0;t<16;t++)
-      0093D9 0F 05            [ 1]  612 	clr	(0x05, sp)
-      0093DB                        613 00103$:
+      008BD9 0F 05            [ 1]  612 	clr	(0x05, sp)
+      008BDB                        613 00103$:
                                     614 ;	driver/oled.c: 212: OLED_WR_Byte(Hzk[2*no][t],OLED_DATA);
-      0093DB 5F               [ 1]  615 	clrw	x
-      0093DC 7B 0B            [ 1]  616 	ld	a, (0x0b, sp)
-      0093DE 97               [ 1]  617 	ld	xl, a
-      0093DF 58               [ 2]  618 	sllw	x
-      0093E0 1F 03            [ 2]  619 	ldw	(0x03, sp), x
-      0093E2 58               [ 2]  620 	sllw	x
-      0093E3 58               [ 2]  621 	sllw	x
-      0093E4 58               [ 2]  622 	sllw	x
-      0093E5 58               [ 2]  623 	sllw	x
-      0093E6 58               [ 2]  624 	sllw	x
-      0093E7 1C 86 38         [ 2]  625 	addw	x, #_Hzk
-      0093EA 9F               [ 1]  626 	ld	a, xl
-      0093EB 1B 05            [ 1]  627 	add	a, (0x05, sp)
-      0093ED 02               [ 1]  628 	rlwa	x
-      0093EE A9 00            [ 1]  629 	adc	a, #0x00
-      0093F0 95               [ 1]  630 	ld	xh, a
-      0093F1 F6               [ 1]  631 	ld	a, (x)
-      0093F2 4B 01            [ 1]  632 	push	#0x01
-      0093F4 88               [ 1]  633 	push	a
-      0093F5 CD 91 20         [ 4]  634 	call	_OLED_WR_Byte
-      0093F8 5B 02            [ 2]  635 	addw	sp, #2
+      008BDB 5F               [ 1]  615 	clrw	x
+      008BDC 7B 0B            [ 1]  616 	ld	a, (0x0b, sp)
+      008BDE 97               [ 1]  617 	ld	xl, a
+      008BDF 58               [ 2]  618 	sllw	x
+      008BE0 1F 03            [ 2]  619 	ldw	(0x03, sp), x
+      008BE2 58               [ 2]  620 	sllw	x
+      008BE3 58               [ 2]  621 	sllw	x
+      008BE4 58               [ 2]  622 	sllw	x
+      008BE5 58               [ 2]  623 	sllw	x
+      008BE6 58               [ 2]  624 	sllw	x
+      008BE7 1C 86 38         [ 2]  625 	addw	x, #_Hzk
+      008BEA 9F               [ 1]  626 	ld	a, xl
+      008BEB 1B 05            [ 1]  627 	add	a, (0x05, sp)
+      008BED 02               [ 1]  628 	rlwa	x
+      008BEE A9 00            [ 1]  629 	adc	a, #0x00
+      008BF0 95               [ 1]  630 	ld	xh, a
+      008BF1 F6               [ 1]  631 	ld	a, (x)
+      008BF2 4B 01            [ 1]  632 	push	#0x01
+      008BF4 88               [ 1]  633 	push	a
+      008BF5 CD 89 20         [ 4]  634 	call	_OLED_WR_Byte
+      008BF8 5B 02            [ 2]  635 	addw	sp, #2
                                     636 ;	driver/oled.c: 213: adder+=1;
-      0093FA 0C 06            [ 1]  637 	inc	(0x06, sp)
+      008BFA 0C 06            [ 1]  637 	inc	(0x06, sp)
                                     638 ;	driver/oled.c: 210: for(t=0;t<16;t++)
-      0093FC 0C 05            [ 1]  639 	inc	(0x05, sp)
-      0093FE 7B 05            [ 1]  640 	ld	a, (0x05, sp)
-      009400 A1 10            [ 1]  641 	cp	a, #0x10
-      009402 25 D7            [ 1]  642 	jrc	00103$
+      008BFC 0C 05            [ 1]  639 	inc	(0x05, sp)
+      008BFE 7B 05            [ 1]  640 	ld	a, (0x05, sp)
+      008C00 A1 10            [ 1]  641 	cp	a, #0x10
+      008C02 25 D7            [ 1]  642 	jrc	00103$
                                     643 ;	driver/oled.c: 215: OLED_Set_Pos(x,y+1);
-      009404 7B 0A            [ 1]  644 	ld	a, (0x0a, sp)
-      009406 4C               [ 1]  645 	inc	a
-      009407 88               [ 1]  646 	push	a
-      009408 7B 0A            [ 1]  647 	ld	a, (0x0a, sp)
-      00940A 88               [ 1]  648 	push	a
-      00940B CD 91 9D         [ 4]  649 	call	_OLED_Set_Pos
-      00940E 5B 02            [ 2]  650 	addw	sp, #2
+      008C04 7B 0A            [ 1]  644 	ld	a, (0x0a, sp)
+      008C06 4C               [ 1]  645 	inc	a
+      008C07 88               [ 1]  646 	push	a
+      008C08 7B 0A            [ 1]  647 	ld	a, (0x0a, sp)
+      008C0A 88               [ 1]  648 	push	a
+      008C0B CD 89 9D         [ 4]  649 	call	_OLED_Set_Pos
+      008C0E 5B 02            [ 2]  650 	addw	sp, #2
                                     651 ;	driver/oled.c: 216: for(t=0;t<16;t++)
-      009410 1E 03            [ 2]  652 	ldw	x, (0x03, sp)
-      009412 5C               [ 1]  653 	incw	x
-      009413 58               [ 2]  654 	sllw	x
-      009414 58               [ 2]  655 	sllw	x
-      009415 58               [ 2]  656 	sllw	x
-      009416 58               [ 2]  657 	sllw	x
-      009417 58               [ 2]  658 	sllw	x
-      009418 1C 86 38         [ 2]  659 	addw	x, #_Hzk
-      00941B 1F 01            [ 2]  660 	ldw	(0x01, sp), x
-      00941D 0F 05            [ 1]  661 	clr	(0x05, sp)
-      00941F                        662 00105$:
+      008C10 1E 03            [ 2]  652 	ldw	x, (0x03, sp)
+      008C12 5C               [ 1]  653 	incw	x
+      008C13 58               [ 2]  654 	sllw	x
+      008C14 58               [ 2]  655 	sllw	x
+      008C15 58               [ 2]  656 	sllw	x
+      008C16 58               [ 2]  657 	sllw	x
+      008C17 58               [ 2]  658 	sllw	x
+      008C18 1C 86 38         [ 2]  659 	addw	x, #_Hzk
+      008C1B 1F 01            [ 2]  660 	ldw	(0x01, sp), x
+      008C1D 0F 05            [ 1]  661 	clr	(0x05, sp)
+      008C1F                        662 00105$:
                                     663 ;	driver/oled.c: 218: OLED_WR_Byte(Hzk[2*no+1][t],OLED_DATA);
-      00941F 5F               [ 1]  664 	clrw	x
-      009420 7B 05            [ 1]  665 	ld	a, (0x05, sp)
-      009422 97               [ 1]  666 	ld	xl, a
-      009423 72 FB 01         [ 2]  667 	addw	x, (0x01, sp)
-      009426 F6               [ 1]  668 	ld	a, (x)
-      009427 4B 01            [ 1]  669 	push	#0x01
-      009429 88               [ 1]  670 	push	a
-      00942A CD 91 20         [ 4]  671 	call	_OLED_WR_Byte
-      00942D 5B 02            [ 2]  672 	addw	sp, #2
+      008C1F 5F               [ 1]  664 	clrw	x
+      008C20 7B 05            [ 1]  665 	ld	a, (0x05, sp)
+      008C22 97               [ 1]  666 	ld	xl, a
+      008C23 72 FB 01         [ 2]  667 	addw	x, (0x01, sp)
+      008C26 F6               [ 1]  668 	ld	a, (x)
+      008C27 4B 01            [ 1]  669 	push	#0x01
+      008C29 88               [ 1]  670 	push	a
+      008C2A CD 89 20         [ 4]  671 	call	_OLED_WR_Byte
+      008C2D 5B 02            [ 2]  672 	addw	sp, #2
                                     673 ;	driver/oled.c: 219: adder+=1;
-      00942F 0C 06            [ 1]  674 	inc	(0x06, sp)
+      008C2F 0C 06            [ 1]  674 	inc	(0x06, sp)
                                     675 ;	driver/oled.c: 216: for(t=0;t<16;t++)
-      009431 0C 05            [ 1]  676 	inc	(0x05, sp)
-      009433 7B 05            [ 1]  677 	ld	a, (0x05, sp)
-      009435 A1 10            [ 1]  678 	cp	a, #0x10
-      009437 25 E6            [ 1]  679 	jrc	00105$
+      008C31 0C 05            [ 1]  676 	inc	(0x05, sp)
+      008C33 7B 05            [ 1]  677 	ld	a, (0x05, sp)
+      008C35 A1 10            [ 1]  678 	cp	a, #0x10
+      008C37 25 E6            [ 1]  679 	jrc	00105$
                                     680 ;	driver/oled.c: 221: }
-      009439 5B 06            [ 2]  681 	addw	sp, #6
-      00943B 81               [ 4]  682 	ret
+      008C39 5B 06            [ 2]  681 	addw	sp, #6
+      008C3B 81               [ 4]  682 	ret
                                     683 ;	driver/oled.c: 223: void OLED_DrawBMP(unsigned char x0, unsigned char y0,unsigned char x1, unsigned char y1,unsigned char BMP[])
                                     684 ;	-----------------------------------------
                                     685 ;	 function OLED_DrawBMP
                                     686 ;	-----------------------------------------
-      00943C                        687 _OLED_DrawBMP:
-      00943C 52 02            [ 2]  688 	sub	sp, #2
+      008C3C                        687 _OLED_DrawBMP:
+      008C3C 52 02            [ 2]  688 	sub	sp, #2
                                     689 ;	driver/oled.c: 225: unsigned int j=0;
-      00943E 5F               [ 1]  690 	clrw	x
+      008C3E 5F               [ 1]  690 	clrw	x
                                     691 ;	driver/oled.c: 230: for(y=y0;y<y1;y++)
-      00943F 7B 06            [ 1]  692 	ld	a, (0x06, sp)
-      009441 6B 01            [ 1]  693 	ld	(0x01, sp), a
-      009443                        694 00110$:
-      009443 7B 01            [ 1]  695 	ld	a, (0x01, sp)
-      009445 11 08            [ 1]  696 	cp	a, (0x08, sp)
-      009447 24 31            [ 1]  697 	jrnc	00112$
+      008C3F 7B 06            [ 1]  692 	ld	a, (0x06, sp)
+      008C41 6B 01            [ 1]  693 	ld	(0x01, sp), a
+      008C43                        694 00110$:
+      008C43 7B 01            [ 1]  695 	ld	a, (0x01, sp)
+      008C45 11 08            [ 1]  696 	cp	a, (0x08, sp)
+      008C47 24 31            [ 1]  697 	jrnc	00112$
                                     698 ;	driver/oled.c: 232: OLED_Set_Pos(x0,y);
-      009449 89               [ 2]  699 	pushw	x
-      00944A 7B 03            [ 1]  700 	ld	a, (0x03, sp)
-      00944C 88               [ 1]  701 	push	a
-      00944D 7B 08            [ 1]  702 	ld	a, (0x08, sp)
-      00944F 88               [ 1]  703 	push	a
-      009450 CD 91 9D         [ 4]  704 	call	_OLED_Set_Pos
-      009453 5B 02            [ 2]  705 	addw	sp, #2
-      009455 85               [ 2]  706 	popw	x
+      008C49 89               [ 2]  699 	pushw	x
+      008C4A 7B 03            [ 1]  700 	ld	a, (0x03, sp)
+      008C4C 88               [ 1]  701 	push	a
+      008C4D 7B 08            [ 1]  702 	ld	a, (0x08, sp)
+      008C4F 88               [ 1]  703 	push	a
+      008C50 CD 89 9D         [ 4]  704 	call	_OLED_Set_Pos
+      008C53 5B 02            [ 2]  705 	addw	sp, #2
+      008C55 85               [ 2]  706 	popw	x
                                     707 ;	driver/oled.c: 233: for(x=x0;x<x1;x++)
-      009456 7B 05            [ 1]  708 	ld	a, (0x05, sp)
-      009458 6B 02            [ 1]  709 	ld	(0x02, sp), a
-      00945A                        710 00107$:
-      00945A 7B 02            [ 1]  711 	ld	a, (0x02, sp)
-      00945C 11 07            [ 1]  712 	cp	a, (0x07, sp)
-      00945E 24 16            [ 1]  713 	jrnc	00119$
+      008C56 7B 05            [ 1]  708 	ld	a, (0x05, sp)
+      008C58 6B 02            [ 1]  709 	ld	(0x02, sp), a
+      008C5A                        710 00107$:
+      008C5A 7B 02            [ 1]  711 	ld	a, (0x02, sp)
+      008C5C 11 07            [ 1]  712 	cp	a, (0x07, sp)
+      008C5E 24 16            [ 1]  713 	jrnc	00119$
                                     714 ;	driver/oled.c: 235: OLED_WR_Byte(BMP[j++],OLED_DATA);
-      009460 90 93            [ 1]  715 	ldw	y, x
-      009462 5C               [ 1]  716 	incw	x
-      009463 72 F9 09         [ 2]  717 	addw	y, (0x09, sp)
-      009466 90 F6            [ 1]  718 	ld	a, (y)
-      009468 89               [ 2]  719 	pushw	x
-      009469 4B 01            [ 1]  720 	push	#0x01
-      00946B 88               [ 1]  721 	push	a
-      00946C CD 91 20         [ 4]  722 	call	_OLED_WR_Byte
-      00946F 5B 02            [ 2]  723 	addw	sp, #2
-      009471 85               [ 2]  724 	popw	x
+      008C60 90 93            [ 1]  715 	ldw	y, x
+      008C62 5C               [ 1]  716 	incw	x
+      008C63 72 F9 09         [ 2]  717 	addw	y, (0x09, sp)
+      008C66 90 F6            [ 1]  718 	ld	a, (y)
+      008C68 89               [ 2]  719 	pushw	x
+      008C69 4B 01            [ 1]  720 	push	#0x01
+      008C6B 88               [ 1]  721 	push	a
+      008C6C CD 89 20         [ 4]  722 	call	_OLED_WR_Byte
+      008C6F 5B 02            [ 2]  723 	addw	sp, #2
+      008C71 85               [ 2]  724 	popw	x
                                     725 ;	driver/oled.c: 233: for(x=x0;x<x1;x++)
-      009472 0C 02            [ 1]  726 	inc	(0x02, sp)
-      009474 20 E4            [ 2]  727 	jra	00107$
-      009476                        728 00119$:
+      008C72 0C 02            [ 1]  726 	inc	(0x02, sp)
+      008C74 20 E4            [ 2]  727 	jra	00107$
+      008C76                        728 00119$:
                                     729 ;	driver/oled.c: 230: for(y=y0;y<y1;y++)
-      009476 0C 01            [ 1]  730 	inc	(0x01, sp)
-      009478 20 C9            [ 2]  731 	jra	00110$
-      00947A                        732 00112$:
+      008C76 0C 01            [ 1]  730 	inc	(0x01, sp)
+      008C78 20 C9            [ 2]  731 	jra	00110$
+      008C7A                        732 00112$:
                                     733 ;	driver/oled.c: 238: }
-      00947A 5B 02            [ 2]  734 	addw	sp, #2
-      00947C 81               [ 4]  735 	ret
+      008C7A 5B 02            [ 2]  734 	addw	sp, #2
+      008C7C 81               [ 4]  735 	ret
                                     736 ;	driver/oled.c: 242: void OLED_Init(void)
                                     737 ;	-----------------------------------------
                                     738 ;	 function OLED_Init
                                     739 ;	-----------------------------------------
-      00947D                        740 _OLED_Init:
+      008C7D                        740 _OLED_Init:
                                     741 ;	driver/oled.c: 244: GPIO_Init(OLED_SCLK_PORT, (GPIO_Pin_TypeDef)OLED_SCLK_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
-      00947D 4B E0            [ 1]  742 	push	#0xe0
-      00947F 4B 02            [ 1]  743 	push	#0x02
-      009481 4B 0A            [ 1]  744 	push	#0x0a
-      009483 4B 50            [ 1]  745 	push	#0x50
-      009485 CD 96 67         [ 4]  746 	call	_GPIO_Init
-      009488 5B 04            [ 2]  747 	addw	sp, #4
+      008C7D 4B E0            [ 1]  742 	push	#0xe0
+      008C7F 4B 02            [ 1]  743 	push	#0x02
+      008C81 4B 0A            [ 1]  744 	push	#0x0a
+      008C83 4B 50            [ 1]  745 	push	#0x50
+      008C85 CD 8E 67         [ 4]  746 	call	_GPIO_Init
+      008C88 5B 04            [ 2]  747 	addw	sp, #4
                                     748 ;	driver/oled.c: 245: GPIO_Init(OLED_SDIN_PORT, (GPIO_Pin_TypeDef)OLED_SDIN_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
-      00948A 4B E0            [ 1]  749 	push	#0xe0
-      00948C 4B 04            [ 1]  750 	push	#0x04
-      00948E 4B 0A            [ 1]  751 	push	#0x0a
-      009490 4B 50            [ 1]  752 	push	#0x50
-      009492 CD 96 67         [ 4]  753 	call	_GPIO_Init
-      009495 5B 04            [ 2]  754 	addw	sp, #4
+      008C8A 4B E0            [ 1]  749 	push	#0xe0
+      008C8C 4B 04            [ 1]  750 	push	#0x04
+      008C8E 4B 0A            [ 1]  751 	push	#0x0a
+      008C90 4B 50            [ 1]  752 	push	#0x50
+      008C92 CD 8E 67         [ 4]  753 	call	_GPIO_Init
+      008C95 5B 04            [ 2]  754 	addw	sp, #4
                                     755 ;	driver/oled.c: 246: GPIO_Init(OLED_RST_PORT, (GPIO_Pin_TypeDef)OLED_RST_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
-      009497 4B E0            [ 1]  756 	push	#0xe0
-      009499 4B 08            [ 1]  757 	push	#0x08
-      00949B 4B 0A            [ 1]  758 	push	#0x0a
-      00949D 4B 50            [ 1]  759 	push	#0x50
-      00949F CD 96 67         [ 4]  760 	call	_GPIO_Init
-      0094A2 5B 04            [ 2]  761 	addw	sp, #4
+      008C97 4B E0            [ 1]  756 	push	#0xe0
+      008C99 4B 08            [ 1]  757 	push	#0x08
+      008C9B 4B 0A            [ 1]  758 	push	#0x0a
+      008C9D 4B 50            [ 1]  759 	push	#0x50
+      008C9F CD 8E 67         [ 4]  760 	call	_GPIO_Init
+      008CA2 5B 04            [ 2]  761 	addw	sp, #4
                                     762 ;	driver/oled.c: 247: GPIO_Init(OLED_DC_PORT, (GPIO_Pin_TypeDef)OLED_DC_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
-      0094A4 4B E0            [ 1]  763 	push	#0xe0
-      0094A6 4B 10            [ 1]  764 	push	#0x10
-      0094A8 4B 0A            [ 1]  765 	push	#0x0a
-      0094AA 4B 50            [ 1]  766 	push	#0x50
-      0094AC CD 96 67         [ 4]  767 	call	_GPIO_Init
-      0094AF 5B 04            [ 2]  768 	addw	sp, #4
+      008CA4 4B E0            [ 1]  763 	push	#0xe0
+      008CA6 4B 10            [ 1]  764 	push	#0x10
+      008CA8 4B 0A            [ 1]  765 	push	#0x0a
+      008CAA 4B 50            [ 1]  766 	push	#0x50
+      008CAC CD 8E 67         [ 4]  767 	call	_GPIO_Init
+      008CAF 5B 04            [ 2]  768 	addw	sp, #4
                                     769 ;	driver/oled.c: 248: GPIO_Init(OLED_CS_PORT, (GPIO_Pin_TypeDef)OLED_CS_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
-      0094B1 4B E0            [ 1]  770 	push	#0xe0
-      0094B3 4B 20            [ 1]  771 	push	#0x20
-      0094B5 4B 0A            [ 1]  772 	push	#0x0a
-      0094B7 4B 50            [ 1]  773 	push	#0x50
-      0094B9 CD 96 67         [ 4]  774 	call	_GPIO_Init
-      0094BC 5B 04            [ 2]  775 	addw	sp, #4
+      008CB1 4B E0            [ 1]  770 	push	#0xe0
+      008CB3 4B 20            [ 1]  771 	push	#0x20
+      008CB5 4B 0A            [ 1]  772 	push	#0x0a
+      008CB7 4B 50            [ 1]  773 	push	#0x50
+      008CB9 CD 8E 67         [ 4]  774 	call	_GPIO_Init
+      008CBC 5B 04            [ 2]  775 	addw	sp, #4
                                     776 ;	driver/oled.c: 251: OLED_RST_Set();
-      0094BE 4B 08            [ 1]  777 	push	#0x08
-      0094C0 4B 0A            [ 1]  778 	push	#0x0a
-      0094C2 4B 50            [ 1]  779 	push	#0x50
-      0094C4 CD 96 E2         [ 4]  780 	call	_GPIO_WriteHigh
-      0094C7 5B 03            [ 2]  781 	addw	sp, #3
+      008CBE 4B 08            [ 1]  777 	push	#0x08
+      008CC0 4B 0A            [ 1]  778 	push	#0x0a
+      008CC2 4B 50            [ 1]  779 	push	#0x50
+      008CC4 CD 8E E2         [ 4]  780 	call	_GPIO_WriteHigh
+      008CC7 5B 03            [ 2]  781 	addw	sp, #3
                                     782 ;	driver/oled.c: 252: delay_ms(100);
-      0094C9 4B 64            [ 1]  783 	push	#0x64
-      0094CB 4B 00            [ 1]  784 	push	#0x00
-      0094CD CD 91 02         [ 4]  785 	call	_delay_ms
-      0094D0 5B 02            [ 2]  786 	addw	sp, #2
+      008CC9 4B 64            [ 1]  783 	push	#0x64
+      008CCB 4B 00            [ 1]  784 	push	#0x00
+      008CCD CD 89 02         [ 4]  785 	call	_delay_ms
+      008CD0 5B 02            [ 2]  786 	addw	sp, #2
                                     787 ;	driver/oled.c: 253: OLED_RST_Clr();
-      0094D2 4B 08            [ 1]  788 	push	#0x08
-      0094D4 4B 0A            [ 1]  789 	push	#0x0a
-      0094D6 4B 50            [ 1]  790 	push	#0x50
-      0094D8 CD 96 E9         [ 4]  791 	call	_GPIO_WriteLow
-      0094DB 5B 03            [ 2]  792 	addw	sp, #3
+      008CD2 4B 08            [ 1]  788 	push	#0x08
+      008CD4 4B 0A            [ 1]  789 	push	#0x0a
+      008CD6 4B 50            [ 1]  790 	push	#0x50
+      008CD8 CD 8E E9         [ 4]  791 	call	_GPIO_WriteLow
+      008CDB 5B 03            [ 2]  792 	addw	sp, #3
                                     793 ;	driver/oled.c: 254: delay_ms(100);
-      0094DD 4B 64            [ 1]  794 	push	#0x64
-      0094DF 4B 00            [ 1]  795 	push	#0x00
-      0094E1 CD 91 02         [ 4]  796 	call	_delay_ms
-      0094E4 5B 02            [ 2]  797 	addw	sp, #2
+      008CDD 4B 64            [ 1]  794 	push	#0x64
+      008CDF 4B 00            [ 1]  795 	push	#0x00
+      008CE1 CD 89 02         [ 4]  796 	call	_delay_ms
+      008CE4 5B 02            [ 2]  797 	addw	sp, #2
                                     798 ;	driver/oled.c: 255: OLED_RST_Set();
-      0094E6 4B 08            [ 1]  799 	push	#0x08
-      0094E8 4B 0A            [ 1]  800 	push	#0x0a
-      0094EA 4B 50            [ 1]  801 	push	#0x50
-      0094EC CD 96 E2         [ 4]  802 	call	_GPIO_WriteHigh
-      0094EF 5B 03            [ 2]  803 	addw	sp, #3
+      008CE6 4B 08            [ 1]  799 	push	#0x08
+      008CE8 4B 0A            [ 1]  800 	push	#0x0a
+      008CEA 4B 50            [ 1]  801 	push	#0x50
+      008CEC CD 8E E2         [ 4]  802 	call	_GPIO_WriteHigh
+      008CEF 5B 03            [ 2]  803 	addw	sp, #3
                                     804 ;	driver/oled.c: 287: OLED_WR_Byte(0xAE,OLED_CMD);//--turn off oled panel
-      0094F1 4B 00            [ 1]  805 	push	#0x00
-      0094F3 4B AE            [ 1]  806 	push	#0xae
-      0094F5 CD 91 20         [ 4]  807 	call	_OLED_WR_Byte
-      0094F8 5B 02            [ 2]  808 	addw	sp, #2
+      008CF1 4B 00            [ 1]  805 	push	#0x00
+      008CF3 4B AE            [ 1]  806 	push	#0xae
+      008CF5 CD 89 20         [ 4]  807 	call	_OLED_WR_Byte
+      008CF8 5B 02            [ 2]  808 	addw	sp, #2
                                     809 ;	driver/oled.c: 288: OLED_WR_Byte(0x00,OLED_CMD);//---set low column address
-      0094FA 4B 00            [ 1]  810 	push	#0x00
-      0094FC 4B 00            [ 1]  811 	push	#0x00
-      0094FE CD 91 20         [ 4]  812 	call	_OLED_WR_Byte
-      009501 5B 02            [ 2]  813 	addw	sp, #2
+      008CFA 4B 00            [ 1]  810 	push	#0x00
+      008CFC 4B 00            [ 1]  811 	push	#0x00
+      008CFE CD 89 20         [ 4]  812 	call	_OLED_WR_Byte
+      008D01 5B 02            [ 2]  813 	addw	sp, #2
                                     814 ;	driver/oled.c: 289: OLED_WR_Byte(0x10,OLED_CMD);//---set high column address
-      009503 4B 00            [ 1]  815 	push	#0x00
-      009505 4B 10            [ 1]  816 	push	#0x10
-      009507 CD 91 20         [ 4]  817 	call	_OLED_WR_Byte
-      00950A 5B 02            [ 2]  818 	addw	sp, #2
+      008D03 4B 00            [ 1]  815 	push	#0x00
+      008D05 4B 10            [ 1]  816 	push	#0x10
+      008D07 CD 89 20         [ 4]  817 	call	_OLED_WR_Byte
+      008D0A 5B 02            [ 2]  818 	addw	sp, #2
                                     819 ;	driver/oled.c: 290: OLED_WR_Byte(0x40,OLED_CMD);//--set start line address  Set Mapping RAM Display Start Line (0x00~0x3F)
-      00950C 4B 00            [ 1]  820 	push	#0x00
-      00950E 4B 40            [ 1]  821 	push	#0x40
-      009510 CD 91 20         [ 4]  822 	call	_OLED_WR_Byte
-      009513 5B 02            [ 2]  823 	addw	sp, #2
+      008D0C 4B 00            [ 1]  820 	push	#0x00
+      008D0E 4B 40            [ 1]  821 	push	#0x40
+      008D10 CD 89 20         [ 4]  822 	call	_OLED_WR_Byte
+      008D13 5B 02            [ 2]  823 	addw	sp, #2
                                     824 ;	driver/oled.c: 291: OLED_WR_Byte(0x81,OLED_CMD);//--set contrast control register
-      009515 4B 00            [ 1]  825 	push	#0x00
-      009517 4B 81            [ 1]  826 	push	#0x81
-      009519 CD 91 20         [ 4]  827 	call	_OLED_WR_Byte
-      00951C 5B 02            [ 2]  828 	addw	sp, #2
+      008D15 4B 00            [ 1]  825 	push	#0x00
+      008D17 4B 81            [ 1]  826 	push	#0x81
+      008D19 CD 89 20         [ 4]  827 	call	_OLED_WR_Byte
+      008D1C 5B 02            [ 2]  828 	addw	sp, #2
                                     829 ;	driver/oled.c: 292: OLED_WR_Byte(0xCF,OLED_CMD); // Set SEG Output Current Brightness
-      00951E 4B 00            [ 1]  830 	push	#0x00
-      009520 4B CF            [ 1]  831 	push	#0xcf
-      009522 CD 91 20         [ 4]  832 	call	_OLED_WR_Byte
-      009525 5B 02            [ 2]  833 	addw	sp, #2
+      008D1E 4B 00            [ 1]  830 	push	#0x00
+      008D20 4B CF            [ 1]  831 	push	#0xcf
+      008D22 CD 89 20         [ 4]  832 	call	_OLED_WR_Byte
+      008D25 5B 02            [ 2]  833 	addw	sp, #2
                                     834 ;	driver/oled.c: 293: OLED_WR_Byte(0xA1,OLED_CMD);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
-      009527 4B 00            [ 1]  835 	push	#0x00
-      009529 4B A1            [ 1]  836 	push	#0xa1
-      00952B CD 91 20         [ 4]  837 	call	_OLED_WR_Byte
-      00952E 5B 02            [ 2]  838 	addw	sp, #2
+      008D27 4B 00            [ 1]  835 	push	#0x00
+      008D29 4B A1            [ 1]  836 	push	#0xa1
+      008D2B CD 89 20         [ 4]  837 	call	_OLED_WR_Byte
+      008D2E 5B 02            [ 2]  838 	addw	sp, #2
                                     839 ;	driver/oled.c: 294: OLED_WR_Byte(0xC8,OLED_CMD);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常
-      009530 4B 00            [ 1]  840 	push	#0x00
-      009532 4B C8            [ 1]  841 	push	#0xc8
-      009534 CD 91 20         [ 4]  842 	call	_OLED_WR_Byte
-      009537 5B 02            [ 2]  843 	addw	sp, #2
+      008D30 4B 00            [ 1]  840 	push	#0x00
+      008D32 4B C8            [ 1]  841 	push	#0xc8
+      008D34 CD 89 20         [ 4]  842 	call	_OLED_WR_Byte
+      008D37 5B 02            [ 2]  843 	addw	sp, #2
                                     844 ;	driver/oled.c: 295: OLED_WR_Byte(0xA6,OLED_CMD);//--set normal display
-      009539 4B 00            [ 1]  845 	push	#0x00
-      00953B 4B A6            [ 1]  846 	push	#0xa6
-      00953D CD 91 20         [ 4]  847 	call	_OLED_WR_Byte
-      009540 5B 02            [ 2]  848 	addw	sp, #2
+      008D39 4B 00            [ 1]  845 	push	#0x00
+      008D3B 4B A6            [ 1]  846 	push	#0xa6
+      008D3D CD 89 20         [ 4]  847 	call	_OLED_WR_Byte
+      008D40 5B 02            [ 2]  848 	addw	sp, #2
                                     849 ;	driver/oled.c: 296: OLED_WR_Byte(0xA8,OLED_CMD);//--set multiplex ratio(1 to 64)
-      009542 4B 00            [ 1]  850 	push	#0x00
-      009544 4B A8            [ 1]  851 	push	#0xa8
-      009546 CD 91 20         [ 4]  852 	call	_OLED_WR_Byte
-      009549 5B 02            [ 2]  853 	addw	sp, #2
+      008D42 4B 00            [ 1]  850 	push	#0x00
+      008D44 4B A8            [ 1]  851 	push	#0xa8
+      008D46 CD 89 20         [ 4]  852 	call	_OLED_WR_Byte
+      008D49 5B 02            [ 2]  853 	addw	sp, #2
                                     854 ;	driver/oled.c: 297: OLED_WR_Byte(0x3f,OLED_CMD);//--1/64 duty
-      00954B 4B 00            [ 1]  855 	push	#0x00
-      00954D 4B 3F            [ 1]  856 	push	#0x3f
-      00954F CD 91 20         [ 4]  857 	call	_OLED_WR_Byte
-      009552 5B 02            [ 2]  858 	addw	sp, #2
+      008D4B 4B 00            [ 1]  855 	push	#0x00
+      008D4D 4B 3F            [ 1]  856 	push	#0x3f
+      008D4F CD 89 20         [ 4]  857 	call	_OLED_WR_Byte
+      008D52 5B 02            [ 2]  858 	addw	sp, #2
                                     859 ;	driver/oled.c: 298: OLED_WR_Byte(0xD3,OLED_CMD);//-set display offset	Shift Mapping RAM Counter (0x00~0x3F)
-      009554 4B 00            [ 1]  860 	push	#0x00
-      009556 4B D3            [ 1]  861 	push	#0xd3
-      009558 CD 91 20         [ 4]  862 	call	_OLED_WR_Byte
-      00955B 5B 02            [ 2]  863 	addw	sp, #2
+      008D54 4B 00            [ 1]  860 	push	#0x00
+      008D56 4B D3            [ 1]  861 	push	#0xd3
+      008D58 CD 89 20         [ 4]  862 	call	_OLED_WR_Byte
+      008D5B 5B 02            [ 2]  863 	addw	sp, #2
                                     864 ;	driver/oled.c: 299: OLED_WR_Byte(0x00,OLED_CMD);//-not offset
-      00955D 4B 00            [ 1]  865 	push	#0x00
-      00955F 4B 00            [ 1]  866 	push	#0x00
-      009561 CD 91 20         [ 4]  867 	call	_OLED_WR_Byte
-      009564 5B 02            [ 2]  868 	addw	sp, #2
+      008D5D 4B 00            [ 1]  865 	push	#0x00
+      008D5F 4B 00            [ 1]  866 	push	#0x00
+      008D61 CD 89 20         [ 4]  867 	call	_OLED_WR_Byte
+      008D64 5B 02            [ 2]  868 	addw	sp, #2
                                     869 ;	driver/oled.c: 300: OLED_WR_Byte(0xd5,OLED_CMD);//--set display clock divide ratio/oscillator frequency
-      009566 4B 00            [ 1]  870 	push	#0x00
-      009568 4B D5            [ 1]  871 	push	#0xd5
-      00956A CD 91 20         [ 4]  872 	call	_OLED_WR_Byte
-      00956D 5B 02            [ 2]  873 	addw	sp, #2
+      008D66 4B 00            [ 1]  870 	push	#0x00
+      008D68 4B D5            [ 1]  871 	push	#0xd5
+      008D6A CD 89 20         [ 4]  872 	call	_OLED_WR_Byte
+      008D6D 5B 02            [ 2]  873 	addw	sp, #2
                                     874 ;	driver/oled.c: 301: OLED_WR_Byte(0x80,OLED_CMD);//--set divide ratio, Set Clock as 100 Frames/Sec
-      00956F 4B 00            [ 1]  875 	push	#0x00
-      009571 4B 80            [ 1]  876 	push	#0x80
-      009573 CD 91 20         [ 4]  877 	call	_OLED_WR_Byte
-      009576 5B 02            [ 2]  878 	addw	sp, #2
+      008D6F 4B 00            [ 1]  875 	push	#0x00
+      008D71 4B 80            [ 1]  876 	push	#0x80
+      008D73 CD 89 20         [ 4]  877 	call	_OLED_WR_Byte
+      008D76 5B 02            [ 2]  878 	addw	sp, #2
                                     879 ;	driver/oled.c: 302: OLED_WR_Byte(0xD9,OLED_CMD);//--set pre-charge period
-      009578 4B 00            [ 1]  880 	push	#0x00
-      00957A 4B D9            [ 1]  881 	push	#0xd9
-      00957C CD 91 20         [ 4]  882 	call	_OLED_WR_Byte
-      00957F 5B 02            [ 2]  883 	addw	sp, #2
+      008D78 4B 00            [ 1]  880 	push	#0x00
+      008D7A 4B D9            [ 1]  881 	push	#0xd9
+      008D7C CD 89 20         [ 4]  882 	call	_OLED_WR_Byte
+      008D7F 5B 02            [ 2]  883 	addw	sp, #2
                                     884 ;	driver/oled.c: 303: OLED_WR_Byte(0xF1,OLED_CMD);//Set Pre-Charge as 15 Clocks & Discharge as 1 Clock
-      009581 4B 00            [ 1]  885 	push	#0x00
-      009583 4B F1            [ 1]  886 	push	#0xf1
-      009585 CD 91 20         [ 4]  887 	call	_OLED_WR_Byte
-      009588 5B 02            [ 2]  888 	addw	sp, #2
+      008D81 4B 00            [ 1]  885 	push	#0x00
+      008D83 4B F1            [ 1]  886 	push	#0xf1
+      008D85 CD 89 20         [ 4]  887 	call	_OLED_WR_Byte
+      008D88 5B 02            [ 2]  888 	addw	sp, #2
                                     889 ;	driver/oled.c: 304: OLED_WR_Byte(0xDA,OLED_CMD);//--set com pins hardware configuration
-      00958A 4B 00            [ 1]  890 	push	#0x00
-      00958C 4B DA            [ 1]  891 	push	#0xda
-      00958E CD 91 20         [ 4]  892 	call	_OLED_WR_Byte
-      009591 5B 02            [ 2]  893 	addw	sp, #2
+      008D8A 4B 00            [ 1]  890 	push	#0x00
+      008D8C 4B DA            [ 1]  891 	push	#0xda
+      008D8E CD 89 20         [ 4]  892 	call	_OLED_WR_Byte
+      008D91 5B 02            [ 2]  893 	addw	sp, #2
                                     894 ;	driver/oled.c: 305: OLED_WR_Byte(0x12,OLED_CMD);
-      009593 4B 00            [ 1]  895 	push	#0x00
-      009595 4B 12            [ 1]  896 	push	#0x12
-      009597 CD 91 20         [ 4]  897 	call	_OLED_WR_Byte
-      00959A 5B 02            [ 2]  898 	addw	sp, #2
+      008D93 4B 00            [ 1]  895 	push	#0x00
+      008D95 4B 12            [ 1]  896 	push	#0x12
+      008D97 CD 89 20         [ 4]  897 	call	_OLED_WR_Byte
+      008D9A 5B 02            [ 2]  898 	addw	sp, #2
                                     899 ;	driver/oled.c: 306: OLED_WR_Byte(0xDB,OLED_CMD);//--set vcomh
-      00959C 4B 00            [ 1]  900 	push	#0x00
-      00959E 4B DB            [ 1]  901 	push	#0xdb
-      0095A0 CD 91 20         [ 4]  902 	call	_OLED_WR_Byte
-      0095A3 5B 02            [ 2]  903 	addw	sp, #2
+      008D9C 4B 00            [ 1]  900 	push	#0x00
+      008D9E 4B DB            [ 1]  901 	push	#0xdb
+      008DA0 CD 89 20         [ 4]  902 	call	_OLED_WR_Byte
+      008DA3 5B 02            [ 2]  903 	addw	sp, #2
                                     904 ;	driver/oled.c: 307: OLED_WR_Byte(0x40,OLED_CMD);//Set VCOM Deselect Level
-      0095A5 4B 00            [ 1]  905 	push	#0x00
-      0095A7 4B 40            [ 1]  906 	push	#0x40
-      0095A9 CD 91 20         [ 4]  907 	call	_OLED_WR_Byte
-      0095AC 5B 02            [ 2]  908 	addw	sp, #2
+      008DA5 4B 00            [ 1]  905 	push	#0x00
+      008DA7 4B 40            [ 1]  906 	push	#0x40
+      008DA9 CD 89 20         [ 4]  907 	call	_OLED_WR_Byte
+      008DAC 5B 02            [ 2]  908 	addw	sp, #2
                                     909 ;	driver/oled.c: 308: OLED_WR_Byte(0x20,OLED_CMD);//-Set Page Addressing Mode (0x00/0x01/0x02)
-      0095AE 4B 00            [ 1]  910 	push	#0x00
-      0095B0 4B 20            [ 1]  911 	push	#0x20
-      0095B2 CD 91 20         [ 4]  912 	call	_OLED_WR_Byte
-      0095B5 5B 02            [ 2]  913 	addw	sp, #2
+      008DAE 4B 00            [ 1]  910 	push	#0x00
+      008DB0 4B 20            [ 1]  911 	push	#0x20
+      008DB2 CD 89 20         [ 4]  912 	call	_OLED_WR_Byte
+      008DB5 5B 02            [ 2]  913 	addw	sp, #2
                                     914 ;	driver/oled.c: 309: OLED_WR_Byte(0x02,OLED_CMD);//
-      0095B7 4B 00            [ 1]  915 	push	#0x00
-      0095B9 4B 02            [ 1]  916 	push	#0x02
-      0095BB CD 91 20         [ 4]  917 	call	_OLED_WR_Byte
-      0095BE 5B 02            [ 2]  918 	addw	sp, #2
+      008DB7 4B 00            [ 1]  915 	push	#0x00
+      008DB9 4B 02            [ 1]  916 	push	#0x02
+      008DBB CD 89 20         [ 4]  917 	call	_OLED_WR_Byte
+      008DBE 5B 02            [ 2]  918 	addw	sp, #2
                                     919 ;	driver/oled.c: 310: OLED_WR_Byte(0x8D,OLED_CMD);//--set Charge Pump enable/disable
-      0095C0 4B 00            [ 1]  920 	push	#0x00
-      0095C2 4B 8D            [ 1]  921 	push	#0x8d
-      0095C4 CD 91 20         [ 4]  922 	call	_OLED_WR_Byte
-      0095C7 5B 02            [ 2]  923 	addw	sp, #2
+      008DC0 4B 00            [ 1]  920 	push	#0x00
+      008DC2 4B 8D            [ 1]  921 	push	#0x8d
+      008DC4 CD 89 20         [ 4]  922 	call	_OLED_WR_Byte
+      008DC7 5B 02            [ 2]  923 	addw	sp, #2
                                     924 ;	driver/oled.c: 311: OLED_WR_Byte(0x14,OLED_CMD);//--set(0x10) disable
-      0095C9 4B 00            [ 1]  925 	push	#0x00
-      0095CB 4B 14            [ 1]  926 	push	#0x14
-      0095CD CD 91 20         [ 4]  927 	call	_OLED_WR_Byte
-      0095D0 5B 02            [ 2]  928 	addw	sp, #2
+      008DC9 4B 00            [ 1]  925 	push	#0x00
+      008DCB 4B 14            [ 1]  926 	push	#0x14
+      008DCD CD 89 20         [ 4]  927 	call	_OLED_WR_Byte
+      008DD0 5B 02            [ 2]  928 	addw	sp, #2
                                     929 ;	driver/oled.c: 312: OLED_WR_Byte(0xA4,OLED_CMD);// Disable Entire Display On (0xa4/0xa5)
-      0095D2 4B 00            [ 1]  930 	push	#0x00
-      0095D4 4B A4            [ 1]  931 	push	#0xa4
-      0095D6 CD 91 20         [ 4]  932 	call	_OLED_WR_Byte
-      0095D9 5B 02            [ 2]  933 	addw	sp, #2
+      008DD2 4B 00            [ 1]  930 	push	#0x00
+      008DD4 4B A4            [ 1]  931 	push	#0xa4
+      008DD6 CD 89 20         [ 4]  932 	call	_OLED_WR_Byte
+      008DD9 5B 02            [ 2]  933 	addw	sp, #2
                                     934 ;	driver/oled.c: 313: OLED_WR_Byte(0xA6,OLED_CMD);// Disable Inverse Display On (0xa6/a7)
-      0095DB 4B 00            [ 1]  935 	push	#0x00
-      0095DD 4B A6            [ 1]  936 	push	#0xa6
-      0095DF CD 91 20         [ 4]  937 	call	_OLED_WR_Byte
-      0095E2 5B 02            [ 2]  938 	addw	sp, #2
+      008DDB 4B 00            [ 1]  935 	push	#0x00
+      008DDD 4B A6            [ 1]  936 	push	#0xa6
+      008DDF CD 89 20         [ 4]  937 	call	_OLED_WR_Byte
+      008DE2 5B 02            [ 2]  938 	addw	sp, #2
                                     939 ;	driver/oled.c: 314: OLED_WR_Byte(0xAF,OLED_CMD);//--turn on oled panel
-      0095E4 4B 00            [ 1]  940 	push	#0x00
-      0095E6 4B AF            [ 1]  941 	push	#0xaf
-      0095E8 CD 91 20         [ 4]  942 	call	_OLED_WR_Byte
-      0095EB 5B 02            [ 2]  943 	addw	sp, #2
+      008DE4 4B 00            [ 1]  940 	push	#0x00
+      008DE6 4B AF            [ 1]  941 	push	#0xaf
+      008DE8 CD 89 20         [ 4]  942 	call	_OLED_WR_Byte
+      008DEB 5B 02            [ 2]  943 	addw	sp, #2
                                     944 ;	driver/oled.c: 316: OLED_WR_Byte(0xAF,OLED_CMD); /*display ON*/
-      0095ED 4B 00            [ 1]  945 	push	#0x00
-      0095EF 4B AF            [ 1]  946 	push	#0xaf
-      0095F1 CD 91 20         [ 4]  947 	call	_OLED_WR_Byte
-      0095F4 5B 02            [ 2]  948 	addw	sp, #2
+      008DED 4B 00            [ 1]  945 	push	#0x00
+      008DEF 4B AF            [ 1]  946 	push	#0xaf
+      008DF1 CD 89 20         [ 4]  947 	call	_OLED_WR_Byte
+      008DF4 5B 02            [ 2]  948 	addw	sp, #2
                                     949 ;	driver/oled.c: 317: OLED_Clear();
-      0095F6 CD 92 12         [ 4]  950 	call	_OLED_Clear
+      008DF6 CD 8A 12         [ 4]  950 	call	_OLED_Clear
                                     951 ;	driver/oled.c: 318: OLED_Set_Pos(0,0);
-      0095F9 4B 00            [ 1]  952 	push	#0x00
-      0095FB 4B 00            [ 1]  953 	push	#0x00
-      0095FD CD 91 9D         [ 4]  954 	call	_OLED_Set_Pos
-      009600 5B 02            [ 2]  955 	addw	sp, #2
+      008DF9 4B 00            [ 1]  952 	push	#0x00
+      008DFB 4B 00            [ 1]  953 	push	#0x00
+      008DFD CD 89 9D         [ 4]  954 	call	_OLED_Set_Pos
+      008E00 5B 02            [ 2]  955 	addw	sp, #2
                                     956 ;	driver/oled.c: 319: }
-      009602 81               [ 4]  957 	ret
+      008E02 81               [ 4]  957 	ret
                                     958 	.area CODE
                                     959 	.area CONST
       008048                        960 _F8X16:
