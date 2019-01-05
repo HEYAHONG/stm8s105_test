@@ -88,6 +88,8 @@
 #define X_WIDTH 	128
 #define Y_WIDTH 	64
 
+#define NO_BMP // 关闭bmp显示
+
 //-----------------OLED端口定义----------------
 
 void delay_ms(unsigned int ms);
@@ -106,7 +108,11 @@ void OLED_ShowNum(u8 x,u8 y,u32 num,u8 len,u8 size2);
 void OLED_ShowString(u8 x,u8 y, u8 *p);
 void OLED_Set_Pos(unsigned char x, unsigned char y);
 void OLED_ShowCHinese(u8 x,u8 y,u8 no);
+
+#ifndef NO_BMP
 void OLED_DrawBMP(unsigned char x0, unsigned char y0,unsigned char x1, unsigned char y1,unsigned char BMP[]);
+#endif
+
 #endif
 
 
