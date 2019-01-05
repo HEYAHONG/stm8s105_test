@@ -12,7 +12,7 @@ GPIO_Init(ADC_GPIO,ADC_PIN,GPIO_MODE_IN_FL_NO_IT);//AIN4 IO设置为悬浮输入
 
   ADC1_ExternalTriggerConfig(ADC1_EXTTRIG_TIM,DISABLE);//不使用外部触发
 
-  ADC1_SchmittTriggerConfig(ADC_SCHMITTTRIG,DISABLE);
+ // ADC1_SchmittTriggerConfig(ADC_SCHMITTTRIG,DISABLE);
 
   //禁止AIN2 AIN4的施密特触发器，降低IO静态功耗
 
@@ -31,7 +31,8 @@ GPIO_Init(ADC_GPIO,ADC_PIN,GPIO_MODE_IN_FL_NO_IT);//AIN4 IO设置为悬浮输入
     while(!ADC1_GetFlagStatus(ADC1_FLAG_EOC));//等待转换完成
 
     ADC1_ClearFlag(ADC1_FLAG_EOC);//软件清除
-
-    return (u16)ADC1_GetConversionValue();//从ADC_DR中读取ADC值
+    u16 ret=ADC1_GetConversionValue();//从ADC_DR中读取ADC值
+    ADC1_DeInit();
+    return ret;
 
 }

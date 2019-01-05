@@ -31,9 +31,11 @@
 #include "stm8s_gpio.h"
 #include "stm8s_itc.h"
 #include "stm8s_uart2.h"
+#include "stm8s_clk.h"
 #include "oled.h"
 #include "bmp.h"
 #include "uart.h"
+#include "ds1302.h"
 #include "adc.h"
 #include "stdio.h"
 /* Private defines -----------------------------------------------------------*/
@@ -70,11 +72,26 @@ void main(void)
   while (1)
   {
   /* Toggles LEDs */
-    u8  temp[10];
+   { u8  temp[10];
     sprintf(temp,"V:%4d,S:%1d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1);
     printf("%s",temp);
-   printf("\r\n");
+    printf("\r\n");
     OLED_ShowString(0,2,temp);
+    }
+    {
+    ds1302_port_init();
+    if(ds1302_check())
+    {
+    u8  temp[10];
+    DS1302_TIME  ds_time;
+    ds1302_read_time(&ds_time);
+    sprintf(temp,"%2d/%2d/%2d",ds_time.hour,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16);
+    printf("%s",temp);
+    printf("\r\n");
+    OLED_ShowString(0,4,temp);
+    }
+    ds1302_port_deinit();
+   }
     GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
     Delay(0xffff);
   }

@@ -15,7 +15,6 @@
 	.globl _ADC1_StartConversion
 	.globl _ADC1_ExternalTriggerConfig
 	.globl _ADC1_ConversionConfig
-	.globl _ADC1_SchmittTriggerConfig
 	.globl _ADC1_PrescalerConfig
 	.globl _ADC1_Cmd
 	.globl _ADC1_DeInit
@@ -84,11 +83,6 @@ _ReadADC:
 	push	#0x00
 	call	_ADC1_ExternalTriggerConfig
 	addw	sp, #2
-;	driver/adc.c: 15: ADC1_SchmittTriggerConfig(ADC_SCHMITTTRIG,DISABLE);
-	push	#0x00
-	push	#0x00
-	call	_ADC1_SchmittTriggerConfig
-	addw	sp, #2
 ;	driver/adc.c: 23: ADC1_ConversionConfig(ADC1_CONVERSIONMODE_SINGLE,//单次转换
 	push	#0x08
 	push	#0x00
@@ -112,9 +106,15 @@ _ReadADC:
 	push	#0x80
 	call	_ADC1_ClearFlag
 	pop	a
-;	driver/adc.c: 35: return (u16)ADC1_GetConversionValue();//从ADC_DR中读取ADC值
-;	driver/adc.c: 37: }
-	jp	_ADC1_GetConversionValue
+;	driver/adc.c: 34: u16 ret=ADC1_GetConversionValue();//从ADC_DR中读取ADC值
+	call	_ADC1_GetConversionValue
+;	driver/adc.c: 35: ADC1_DeInit();
+	pushw	x
+	call	_ADC1_DeInit
+	popw	x
+;	driver/adc.c: 36: return ret;
+;	driver/adc.c: 38: }
+	ret
 	.area CODE
 	.area CONST
 	.area INITIALIZER

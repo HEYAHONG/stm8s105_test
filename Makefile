@@ -9,7 +9,7 @@ STM8FLASH=stm8flash
 SDAS=sdasstm8
 
 #select stm8s103
-CFLAGS+=  -DSTM8S105 -mstm8 --std-c11 -DUSE_STDPERIPH_DRIVER  
+CFLAGS+=  -DSTM8S105 -mstm8  -DUSE_STDPERIPH_DRIVER  
 
 #use std_periph_driver
 CFLAGS+= -I./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc 

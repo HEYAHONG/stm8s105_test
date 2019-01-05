@@ -15,11 +15,9 @@ Symbol Table
     _ADC1_GetConversionValue                                       ****** GX
     _ADC1_GetFlagStatus                                            ****** GX
     _ADC1_PrescalerConfig                                          ****** GX
-    _ADC1_SchmittTriggerConfig                                     ****** GX
     _ADC1_StartConversion                                          ****** GX
     _GPIO_Init                                                     ****** GX
   9 _ReadADC                                                       000000 GR
-
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 2.
 Hexadecimal [24-Bits]
@@ -35,6 +33,6 @@ Area Table
    6 GSFINAL                                    size      0   flags    0
    7 CONST                                      size      0   flags    0
    8 INITIALIZER                                size      0   flags    0
-   9 CODE                                       size     55   flags    0
+   9 CODE                                       size     52   flags    0
    A CABS                                       size      0   flags    8
 
