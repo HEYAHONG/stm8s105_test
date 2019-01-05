@@ -9,18 +9,19 @@ STM8FLASH=stm8flash
 SDAS=sdasstm8
 
 #select stm8s103
-CFLAGS+=  -DSTM8S103 -mstm8  -DUSE_STDPERIPH_DRIVER  
+CFLAGS+=  -DSTM8S105 -mstm8 --std-c11 -DUSE_STDPERIPH_DRIVER  
 
 #use std_periph_driver
 CFLAGS+= -I./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc 
 CFLAGS+= -I./
+CFLAGS+= -I./driver
 CFLAGS+= -I./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src
 #use compiled lib
 #CFLAGS+= -L./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/lib -lSTM8S103.lib -lstm8.lib
 #not use compiled lib
-CFLAGS+=-lstm8.lib
+#CFLAGS+=-lstm8.lib
 
-SRC=$(wildcard *.c)  ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c  ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart1.c  ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_clk.c  
+SRC=$(wildcard *.c) $(wildcard ./driver/*.c)  ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c  ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c  ./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_clk.c  
 
 OBJ1_SRC=$(patsubst %.c,%.rel,$(SRC))
 OBJ_SRC=$(patsubst %.asm,%.rel,$(OBJ1_SRC))
@@ -49,7 +50,7 @@ $(PROJECT).ihx:$(OBJ_SRC)
 	$(SDAS)  $^ -o $@
 
 flash:$(PROJECT).hex
-	$(STM8FLASH) -c stlinkv2 -p stm8s103f3 -w $(PROJECT).hex
+	sudo $(STM8FLASH) -c stlinkv2 -p stm8s105k4 -w $(PROJECT).hex
 clean:
 	-rm -rf $(OBJ_SRC) $(ASM_DST) $(LST_DST) $(RST_DST) $(SYM_DST)
 	-rm -rf $(PROJECT).ihx $(PROJECT).hex $(PROJECT).lk $(PROJECT).mem  $(PROJECT).map $(PROJECT).cdb
