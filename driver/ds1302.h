@@ -44,6 +44,8 @@ typedef struct _DS1302_TIME
   unsigned char second;
   
 }DS1302_TIME;
+
+extern void ds1302_active();// 激活ds1302;设置日期格式。
 extern void ds1302_port_deinit(void);
 extern void ds1302_port_init(void);
 extern unsigned char ds1302_check(void);

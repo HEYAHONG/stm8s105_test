@@ -1,7 +1,6 @@
 #include "ds1302.h" 
 
-//若DS1302未激活（不走时），注释掉下行
-#define DS1302_INITED
+
  
 void delay_us(unsigned int xx)
 {
@@ -39,11 +38,7 @@ void ds1302_port_init(void)
         GPIO_LOW(DS1302_PORT_RST,DS1302_RST_PIN); 
         GPIO_LOW(DS1302_PORT,DS1302_CLK_PIN); 
 
-#ifndef   DS1302_INITED         
-      ds1302_write(DS1302_CONTROL_REG,0x00); //关闭写保护
-      ds1302_write(DS1302_SEC_REG,ds1302_read(DS1302_SEC_REG) & 0x7f); //激活
-      ds1302_write(DS1302_CONTROL_REG,0x80); //打开写保护
-#endif  
+
         
 }
  
@@ -138,11 +133,7 @@ void ds1302_read_time(DS1302_TIME* time)
     time->hour=ds1302_read(DS1302_HR_REG); //时 
     time->minute=ds1302_read(DS1302_MIN_REG); //分 
     time->second=ds1302_read(DS1302_SEC_REG); //秒 
- /*
-    ds1302_write(DS1302_CONTROL_REG,0x00); //关闭写保护
-       ds1302_write(DS1302_SEC_REG,time->second & 0x7f); //激活
-     ds1302_write(DS1302_CONTROL_REG,0x80); //打开写保护
-*/
+ 
 } 
 void ds1302_write_time(DS1302_TIME* time) 
 { 
@@ -173,4 +164,13 @@ unsigned char  ds1302_read_ram(unsigned char ram_num)
     unsigned char ret;
     ret = ds1302_read((DS1302_RAM_REG|(ram_num<<2)));
     return ret;
+}
+void ds1302_active()
+{
+ds1302_port_init();
+ ds1302_write(DS1302_CONTROL_REG,0x00); //关闭写保护
+ ds1302_write(DS1302_SEC_REG,ds1302_read(DS1302_SEC_REG) & 0x7f); 
+  ds1302_write(DS1302_HR_REG,ds1302_read(DS1302_HR_REG)&0x1f);
+  ds1302_write(DS1302_CONTROL_REG,0x80); //打开写保护
+ds1302_port_deinit();
 }

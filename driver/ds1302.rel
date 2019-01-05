@@ -1,5 +1,5 @@
 XH3
-H B areas 13 global symbols
+H B areas 14 global symbols
 M ds1302
 O -mstm8
 S _GPIO_Init Ref000000
@@ -16,13 +16,14 @@ A GSINIT size 0 flags 0 addr 0
 A GSFINAL size 0 flags 0 addr 0
 A CONST size 0 flags 0 addr 0
 A INITIALIZER size 0 flags 0 addr 0
-A CODE size 2FC flags 0 addr 0
+A CODE size 336 flags 0 addr 0
 S _write_IO Def000094
 S _ds1302_read_time Def0001CF
 S _ds1302_write Def000138
 S _ds1302_read_byte Def0000ED
 S _ds1302_write_time Def000239
 S _ds1302_read_ram Def0002E9
+S _ds1302_active Def0002FC
 S _ds1302_check Def0001B7
 S _ds1302_write_byte Def0000A2
 S _ds1302_write_ram Def0002BF
@@ -226,3 +227,15 @@ T 00 02 E9 7B 03 48 48 88 49 4F A2 00 84 AA C0 88
 R 00 00 00 09
 T 00 02 F6 CD 01 76 5B 01 81
 R 00 00 00 09 00 04 00 09
+T 00 02 FC
+R 00 00 00 09
+T 00 02 FC CD 00 48 4B 00 4B 8E CD 01 38 5B 02 4B
+R 00 00 00 09 00 04 00 09 00 0B 00 09
+T 00 03 09 80 CD 01 76 5B 01 A4 7F 88 4B 80 CD
+R 00 00 00 09 00 05 00 09
+T 00 03 15 01 38 5B 02 4B 84 CD 01 76 5B 01 A4 1F
+R 00 00 00 09 00 03 00 09 00 0A 00 09
+T 00 03 22 88 4B 84 CD 01 38 5B 02 4B 80 4B 8E CD
+R 00 00 00 09 00 07 00 09
+T 00 03 2F 01 38 5B 02 CC 00 20
+R 00 00 00 09 00 03 00 09 00 08 00 09

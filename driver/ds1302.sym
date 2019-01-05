@@ -12,6 +12,7 @@ Symbol Table
     _GPIO_WriteHigh                                                ****** GX
     _GPIO_WriteLow                                                 ****** GX
   9 _delay_us                                                      000000 GR
+  9 _ds1302_active                                                 0002FC GR
   9 _ds1302_check                                                  0001B7 GR
   9 _ds1302_port_deinit                                            000020 GR
   9 _ds1302_port_init                                              000048 GR
@@ -41,6 +42,6 @@ Area Table
    6 GSFINAL                                    size      0   flags    0
    7 CONST                                      size      0   flags    0
    8 INITIALIZER                                size      0   flags    0
-   9 CODE                                       size    2FC   flags    0
+   9 CODE                                       size    336   flags    0
    A CABS                                       size      0   flags    8
 

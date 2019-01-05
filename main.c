@@ -63,6 +63,7 @@ void main(void)
 //Initialize UART
  Init_UART2();
  OLED_Init();
+ds1302_active();
  OLED_Clear();
  enableInterrupts(); //使能中断
 
