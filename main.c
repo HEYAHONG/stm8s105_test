@@ -33,6 +33,7 @@
 #include "stm8s_uart2.h"
 #include "oled.h"
 #include "bmp.h"
+#include "uart.h"
 #include "adc.h"
 #include "stdio.h"
 /* Private defines -----------------------------------------------------------*/
@@ -48,39 +49,7 @@ void Delay(uint16_t nCount)
     nCount--;
   }
 }
-void Init_UART2(void)
-{
-	UART2_DeInit();
-	UART2_Init((u32)115200, UART2_WORDLENGTH_8D, UART2_STOPBITS_1,
-UART2_PARITY_NO, UART2_SYNCMODE_CLOCK_DISABLE, UART2_MODE_TXRX_ENABLE);
 
-        UART2_ITConfig(UART2_IT_RXNE_OR, ENABLE);
-
-	UART2_Cmd(ENABLE);
-}
-
-void UART2_Send_Char(uint8_t dat)
-{
-  while(( UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET));
-
-		UART2_SendData8(dat);
-
-}
-
-void UART2_Send_STR(unsigned char * src)
-{
-while(*src !='\0')
-{
-UART2_Send_Char(*src++);
-}
-}
-int putchar(int dat) //support printf function
-{
-  while(( UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET));
-
-                UART2_SendData8((u8)dat);
-return 0;
-}
 
 
 void main(void)
@@ -88,7 +57,7 @@ void main(void)
 
 /* Initialize I/Os in Output Mode */
   GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
-//Initialize UART1
+//Initialize UART
  Init_UART2();
  OLED_Init();
  OLED_Clear();
