@@ -1,0 +1,47 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 1.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  002710 L
+    .__.ABS.                                                    =  000000 G
+    .__.CPU.                                                    =  000000 L
+    .__.H$L.                                                    =  000001 L
+  7 _F8X16                                                         000000 GR
+    _GPIO_Init                                                     ****** GX
+    _GPIO_WriteHigh                                                ****** GX
+    _GPIO_WriteLow                                                 ****** GX
+  9 _OLED_Clear                                                    000110 GR
+  9 _OLED_Display_Off                                              0000F4 GR
+  9 _OLED_Display_On                                               0000D8 GR
+  9 _OLED_Init                                                     0002C8 GR
+  9 _OLED_Set_Pos                                                  00009B GR
+  9 _OLED_ShowChar                                                 00014C GR
+  9 _OLED_ShowNum                                                  0001F8 GR
+  9 _OLED_ShowString                                               000295 GR
+  9 _OLED_WR_Byte                                                  00001E GR
+    __divsint                                                      ****** GX
+    __divulong                                                     ****** GX
+    __modulong                                                     ****** GX
+    __mullong                                                      ****** GX
+  9 _delay_ms                                                      000000 GR
+  9 _oled_pow                                                      0001C3 GR
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 2.
+Hexadecimal [24-Bits]
+
+Area Table
+
+   0 _CODE                                      size      0   flags    0
+   1 DATA                                       size      0   flags    0
+   2 INITIALIZED                                size      0   flags    0
+   3 DABS                                       size      0   flags    8
+   4 HOME                                       size      0   flags    0
+   5 GSINIT                                     size      0   flags    0
+   6 GSFINAL                                    size      0   flags    0
+   7 CONST                                      size    5F0   flags    0
+   8 INITIALIZER                                size      0   flags    0
+   9 CODE                                       size    44E   flags    0
+   A CABS                                       size      0   flags    8
+

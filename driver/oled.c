@@ -142,7 +142,7 @@ void OLED_ShowChar(u8 x,u8 y,u8 chr)
 	unsigned char c=0,i=0;
 		c=chr-' ';//得到偏移后的值
 		if(x>Max_Column-1){x=0;y=y+2;}
-		if(SIZE ==16)
+#if          (SIZE ==16)
 			{
 			OLED_Set_Pos(x,y);
 			for(i=0;i<8;i++)
@@ -151,13 +151,15 @@ void OLED_ShowChar(u8 x,u8 y,u8 chr)
 			for(i=0;i<8;i++)
 			OLED_WR_Byte(F8X16[c*16+i+8],OLED_DATA);
 			}
-			else {
+#else
+			 {
 				OLED_Set_Pos(x,y+1);
-				//for(i=0;i<6;i++)
+				for(i=0;i<6;i++)
 
-				//OLED_WR_Byte(F6x8[c][i],OLED_DATA);
+				OLED_WR_Byte(F6x8[c][i],OLED_DATA);
 
 			}
+#endif
 }
 //m^n函数
 u32 oled_pow(u8 m,u8 n)
@@ -202,6 +204,7 @@ void OLED_ShowString(u8 x,u8 y,u8 *chr)
 			j++;
 	}
 }
+#ifndef NO_CHINESE
 //显示汉字
 void OLED_ShowCHinese(u8 x,u8 y,u8 no)
 {
@@ -219,6 +222,7 @@ void OLED_ShowCHinese(u8 x,u8 y,u8 no)
 				adder+=1;
       }
 }
+#endif
 #ifndef NO_BMP
 /***********功能描述：显示显示BMP图片128×64起始点坐标(x,y),x的范围0～127，y为页的范围0～7*****************/
 void OLED_DrawBMP(unsigned char x0, unsigned char y0,unsigned char x1, unsigned char y1,unsigned char BMP[])
