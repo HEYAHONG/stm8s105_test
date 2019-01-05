@@ -9,6 +9,7 @@ Symbol Table
     .__.H$L.                                                    =  000001 L
   A _Delay                                                         000000 GR
     _GPIO_Init                                                     ****** GX
+    _GPIO_ReadInputPin                                             ****** GX
     _GPIO_WriteReverse                                             ****** GX
     _Init_UART2                                                    ****** GX
     _OLED_Clear                                                    ****** GX
@@ -18,7 +19,8 @@ Symbol Table
   8 ___str_0                                                       000000 R
   8 ___str_2                                                       00000E R
   8 ___str_3                                                       00001D R
-  8 ___str_4                                                       000021 R
+  8 ___str_4                                                       000029 R
+  8 ___str_6                                                       00002C R
   5 __interrupt_vect                                               000000 R
   6 __sdcc_gs_init_startup                                         000000 R
   6 __sdcc_init_data                                               000000 R
@@ -35,7 +37,6 @@ Symbol Table
     s_INITIALIZED                                                  ****** GX
     s_INITIALIZER                                                  ****** GX
 
-
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 2.
 Hexadecimal [24-Bits]
 
@@ -49,8 +50,8 @@ Area Table
    5 HOME                                       size      7   flags    0
    6 GSINIT                                     size     1A   flags    0
    7 GSFINAL                                    size      3   flags    0
-   8 CONST                                      size     24   flags    0
+   8 CONST                                      size     2E   flags    0
    9 INITIALIZER                                size      0   flags    0
-   A CODE                                       size     7F   flags    0
+   A CODE                                       size     B3   flags    0
    B CABS                                       size      0   flags    8
 

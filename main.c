@@ -57,6 +57,7 @@ void main(void)
 
 /* Initialize I/Os in Output Mode */
   GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
+  GPIO_Init(GPIOF,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
 //Initialize UART
  Init_UART2();
  OLED_Init();
@@ -70,8 +71,9 @@ void main(void)
   {
   /* Toggles LEDs */
     u8  temp[10];
-    sprintf(temp,"%4d",ReadADC());
+    sprintf(temp,"V:%4d,S:%1d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1);
     printf("%s",temp);
+   printf("\r\n");
     OLED_ShowString(0,2,temp);
     GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
     Delay(0xffff);

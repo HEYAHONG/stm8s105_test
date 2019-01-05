@@ -18,6 +18,7 @@
 	.globl _OLED_ShowString
 	.globl _OLED_Clear
 	.globl _OLED_Init
+	.globl _GPIO_ReadInputPin
 	.globl _GPIO_WriteReverse
 	.globl _GPIO_Init
 ;--------------------------------------------------------
@@ -116,7 +117,7 @@ _Delay:
 ;	 function main
 ;	-----------------------------------------
 _main:
-	sub	sp, #12
+	sub	sp, #14
 ;	main.c: 59: GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
 	push	#0xe0
 	push	#0x20
@@ -124,67 +125,97 @@ _main:
 	push	#0x50
 	call	_GPIO_Init
 	addw	sp, #4
-;	main.c: 61: Init_UART2();
+;	main.c: 60: GPIO_Init(GPIOF,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
+	push	#0x00
+	push	#0x10
+	push	#0x19
+	push	#0x50
+	call	_GPIO_Init
+	addw	sp, #4
+;	main.c: 62: Init_UART2();
 	call	_Init_UART2
-;	main.c: 62: OLED_Init();
+;	main.c: 63: OLED_Init();
 	call	_OLED_Init
-;	main.c: 63: OLED_Clear();
+;	main.c: 64: OLED_Clear();
 	call	_OLED_Clear
-;	main.c: 64: enableInterrupts(); //使能中断
+;	main.c: 65: enableInterrupts(); //使能中断
 	rim
-;	main.c: 66: OLED_ShowString(0,0,"STM8 Started!");
+;	main.c: 67: OLED_ShowString(0,0,"STM8 Started!");
 	push	#<___str_0
 	push	#(___str_0 >> 8)
 	push	#0x00
 	push	#0x00
 	call	_OLED_ShowString
 	addw	sp, #4
-;	main.c: 67: printf("STM8 Started!\r\n");
+;	main.c: 68: printf("STM8 Started!\r\n");
 	push	#<___str_2
 	push	#(___str_2 >> 8)
 	call	_puts
 	addw	sp, #2
-;	main.c: 69: while (1)
+;	main.c: 70: while (1)
 00102$:
-;	main.c: 73: sprintf(temp,"%4d",ReadADC());
+;	main.c: 74: sprintf(temp,"V:%4d,S:%1d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1);
+	push	#0x10
+	push	#0x19
+	push	#0x50
+	call	_GPIO_ReadInputPin
+	addw	sp, #3
+	tnz	a
+	jrne	00106$
+	clrw	x
+	ldw	(0x0b, sp), x
+	jra	00107$
+00106$:
+	ldw	x, #0x0001
+	ldw	(0x0b, sp), x
+00107$:
 	call	_ReadADC
 	ldw	y, sp
 	incw	y
-	ldw	(0x0b, sp), y
+	ldw	(0x0d, sp), y
+	ld	a, (0x0c, sp)
+	push	a
+	ld	a, (0x0c, sp)
+	push	a
 	pushw	x
 	push	#<___str_3
 	push	#(___str_3 >> 8)
 	pushw	y
 	call	_sprintf
-	addw	sp, #6
-;	main.c: 74: printf("%s",temp);
-	ldw	x, (0x0b, sp)
+	addw	sp, #8
+;	main.c: 75: printf("%s",temp);
+	ldw	x, (0x0d, sp)
 	pushw	x
 	push	#<___str_4
 	push	#(___str_4 >> 8)
 	call	_printf
 	addw	sp, #4
-;	main.c: 75: OLED_ShowString(0,2,temp);
-	ldw	x, (0x0b, sp)
+;	main.c: 76: printf("\r\n");
+	push	#<___str_6
+	push	#(___str_6 >> 8)
+	call	_puts
+	addw	sp, #2
+;	main.c: 77: OLED_ShowString(0,2,temp);
+	ldw	x, (0x0d, sp)
 	pushw	x
 	push	#0x02
 	push	#0x00
 	call	_OLED_ShowString
 	addw	sp, #4
-;	main.c: 76: GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
+;	main.c: 78: GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
 	push	#0x20
 	push	#0x14
 	push	#0x50
 	call	_GPIO_WriteReverse
 	addw	sp, #3
-;	main.c: 77: Delay(0xffff);
+;	main.c: 79: Delay(0xffff);
 	push	#0xff
 	push	#0xff
 	call	_Delay
 	addw	sp, #2
 	jra	00102$
-;	main.c: 80: }
-	addw	sp, #12
+;	main.c: 82: }
+	addw	sp, #14
 	ret
 	.area CODE
 	.area CONST
@@ -196,10 +227,13 @@ ___str_2:
 	.db 0x0d
 	.db 0x00
 ___str_3:
-	.ascii "%4d"
+	.ascii "V:%4d,S:%1d"
 	.db 0x00
 ___str_4:
 	.ascii "%s"
+	.db 0x00
+___str_6:
+	.db 0x0d
 	.db 0x00
 	.area INITIALIZER
 	.area CABS (ABS)
