@@ -95,6 +95,9 @@ ds1302_active();
     ds1302_port_deinit();
    }
    {
+    static u8 count=0;
+
+    if(count==0){
     DHT12_DATA data;
     unsigned char temp[20];
     ReadDHT12(&data);
@@ -102,9 +105,11 @@ ds1302_active();
     printf("%s",temp);
     printf("\r\n");
     OLED_ShowString(0,6,temp);
-    
+    count=6;
     
    }
+    count--;
+    }
     GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
     Delay(0xffff);
   }

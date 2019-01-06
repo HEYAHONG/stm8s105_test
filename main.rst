@@ -14,345 +14,432 @@
                                      14 	.globl _sprintf
                                      15 	.globl _printf
                                      16 	.globl _ReadADC
-                                     17 	.globl _ds1302_read_time
-                                     18 	.globl _ds1302_check
-                                     19 	.globl _ds1302_port_init
-                                     20 	.globl _ds1302_port_deinit
-                                     21 	.globl _ds1302_active
-                                     22 	.globl _Init_UART2
-                                     23 	.globl _OLED_ShowString
-                                     24 	.globl _OLED_Clear
-                                     25 	.globl _OLED_Init
-                                     26 	.globl _GPIO_ReadInputPin
-                                     27 	.globl _GPIO_WriteReverse
-                                     28 	.globl _GPIO_Init
-                                     29 ;--------------------------------------------------------
-                                     30 ; ram data
-                                     31 ;--------------------------------------------------------
-                                     32 	.area DATA
-                                     33 ;--------------------------------------------------------
-                                     34 ; ram data
-                                     35 ;--------------------------------------------------------
-                                     36 	.area INITIALIZED
-                                     37 ;--------------------------------------------------------
-                                     38 ; Stack segment in internal ram 
-                                     39 ;--------------------------------------------------------
-                                     40 	.area	SSEG
-      FFFFFF                         41 __start__stack:
-      FFFFFF                         42 	.ds	1
-                                     43 
-                                     44 ;--------------------------------------------------------
-                                     45 ; absolute external ram data
-                                     46 ;--------------------------------------------------------
-                                     47 	.area DABS (ABS)
-                                     48 
-                                     49 ; default segment ordering for linker
-                                     50 	.area HOME
-                                     51 	.area GSINIT
-                                     52 	.area GSFINAL
-                                     53 	.area CONST
-                                     54 	.area INITIALIZER
-                                     55 	.area CODE
-                                     56 
-                                     57 ;--------------------------------------------------------
-                                     58 ; interrupt vector 
-                                     59 ;--------------------------------------------------------
-                                     60 	.area HOME
-      008000                         61 __interrupt_vect:
-      008000 82 00 80 07             62 	int s_GSINIT ; reset
-                                     63 ;--------------------------------------------------------
-                                     64 ; global & static initialisations
-                                     65 ;--------------------------------------------------------
-                                     66 	.area HOME
-                                     67 	.area GSINIT
-                                     68 	.area GSFINAL
-                                     69 	.area GSINIT
-      008007                         70 __sdcc_gs_init_startup:
-      008007                         71 __sdcc_init_data:
-                                     72 ; stm8_genXINIT() start
-      008007 AE 00 00         [ 2]   73 	ldw x, #l_DATA
-      00800A 27 07            [ 1]   74 	jreq	00002$
-      00800C                         75 00001$:
-      00800C 72 4F 00 00      [ 1]   76 	clr (s_DATA - 1, x)
-      008010 5A               [ 2]   77 	decw x
-      008011 26 F9            [ 1]   78 	jrne	00001$
-      008013                         79 00002$:
-      008013 AE 00 00         [ 2]   80 	ldw	x, #l_INITIALIZER
-      008016 27 09            [ 1]   81 	jreq	00004$
-      008018                         82 00003$:
-      008018 D6 86 5C         [ 1]   83 	ld	a, (s_INITIALIZER - 1, x)
-      00801B D7 00 00         [ 1]   84 	ld	(s_INITIALIZED - 1, x), a
-      00801E 5A               [ 2]   85 	decw	x
-      00801F 26 F7            [ 1]   86 	jrne	00003$
-      008021                         87 00004$:
-                                     88 ; stm8_genXINIT() end
-                                     89 	.area GSFINAL
-      008021 CC 80 04         [ 2]   90 	jp	__sdcc_program_startup
-                                     91 ;--------------------------------------------------------
-                                     92 ; Home
-                                     93 ;--------------------------------------------------------
-                                     94 	.area HOME
-                                     95 	.area HOME
-      008004                         96 __sdcc_program_startup:
-      008004 CC 86 7D         [ 2]   97 	jp	_main
-                                     98 ;	return from main will return to caller
-                                     99 ;--------------------------------------------------------
-                                    100 ; code
-                                    101 ;--------------------------------------------------------
-                                    102 	.area CODE
-                                    103 ;	main.c: 46: void Delay(uint16_t nCount)
-                                    104 ;	-----------------------------------------
-                                    105 ;	 function Delay
-                                    106 ;	-----------------------------------------
-      008673                        107 _Delay:
-                                    108 ;	main.c: 49: while (nCount != 0)
-      008673 1E 03            [ 2]  109 	ldw	x, (0x03, sp)
-      008675                        110 00101$:
-      008675 5D               [ 2]  111 	tnzw	x
-      008676 26 01            [ 1]  112 	jrne	00117$
-      008678 81               [ 4]  113 	ret
-      008679                        114 00117$:
-                                    115 ;	main.c: 51: nCount--;
-      008679 5A               [ 2]  116 	decw	x
-      00867A 20 F9            [ 2]  117 	jra	00101$
-                                    118 ;	main.c: 53: }
-      00867C 81               [ 4]  119 	ret
-                                    120 ;	main.c: 57: void main(void)
-                                    121 ;	-----------------------------------------
-                                    122 ;	 function main
-                                    123 ;	-----------------------------------------
-      00867D                        124 _main:
-      00867D 52 27            [ 2]  125 	sub	sp, #39
-                                    126 ;	main.c: 61: GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
-      00867F 4B E0            [ 1]  127 	push	#0xe0
-      008681 4B 20            [ 1]  128 	push	#0x20
-      008683 4B 14            [ 1]  129 	push	#0x14
-      008685 4B 50            [ 1]  130 	push	#0x50
-      008687 CD 90 4B         [ 4]  131 	call	_GPIO_Init
-      00868A 5B 04            [ 2]  132 	addw	sp, #4
-                                    133 ;	main.c: 62: GPIO_Init(GPIOF,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
-      00868C 4B 00            [ 1]  134 	push	#0x00
-      00868E 4B 10            [ 1]  135 	push	#0x10
-      008690 4B 19            [ 1]  136 	push	#0x19
-      008692 4B 50            [ 1]  137 	push	#0x50
-      008694 CD 90 4B         [ 4]  138 	call	_GPIO_Init
-      008697 5B 04            [ 2]  139 	addw	sp, #4
-                                    140 ;	main.c: 64: Init_UART2();
-      008699 CD 87 E6         [ 4]  141 	call	_Init_UART2
-                                    142 ;	main.c: 65: OLED_Init();
-      00869C CD 8E 64         [ 4]  143 	call	_OLED_Init
-                                    144 ;	main.c: 66: ds1302_active();
-      00869F CD 8B 62         [ 4]  145 	call	_ds1302_active
-                                    146 ;	main.c: 67: OLED_Clear();
-      0086A2 CD 8C AC         [ 4]  147 	call	_OLED_Clear
-                                    148 ;	main.c: 68: enableInterrupts(); //使能中断
-      0086A5 9A               [ 1]  149 	rim
-                                    150 ;	main.c: 70: OLED_ShowString(0,0,"STM8 Started!");
-      0086A6 4B 24            [ 1]  151 	push	#<___str_0
-      0086A8 4B 80            [ 1]  152 	push	#(___str_0 >> 8)
-      0086AA 4B 00            [ 1]  153 	push	#0x00
-      0086AC 4B 00            [ 1]  154 	push	#0x00
-      0086AE CD 8E 31         [ 4]  155 	call	_OLED_ShowString
-      0086B1 5B 04            [ 2]  156 	addw	sp, #4
-                                    157 ;	main.c: 71: printf("STM8 Started!\r\n");
-      0086B3 4B 32            [ 1]  158 	push	#<___str_2
-      0086B5 4B 80            [ 1]  159 	push	#(___str_2 >> 8)
-      0086B7 CD 9E 83         [ 4]  160 	call	_puts
-      0086BA 5B 02            [ 2]  161 	addw	sp, #2
-                                    162 ;	main.c: 73: while (1)
-      0086BC                        163 00104$:
-                                    164 ;	main.c: 77: sprintf(temp,"V:%4d,S:%1d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1);
-      0086BC 4B 10            [ 1]  165 	push	#0x10
-      0086BE 4B 19            [ 1]  166 	push	#0x19
-      0086C0 4B 50            [ 1]  167 	push	#0x50
-      0086C2 CD 90 EB         [ 4]  168 	call	_GPIO_ReadInputPin
-      0086C5 5B 03            [ 2]  169 	addw	sp, #3
-      0086C7 4D               [ 1]  170 	tnz	a
-      0086C8 26 05            [ 1]  171 	jrne	00108$
-      0086CA 5F               [ 1]  172 	clrw	x
-      0086CB 1F 1A            [ 2]  173 	ldw	(0x1a, sp), x
-      0086CD 20 05            [ 2]  174 	jra	00109$
-      0086CF                        175 00108$:
-      0086CF AE 00 01         [ 2]  176 	ldw	x, #0x0001
-      0086D2 1F 1A            [ 2]  177 	ldw	(0x1a, sp), x
-      0086D4                        178 00109$:
-      0086D4 CD 8F EA         [ 4]  179 	call	_ReadADC
-      0086D7 90 96            [ 1]  180 	ldw	y, sp
-      0086D9 72 A9 00 08      [ 2]  181 	addw	y, #8
-      0086DD 17 20            [ 2]  182 	ldw	(0x20, sp), y
-      0086DF 7B 1B            [ 1]  183 	ld	a, (0x1b, sp)
-      0086E1 88               [ 1]  184 	push	a
-      0086E2 7B 1B            [ 1]  185 	ld	a, (0x1b, sp)
-      0086E4 88               [ 1]  186 	push	a
-      0086E5 89               [ 2]  187 	pushw	x
-      0086E6 4B 41            [ 1]  188 	push	#<___str_3
-      0086E8 4B 80            [ 1]  189 	push	#(___str_3 >> 8)
-      0086EA 90 89            [ 2]  190 	pushw	y
-      0086EC CD 9E 09         [ 4]  191 	call	_sprintf
-      0086EF 5B 08            [ 2]  192 	addw	sp, #8
-                                    193 ;	main.c: 78: printf("%s",temp);
-      0086F1 1E 20            [ 2]  194 	ldw	x, (0x20, sp)
-      0086F3 89               [ 2]  195 	pushw	x
-      0086F4 4B 4D            [ 1]  196 	push	#<___str_4
-      0086F6 4B 80            [ 1]  197 	push	#(___str_4 >> 8)
-      0086F8 CD 9E C4         [ 4]  198 	call	_printf
-      0086FB 5B 04            [ 2]  199 	addw	sp, #4
-                                    200 ;	main.c: 79: printf("\r\n");
-      0086FD 4B 50            [ 1]  201 	push	#<___str_6
-      0086FF 4B 80            [ 1]  202 	push	#(___str_6 >> 8)
-      008701 CD 9E 83         [ 4]  203 	call	_puts
-      008704 5B 02            [ 2]  204 	addw	sp, #2
-                                    205 ;	main.c: 80: OLED_ShowString(0,2,temp);
-      008706 1E 20            [ 2]  206 	ldw	x, (0x20, sp)
-      008708 89               [ 2]  207 	pushw	x
-      008709 4B 02            [ 1]  208 	push	#0x02
-      00870B 4B 00            [ 1]  209 	push	#0x00
-      00870D CD 8E 31         [ 4]  210 	call	_OLED_ShowString
-      008710 5B 04            [ 2]  211 	addw	sp, #4
-                                    212 ;	main.c: 83: ds1302_port_init();
-      008712 CD 88 AE         [ 4]  213 	call	_ds1302_port_init
-                                    214 ;	main.c: 84: if(ds1302_check())
-      008715 CD 8A 1D         [ 4]  215 	call	_ds1302_check
-      008718 4D               [ 1]  216 	tnz	a
-      008719 26 03            [ 1]  217 	jrne	00126$
-      00871B CC 87 CC         [ 2]  218 	jp	00102$
-      00871E                        219 00126$:
-                                    220 ;	main.c: 88: ds1302_read_time(&ds_time);
-      00871E 96               [ 1]  221 	ldw	x, sp
-      00871F 5C               [ 1]  222 	incw	x
-      008720 1F 26            [ 2]  223 	ldw	(0x26, sp), x
-      008722 89               [ 2]  224 	pushw	x
-      008723 CD 8A 35         [ 4]  225 	call	_ds1302_read_time
-      008726 5B 02            [ 2]  226 	addw	sp, #2
-                                    227 ;	main.c: 89: sprintf(temp,"%2d/%2d/%2d",ds_time.hour,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16);
-      008728 1E 26            [ 2]  228 	ldw	x, (0x26, sp)
-      00872A E6 06            [ 1]  229 	ld	a, (0x6, x)
-      00872C 6B 23            [ 1]  230 	ld	(0x23, sp), a
-      00872E 0F 22            [ 1]  231 	clr	(0x22, sp)
-      008730 4B 10            [ 1]  232 	push	#0x10
-      008732 4B 00            [ 1]  233 	push	#0x00
-      008734 1E 24            [ 2]  234 	ldw	x, (0x24, sp)
-      008736 89               [ 2]  235 	pushw	x
-      008737 CD 9F 6C         [ 4]  236 	call	__divsint
-      00873A 5B 04            [ 2]  237 	addw	sp, #4
-      00873C 89               [ 2]  238 	pushw	x
-      00873D 58               [ 2]  239 	sllw	x
-      00873E 58               [ 2]  240 	sllw	x
-      00873F 72 FB 01         [ 2]  241 	addw	x, (1, sp)
-      008742 58               [ 2]  242 	sllw	x
-      008743 5B 02            [ 2]  243 	addw	sp, #2
-      008745 1F 14            [ 2]  244 	ldw	(0x14, sp), x
-      008747 4B 10            [ 1]  245 	push	#0x10
-      008749 4B 00            [ 1]  246 	push	#0x00
-      00874B 1E 24            [ 2]  247 	ldw	x, (0x24, sp)
-      00874D 89               [ 2]  248 	pushw	x
-      00874E CD 9F 56         [ 4]  249 	call	__modsint
-      008751 5B 04            [ 2]  250 	addw	sp, #4
-      008753 72 FB 14         [ 2]  251 	addw	x, (0x14, sp)
-      008756 1F 24            [ 2]  252 	ldw	(0x24, sp), x
-      008758 1E 26            [ 2]  253 	ldw	x, (0x26, sp)
-      00875A E6 05            [ 1]  254 	ld	a, (0x5, x)
-      00875C 6B 1F            [ 1]  255 	ld	(0x1f, sp), a
-      00875E 0F 1E            [ 1]  256 	clr	(0x1e, sp)
-      008760 4B 10            [ 1]  257 	push	#0x10
-      008762 4B 00            [ 1]  258 	push	#0x00
-      008764 1E 20            [ 2]  259 	ldw	x, (0x20, sp)
-      008766 89               [ 2]  260 	pushw	x
-      008767 CD 9F 6C         [ 4]  261 	call	__divsint
-      00876A 5B 04            [ 2]  262 	addw	sp, #4
-      00876C 89               [ 2]  263 	pushw	x
-      00876D 58               [ 2]  264 	sllw	x
-      00876E 58               [ 2]  265 	sllw	x
-      00876F 72 FB 01         [ 2]  266 	addw	x, (1, sp)
-      008772 58               [ 2]  267 	sllw	x
-      008773 5B 02            [ 2]  268 	addw	sp, #2
-      008775 1F 1C            [ 2]  269 	ldw	(0x1c, sp), x
-      008777 4B 10            [ 1]  270 	push	#0x10
-      008779 4B 00            [ 1]  271 	push	#0x00
-      00877B 1E 20            [ 2]  272 	ldw	x, (0x20, sp)
-      00877D 89               [ 2]  273 	pushw	x
-      00877E CD 9F 56         [ 4]  274 	call	__modsint
-      008781 5B 04            [ 2]  275 	addw	sp, #4
-      008783 72 FB 1C         [ 2]  276 	addw	x, (0x1c, sp)
-      008786 1F 18            [ 2]  277 	ldw	(0x18, sp), x
-      008788 1E 26            [ 2]  278 	ldw	x, (0x26, sp)
-      00878A E6 04            [ 1]  279 	ld	a, (0x4, x)
-      00878C 0F 16            [ 1]  280 	clr	(0x16, sp)
-      00878E 96               [ 1]  281 	ldw	x, sp
-      00878F 1C 00 08         [ 2]  282 	addw	x, #8
-      008792 1F 12            [ 2]  283 	ldw	(0x12, sp), x
-      008794 90 93            [ 1]  284 	ldw	y, x
-      008796 1E 24            [ 2]  285 	ldw	x, (0x24, sp)
-      008798 89               [ 2]  286 	pushw	x
-      008799 1E 1A            [ 2]  287 	ldw	x, (0x1a, sp)
-      00879B 89               [ 2]  288 	pushw	x
-      00879C 88               [ 1]  289 	push	a
-      00879D 7B 1B            [ 1]  290 	ld	a, (0x1b, sp)
-      00879F 88               [ 1]  291 	push	a
-      0087A0 4B 52            [ 1]  292 	push	#<___str_7
-      0087A2 4B 80            [ 1]  293 	push	#(___str_7 >> 8)
-      0087A4 90 89            [ 2]  294 	pushw	y
-      0087A6 CD 9E 09         [ 4]  295 	call	_sprintf
-      0087A9 5B 0A            [ 2]  296 	addw	sp, #10
-                                    297 ;	main.c: 90: printf("%s",temp);
-      0087AB 1E 12            [ 2]  298 	ldw	x, (0x12, sp)
-      0087AD 89               [ 2]  299 	pushw	x
-      0087AE 4B 4D            [ 1]  300 	push	#<___str_4
-      0087B0 4B 80            [ 1]  301 	push	#(___str_4 >> 8)
-      0087B2 CD 9E C4         [ 4]  302 	call	_printf
-      0087B5 5B 04            [ 2]  303 	addw	sp, #4
-                                    304 ;	main.c: 91: printf("\r\n");
-      0087B7 4B 50            [ 1]  305 	push	#<___str_6
-      0087B9 4B 80            [ 1]  306 	push	#(___str_6 >> 8)
-      0087BB CD 9E 83         [ 4]  307 	call	_puts
-      0087BE 5B 02            [ 2]  308 	addw	sp, #2
-                                    309 ;	main.c: 92: OLED_ShowString(0,4,temp);
-      0087C0 1E 12            [ 2]  310 	ldw	x, (0x12, sp)
-      0087C2 89               [ 2]  311 	pushw	x
-      0087C3 4B 04            [ 1]  312 	push	#0x04
-      0087C5 4B 00            [ 1]  313 	push	#0x00
-      0087C7 CD 8E 31         [ 4]  314 	call	_OLED_ShowString
-      0087CA 5B 04            [ 2]  315 	addw	sp, #4
-      0087CC                        316 00102$:
-                                    317 ;	main.c: 94: ds1302_port_deinit();
-      0087CC CD 88 86         [ 4]  318 	call	_ds1302_port_deinit
-                                    319 ;	main.c: 96: GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
-      0087CF 4B 20            [ 1]  320 	push	#0x20
-      0087D1 4B 14            [ 1]  321 	push	#0x14
-      0087D3 4B 50            [ 1]  322 	push	#0x50
-      0087D5 CD 90 DB         [ 4]  323 	call	_GPIO_WriteReverse
-      0087D8 5B 03            [ 2]  324 	addw	sp, #3
-                                    325 ;	main.c: 97: Delay(0xffff);
-      0087DA 4B FF            [ 1]  326 	push	#0xff
-      0087DC 4B FF            [ 1]  327 	push	#0xff
-      0087DE CD 86 73         [ 4]  328 	call	_Delay
-      0087E1 5B 02            [ 2]  329 	addw	sp, #2
-                                    330 ;	main.c: 100: }
-      0087E3 CC 86 BC         [ 2]  331 	jp	00104$
-                                    332 	.area CODE
-                                    333 	.area CONST
-      008024                        334 ___str_0:
-      008024 53 54 4D 38 20 53 74   335 	.ascii "STM8 Started!"
+                                     17 	.globl _ReadDHT12
+                                     18 	.globl _ds1302_read_time
+                                     19 	.globl _ds1302_check
+                                     20 	.globl _ds1302_port_init
+                                     21 	.globl _ds1302_port_deinit
+                                     22 	.globl _ds1302_active
+                                     23 	.globl _Init_UART2
+                                     24 	.globl _OLED_ShowString
+                                     25 	.globl _OLED_Clear
+                                     26 	.globl _OLED_Init
+                                     27 	.globl _GPIO_ReadInputPin
+                                     28 	.globl _GPIO_WriteReverse
+                                     29 	.globl _GPIO_Init
+                                     30 ;--------------------------------------------------------
+                                     31 ; ram data
+                                     32 ;--------------------------------------------------------
+                                     33 	.area DATA
+      000001                         34 _main_count_196608_387:
+      000001                         35 	.ds 1
+                                     36 ;--------------------------------------------------------
+                                     37 ; ram data
+                                     38 ;--------------------------------------------------------
+                                     39 	.area INITIALIZED
+                                     40 ;--------------------------------------------------------
+                                     41 ; Stack segment in internal ram 
+                                     42 ;--------------------------------------------------------
+                                     43 	.area	SSEG
+      FFFFFF                         44 __start__stack:
+      FFFFFF                         45 	.ds	1
+                                     46 
+                                     47 ;--------------------------------------------------------
+                                     48 ; absolute external ram data
+                                     49 ;--------------------------------------------------------
+                                     50 	.area DABS (ABS)
+                                     51 
+                                     52 ; default segment ordering for linker
+                                     53 	.area HOME
+                                     54 	.area GSINIT
+                                     55 	.area GSFINAL
+                                     56 	.area CONST
+                                     57 	.area INITIALIZER
+                                     58 	.area CODE
+                                     59 
+                                     60 ;--------------------------------------------------------
+                                     61 ; interrupt vector 
+                                     62 ;--------------------------------------------------------
+                                     63 	.area HOME
+      008000                         64 __interrupt_vect:
+      008000 82 00 80 07             65 	int s_GSINIT ; reset
+                                     66 ;--------------------------------------------------------
+                                     67 ; global & static initialisations
+                                     68 ;--------------------------------------------------------
+                                     69 	.area HOME
+                                     70 	.area GSINIT
+                                     71 	.area GSFINAL
+                                     72 	.area GSINIT
+      008007                         73 __sdcc_gs_init_startup:
+      008007                         74 __sdcc_init_data:
+                                     75 ; stm8_genXINIT() start
+      008007 AE 00 01         [ 2]   76 	ldw x, #l_DATA
+      00800A 27 07            [ 1]   77 	jreq	00002$
+      00800C                         78 00001$:
+      00800C 72 4F 00 00      [ 1]   79 	clr (s_DATA - 1, x)
+      008010 5A               [ 2]   80 	decw x
+      008011 26 F9            [ 1]   81 	jrne	00001$
+      008013                         82 00002$:
+      008013 AE 00 00         [ 2]   83 	ldw	x, #l_INITIALIZER
+      008016 27 09            [ 1]   84 	jreq	00004$
+      008018                         85 00003$:
+      008018 D6 86 77         [ 1]   86 	ld	a, (s_INITIALIZER - 1, x)
+      00801B D7 00 01         [ 1]   87 	ld	(s_INITIALIZED - 1, x), a
+      00801E 5A               [ 2]   88 	decw	x
+      00801F 26 F7            [ 1]   89 	jrne	00003$
+      008021                         90 00004$:
+                                     91 ; stm8_genXINIT() end
+                                     92 ;	main.c: 98: static u8 count=0;
+      008021 72 5F 00 01      [ 1]   93 	clr	_main_count_196608_387+0
+                                     94 	.area GSFINAL
+      008025 CC 80 04         [ 2]   95 	jp	__sdcc_program_startup
+                                     96 ;--------------------------------------------------------
+                                     97 ; Home
+                                     98 ;--------------------------------------------------------
+                                     99 	.area HOME
+                                    100 	.area HOME
+      008004                        101 __sdcc_program_startup:
+      008004 CC 86 98         [ 2]  102 	jp	_main
+                                    103 ;	return from main will return to caller
+                                    104 ;--------------------------------------------------------
+                                    105 ; code
+                                    106 ;--------------------------------------------------------
+                                    107 	.area CODE
+                                    108 ;	main.c: 47: void Delay(uint16_t nCount)
+                                    109 ;	-----------------------------------------
+                                    110 ;	 function Delay
+                                    111 ;	-----------------------------------------
+      00868E                        112 _Delay:
+                                    113 ;	main.c: 50: while (nCount != 0)
+      00868E 1E 03            [ 2]  114 	ldw	x, (0x03, sp)
+      008690                        115 00101$:
+      008690 5D               [ 2]  116 	tnzw	x
+      008691 26 01            [ 1]  117 	jrne	00117$
+      008693 81               [ 4]  118 	ret
+      008694                        119 00117$:
+                                    120 ;	main.c: 52: nCount--;
+      008694 5A               [ 2]  121 	decw	x
+      008695 20 F9            [ 2]  122 	jra	00101$
+                                    123 ;	main.c: 54: }
+      008697 81               [ 4]  124 	ret
+                                    125 ;	main.c: 58: void main(void)
+                                    126 ;	-----------------------------------------
+                                    127 ;	 function main
+                                    128 ;	-----------------------------------------
+      008698                        129 _main:
+      008698 52 3A            [ 2]  130 	sub	sp, #58
+                                    131 ;	main.c: 62: GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
+      00869A 4B E0            [ 1]  132 	push	#0xe0
+      00869C 4B 20            [ 1]  133 	push	#0x20
+      00869E 4B 14            [ 1]  134 	push	#0x14
+      0086A0 4B 50            [ 1]  135 	push	#0x50
+      0086A2 CD 94 CE         [ 4]  136 	call	_GPIO_Init
+      0086A5 5B 04            [ 2]  137 	addw	sp, #4
+                                    138 ;	main.c: 63: GPIO_Init(GPIOF,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
+      0086A7 4B 00            [ 1]  139 	push	#0x00
+      0086A9 4B 10            [ 1]  140 	push	#0x10
+      0086AB 4B 19            [ 1]  141 	push	#0x19
+      0086AD 4B 50            [ 1]  142 	push	#0x50
+      0086AF CD 94 CE         [ 4]  143 	call	_GPIO_Init
+      0086B2 5B 04            [ 2]  144 	addw	sp, #4
+                                    145 ;	main.c: 65: Init_UART2();
+      0086B4 CD 8C 69         [ 4]  146 	call	_Init_UART2
+                                    147 ;	main.c: 66: OLED_Init();
+      0086B7 CD 92 E7         [ 4]  148 	call	_OLED_Init
+                                    149 ;	main.c: 67: ds1302_active();
+      0086BA CD 8F E5         [ 4]  150 	call	_ds1302_active
+                                    151 ;	main.c: 68: OLED_Clear();
+      0086BD CD 91 2F         [ 4]  152 	call	_OLED_Clear
+                                    153 ;	main.c: 69: enableInterrupts(); //使能中断
+      0086C0 9A               [ 1]  154 	rim
+                                    155 ;	main.c: 71: OLED_ShowString(0,0,"STM8 Started!");
+      0086C1 4B 28            [ 1]  156 	push	#<___str_0
+      0086C3 4B 80            [ 1]  157 	push	#(___str_0 >> 8)
+      0086C5 4B 00            [ 1]  158 	push	#0x00
+      0086C7 4B 00            [ 1]  159 	push	#0x00
+      0086C9 CD 92 B4         [ 4]  160 	call	_OLED_ShowString
+      0086CC 5B 04            [ 2]  161 	addw	sp, #4
+                                    162 ;	main.c: 72: printf("STM8 Started!\r\n");
+      0086CE 4B 36            [ 1]  163 	push	#<___str_2
+      0086D0 4B 80            [ 1]  164 	push	#(___str_2 >> 8)
+      0086D2 CD A3 06         [ 4]  165 	call	_puts
+      0086D5 5B 02            [ 2]  166 	addw	sp, #2
+                                    167 ;	main.c: 74: while (1)
+      0086D7                        168 00106$:
+                                    169 ;	main.c: 78: sprintf(temp,"V:%4d,S:%1d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1);
+      0086D7 4B 10            [ 1]  170 	push	#0x10
+      0086D9 4B 19            [ 1]  171 	push	#0x19
+      0086DB 4B 50            [ 1]  172 	push	#0x50
+      0086DD CD 95 6E         [ 4]  173 	call	_GPIO_ReadInputPin
+      0086E0 5B 03            [ 2]  174 	addw	sp, #3
+      0086E2 4D               [ 1]  175 	tnz	a
+      0086E3 26 05            [ 1]  176 	jrne	00110$
+      0086E5 5F               [ 1]  177 	clrw	x
+      0086E6 1F 2F            [ 2]  178 	ldw	(0x2f, sp), x
+      0086E8 20 05            [ 2]  179 	jra	00111$
+      0086EA                        180 00110$:
+      0086EA AE 00 01         [ 2]  181 	ldw	x, #0x0001
+      0086ED 1F 2F            [ 2]  182 	ldw	(0x2f, sp), x
+      0086EF                        183 00111$:
+      0086EF CD 94 6D         [ 4]  184 	call	_ReadADC
+      0086F2 90 96            [ 1]  185 	ldw	y, sp
+      0086F4 72 A9 00 10      [ 2]  186 	addw	y, #16
+      0086F8 17 25            [ 2]  187 	ldw	(0x25, sp), y
+      0086FA 7B 30            [ 1]  188 	ld	a, (0x30, sp)
+      0086FC 88               [ 1]  189 	push	a
+      0086FD 7B 30            [ 1]  190 	ld	a, (0x30, sp)
+      0086FF 88               [ 1]  191 	push	a
+      008700 89               [ 2]  192 	pushw	x
+      008701 4B 45            [ 1]  193 	push	#<___str_3
+      008703 4B 80            [ 1]  194 	push	#(___str_3 >> 8)
+      008705 90 89            [ 2]  195 	pushw	y
+      008707 CD A2 8C         [ 4]  196 	call	_sprintf
+      00870A 5B 08            [ 2]  197 	addw	sp, #8
+                                    198 ;	main.c: 79: printf("%s",temp);
+      00870C 1E 25            [ 2]  199 	ldw	x, (0x25, sp)
+      00870E 89               [ 2]  200 	pushw	x
+      00870F 4B 51            [ 1]  201 	push	#<___str_4
+      008711 4B 80            [ 1]  202 	push	#(___str_4 >> 8)
+      008713 CD A3 47         [ 4]  203 	call	_printf
+      008716 5B 04            [ 2]  204 	addw	sp, #4
+                                    205 ;	main.c: 80: printf("\r\n");
+      008718 4B 54            [ 1]  206 	push	#<___str_6
+      00871A 4B 80            [ 1]  207 	push	#(___str_6 >> 8)
+      00871C CD A3 06         [ 4]  208 	call	_puts
+      00871F 5B 02            [ 2]  209 	addw	sp, #2
+                                    210 ;	main.c: 81: OLED_ShowString(0,2,temp);
+      008721 1E 25            [ 2]  211 	ldw	x, (0x25, sp)
+      008723 89               [ 2]  212 	pushw	x
+      008724 4B 02            [ 1]  213 	push	#0x02
+      008726 4B 00            [ 1]  214 	push	#0x00
+      008728 CD 92 B4         [ 4]  215 	call	_OLED_ShowString
+      00872B 5B 04            [ 2]  216 	addw	sp, #4
+                                    217 ;	main.c: 84: ds1302_port_init();
+      00872D CD 8D 31         [ 4]  218 	call	_ds1302_port_init
+                                    219 ;	main.c: 85: if(ds1302_check())
+      008730 CD 8E A0         [ 4]  220 	call	_ds1302_check
+      008733 6B 1C            [ 1]  221 	ld	(0x1c, sp), a
+      008735 26 03            [ 1]  222 	jrne	00133$
+      008737 CC 87 EB         [ 2]  223 	jp	00102$
+      00873A                        224 00133$:
+                                    225 ;	main.c: 89: ds1302_read_time(&ds_time);
+      00873A 96               [ 1]  226 	ldw	x, sp
+      00873B 1C 00 09         [ 2]  227 	addw	x, #9
+      00873E 1F 1A            [ 2]  228 	ldw	(0x1a, sp), x
+      008740 89               [ 2]  229 	pushw	x
+      008741 CD 8E B8         [ 4]  230 	call	_ds1302_read_time
+      008744 5B 02            [ 2]  231 	addw	sp, #2
+                                    232 ;	main.c: 90: sprintf(temp,"%2d/%2d/%2d",ds_time.hour,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16);
+      008746 1E 1A            [ 2]  233 	ldw	x, (0x1a, sp)
+      008748 E6 06            [ 1]  234 	ld	a, (0x6, x)
+      00874A 6B 2C            [ 1]  235 	ld	(0x2c, sp), a
+      00874C 0F 2B            [ 1]  236 	clr	(0x2b, sp)
+      00874E 4B 10            [ 1]  237 	push	#0x10
+      008750 4B 00            [ 1]  238 	push	#0x00
+      008752 1E 2D            [ 2]  239 	ldw	x, (0x2d, sp)
+      008754 89               [ 2]  240 	pushw	x
+      008755 CD A3 EF         [ 4]  241 	call	__divsint
+      008758 5B 04            [ 2]  242 	addw	sp, #4
+      00875A 89               [ 2]  243 	pushw	x
+      00875B 58               [ 2]  244 	sllw	x
+      00875C 58               [ 2]  245 	sllw	x
+      00875D 72 FB 01         [ 2]  246 	addw	x, (1, sp)
+      008760 58               [ 2]  247 	sllw	x
+      008761 5B 02            [ 2]  248 	addw	sp, #2
+      008763 1F 2D            [ 2]  249 	ldw	(0x2d, sp), x
+      008765 4B 10            [ 1]  250 	push	#0x10
+      008767 4B 00            [ 1]  251 	push	#0x00
+      008769 1E 2D            [ 2]  252 	ldw	x, (0x2d, sp)
+      00876B 89               [ 2]  253 	pushw	x
+      00876C CD A3 D9         [ 4]  254 	call	__modsint
+      00876F 5B 04            [ 2]  255 	addw	sp, #4
+      008771 72 FB 2D         [ 2]  256 	addw	x, (0x2d, sp)
+      008774 1F 27            [ 2]  257 	ldw	(0x27, sp), x
+      008776 1E 1A            [ 2]  258 	ldw	x, (0x1a, sp)
+      008778 E6 05            [ 1]  259 	ld	a, (0x5, x)
+      00877A 6B 3A            [ 1]  260 	ld	(0x3a, sp), a
+      00877C 0F 39            [ 1]  261 	clr	(0x39, sp)
+      00877E 4B 10            [ 1]  262 	push	#0x10
+      008780 4B 00            [ 1]  263 	push	#0x00
+      008782 1E 3B            [ 2]  264 	ldw	x, (0x3b, sp)
+      008784 89               [ 2]  265 	pushw	x
+      008785 CD A3 EF         [ 4]  266 	call	__divsint
+      008788 5B 04            [ 2]  267 	addw	sp, #4
+      00878A 89               [ 2]  268 	pushw	x
+      00878B 58               [ 2]  269 	sllw	x
+      00878C 58               [ 2]  270 	sllw	x
+      00878D 72 FB 01         [ 2]  271 	addw	x, (1, sp)
+      008790 58               [ 2]  272 	sllw	x
+      008791 5B 02            [ 2]  273 	addw	sp, #2
+      008793 1F 29            [ 2]  274 	ldw	(0x29, sp), x
+      008795 4B 10            [ 1]  275 	push	#0x10
+      008797 4B 00            [ 1]  276 	push	#0x00
+      008799 1E 3B            [ 2]  277 	ldw	x, (0x3b, sp)
+      00879B 89               [ 2]  278 	pushw	x
+      00879C CD A3 D9         [ 4]  279 	call	__modsint
+      00879F 5B 04            [ 2]  280 	addw	sp, #4
+      0087A1 72 FB 29         [ 2]  281 	addw	x, (0x29, sp)
+      0087A4 16 1A            [ 2]  282 	ldw	y, (0x1a, sp)
+      0087A6 90 E6 04         [ 1]  283 	ld	a, (0x4, y)
+      0087A9 6B 38            [ 1]  284 	ld	(0x38, sp), a
+      0087AB 0F 37            [ 1]  285 	clr	(0x37, sp)
+      0087AD 90 96            [ 1]  286 	ldw	y, sp
+      0087AF 72 A9 00 10      [ 2]  287 	addw	y, #16
+      0087B3 17 1D            [ 2]  288 	ldw	(0x1d, sp), y
+      0087B5 7B 28            [ 1]  289 	ld	a, (0x28, sp)
+      0087B7 88               [ 1]  290 	push	a
+      0087B8 7B 28            [ 1]  291 	ld	a, (0x28, sp)
+      0087BA 88               [ 1]  292 	push	a
+      0087BB 89               [ 2]  293 	pushw	x
+      0087BC 1E 3B            [ 2]  294 	ldw	x, (0x3b, sp)
+      0087BE 89               [ 2]  295 	pushw	x
+      0087BF 4B 56            [ 1]  296 	push	#<___str_7
+      0087C1 4B 80            [ 1]  297 	push	#(___str_7 >> 8)
+      0087C3 90 89            [ 2]  298 	pushw	y
+      0087C5 CD A2 8C         [ 4]  299 	call	_sprintf
+      0087C8 5B 0A            [ 2]  300 	addw	sp, #10
+                                    301 ;	main.c: 91: printf("%s",temp);
+      0087CA 1E 1D            [ 2]  302 	ldw	x, (0x1d, sp)
+      0087CC 89               [ 2]  303 	pushw	x
+      0087CD 4B 51            [ 1]  304 	push	#<___str_4
+      0087CF 4B 80            [ 1]  305 	push	#(___str_4 >> 8)
+      0087D1 CD A3 47         [ 4]  306 	call	_printf
+      0087D4 5B 04            [ 2]  307 	addw	sp, #4
+                                    308 ;	main.c: 92: printf("\r\n");
+      0087D6 4B 54            [ 1]  309 	push	#<___str_6
+      0087D8 4B 80            [ 1]  310 	push	#(___str_6 >> 8)
+      0087DA CD A3 06         [ 4]  311 	call	_puts
+      0087DD 5B 02            [ 2]  312 	addw	sp, #2
+                                    313 ;	main.c: 93: OLED_ShowString(0,4,temp);
+      0087DF 1E 1D            [ 2]  314 	ldw	x, (0x1d, sp)
+      0087E1 89               [ 2]  315 	pushw	x
+      0087E2 4B 04            [ 1]  316 	push	#0x04
+      0087E4 4B 00            [ 1]  317 	push	#0x00
+      0087E6 CD 92 B4         [ 4]  318 	call	_OLED_ShowString
+      0087E9 5B 04            [ 2]  319 	addw	sp, #4
+      0087EB                        320 00102$:
+                                    321 ;	main.c: 95: ds1302_port_deinit();
+      0087EB CD 8D 09         [ 4]  322 	call	_ds1302_port_deinit
+                                    323 ;	main.c: 100: if(count==0){
+      0087EE 72 5D 00 01      [ 1]  324 	tnz	_main_count_196608_387+0
+      0087F2 27 03            [ 1]  325 	jreq	00134$
+      0087F4 CC 88 6E         [ 2]  326 	jp	00104$
+      0087F7                        327 00134$:
+                                    328 ;	main.c: 103: ReadDHT12(&data);
+      0087F7 90 96            [ 1]  329 	ldw	y, sp
+      0087F9 72 A9 00 15      [ 2]  330 	addw	y, #21
+      0087FD 93               [ 1]  331 	ldw	x, y
+      0087FE 90 89            [ 2]  332 	pushw	y
+      008800 89               [ 2]  333 	pushw	x
+      008801 CD 8C 0E         [ 4]  334 	call	_ReadDHT12
+      008804 5B 02            [ 2]  335 	addw	sp, #2
+      008806 90 85            [ 2]  336 	popw	y
+                                    337 ;	main.c: 104: sprintf(temp,"%2d.%1dC/%2d.%1d%%/%3d",data.T,data.T1,data.W,data.W1,data.sum);
+      008808 93               [ 1]  338 	ldw	x, y
+      008809 E6 04            [ 1]  339 	ld	a, (0x4, x)
+      00880B 6B 24            [ 1]  340 	ld	(0x24, sp), a
+      00880D 0F 23            [ 1]  341 	clr	(0x23, sp)
+      00880F 93               [ 1]  342 	ldw	x, y
+      008810 E6 03            [ 1]  343 	ld	a, (0x3, x)
+      008812 6B 22            [ 1]  344 	ld	(0x22, sp), a
+      008814 0F 21            [ 1]  345 	clr	(0x21, sp)
+      008816 93               [ 1]  346 	ldw	x, y
+      008817 E6 02            [ 1]  347 	ld	a, (0x2, x)
+      008819 6B 20            [ 1]  348 	ld	(0x20, sp), a
+      00881B 0F 1F            [ 1]  349 	clr	(0x1f, sp)
+      00881D 93               [ 1]  350 	ldw	x, y
+      00881E E6 01            [ 1]  351 	ld	a, (0x1, x)
+      008820 6B 36            [ 1]  352 	ld	(0x36, sp), a
+      008822 0F 35            [ 1]  353 	clr	(0x35, sp)
+      008824 90 F6            [ 1]  354 	ld	a, (y)
+      008826 0F 33            [ 1]  355 	clr	(0x33, sp)
+      008828 96               [ 1]  356 	ldw	x, sp
+      008829 5C               [ 1]  357 	incw	x
+      00882A 1F 31            [ 2]  358 	ldw	(0x31, sp), x
+      00882C 90 93            [ 1]  359 	ldw	y, x
+      00882E 1E 23            [ 2]  360 	ldw	x, (0x23, sp)
+      008830 89               [ 2]  361 	pushw	x
+      008831 1E 23            [ 2]  362 	ldw	x, (0x23, sp)
+      008833 89               [ 2]  363 	pushw	x
+      008834 1E 23            [ 2]  364 	ldw	x, (0x23, sp)
+      008836 89               [ 2]  365 	pushw	x
+      008837 1E 3B            [ 2]  366 	ldw	x, (0x3b, sp)
+      008839 89               [ 2]  367 	pushw	x
+      00883A 88               [ 1]  368 	push	a
+      00883B 7B 3C            [ 1]  369 	ld	a, (0x3c, sp)
+      00883D 88               [ 1]  370 	push	a
+      00883E 4B 62            [ 1]  371 	push	#<___str_9
+      008840 4B 80            [ 1]  372 	push	#(___str_9 >> 8)
+      008842 90 89            [ 2]  373 	pushw	y
+      008844 CD A2 8C         [ 4]  374 	call	_sprintf
+      008847 5B 0E            [ 2]  375 	addw	sp, #14
+                                    376 ;	main.c: 105: printf("%s",temp);
+      008849 1E 31            [ 2]  377 	ldw	x, (0x31, sp)
+      00884B 89               [ 2]  378 	pushw	x
+      00884C 4B 51            [ 1]  379 	push	#<___str_4
+      00884E 4B 80            [ 1]  380 	push	#(___str_4 >> 8)
+      008850 CD A3 47         [ 4]  381 	call	_printf
+      008853 5B 04            [ 2]  382 	addw	sp, #4
+                                    383 ;	main.c: 106: printf("\r\n");
+      008855 4B 54            [ 1]  384 	push	#<___str_6
+      008857 4B 80            [ 1]  385 	push	#(___str_6 >> 8)
+      008859 CD A3 06         [ 4]  386 	call	_puts
+      00885C 5B 02            [ 2]  387 	addw	sp, #2
+                                    388 ;	main.c: 107: OLED_ShowString(0,6,temp);
+      00885E 1E 31            [ 2]  389 	ldw	x, (0x31, sp)
+      008860 89               [ 2]  390 	pushw	x
+      008861 4B 06            [ 1]  391 	push	#0x06
+      008863 4B 00            [ 1]  392 	push	#0x00
+      008865 CD 92 B4         [ 4]  393 	call	_OLED_ShowString
+      008868 5B 04            [ 2]  394 	addw	sp, #4
+                                    395 ;	main.c: 108: count=6;
+      00886A 35 06 00 01      [ 1]  396 	mov	_main_count_196608_387+0, #0x06
+      00886E                        397 00104$:
+                                    398 ;	main.c: 111: count--;
+      00886E 72 5A 00 01      [ 1]  399 	dec	_main_count_196608_387+0
+                                    400 ;	main.c: 113: GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
+      008872 4B 20            [ 1]  401 	push	#0x20
+      008874 4B 14            [ 1]  402 	push	#0x14
+      008876 4B 50            [ 1]  403 	push	#0x50
+      008878 CD 95 5E         [ 4]  404 	call	_GPIO_WriteReverse
+      00887B 5B 03            [ 2]  405 	addw	sp, #3
+                                    406 ;	main.c: 114: Delay(0xffff);
+      00887D 4B FF            [ 1]  407 	push	#0xff
+      00887F 4B FF            [ 1]  408 	push	#0xff
+      008881 CD 86 8E         [ 4]  409 	call	_Delay
+      008884 5B 02            [ 2]  410 	addw	sp, #2
+                                    411 ;	main.c: 117: }
+      008886 CC 86 D7         [ 2]  412 	jp	00106$
+                                    413 	.area CODE
+                                    414 	.area CONST
+      008028                        415 ___str_0:
+      008028 53 54 4D 38 20 53 74   416 	.ascii "STM8 Started!"
              61 72 74 65 64 21
-      008031 00                     336 	.db 0x00
-      008032                        337 ___str_2:
-      008032 53 54 4D 38 20 53 74   338 	.ascii "STM8 Started!"
+      008035 00                     417 	.db 0x00
+      008036                        418 ___str_2:
+      008036 53 54 4D 38 20 53 74   419 	.ascii "STM8 Started!"
              61 72 74 65 64 21
-      00803F 0D                     339 	.db 0x0d
-      008040 00                     340 	.db 0x00
-      008041                        341 ___str_3:
-      008041 56 3A 25 34 64 2C 53   342 	.ascii "V:%4d,S:%1d"
+      008043 0D                     420 	.db 0x0d
+      008044 00                     421 	.db 0x00
+      008045                        422 ___str_3:
+      008045 56 3A 25 34 64 2C 53   423 	.ascii "V:%4d,S:%1d"
              3A 25 31 64
-      00804C 00                     343 	.db 0x00
-      00804D                        344 ___str_4:
-      00804D 25 73                  345 	.ascii "%s"
-      00804F 00                     346 	.db 0x00
-      008050                        347 ___str_6:
-      008050 0D                     348 	.db 0x0d
-      008051 00                     349 	.db 0x00
-      008052                        350 ___str_7:
-      008052 25 32 64 2F 25 32 64   351 	.ascii "%2d/%2d/%2d"
+      008050 00                     424 	.db 0x00
+      008051                        425 ___str_4:
+      008051 25 73                  426 	.ascii "%s"
+      008053 00                     427 	.db 0x00
+      008054                        428 ___str_6:
+      008054 0D                     429 	.db 0x0d
+      008055 00                     430 	.db 0x00
+      008056                        431 ___str_7:
+      008056 25 32 64 2F 25 32 64   432 	.ascii "%2d/%2d/%2d"
              2F 25 32 64
-      00805D 00                     352 	.db 0x00
-                                    353 	.area INITIALIZER
-                                    354 	.area CABS (ABS)
+      008061 00                     433 	.db 0x00
+      008062                        434 ___str_9:
+      008062 25 32 64 2E 25 31 64   435 	.ascii "%2d.%1dC/%2d.%1d%%/%3d"
+             43 2F 25 32 64 2E 25
+             31 64 25 25 2F 25 33
+             64
+      008078 00                     436 	.db 0x00
+                                    437 	.area INITIALIZER
+                                    438 	.area CABS (ABS)

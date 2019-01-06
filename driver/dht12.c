@@ -19,7 +19,7 @@ void _delay_5us(unsigned int xx)
         for(yy = 0;yy<1;yy++)
         nop();
 }
-
+/*
 for(yy = 0;yy<1;yy++)
         nop();
         nop();
@@ -28,7 +28,7 @@ for(yy = 0;yy<1;yy++)
         nop();
         nop();
         nop();
-
+*/
 }
 
 
@@ -450,7 +450,7 @@ return I2C_CRR;
   
 }  
   
-  
+#if 0
 /******************************************************* 
  
 写N个数据,前N-1个要应答,最后一个不要应答 
@@ -526,7 +526,10 @@ I2C_Stop();
   
 return I2CAck;  
   
-}   
+}
+#endif
+
+   
 u8 i2c_read(u8 dev_addr,u8 Addr)
 {
 u8 temp;
