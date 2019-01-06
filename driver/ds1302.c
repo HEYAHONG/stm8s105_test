@@ -170,7 +170,7 @@ void ds1302_active()
 ds1302_port_init();
  ds1302_write(DS1302_CONTROL_REG,0x00); //关闭写保护
  ds1302_write(DS1302_SEC_REG,ds1302_read(DS1302_SEC_REG) & 0x7f); 
-  ds1302_write(DS1302_HR_REG,ds1302_read(DS1302_HR_REG)&0x1f);
+  ds1302_write(DS1302_HR_REG,ds1302_read(DS1302_HR_REG)&0x7f);
   ds1302_write(DS1302_CONTROL_REG,0x80); //打开写保护
 ds1302_port_deinit();
 }

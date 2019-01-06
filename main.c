@@ -87,7 +87,7 @@ ds1302_active();
     u8  temp[10];
     DS1302_TIME  ds_time;
     ds1302_read_time(&ds_time);
-    sprintf(temp,"%2d/%2d/%2d",ds_time.hour,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16);
+    sprintf(temp,"%2d/%2d/%2d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16);
     printf("%s",temp);
     printf("\r\n");
     OLED_ShowString(0,4,temp);
@@ -97,7 +97,7 @@ ds1302_active();
    {
     static u8 count=0;
 
-    if(count>=4)
+    if(count>=2)
     {
     DHT12_DATA data;
     unsigned char temp[20];
