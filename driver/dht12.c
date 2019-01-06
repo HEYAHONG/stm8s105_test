@@ -1,16 +1,20 @@
 #include "dht12.h"
+#define I2C_ERR   0  
+  
+#define I2C_CRR   1  
+  
+#define  I2CDataIn  1  
+  
+#define  I2CDataOut 0  
+  
+#define I2C_PORT  (GPIOB)  
+  
+#define I2CSCL   (GPIO_PIN_4)  
+  
+#define I2CSDA   (GPIO_PIN_5)  
 
-void i2c_init()
-{
-GPIO_Init(GPIOB,GPIO_PIN_4,GPIO_MODE_OUT_OD_LOW_FAST);
-GPIO_Init(GPIOB,GPIO_PIN_5,GPIO_MODE_OUT_OD_LOW_FAST);
-}
-void i2c_deinit() 
-{
-GPIO_Init(GPIOB,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
-GPIO_Init(GPIOB,GPIO_PIN_5, GPIO_MODE_IN_FL_NO_IT);
-}
-
+#define UCHAR unsigned char
+#if 0
 void _delay_5us(unsigned int xx)
 {
          unsigned int yy = 0;
@@ -30,24 +34,23 @@ for(yy = 0;yy<1;yy++)
         nop();
 */
 }
+#endif
+void i2c_init()
+{
+GPIO_Init(GPIOB,GPIO_PIN_4,GPIO_MODE_OUT_OD_LOW_FAST);
+GPIO_Init(GPIOB,GPIO_PIN_5,GPIO_MODE_OUT_OD_LOW_FAST);
+}
+void i2c_deinit() 
+{
+
+GPIO_Init(GPIOB,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
+GPIO_Init(GPIOB,GPIO_PIN_5, GPIO_MODE_IN_FL_NO_IT);
+}
 
 
-#define I2C_ERR   0  
-  
-#define I2C_CRR   1  
-  
-#define  I2CDataIn  1  
-  
-#define  I2CDataOut 0  
-  
-#define I2C_PORT  (GPIOB)  
-  
-#define I2CSCL   (GPIO_PIN_4)  
-  
-#define I2CSDA   (GPIO_PIN_5)  
 
-#define UCHAR unsigned char
-  
+
+
   
 //***************************************************************  
   
@@ -96,15 +99,15 @@ void I2C_Start (void)
 
 GPIO_WriteHigh(I2C_PORT, I2CSDA);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 GPIO_WriteHigh(I2C_PORT, I2CSCL);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 GPIO_WriteLow(I2C_PORT, I2CSDA);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
 GPIO_WriteLow(I2C_PORT, I2CSCL);    
 }  
   
@@ -121,14 +124,14 @@ void I2C_Stop (void)
 {  
 I2CDataInOut(I2CDataOut);
 GPIO_WriteLow(I2C_PORT, I2CSCL); 
- _delay_5us(5);   
+ //_delay_5us(5);   
 GPIO_WriteLow(I2C_PORT, I2CSDA);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 GPIO_WriteHigh(I2C_PORT, I2CSCL);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 GPIO_WriteHigh(I2C_PORT, I2CSDA);  
   
@@ -153,15 +156,15 @@ void I2C_Rack(void)
 
 GPIO_WriteLow(I2C_PORT, I2CSDA);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 GPIO_WriteHigh(I2C_PORT, I2CSCL);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 GPIO_WriteLow(I2C_PORT, I2CSCL);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 }  
   
@@ -186,15 +189,15 @@ void I2C_nAck (void)
   
 GPIO_WriteHigh(I2C_PORT, I2CSDA);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 GPIO_WriteHigh(I2C_PORT, I2CSCL);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 GPIO_WriteLow(I2C_PORT, I2CSCL);  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 }  
   
@@ -221,7 +224,7 @@ for(i=0; i<8; i++)
   
   GPIO_WriteLow(I2C_PORT, I2CSCL);  
   
-  _delay_5us(5);  
+  //_delay_5us(5);  
   
   if(I2cData & 0x80)  
   
@@ -233,7 +236,7 @@ for(i=0; i<8; i++)
   
   GPIO_WriteHigh(I2C_PORT, I2CSCL);  
   
- _delay_5us(5);  
+ //_delay_5us(5);  
   
   I2cData <<= 1;  
   
@@ -250,7 +253,7 @@ for(i=0; i<8; i++)
   
   GPIO_WriteHigh(I2C_PORT, I2CSCL);  
   
- // _delay_5us(10);  
+ // //_delay_5us(10);  
 
 /*  
   if(GPIO_ReadInputPin(I2C_PORT,I2CSDA) == RESET)  
@@ -322,7 +325,7 @@ UCHAR RcvByte(void)
   
 I2CDataInOut(I2CDataIn);  
   
-_delay_5us(10);  
+//_delay_5us(10);  
   
 for(i=0; i<8; i++)  
   
@@ -332,18 +335,18 @@ for(i=0; i<8; i++)
   
    GPIO_WriteLow(I2C_PORT, I2CSCL);  
   
-   _delay_5us(5);  
+   //_delay_5us(5);  
   
    GPIO_WriteHigh(I2C_PORT, I2CSCL);  
   
-   _delay_5us(10);  
+   //_delay_5us(10);  
   
   
    if(GPIO_ReadInputPin(I2C_PORT,I2CSDA) !=RESET)  
   
     {ReadByte |= 0x01;}  
   
-  _delay_5us(10);  
+  //_delay_5us(10);  
   
   }    
   
@@ -351,7 +354,7 @@ GPIO_WriteLow(I2C_PORT, I2CSCL);
   
 I2CDataInOut(I2CDataOut);  
   
-_delay_5us(10);  
+//_delay_5us(10);  
   
    return ReadByte;  
   
@@ -388,7 +391,7 @@ rdDAdr = wrDAdr+1; //读器件地址为写地址加1
   
 I2C_Start();  /*启动I2C*/  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 I2CAck = SendByte(wrDAdr); /*发写器件地址*/  
   
@@ -422,7 +425,7 @@ if(!I2CAck)
   
   }  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 for(i=0;i<num-1;i++)  
   
@@ -476,7 +479,7 @@ unsigned char i;
   
 I2C_Start();      /*启动I2C*/  
   
-_delay_5us(5);  
+//_delay_5us(5);  
   
 I2CAck = SendByte(wrDAdr); /*发写器件地址*/  
   
@@ -533,6 +536,7 @@ return I2CAck;
 u8 i2c_read(u8 dev_addr,u8 Addr)
 {
 u8 temp;
+I2C_Read(dev_addr,Addr,&temp,1); //重复读dht12 一次
 if(I2C_Read(dev_addr,Addr,&temp,1))
 return temp;
 else return 0;
