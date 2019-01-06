@@ -157,6 +157,7 @@ void I2C_Rack(void)
 GPIO_WriteLow(I2C_PORT, I2CSDA);  
   
 //_delay_5us(5);  
+GPIO_WriteLow(I2C_PORT, I2CSCL);  
   
 GPIO_WriteHigh(I2C_PORT, I2CSCL);  
   
@@ -190,6 +191,8 @@ void I2C_nAck (void)
 GPIO_WriteHigh(I2C_PORT, I2CSDA);  
   
 //_delay_5us(5);  
+
+GPIO_WriteLow(I2C_PORT, I2CSCL); 
   
 GPIO_WriteHigh(I2C_PORT, I2CSCL);  
   
@@ -443,12 +446,14 @@ if(i==num-1)
   
   *(pRdDat+i) = RcvByte();  
   
+   I2C_Rack();
+    RcvByte();
+
   I2C_nAck();  
   
   }  
-  
+
 I2C_Stop();  
-  
 return I2C_CRR;  
   
 }  
@@ -536,7 +541,6 @@ return I2CAck;
 u8 i2c_read(u8 dev_addr,u8 Addr)
 {
 u8 temp;
-I2C_Read(dev_addr,Addr,&temp,1); //重复读dht12 一次
 if(I2C_Read(dev_addr,Addr,&temp,1))
 return temp;
 else return 0;
