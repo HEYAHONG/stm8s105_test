@@ -9,6 +9,7 @@
 -l stm8
 stm8s_it.rel
 main.rel
+driver/dht12.rel
 driver/uart.rel
 driver/ds1302.rel
 driver/oled.rel

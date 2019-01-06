@@ -36,6 +36,7 @@
 #include "bmp.h"
 #include "uart.h"
 #include "ds1302.h"
+#include "dht12.h"
 #include "adc.h"
 #include "stdio.h"
 /* Private defines -----------------------------------------------------------*/
@@ -92,6 +93,17 @@ ds1302_active();
     OLED_ShowString(0,4,temp);
     }
     ds1302_port_deinit();
+   }
+   {
+    DHT12_DATA data;
+    unsigned char temp[20];
+    ReadDHT12(&data);
+    sprintf(temp,"%2d.%1dC/%2d.%1d%%/%3d",data.T,data.T1,data.W,data.W1,data.sum);
+    printf("%s",temp);
+    printf("\r\n");
+    OLED_ShowString(0,6,temp);
+    
+    
    }
     GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
     Delay(0xffff);
