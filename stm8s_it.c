@@ -348,8 +348,8 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
-	 UART1_ClearITPendingBit(UART1_IT_RXNE);
-	UART1_SendData8(UART1_ReceiveData8());
+	// UART1_ClearITPendingBit(UART1_IT_RXNE);
+	//UART1_SendData8(UART1_ReceiveData8());
 //	while(1);
 	
  }
@@ -416,6 +416,18 @@ INTERRUPT_HANDLER(I2C_IRQHandler, 19)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
+   if(UART2_GetITStatus(UART2_IT_RXNE))
+  {
+   while(UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET);
+   UART2_SendData8(UART2_ReceiveData8());
+  }
+   UART2_ClearITPendingBit(UART2_IT_RXNE);	
+	  
+	 //如果发生了过载错误，则清除该中断标志。
+	 if(UART2->SR & UART2_SR_OR)
+	 {
+		UART2_ClearITPendingBit(UART2_IT_OR);
+	  }	 
  }
 #endif /* (STM8S105) || (STM8AF626x) */
 

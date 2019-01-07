@@ -70,8 +70,8 @@ _Init_UART2:
 	push	#0x50
 	call	_GPIO_Init
 	addw	sp, #4
-;	driver/uart.c: 7: GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_FL_NO_IT);
-	push	#0x00
+;	driver/uart.c: 7: GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_PU_NO_IT);
+	push	#0x40
 	push	#0x40
 	push	#0x0f
 	push	#0x50

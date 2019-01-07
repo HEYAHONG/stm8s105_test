@@ -70,8 +70,8 @@
       000009 4B 50            [ 1]   70 	push	#0x50
       00000B CDr00r00         [ 4]   71 	call	_GPIO_Init
       00000E 5B 04            [ 2]   72 	addw	sp, #4
-                                     73 ;	driver/uart.c: 7: GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_FL_NO_IT);
-      000010 4B 00            [ 1]   74 	push	#0x00
+                                     73 ;	driver/uart.c: 7: GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_PU_NO_IT);
+      000010 4B 40            [ 1]   74 	push	#0x40
       000012 4B 40            [ 1]   75 	push	#0x40
       000014 4B 0F            [ 1]   76 	push	#0x0f
       000016 4B 50            [ 1]   77 	push	#0x50

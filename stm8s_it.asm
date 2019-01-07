@@ -30,6 +30,11 @@
 	.globl _AWU_IRQHandler
 	.globl _TLI_IRQHandler
 	.globl _TRAP_IRQHandler
+	.globl _UART2_ClearITPendingBit
+	.globl _UART2_GetITStatus
+	.globl _UART2_GetFlagStatus
+	.globl _UART2_SendData8
+	.globl _UART2_ReceiveData8
 ;--------------------------------------------------------
 ; ram data
 ;--------------------------------------------------------
@@ -198,28 +203,66 @@ _UART2_TX_IRQHandler:
 ;	 function UART2_RX_IRQHandler
 ;	-----------------------------------------
 _UART2_RX_IRQHandler:
-;	stm8s_it.c: 419: }
+	clr	a
+	div	x, a
+;	stm8s_it.c: 419: if(UART2_GetITStatus(UART2_IT_RXNE))
+	push	#0x55
+	push	#0x02
+	call	_UART2_GetITStatus
+	addw	sp, #2
+	tnz	a
+	jreq	00105$
+;	stm8s_it.c: 421: while(UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET);
+00101$:
+	push	#0x80
+	push	#0x00
+	call	_UART2_GetFlagStatus
+	addw	sp, #2
+	tnz	a
+	jreq	00101$
+;	stm8s_it.c: 422: UART2_SendData8(UART2_ReceiveData8());
+	call	_UART2_ReceiveData8
+	push	a
+	call	_UART2_SendData8
+	pop	a
+00105$:
+;	stm8s_it.c: 424: UART2_ClearITPendingBit(UART2_IT_RXNE);	
+	push	#0x55
+	push	#0x02
+	call	_UART2_ClearITPendingBit
+	addw	sp, #2
+;	stm8s_it.c: 427: if(UART2->SR & UART2_SR_OR)
+	ld	a, 0x5240
+	bcp	a, #0x08
+	jreq	00108$
+;	stm8s_it.c: 429: UART2_ClearITPendingBit(UART2_IT_OR);
+	push	#0x35
+	push	#0x02
+	call	_UART2_ClearITPendingBit
+	addw	sp, #2
+00108$:
+;	stm8s_it.c: 431: }
 	iret
-;	stm8s_it.c: 468: INTERRUPT_HANDLER(ADC1_IRQHandler, 22)
+;	stm8s_it.c: 480: INTERRUPT_HANDLER(ADC1_IRQHandler, 22)
 ;	-----------------------------------------
 ;	 function ADC1_IRQHandler
 ;	-----------------------------------------
 _ADC1_IRQHandler:
-;	stm8s_it.c: 473: }
+;	stm8s_it.c: 485: }
 	iret
-;	stm8s_it.c: 494: INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 23)
+;	stm8s_it.c: 506: INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 23)
 ;	-----------------------------------------
 ;	 function TIM4_UPD_OVF_IRQHandler
 ;	-----------------------------------------
 _TIM4_UPD_OVF_IRQHandler:
-;	stm8s_it.c: 499: }
+;	stm8s_it.c: 511: }
 	iret
-;	stm8s_it.c: 507: INTERRUPT_HANDLER(EEPROM_EEC_IRQHandler, 24)
+;	stm8s_it.c: 519: INTERRUPT_HANDLER(EEPROM_EEC_IRQHandler, 24)
 ;	-----------------------------------------
 ;	 function EEPROM_EEC_IRQHandler
 ;	-----------------------------------------
 _EEPROM_EEC_IRQHandler:
-;	stm8s_it.c: 512: }
+;	stm8s_it.c: 524: }
 	iret
 	.area CODE
 	.area CONST
