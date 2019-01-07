@@ -1,9 +1,10 @@
 #include "ds1302.h" 
 
 
- 
+/* 
 void delay_us(unsigned int xx)
 {
+
                 unsigned int yy = 0;
         for(;xx>0;xx--)
 {
@@ -18,7 +19,9 @@ for(yy = 0;yy<1;yy++)
         nop();
         nop();
         nop();
+
 }
+*/
 
 
 void ds1302_port_deinit(void)
@@ -64,7 +67,7 @@ void ds1302_write_byte(unsigned char temp)
            GPIO_LOW(DS1302_PORT,DS1302_IO_PIN);
        }     	     
        temp>>=1; 
-      delay_us(1);
+      //delay_us(1);
        GPIO_HIGH(DS1302_PORT,DS1302_CLK_PIN); 
              
     }
@@ -80,7 +83,7 @@ unsigned char ds1302_read_byte(void)
      {
           temp|=0x80;	
      }
-    delay_us(1);
+    //delay_us(1);
      GPIO_HIGH(DS1302_PORT,DS1302_CLK_PIN); 
     
      

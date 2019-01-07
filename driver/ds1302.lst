@@ -1,0 +1,628 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.8.0 #10562 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module ds1302
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _ds1302_read
+                                     12 	.globl _ds1302_write
+                                     13 	.globl _ds1302_read_byte
+                                     14 	.globl _ds1302_write_byte
+                                     15 	.globl _write_IO
+                                     16 	.globl _read_IO
+                                     17 	.globl _GPIO_ReadInputPin
+                                     18 	.globl _GPIO_WriteLow
+                                     19 	.globl _GPIO_WriteHigh
+                                     20 	.globl _GPIO_Init
+                                     21 	.globl _ds1302_port_deinit
+                                     22 	.globl _ds1302_port_init
+                                     23 	.globl _ds1302_check
+                                     24 	.globl _ds1302_read_time
+                                     25 	.globl _ds1302_write_time
+                                     26 	.globl _ds1302_write_ram
+                                     27 	.globl _ds1302_read_ram
+                                     28 	.globl _ds1302_active
+                                     29 ;--------------------------------------------------------
+                                     30 ; ram data
+                                     31 ;--------------------------------------------------------
+                                     32 	.area DATA
+                                     33 ;--------------------------------------------------------
+                                     34 ; ram data
+                                     35 ;--------------------------------------------------------
+                                     36 	.area INITIALIZED
+                                     37 ;--------------------------------------------------------
+                                     38 ; absolute external ram data
+                                     39 ;--------------------------------------------------------
+                                     40 	.area DABS (ABS)
+                                     41 
+                                     42 ; default segment ordering for linker
+                                     43 	.area HOME
+                                     44 	.area GSINIT
+                                     45 	.area GSFINAL
+                                     46 	.area CONST
+                                     47 	.area INITIALIZER
+                                     48 	.area CODE
+                                     49 
+                                     50 ;--------------------------------------------------------
+                                     51 ; global & static initialisations
+                                     52 ;--------------------------------------------------------
+                                     53 	.area HOME
+                                     54 	.area GSINIT
+                                     55 	.area GSFINAL
+                                     56 	.area GSINIT
+                                     57 ;--------------------------------------------------------
+                                     58 ; Home
+                                     59 ;--------------------------------------------------------
+                                     60 	.area HOME
+                                     61 	.area HOME
+                                     62 ;--------------------------------------------------------
+                                     63 ; code
+                                     64 ;--------------------------------------------------------
+                                     65 	.area CODE
+                                     66 ;	driver/ds1302.c: 27: void ds1302_port_deinit(void)
+                                     67 ;	-----------------------------------------
+                                     68 ;	 function ds1302_port_deinit
+                                     69 ;	-----------------------------------------
+      000000                         70 _ds1302_port_deinit:
+                                     71 ;	driver/ds1302.c: 29: GPIO_Init(DS1302_PORT,DS1302_CLK_PIN, GPIO_Mode_In_FL_No_IT);//RTC_CLK
+      000000 4B 40            [ 1]   72 	push	#0x40
+      000002 4B 08            [ 1]   73 	push	#0x08
+      000004 4B 05            [ 1]   74 	push	#0x05
+      000006 4B 50            [ 1]   75 	push	#0x50
+      000008 CDr00r00         [ 4]   76 	call	_GPIO_Init
+      00000B 5B 04            [ 2]   77 	addw	sp, #4
+                                     78 ;	driver/ds1302.c: 30: GPIO_Init(DS1302_PORT_RST,DS1302_RST_PIN, GPIO_Mode_In_FL_No_IT);//        
+      00000D 4B 40            [ 1]   79 	push	#0x40
+      00000F 4B 02            [ 1]   80 	push	#0x02
+      000011 4B 05            [ 1]   81 	push	#0x05
+      000013 4B 50            [ 1]   82 	push	#0x50
+      000015 CDr00r00         [ 4]   83 	call	_GPIO_Init
+      000018 5B 04            [ 2]   84 	addw	sp, #4
+                                     85 ;	driver/ds1302.c: 31: GPIO_Init(DS1302_PORT,DS1302_IO_PIN, GPIO_Mode_In_FL_No_IT);      //RTC_DATA   
+      00001A 4B 40            [ 1]   86 	push	#0x40
+      00001C 4B 04            [ 1]   87 	push	#0x04
+      00001E 4B 05            [ 1]   88 	push	#0x05
+      000020 4B 50            [ 1]   89 	push	#0x50
+      000022 CDr00r00         [ 4]   90 	call	_GPIO_Init
+      000025 5B 04            [ 2]   91 	addw	sp, #4
+                                     92 ;	driver/ds1302.c: 33: }
+      000027 81               [ 4]   93 	ret
+                                     94 ;	driver/ds1302.c: 35: void ds1302_port_init(void)
+                                     95 ;	-----------------------------------------
+                                     96 ;	 function ds1302_port_init
+                                     97 ;	-----------------------------------------
+      000028                         98 _ds1302_port_init:
+                                     99 ;	driver/ds1302.c: 37: GPIO_Init(DS1302_PORT,DS1302_CLK_PIN, GPIO_MODE_OUT_PP_HIGH_FAST);//RTC_CLK
+      000028 4B F0            [ 1]  100 	push	#0xf0
+      00002A 4B 08            [ 1]  101 	push	#0x08
+      00002C 4B 05            [ 1]  102 	push	#0x05
+      00002E 4B 50            [ 1]  103 	push	#0x50
+      000030 CDr00r00         [ 4]  104 	call	_GPIO_Init
+      000033 5B 04            [ 2]  105 	addw	sp, #4
+                                    106 ;	driver/ds1302.c: 38: GPIO_Init(DS1302_PORT_RST,DS1302_RST_PIN, GPIO_MODE_OUT_PP_HIGH_FAST);//        
+      000035 4B F0            [ 1]  107 	push	#0xf0
+      000037 4B 02            [ 1]  108 	push	#0x02
+      000039 4B 05            [ 1]  109 	push	#0x05
+      00003B 4B 50            [ 1]  110 	push	#0x50
+      00003D CDr00r00         [ 4]  111 	call	_GPIO_Init
+      000040 5B 04            [ 2]  112 	addw	sp, #4
+                                    113 ;	driver/ds1302.c: 39: GPIO_Init(DS1302_PORT,DS1302_IO_PIN, GPIO_MODE_IN_PU_NO_IT);      //RTC_DATA   
+      000042 4B 40            [ 1]  114 	push	#0x40
+      000044 4B 04            [ 1]  115 	push	#0x04
+      000046 4B 05            [ 1]  116 	push	#0x05
+      000048 4B 50            [ 1]  117 	push	#0x50
+      00004A CDr00r00         [ 4]  118 	call	_GPIO_Init
+      00004D 5B 04            [ 2]  119 	addw	sp, #4
+                                    120 ;	driver/ds1302.c: 41: GPIO_LOW(DS1302_PORT_RST,DS1302_RST_PIN); 
+      00004F 4B 02            [ 1]  121 	push	#0x02
+      000051 4B 05            [ 1]  122 	push	#0x05
+      000053 4B 50            [ 1]  123 	push	#0x50
+      000055 CDr00r00         [ 4]  124 	call	_GPIO_WriteLow
+      000058 5B 03            [ 2]  125 	addw	sp, #3
+                                    126 ;	driver/ds1302.c: 42: GPIO_LOW(DS1302_PORT,DS1302_CLK_PIN); 
+      00005A 4B 08            [ 1]  127 	push	#0x08
+      00005C 4B 05            [ 1]  128 	push	#0x05
+      00005E 4B 50            [ 1]  129 	push	#0x50
+      000060 CDr00r00         [ 4]  130 	call	_GPIO_WriteLow
+      000063 5B 03            [ 2]  131 	addw	sp, #3
+                                    132 ;	driver/ds1302.c: 46: }
+      000065 81               [ 4]  133 	ret
+                                    134 ;	driver/ds1302.c: 48: void read_IO(void){
+                                    135 ;	-----------------------------------------
+                                    136 ;	 function read_IO
+                                    137 ;	-----------------------------------------
+      000066                        138 _read_IO:
+                                    139 ;	driver/ds1302.c: 49: GPIO_Init(DS1302_PORT,DS1302_IO_PIN, GPIO_MODE_IN_PU_NO_IT);   //RTC_DATA        
+      000066 4B 40            [ 1]  140 	push	#0x40
+      000068 4B 04            [ 1]  141 	push	#0x04
+      00006A 4B 05            [ 1]  142 	push	#0x05
+      00006C 4B 50            [ 1]  143 	push	#0x50
+      00006E CDr00r00         [ 4]  144 	call	_GPIO_Init
+      000071 5B 04            [ 2]  145 	addw	sp, #4
+                                    146 ;	driver/ds1302.c: 50: }
+      000073 81               [ 4]  147 	ret
+                                    148 ;	driver/ds1302.c: 52: void write_IO(void){ 
+                                    149 ;	-----------------------------------------
+                                    150 ;	 function write_IO
+                                    151 ;	-----------------------------------------
+      000074                        152 _write_IO:
+                                    153 ;	driver/ds1302.c: 53: GPIO_Init(DS1302_PORT,DS1302_IO_PIN, GPIO_MODE_OUT_PP_HIGH_FAST);//RTC_DATA
+      000074 4B F0            [ 1]  154 	push	#0xf0
+      000076 4B 04            [ 1]  155 	push	#0x04
+      000078 4B 05            [ 1]  156 	push	#0x05
+      00007A 4B 50            [ 1]  157 	push	#0x50
+      00007C CDr00r00         [ 4]  158 	call	_GPIO_Init
+      00007F 5B 04            [ 2]  159 	addw	sp, #4
+                                    160 ;	driver/ds1302.c: 54: }
+      000081 81               [ 4]  161 	ret
+                                    162 ;	driver/ds1302.c: 57: void ds1302_write_byte(unsigned char temp) 
+                                    163 ;	-----------------------------------------
+                                    164 ;	 function ds1302_write_byte
+                                    165 ;	-----------------------------------------
+      000082                        166 _ds1302_write_byte:
+      000082 88               [ 1]  167 	push	a
+                                    168 ;	driver/ds1302.c: 60: for (i=0;i<8;i++)     
+      000083 0F 01            [ 1]  169 	clr	(0x01, sp)
+      000085                        170 00105$:
+                                    171 ;	driver/ds1302.c: 62: GPIO_LOW(DS1302_PORT,DS1302_CLK_PIN);
+      000085 4B 08            [ 1]  172 	push	#0x08
+      000087 4B 05            [ 1]  173 	push	#0x05
+      000089 4B 50            [ 1]  174 	push	#0x50
+      00008B CDr00r00         [ 4]  175 	call	_GPIO_WriteLow
+      00008E 5B 03            [ 2]  176 	addw	sp, #3
+                                    177 ;	driver/ds1302.c: 64: if(temp&0x01) {
+      000090 7B 04            [ 1]  178 	ld	a, (0x04, sp)
+      000092 44               [ 1]  179 	srl	a
+      000093 24 0D            [ 1]  180 	jrnc	00102$
+                                    181 ;	driver/ds1302.c: 65: GPIO_HIGH(DS1302_PORT,DS1302_IO_PIN); 
+      000095 4B 04            [ 1]  182 	push	#0x04
+      000097 4B 05            [ 1]  183 	push	#0x05
+      000099 4B 50            [ 1]  184 	push	#0x50
+      00009B CDr00r00         [ 4]  185 	call	_GPIO_WriteHigh
+      00009E 5B 03            [ 2]  186 	addw	sp, #3
+      0000A0 20 0B            [ 2]  187 	jra	00103$
+      0000A2                        188 00102$:
+                                    189 ;	driver/ds1302.c: 67: GPIO_LOW(DS1302_PORT,DS1302_IO_PIN);
+      0000A2 4B 04            [ 1]  190 	push	#0x04
+      0000A4 4B 05            [ 1]  191 	push	#0x05
+      0000A6 4B 50            [ 1]  192 	push	#0x50
+      0000A8 CDr00r00         [ 4]  193 	call	_GPIO_WriteLow
+      0000AB 5B 03            [ 2]  194 	addw	sp, #3
+      0000AD                        195 00103$:
+                                    196 ;	driver/ds1302.c: 69: temp>>=1; 
+      0000AD 04 04            [ 1]  197 	srl	(0x04, sp)
+                                    198 ;	driver/ds1302.c: 71: GPIO_HIGH(DS1302_PORT,DS1302_CLK_PIN); 
+      0000AF 4B 08            [ 1]  199 	push	#0x08
+      0000B1 4B 05            [ 1]  200 	push	#0x05
+      0000B3 4B 50            [ 1]  201 	push	#0x50
+      0000B5 CDr00r00         [ 4]  202 	call	_GPIO_WriteHigh
+      0000B8 5B 03            [ 2]  203 	addw	sp, #3
+                                    204 ;	driver/ds1302.c: 60: for (i=0;i<8;i++)     
+      0000BA 0C 01            [ 1]  205 	inc	(0x01, sp)
+      0000BC 7B 01            [ 1]  206 	ld	a, (0x01, sp)
+      0000BE A1 08            [ 1]  207 	cp	a, #0x08
+      0000C0 25 C3            [ 1]  208 	jrc	00105$
+                                    209 ;	driver/ds1302.c: 74: }  
+      0000C2 84               [ 1]  210 	pop	a
+      0000C3 81               [ 4]  211 	ret
+                                    212 ;	driver/ds1302.c: 75: unsigned char ds1302_read_byte(void) 
+                                    213 ;	-----------------------------------------
+                                    214 ;	 function ds1302_read_byte
+                                    215 ;	-----------------------------------------
+      0000C4                        216 _ds1302_read_byte:
+      0000C4 52 02            [ 2]  217 	sub	sp, #2
+                                    218 ;	driver/ds1302.c: 77: unsigned char i,temp=0;
+      0000C6 0F 02            [ 1]  219 	clr	(0x02, sp)
+                                    220 ;	driver/ds1302.c: 78: for (i=0;i<8;i++) 		
+      0000C8 0F 01            [ 1]  221 	clr	(0x01, sp)
+      0000CA                        222 00104$:
+                                    223 ;	driver/ds1302.c: 80: GPIO_LOW(DS1302_PORT,DS1302_CLK_PIN);
+      0000CA 4B 08            [ 1]  224 	push	#0x08
+      0000CC 4B 05            [ 1]  225 	push	#0x05
+      0000CE 4B 50            [ 1]  226 	push	#0x50
+      0000D0 CDr00r00         [ 4]  227 	call	_GPIO_WriteLow
+      0000D3 5B 03            [ 2]  228 	addw	sp, #3
+                                    229 ;	driver/ds1302.c: 81: temp>>=1;
+      0000D5 7B 02            [ 1]  230 	ld	a, (0x02, sp)
+      0000D7 44               [ 1]  231 	srl	a
+      0000D8 6B 02            [ 1]  232 	ld	(0x02, sp), a
+                                    233 ;	driver/ds1302.c: 82: if(GPIO_ReadInputDataBit(DS1302_PORT,DS1302_IO_PIN))
+      0000DA 4B 04            [ 1]  234 	push	#0x04
+      0000DC 4B 05            [ 1]  235 	push	#0x05
+      0000DE 4B 50            [ 1]  236 	push	#0x50
+      0000E0 CDr00r00         [ 4]  237 	call	_GPIO_ReadInputPin
+      0000E3 5B 03            [ 2]  238 	addw	sp, #3
+      0000E5 4D               [ 1]  239 	tnz	a
+      0000E6 27 06            [ 1]  240 	jreq	00102$
+                                    241 ;	driver/ds1302.c: 84: temp|=0x80;	
+      0000E8 7B 02            [ 1]  242 	ld	a, (0x02, sp)
+      0000EA AA 80            [ 1]  243 	or	a, #0x80
+      0000EC 6B 02            [ 1]  244 	ld	(0x02, sp), a
+      0000EE                        245 00102$:
+                                    246 ;	driver/ds1302.c: 87: GPIO_HIGH(DS1302_PORT,DS1302_CLK_PIN); 
+      0000EE 4B 08            [ 1]  247 	push	#0x08
+      0000F0 4B 05            [ 1]  248 	push	#0x05
+      0000F2 4B 50            [ 1]  249 	push	#0x50
+      0000F4 CDr00r00         [ 4]  250 	call	_GPIO_WriteHigh
+      0000F7 5B 03            [ 2]  251 	addw	sp, #3
+                                    252 ;	driver/ds1302.c: 78: for (i=0;i<8;i++) 		
+      0000F9 0C 01            [ 1]  253 	inc	(0x01, sp)
+      0000FB 7B 01            [ 1]  254 	ld	a, (0x01, sp)
+      0000FD A1 08            [ 1]  255 	cp	a, #0x08
+      0000FF 25 C9            [ 1]  256 	jrc	00104$
+                                    257 ;	driver/ds1302.c: 91: return temp;
+      000101 7B 02            [ 1]  258 	ld	a, (0x02, sp)
+                                    259 ;	driver/ds1302.c: 92: } 
+      000103 5B 02            [ 2]  260 	addw	sp, #2
+      000105 81               [ 4]  261 	ret
+                                    262 ;	driver/ds1302.c: 94: void ds1302_write( unsigned char address,unsigned char dat )     
+                                    263 ;	-----------------------------------------
+                                    264 ;	 function ds1302_write
+                                    265 ;	-----------------------------------------
+      000106                        266 _ds1302_write:
+                                    267 ;	driver/ds1302.c: 96: write_IO();
+      000106 CDr00r74         [ 4]  268 	call	_write_IO
+                                    269 ;	driver/ds1302.c: 97: GPIO_LOW(DS1302_PORT_RST,DS1302_RST_PIN);   //写地址，写数据 RST保持高电平
+      000109 4B 02            [ 1]  270 	push	#0x02
+      00010B 4B 05            [ 1]  271 	push	#0x05
+      00010D 4B 50            [ 1]  272 	push	#0x50
+      00010F CDr00r00         [ 4]  273 	call	_GPIO_WriteLow
+      000112 5B 03            [ 2]  274 	addw	sp, #3
+                                    275 ;	driver/ds1302.c: 98: GPIO_LOW(DS1302_PORT,DS1302_CLK_PIN);
+      000114 4B 08            [ 1]  276 	push	#0x08
+      000116 4B 05            [ 1]  277 	push	#0x05
+      000118 4B 50            [ 1]  278 	push	#0x50
+      00011A CDr00r00         [ 4]  279 	call	_GPIO_WriteLow
+      00011D 5B 03            [ 2]  280 	addw	sp, #3
+                                    281 ;	driver/ds1302.c: 99: GPIO_HIGH(DS1302_PORT_RST,DS1302_RST_PIN);
+      00011F 4B 02            [ 1]  282 	push	#0x02
+      000121 4B 05            [ 1]  283 	push	#0x05
+      000123 4B 50            [ 1]  284 	push	#0x50
+      000125 CDr00r00         [ 4]  285 	call	_GPIO_WriteHigh
+      000128 5B 03            [ 2]  286 	addw	sp, #3
+                                    287 ;	driver/ds1302.c: 100: ds1302_write_byte(address);	
+      00012A 7B 03            [ 1]  288 	ld	a, (0x03, sp)
+      00012C 88               [ 1]  289 	push	a
+      00012D CDr00r82         [ 4]  290 	call	_ds1302_write_byte
+      000130 84               [ 1]  291 	pop	a
+                                    292 ;	driver/ds1302.c: 101: ds1302_write_byte(dat);		
+      000131 7B 04            [ 1]  293 	ld	a, (0x04, sp)
+      000133 88               [ 1]  294 	push	a
+      000134 CDr00r82         [ 4]  295 	call	_ds1302_write_byte
+      000137 84               [ 1]  296 	pop	a
+                                    297 ;	driver/ds1302.c: 102: GPIO_LOW(DS1302_PORT_RST,DS1302_RST_PIN);
+      000138 4B 02            [ 1]  298 	push	#0x02
+      00013A 4B 05            [ 1]  299 	push	#0x05
+      00013C 4B 50            [ 1]  300 	push	#0x50
+      00013E CDr00r00         [ 4]  301 	call	_GPIO_WriteLow
+      000141 5B 03            [ 2]  302 	addw	sp, #3
+                                    303 ;	driver/ds1302.c: 104: }
+      000143 81               [ 4]  304 	ret
+                                    305 ;	driver/ds1302.c: 106: unsigned char ds1302_read( unsigned char address )
+                                    306 ;	-----------------------------------------
+                                    307 ;	 function ds1302_read
+                                    308 ;	-----------------------------------------
+      000144                        309 _ds1302_read:
+                                    310 ;	driver/ds1302.c: 109: write_IO();
+      000144 CDr00r74         [ 4]  311 	call	_write_IO
+                                    312 ;	driver/ds1302.c: 110: GPIO_LOW(DS1302_PORT_RST,DS1302_RST_PIN);
+      000147 4B 02            [ 1]  313 	push	#0x02
+      000149 4B 05            [ 1]  314 	push	#0x05
+      00014B 4B 50            [ 1]  315 	push	#0x50
+      00014D CDr00r00         [ 4]  316 	call	_GPIO_WriteLow
+      000150 5B 03            [ 2]  317 	addw	sp, #3
+                                    318 ;	driver/ds1302.c: 111: GPIO_LOW(DS1302_PORT,DS1302_CLK_PIN);
+      000152 4B 08            [ 1]  319 	push	#0x08
+      000154 4B 05            [ 1]  320 	push	#0x05
+      000156 4B 50            [ 1]  321 	push	#0x50
+      000158 CDr00r00         [ 4]  322 	call	_GPIO_WriteLow
+      00015B 5B 03            [ 2]  323 	addw	sp, #3
+                                    324 ;	driver/ds1302.c: 112: GPIO_HIGH(DS1302_PORT_RST,DS1302_RST_PIN);
+      00015D 4B 02            [ 1]  325 	push	#0x02
+      00015F 4B 05            [ 1]  326 	push	#0x05
+      000161 4B 50            [ 1]  327 	push	#0x50
+      000163 CDr00r00         [ 4]  328 	call	_GPIO_WriteHigh
+      000166 5B 03            [ 2]  329 	addw	sp, #3
+                                    330 ;	driver/ds1302.c: 113: ds1302_write_byte(address|0x01);  //读标志：地址最后一位为1
+      000168 7B 03            [ 1]  331 	ld	a, (0x03, sp)
+      00016A AA 01            [ 1]  332 	or	a, #0x01
+      00016C 88               [ 1]  333 	push	a
+      00016D CDr00r82         [ 4]  334 	call	_ds1302_write_byte
+      000170 84               [ 1]  335 	pop	a
+                                    336 ;	driver/ds1302.c: 114: read_IO();
+      000171 CDr00r66         [ 4]  337 	call	_read_IO
+                                    338 ;	driver/ds1302.c: 115: ret = ds1302_read_byte();
+      000174 CDr00rC4         [ 4]  339 	call	_ds1302_read_byte
+                                    340 ;	driver/ds1302.c: 116: GPIO_LOW(DS1302_PORT_RST,DS1302_RST_PIN);
+      000177 88               [ 1]  341 	push	a
+      000178 4B 02            [ 1]  342 	push	#0x02
+      00017A 4B 05            [ 1]  343 	push	#0x05
+      00017C 4B 50            [ 1]  344 	push	#0x50
+      00017E CDr00r00         [ 4]  345 	call	_GPIO_WriteLow
+      000181 5B 03            [ 2]  346 	addw	sp, #3
+      000183 84               [ 1]  347 	pop	a
+                                    348 ;	driver/ds1302.c: 117: return (ret);		
+                                    349 ;	driver/ds1302.c: 118: }	
+      000184 81               [ 4]  350 	ret
+                                    351 ;	driver/ds1302.c: 120: unsigned char ds1302_check(void) 
+                                    352 ;	-----------------------------------------
+                                    353 ;	 function ds1302_check
+                                    354 ;	-----------------------------------------
+      000185                        355 _ds1302_check:
+                                    356 ;	driver/ds1302.c: 123: ds1302_write(DS1302_CONTROL_REG,0x80); 
+      000185 4B 80            [ 1]  357 	push	#0x80
+      000187 4B 8E            [ 1]  358 	push	#0x8e
+      000189 CDr01r06         [ 4]  359 	call	_ds1302_write
+      00018C 5B 02            [ 2]  360 	addw	sp, #2
+                                    361 ;	driver/ds1302.c: 124: ret = ds1302_read(DS1302_CONTROL_REG);
+      00018E 4B 8E            [ 1]  362 	push	#0x8e
+      000190 CDr01r44         [ 4]  363 	call	_ds1302_read
+      000193 5B 01            [ 2]  364 	addw	sp, #1
+                                    365 ;	driver/ds1302.c: 125: if(ret==0x80)
+                                    366 ;	driver/ds1302.c: 126: return 1; 
+      000195 A0 80            [ 1]  367 	sub	a, #0x80
+      000197 26 02            [ 1]  368 	jrne	00102$
+      000199 4C               [ 1]  369 	inc	a
+      00019A 81               [ 4]  370 	ret
+      00019B                        371 00102$:
+                                    372 ;	driver/ds1302.c: 127: return 0; 
+      00019B 4F               [ 1]  373 	clr	a
+                                    374 ;	driver/ds1302.c: 128: }
+      00019C 81               [ 4]  375 	ret
+                                    376 ;	driver/ds1302.c: 130: void ds1302_read_time(DS1302_TIME* time) 
+                                    377 ;	-----------------------------------------
+                                    378 ;	 function ds1302_read_time
+                                    379 ;	-----------------------------------------
+      00019D                        380 _ds1302_read_time:
+      00019D 52 02            [ 2]  381 	sub	sp, #2
+                                    382 ;	driver/ds1302.c: 132: time->year=ds1302_read(DS1302_YEAR_REG); //年 
+      00019F 16 05            [ 2]  383 	ldw	y, (0x05, sp)
+      0001A1 17 01            [ 2]  384 	ldw	(0x01, sp), y
+      0001A3 4B 8C            [ 1]  385 	push	#0x8c
+      0001A5 CDr01r44         [ 4]  386 	call	_ds1302_read
+      0001A8 5B 01            [ 2]  387 	addw	sp, #1
+      0001AA 1E 01            [ 2]  388 	ldw	x, (0x01, sp)
+      0001AC F7               [ 1]  389 	ld	(x), a
+                                    390 ;	driver/ds1302.c: 133: time->month=ds1302_read(DS1302_MONTH_REG);//月 
+      0001AD 1E 01            [ 2]  391 	ldw	x, (0x01, sp)
+      0001AF 5C               [ 1]  392 	incw	x
+      0001B0 89               [ 2]  393 	pushw	x
+      0001B1 4B 88            [ 1]  394 	push	#0x88
+      0001B3 CDr01r44         [ 4]  395 	call	_ds1302_read
+      0001B6 5B 01            [ 2]  396 	addw	sp, #1
+      0001B8 85               [ 2]  397 	popw	x
+      0001B9 F7               [ 1]  398 	ld	(x), a
+                                    399 ;	driver/ds1302.c: 134: time->day=ds1302_read(DS1302_DATE_REG); //日 
+      0001BA 1E 01            [ 2]  400 	ldw	x, (0x01, sp)
+      0001BC 5C               [ 1]  401 	incw	x
+      0001BD 5C               [ 1]  402 	incw	x
+      0001BE 89               [ 2]  403 	pushw	x
+      0001BF 4B 86            [ 1]  404 	push	#0x86
+      0001C1 CDr01r44         [ 4]  405 	call	_ds1302_read
+      0001C4 5B 01            [ 2]  406 	addw	sp, #1
+      0001C6 85               [ 2]  407 	popw	x
+      0001C7 F7               [ 1]  408 	ld	(x), a
+                                    409 ;	driver/ds1302.c: 135: time->week=ds1302_read(DS1302_DAY_REG); //周 
+      0001C8 1E 01            [ 2]  410 	ldw	x, (0x01, sp)
+      0001CA 1C 00 03         [ 2]  411 	addw	x, #0x0003
+      0001CD 89               [ 2]  412 	pushw	x
+      0001CE 4B 8A            [ 1]  413 	push	#0x8a
+      0001D0 CDr01r44         [ 4]  414 	call	_ds1302_read
+      0001D3 5B 01            [ 2]  415 	addw	sp, #1
+      0001D5 85               [ 2]  416 	popw	x
+      0001D6 F7               [ 1]  417 	ld	(x), a
+                                    418 ;	driver/ds1302.c: 136: time->hour=ds1302_read(DS1302_HR_REG); //时 
+      0001D7 1E 01            [ 2]  419 	ldw	x, (0x01, sp)
+      0001D9 1C 00 04         [ 2]  420 	addw	x, #0x0004
+      0001DC 89               [ 2]  421 	pushw	x
+      0001DD 4B 84            [ 1]  422 	push	#0x84
+      0001DF CDr01r44         [ 4]  423 	call	_ds1302_read
+      0001E2 5B 01            [ 2]  424 	addw	sp, #1
+      0001E4 85               [ 2]  425 	popw	x
+      0001E5 F7               [ 1]  426 	ld	(x), a
+                                    427 ;	driver/ds1302.c: 137: time->minute=ds1302_read(DS1302_MIN_REG); //分 
+      0001E6 1E 01            [ 2]  428 	ldw	x, (0x01, sp)
+      0001E8 1C 00 05         [ 2]  429 	addw	x, #0x0005
+      0001EB 89               [ 2]  430 	pushw	x
+      0001EC 4B 82            [ 1]  431 	push	#0x82
+      0001EE CDr01r44         [ 4]  432 	call	_ds1302_read
+      0001F1 5B 01            [ 2]  433 	addw	sp, #1
+      0001F3 85               [ 2]  434 	popw	x
+      0001F4 F7               [ 1]  435 	ld	(x), a
+                                    436 ;	driver/ds1302.c: 138: time->second=ds1302_read(DS1302_SEC_REG); //秒 
+      0001F5 1E 01            [ 2]  437 	ldw	x, (0x01, sp)
+      0001F7 1C 00 06         [ 2]  438 	addw	x, #0x0006
+      0001FA 89               [ 2]  439 	pushw	x
+      0001FB 4B 80            [ 1]  440 	push	#0x80
+      0001FD CDr01r44         [ 4]  441 	call	_ds1302_read
+      000200 5B 01            [ 2]  442 	addw	sp, #1
+      000202 85               [ 2]  443 	popw	x
+      000203 F7               [ 1]  444 	ld	(x), a
+                                    445 ;	driver/ds1302.c: 140: } 
+      000204 5B 02            [ 2]  446 	addw	sp, #2
+      000206 81               [ 4]  447 	ret
+                                    448 ;	driver/ds1302.c: 141: void ds1302_write_time(DS1302_TIME* time) 
+                                    449 ;	-----------------------------------------
+                                    450 ;	 function ds1302_write_time
+                                    451 ;	-----------------------------------------
+      000207                        452 _ds1302_write_time:
+      000207 52 02            [ 2]  453 	sub	sp, #2
+                                    454 ;	driver/ds1302.c: 143: ds1302_write(DS1302_CONTROL_REG,0x00); //关闭写保护 
+      000209 4B 00            [ 1]  455 	push	#0x00
+      00020B 4B 8E            [ 1]  456 	push	#0x8e
+      00020D CDr01r06         [ 4]  457 	call	_ds1302_write
+      000210 5B 02            [ 2]  458 	addw	sp, #2
+                                    459 ;	driver/ds1302.c: 144: ds1302_write(DS1302_SEC_REG,0x80); //暂停 
+      000212 4B 80            [ 1]  460 	push	#0x80
+      000214 4B 80            [ 1]  461 	push	#0x80
+      000216 CDr01r06         [ 4]  462 	call	_ds1302_write
+      000219 5B 02            [ 2]  463 	addw	sp, #2
+                                    464 ;	driver/ds1302.c: 145: ds1302_write(DS1302_CHARGER_REG,0xa9); //涓流充电 
+      00021B 4B A9            [ 1]  465 	push	#0xa9
+      00021D 4B 90            [ 1]  466 	push	#0x90
+      00021F CDr01r06         [ 4]  467 	call	_ds1302_write
+      000222 5B 02            [ 2]  468 	addw	sp, #2
+                                    469 ;	driver/ds1302.c: 147: ds1302_write(DS1302_SEC_REG, 0x00);           // 启动振荡器
+      000224 4B 00            [ 1]  470 	push	#0x00
+      000226 4B 80            [ 1]  471 	push	#0x80
+      000228 CDr01r06         [ 4]  472 	call	_ds1302_write
+      00022B 5B 02            [ 2]  473 	addw	sp, #2
+                                    474 ;	driver/ds1302.c: 148: ds1302_write(DS1302_YEAR_REG,time->year); //年 
+      00022D 16 05            [ 2]  475 	ldw	y, (0x05, sp)
+      00022F 17 01            [ 2]  476 	ldw	(0x01, sp), y
+      000231 93               [ 1]  477 	ldw	x, y
+      000232 F6               [ 1]  478 	ld	a, (x)
+      000233 88               [ 1]  479 	push	a
+      000234 4B 8C            [ 1]  480 	push	#0x8c
+      000236 CDr01r06         [ 4]  481 	call	_ds1302_write
+      000239 5B 02            [ 2]  482 	addw	sp, #2
+                                    483 ;	driver/ds1302.c: 149: ds1302_write(DS1302_MONTH_REG,time->month); //月 
+      00023B 1E 01            [ 2]  484 	ldw	x, (0x01, sp)
+      00023D E6 01            [ 1]  485 	ld	a, (0x1, x)
+      00023F 88               [ 1]  486 	push	a
+      000240 4B 88            [ 1]  487 	push	#0x88
+      000242 CDr01r06         [ 4]  488 	call	_ds1302_write
+      000245 5B 02            [ 2]  489 	addw	sp, #2
+                                    490 ;	driver/ds1302.c: 150: ds1302_write(DS1302_DATE_REG,time->day); //日 
+      000247 1E 01            [ 2]  491 	ldw	x, (0x01, sp)
+      000249 E6 02            [ 1]  492 	ld	a, (0x2, x)
+      00024B 88               [ 1]  493 	push	a
+      00024C 4B 86            [ 1]  494 	push	#0x86
+      00024E CDr01r06         [ 4]  495 	call	_ds1302_write
+      000251 5B 02            [ 2]  496 	addw	sp, #2
+                                    497 ;	driver/ds1302.c: 151: ds1302_write(DS1302_DAY_REG,time->week); //周 
+      000253 1E 01            [ 2]  498 	ldw	x, (0x01, sp)
+      000255 E6 03            [ 1]  499 	ld	a, (0x3, x)
+      000257 88               [ 1]  500 	push	a
+      000258 4B 8A            [ 1]  501 	push	#0x8a
+      00025A CDr01r06         [ 4]  502 	call	_ds1302_write
+      00025D 5B 02            [ 2]  503 	addw	sp, #2
+                                    504 ;	driver/ds1302.c: 152: ds1302_write(DS1302_HR_REG,time->hour); //时 
+      00025F 1E 01            [ 2]  505 	ldw	x, (0x01, sp)
+      000261 E6 04            [ 1]  506 	ld	a, (0x4, x)
+      000263 88               [ 1]  507 	push	a
+      000264 4B 84            [ 1]  508 	push	#0x84
+      000266 CDr01r06         [ 4]  509 	call	_ds1302_write
+      000269 5B 02            [ 2]  510 	addw	sp, #2
+                                    511 ;	driver/ds1302.c: 153: ds1302_write(DS1302_MIN_REG,time->minute); //分 
+      00026B 1E 01            [ 2]  512 	ldw	x, (0x01, sp)
+      00026D E6 05            [ 1]  513 	ld	a, (0x5, x)
+      00026F 88               [ 1]  514 	push	a
+      000270 4B 82            [ 1]  515 	push	#0x82
+      000272 CDr01r06         [ 4]  516 	call	_ds1302_write
+      000275 5B 02            [ 2]  517 	addw	sp, #2
+                                    518 ;	driver/ds1302.c: 154: ds1302_write(DS1302_SEC_REG,time->second); //秒 
+      000277 1E 01            [ 2]  519 	ldw	x, (0x01, sp)
+      000279 E6 06            [ 1]  520 	ld	a, (0x6, x)
+      00027B 88               [ 1]  521 	push	a
+      00027C 4B 80            [ 1]  522 	push	#0x80
+      00027E CDr01r06         [ 4]  523 	call	_ds1302_write
+      000281 5B 02            [ 2]  524 	addw	sp, #2
+                                    525 ;	driver/ds1302.c: 155: ds1302_write(DS1302_CONTROL_REG,0x80); //打开写保护 
+      000283 4B 80            [ 1]  526 	push	#0x80
+      000285 4B 8E            [ 1]  527 	push	#0x8e
+      000287 CDr01r06         [ 4]  528 	call	_ds1302_write
+                                    529 ;	driver/ds1302.c: 156: }
+      00028A 5B 04            [ 2]  530 	addw	sp, #4
+      00028C 81               [ 4]  531 	ret
+                                    532 ;	driver/ds1302.c: 158: void ds1302_write_ram(unsigned char ram_num,unsigned char dat) 
+                                    533 ;	-----------------------------------------
+                                    534 ;	 function ds1302_write_ram
+                                    535 ;	-----------------------------------------
+      00028D                        536 _ds1302_write_ram:
+                                    537 ;	driver/ds1302.c: 160: ds1302_write(DS1302_CONTROL_REG,0x00); //关闭写保护 
+      00028D 4B 00            [ 1]  538 	push	#0x00
+      00028F 4B 8E            [ 1]  539 	push	#0x8e
+      000291 CDr01r06         [ 4]  540 	call	_ds1302_write
+      000294 5B 02            [ 2]  541 	addw	sp, #2
+                                    542 ;	driver/ds1302.c: 161: ds1302_write((DS1302_RAM_REG|(ram_num<<2)),dat);
+      000296 7B 03            [ 1]  543 	ld	a, (0x03, sp)
+      000298 48               [ 1]  544 	sll	a
+      000299 48               [ 1]  545 	sll	a
+      00029A 88               [ 1]  546 	push	a
+      00029B 49               [ 1]  547 	rlc	a
+      00029C 4F               [ 1]  548 	clr	a
+      00029D A2 00            [ 1]  549 	sbc	a, #0x00
+      00029F 84               [ 1]  550 	pop	a
+      0002A0 AA C0            [ 1]  551 	or	a, #0xc0
+      0002A2 97               [ 1]  552 	ld	xl, a
+      0002A3 7B 04            [ 1]  553 	ld	a, (0x04, sp)
+      0002A5 88               [ 1]  554 	push	a
+      0002A6 9F               [ 1]  555 	ld	a, xl
+      0002A7 88               [ 1]  556 	push	a
+      0002A8 CDr01r06         [ 4]  557 	call	_ds1302_write
+      0002AB 5B 02            [ 2]  558 	addw	sp, #2
+                                    559 ;	driver/ds1302.c: 162: ds1302_write(DS1302_CONTROL_REG,0x80);
+      0002AD 4B 80            [ 1]  560 	push	#0x80
+      0002AF 4B 8E            [ 1]  561 	push	#0x8e
+      0002B1 CDr01r06         [ 4]  562 	call	_ds1302_write
+      0002B4 5B 02            [ 2]  563 	addw	sp, #2
+                                    564 ;	driver/ds1302.c: 163: }
+      0002B6 81               [ 4]  565 	ret
+                                    566 ;	driver/ds1302.c: 165: unsigned char  ds1302_read_ram(unsigned char ram_num) 
+                                    567 ;	-----------------------------------------
+                                    568 ;	 function ds1302_read_ram
+                                    569 ;	-----------------------------------------
+      0002B7                        570 _ds1302_read_ram:
+                                    571 ;	driver/ds1302.c: 168: ret = ds1302_read((DS1302_RAM_REG|(ram_num<<2)));
+      0002B7 7B 03            [ 1]  572 	ld	a, (0x03, sp)
+      0002B9 48               [ 1]  573 	sll	a
+      0002BA 48               [ 1]  574 	sll	a
+      0002BB 88               [ 1]  575 	push	a
+      0002BC 49               [ 1]  576 	rlc	a
+      0002BD 4F               [ 1]  577 	clr	a
+      0002BE A2 00            [ 1]  578 	sbc	a, #0x00
+      0002C0 84               [ 1]  579 	pop	a
+      0002C1 AA C0            [ 1]  580 	or	a, #0xc0
+      0002C3 88               [ 1]  581 	push	a
+      0002C4 CDr01r44         [ 4]  582 	call	_ds1302_read
+      0002C7 5B 01            [ 2]  583 	addw	sp, #1
+                                    584 ;	driver/ds1302.c: 169: return ret;
+                                    585 ;	driver/ds1302.c: 170: }
+      0002C9 81               [ 4]  586 	ret
+                                    587 ;	driver/ds1302.c: 171: void ds1302_active()
+                                    588 ;	-----------------------------------------
+                                    589 ;	 function ds1302_active
+                                    590 ;	-----------------------------------------
+      0002CA                        591 _ds1302_active:
+                                    592 ;	driver/ds1302.c: 173: ds1302_port_init();
+      0002CA CDr00r28         [ 4]  593 	call	_ds1302_port_init
+                                    594 ;	driver/ds1302.c: 174: ds1302_write(DS1302_CONTROL_REG,0x00); //关闭写保护
+      0002CD 4B 00            [ 1]  595 	push	#0x00
+      0002CF 4B 8E            [ 1]  596 	push	#0x8e
+      0002D1 CDr01r06         [ 4]  597 	call	_ds1302_write
+      0002D4 5B 02            [ 2]  598 	addw	sp, #2
+                                    599 ;	driver/ds1302.c: 175: ds1302_write(DS1302_SEC_REG,ds1302_read(DS1302_SEC_REG) & 0x7f); 
+      0002D6 4B 80            [ 1]  600 	push	#0x80
+      0002D8 CDr01r44         [ 4]  601 	call	_ds1302_read
+      0002DB 5B 01            [ 2]  602 	addw	sp, #1
+      0002DD A4 7F            [ 1]  603 	and	a, #0x7f
+      0002DF 88               [ 1]  604 	push	a
+      0002E0 4B 80            [ 1]  605 	push	#0x80
+      0002E2 CDr01r06         [ 4]  606 	call	_ds1302_write
+      0002E5 5B 02            [ 2]  607 	addw	sp, #2
+                                    608 ;	driver/ds1302.c: 176: ds1302_write(DS1302_HR_REG,ds1302_read(DS1302_HR_REG)&0x7f);
+      0002E7 4B 84            [ 1]  609 	push	#0x84
+      0002E9 CDr01r44         [ 4]  610 	call	_ds1302_read
+      0002EC 5B 01            [ 2]  611 	addw	sp, #1
+      0002EE A4 7F            [ 1]  612 	and	a, #0x7f
+      0002F0 88               [ 1]  613 	push	a
+      0002F1 4B 84            [ 1]  614 	push	#0x84
+      0002F3 CDr01r06         [ 4]  615 	call	_ds1302_write
+      0002F6 5B 02            [ 2]  616 	addw	sp, #2
+                                    617 ;	driver/ds1302.c: 177: ds1302_write(DS1302_CONTROL_REG,0x80); //打开写保护
+      0002F8 4B 80            [ 1]  618 	push	#0x80
+      0002FA 4B 8E            [ 1]  619 	push	#0x8e
+      0002FC CDr01r06         [ 4]  620 	call	_ds1302_write
+      0002FF 5B 02            [ 2]  621 	addw	sp, #2
+                                    622 ;	driver/ds1302.c: 178: ds1302_port_deinit();
+                                    623 ;	driver/ds1302.c: 179: }
+      000301 CCr00r00         [ 2]  624 	jp	_ds1302_port_deinit
+                                    625 	.area CODE
+                                    626 	.area CONST
+                                    627 	.area INITIALIZER
+                                    628 	.area CABS (ABS)
