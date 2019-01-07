@@ -216,9 +216,9 @@
       0000C4                        216 _ds1302_read_byte:
       0000C4 52 02            [ 2]  217 	sub	sp, #2
                                     218 ;	driver/ds1302.c: 77: unsigned char i,temp=0;
-      0000C6 0F 02            [ 1]  219 	clr	(0x02, sp)
+      0000C6 0F 01            [ 1]  219 	clr	(0x01, sp)
                                     220 ;	driver/ds1302.c: 78: for (i=0;i<8;i++) 		
-      0000C8 0F 01            [ 1]  221 	clr	(0x01, sp)
+      0000C8 0F 02            [ 1]  221 	clr	(0x02, sp)
       0000CA                        222 00104$:
                                     223 ;	driver/ds1302.c: 80: GPIO_LOW(DS1302_PORT,DS1302_CLK_PIN);
       0000CA 4B 08            [ 1]  224 	push	#0x08
@@ -227,9 +227,9 @@
       0000D0 CDr00r00         [ 4]  227 	call	_GPIO_WriteLow
       0000D3 5B 03            [ 2]  228 	addw	sp, #3
                                     229 ;	driver/ds1302.c: 81: temp>>=1;
-      0000D5 7B 02            [ 1]  230 	ld	a, (0x02, sp)
+      0000D5 7B 01            [ 1]  230 	ld	a, (0x01, sp)
       0000D7 44               [ 1]  231 	srl	a
-      0000D8 6B 02            [ 1]  232 	ld	(0x02, sp), a
+      0000D8 6B 01            [ 1]  232 	ld	(0x01, sp), a
                                     233 ;	driver/ds1302.c: 82: if(GPIO_ReadInputDataBit(DS1302_PORT,DS1302_IO_PIN))
       0000DA 4B 04            [ 1]  234 	push	#0x04
       0000DC 4B 05            [ 1]  235 	push	#0x05
@@ -239,9 +239,9 @@
       0000E5 4D               [ 1]  239 	tnz	a
       0000E6 27 06            [ 1]  240 	jreq	00102$
                                     241 ;	driver/ds1302.c: 84: temp|=0x80;	
-      0000E8 7B 02            [ 1]  242 	ld	a, (0x02, sp)
+      0000E8 7B 01            [ 1]  242 	ld	a, (0x01, sp)
       0000EA AA 80            [ 1]  243 	or	a, #0x80
-      0000EC 6B 02            [ 1]  244 	ld	(0x02, sp), a
+      0000EC 6B 01            [ 1]  244 	ld	(0x01, sp), a
       0000EE                        245 00102$:
                                     246 ;	driver/ds1302.c: 87: GPIO_HIGH(DS1302_PORT,DS1302_CLK_PIN); 
       0000EE 4B 08            [ 1]  247 	push	#0x08
@@ -250,12 +250,12 @@
       0000F4 CDr00r00         [ 4]  250 	call	_GPIO_WriteHigh
       0000F7 5B 03            [ 2]  251 	addw	sp, #3
                                     252 ;	driver/ds1302.c: 78: for (i=0;i<8;i++) 		
-      0000F9 0C 01            [ 1]  253 	inc	(0x01, sp)
-      0000FB 7B 01            [ 1]  254 	ld	a, (0x01, sp)
+      0000F9 0C 02            [ 1]  253 	inc	(0x02, sp)
+      0000FB 7B 02            [ 1]  254 	ld	a, (0x02, sp)
       0000FD A1 08            [ 1]  255 	cp	a, #0x08
       0000FF 25 C9            [ 1]  256 	jrc	00104$
                                     257 ;	driver/ds1302.c: 91: return temp;
-      000101 7B 02            [ 1]  258 	ld	a, (0x02, sp)
+      000101 7B 01            [ 1]  258 	ld	a, (0x01, sp)
                                     259 ;	driver/ds1302.c: 92: } 
       000103 5B 02            [ 2]  260 	addw	sp, #2
       000105 81               [ 4]  261 	ret

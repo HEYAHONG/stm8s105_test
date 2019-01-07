@@ -7,16 +7,36 @@ Symbol Table
     .__.ABS.                                                    =  000000 G
     .__.CPU.                                                    =  000000 L
     .__.H$L.                                                    =  000001 L
+    _ADC1_IRQHandler                                               ****** GX
+    _AWU_IRQHandler                                                ****** GX
+    _CLK_IRQHandler                                                ****** GX
   A _Delay                                                         000000 GR
+    _EEPROM_EEC_IRQHandler                                         ****** GX
+    _EXTI_PORTA_IRQHandler                                         ****** GX
+    _EXTI_PORTB_IRQHandler                                         ****** GX
+    _EXTI_PORTC_IRQHandler                                         ****** GX
+    _EXTI_PORTD_IRQHandler                                         ****** GX
+    _EXTI_PORTE_IRQHandler                                         ****** GX
     _GPIO_Init                                                     ****** GX
     _GPIO_ReadInputPin                                             ****** GX
     _GPIO_WriteReverse                                             ****** GX
+    _I2C_IRQHandler                                                ****** GX
     _Init_UART2                                                    ****** GX
     _OLED_Clear                                                    ****** GX
     _OLED_Init                                                     ****** GX
     _OLED_ShowString                                               ****** GX
     _ReadADC                                                       ****** GX
     _ReadDHT12                                                     ****** GX
+    _SPI_IRQHandler                                                ****** GX
+    _TIM1_CAP_COM_IRQHandler                                       ****** GX
+    _TIM1_UPD_OVF_TRG_BRK_IRQHandler                               ****** GX
+    _TIM2_CAP_COM_IRQHandler                                       ****** GX
+    _TIM2_UPD_OVF_BRK_IRQHandler                                   ****** GX
+    _TIM4_UPD_OVF_IRQHandler                                       ****** GX
+    _TLI_IRQHandler                                                ****** GX
+    _TRAP_IRQHandler                                               ****** GX
+    _UART2_RX_IRQHandler                                           ****** GX
+    _UART2_TX_IRQHandler                                           ****** GX
   8 ___str_0                                                       000000 R
   8 ___str_2                                                       00000E R
   8 ___str_3                                                       00001D R
@@ -29,7 +49,7 @@ Symbol Table
     __modsint                                                      ****** GX
   6 __sdcc_gs_init_startup                                         000000 R
   6 __sdcc_init_data                                               000000 R
-  5 __sdcc_program_startup                                         000004 R
+  5 __sdcc_program_startup                                         00006C R
   3 __start__stack                                                 000000 R
     _ds1302_active                                                 ****** GX
     _ds1302_check                                                  ****** GX
@@ -37,7 +57,12 @@ Symbol Table
     _ds1302_port_init                                              ****** GX
     _ds1302_read_time                                              ****** GX
   A _main                                                          00000A GR
-  1 _main_count_196608_387                                         000000 R
+  1 _main_count_196608_388                                         000000 R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 2.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
     _printf                                                        ****** GX
     _puts                                                          ****** GX
     _sprintf                                                       ****** GX
@@ -49,7 +74,7 @@ Symbol Table
     s_INITIALIZER                                                  ****** GX
 
 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 2.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 3.
 Hexadecimal [24-Bits]
 
 Area Table
@@ -59,7 +84,7 @@ Area Table
    2 INITIALIZED                                size      0   flags    0
    3 SSEG                                       size      1   flags    0
    4 DABS                                       size      0   flags    8
-   5 HOME                                       size      7   flags    0
+   5 HOME                                       size     6F   flags    0
    6 GSINIT                                     size     1E   flags    0
    7 GSFINAL                                    size      3   flags    0
    8 CONST                                      size     51   flags    0

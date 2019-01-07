@@ -390,7 +390,7 @@
       0001C7                        390 _RcvByte:
       0001C7 52 02            [ 2]  391 	sub	sp, #2
                                     392 ;	driver/dht12.c: 324: UCHAR ReadByte=0;  
-      0001C9 0F 02            [ 1]  393 	clr	(0x02, sp)
+      0001C9 0F 01            [ 1]  393 	clr	(0x01, sp)
                                     394 ;	driver/dht12.c: 326: GPIO_WriteHigh(I2C_PORT, I2CSDA);  
       0001CB 4B 20            [ 1]  395 	push	#0x20
       0001CD 4B 05            [ 1]  396 	push	#0x05
@@ -402,12 +402,12 @@
       0001D8 CDr00r36         [ 4]  402 	call	_I2CDataInOut
       0001DB 84               [ 1]  403 	pop	a
                                     404 ;	driver/dht12.c: 333: for(i=0; i<8; i++)  
-      0001DC 0F 01            [ 1]  405 	clr	(0x01, sp)
+      0001DC 0F 02            [ 1]  405 	clr	(0x02, sp)
       0001DE                        406 00104$:
                                     407 ;	driver/dht12.c: 337: ReadByte <<= 1;  
-      0001DE 7B 02            [ 1]  408 	ld	a, (0x02, sp)
+      0001DE 7B 01            [ 1]  408 	ld	a, (0x01, sp)
       0001E0 48               [ 1]  409 	sll	a
-      0001E1 6B 02            [ 1]  410 	ld	(0x02, sp), a
+      0001E1 6B 01            [ 1]  410 	ld	(0x01, sp), a
                                     411 ;	driver/dht12.c: 339: GPIO_WriteLow(I2C_PORT, I2CSCL);  
       0001E3 4B 10            [ 1]  412 	push	#0x10
       0001E5 4B 05            [ 1]  413 	push	#0x05
@@ -429,13 +429,13 @@
       000204 4D               [ 1]  429 	tnz	a
       000205 27 06            [ 1]  430 	jreq	00105$
                                     431 ;	driver/dht12.c: 350: {ReadByte |= 0x01;}  
-      000207 7B 02            [ 1]  432 	ld	a, (0x02, sp)
+      000207 7B 01            [ 1]  432 	ld	a, (0x01, sp)
       000209 AA 01            [ 1]  433 	or	a, #0x01
-      00020B 6B 02            [ 1]  434 	ld	(0x02, sp), a
+      00020B 6B 01            [ 1]  434 	ld	(0x01, sp), a
       00020D                        435 00105$:
                                     436 ;	driver/dht12.c: 333: for(i=0; i<8; i++)  
-      00020D 0C 01            [ 1]  437 	inc	(0x01, sp)
-      00020F 7B 01            [ 1]  438 	ld	a, (0x01, sp)
+      00020D 0C 02            [ 1]  437 	inc	(0x02, sp)
+      00020F 7B 02            [ 1]  438 	ld	a, (0x02, sp)
       000211 A1 08            [ 1]  439 	cp	a, #0x08
       000213 25 C9            [ 1]  440 	jrc	00104$
                                     441 ;	driver/dht12.c: 356: GPIO_WriteLow(I2C_PORT, I2CSCL);  
@@ -449,7 +449,7 @@
       000222 CDr00r36         [ 4]  449 	call	_I2CDataInOut
       000225 84               [ 1]  450 	pop	a
                                     451 ;	driver/dht12.c: 362: return ReadByte;  
-      000226 7B 02            [ 1]  452 	ld	a, (0x02, sp)
+      000226 7B 01            [ 1]  452 	ld	a, (0x01, sp)
                                     453 ;	driver/dht12.c: 364: }  
       000228 5B 02            [ 2]  454 	addw	sp, #2
       00022A 81               [ 4]  455 	ret

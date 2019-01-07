@@ -86,21 +86,21 @@ _GPIO_Init:
 	ldw	y, (0x08, sp)
 	ldw	x, y
 	addw	x, #0x0004
-	ldw	(0x01, sp), x
+	ldw	(0x04, sp), x
 	ld	a, (x)
 	push	a
 	ld	a, (0x0b, sp)
 	cpl	a
-	ld	(0x06, sp), a
+	ld	(0x04, sp), a
 	pop	a
-	and	a, (0x05, sp)
-	ldw	x, (0x01, sp)
+	and	a, (0x03, sp)
+	ldw	x, (0x04, sp)
 	ld	(x), a
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 98: GPIOx->DDR |= (uint8_t)GPIO_Pin;
 	ldw	x, y
 	incw	x
 	incw	x
-	ldw	(0x03, sp), x
+	ldw	(0x01, sp), x
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 87: if ((((uint8_t)(GPIO_Mode)) & (uint8_t)0x80) != (uint8_t)0x00) /* Output mode */
 	tnz	(0x0b, sp)
 	jrpl	00105$
@@ -118,22 +118,22 @@ _GPIO_Init:
 	jra	00103$
 00102$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 95: GPIOx->ODR &= (uint8_t)(~(GPIO_Pin));
-	and	a, (0x05, sp)
+	and	a, (0x03, sp)
 	ld	(y), a
 00103$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 98: GPIOx->DDR |= (uint8_t)GPIO_Pin;
-	ldw	x, (0x03, sp)
+	ldw	x, (0x01, sp)
 	ld	a, (x)
 	or	a, (0x0a, sp)
-	ldw	x, (0x03, sp)
+	ldw	x, (0x01, sp)
 	ld	(x), a
 	jra	00106$
 00105$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 103: GPIOx->DDR &= (uint8_t)(~(GPIO_Pin));
-	ldw	x, (0x03, sp)
+	ldw	x, (0x01, sp)
 	ld	a, (x)
-	and	a, (0x05, sp)
-	ldw	x, (0x03, sp)
+	and	a, (0x03, sp)
+	ldw	x, (0x01, sp)
 	ld	(x), a
 00106$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 112: GPIOx->CR1 |= (uint8_t)GPIO_Pin;
@@ -152,11 +152,11 @@ _GPIO_Init:
 	jra	00109$
 00108$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 116: GPIOx->CR1 &= (uint8_t)(~(GPIO_Pin));
-	and	a, (0x05, sp)
+	and	a, (0x03, sp)
 	ld	(x), a
 00109$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 81: GPIOx->CR2 &= (uint8_t)(~(GPIO_Pin));
-	ldw	x, (0x01, sp)
+	ldw	x, (0x04, sp)
 	ld	a, (x)
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 123: if ((((uint8_t)(GPIO_Mode)) & (uint8_t)0x20) != (uint8_t)0x00) /* Interrupt or Slow slope */
 	push	a
@@ -166,13 +166,13 @@ _GPIO_Init:
 	jreq	00111$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 125: GPIOx->CR2 |= (uint8_t)GPIO_Pin;
 	or	a, (0x0a, sp)
-	ldw	x, (0x01, sp)
+	ldw	x, (0x04, sp)
 	ld	(x), a
 	jra	00113$
 00111$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 129: GPIOx->CR2 &= (uint8_t)(~(GPIO_Pin));
-	and	a, (0x05, sp)
-	ldw	x, (0x01, sp)
+	and	a, (0x03, sp)
+	ldw	x, (0x04, sp)
 	ld	(x), a
 00113$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 131: }

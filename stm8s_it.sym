@@ -7,10 +7,10 @@ Symbol Table
     .__.ABS.                                                    =  000000 G
     .__.CPU.                                                    =  000000 L
     .__.H$L.                                                    =  000001 L
-  9 _ADC1_IRQHandler                                               00004E GR
+  9 _ADC1_IRQHandler                                               000068 GR
   9 _AWU_IRQHandler                                                000002 GR
   9 _CLK_IRQHandler                                                000003 GR
-  9 _EEPROM_EEC_IRQHandler                                         000050 GR
+  9 _EEPROM_EEC_IRQHandler                                         00006A GR
   9 _EXTI_PORTA_IRQHandler                                         000004 GR
   9 _EXTI_PORTB_IRQHandler                                         000005 GR
   9 _EXTI_PORTC_IRQHandler                                         000006 GR
@@ -24,9 +24,10 @@ Symbol Table
   9 _TIM2_UPD_OVF_BRK_IRQHandler                                   00000C GR
   9 _TIM3_CAP_COM_IRQHandler                                       00000F GR
   9 _TIM3_UPD_OVF_BRK_IRQHandler                                   00000E GR
-  9 _TIM4_UPD_OVF_IRQHandler                                       00004F GR
+  9 _TIM4_UPD_OVF_IRQHandler                                       000069 GR
   9 _TLI_IRQHandler                                                000001 GR
   9 _TRAP_IRQHandler                                               000000 GR
+    _UART2_ClearFlag                                               ****** GX
     _UART2_ClearITPendingBit                                       ****** GX
     _UART2_GetFlagStatus                                           ****** GX
     _UART2_GetITStatus                                             ****** GX
@@ -50,6 +51,6 @@ Area Table
    6 GSFINAL                                    size      0   flags    0
    7 CONST                                      size      0   flags    0
    8 INITIALIZER                                size      0   flags    0
-   9 CODE                                       size     51   flags    0
+   9 CODE                                       size     6B   flags    0
    A CABS                                       size      0   flags    8
 

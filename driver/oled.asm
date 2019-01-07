@@ -408,20 +408,20 @@ _oled_pow:
 	clr	(0x06, sp)
 ;	driver/oled.c: 168: while(n--)result*=m;
 	ld	a, (0x0d, sp)
-	ld	(0x01, sp), a
+	ld	(0x05, sp), a
 00101$:
-	ld	a, (0x01, sp)
-	dec	(0x01, sp)
+	ld	a, (0x05, sp)
+	dec	(0x05, sp)
 	tnz	a
 	jreq	00103$
 	ld	a, (0x0c, sp)
-	ld	(0x05, sp), a
+	ld	(0x04, sp), a
 	clrw	y
-	clr	(0x02, sp)
-	ld	a, (0x05, sp)
+	clr	(0x01, sp)
+	ld	a, (0x04, sp)
 	push	a
 	pushw	y
-	ld	a, (0x05, sp)
+	ld	a, (0x04, sp)
 	push	a
 	pushw	x
 	ldw	x, (0x0c, sp)
@@ -483,18 +483,18 @@ _OLED_ShowNum:
 	ld	a, (0x11, sp)
 	ld	xl, a
 	ld	a, (0x07, sp)
-	ld	(0x01, sp), a
+	ld	(0x04, sp), a
 	ld	a, (0x0a, sp)
-	ld	(0x02, sp), a
+	ld	(0x03, sp), a
 	push	#0x02
 	push	#0x00
 	pushw	x
 	call	__divsint
 	addw	sp, #4
-	ld	a, (0x01, sp)
+	ld	a, (0x04, sp)
 	mul	x, a
 	ld	a, xl
-	add	a, (0x02, sp)
+	add	a, (0x03, sp)
 	ld	yl, a
 ;	driver/oled.c: 184: if(enshow==0&&t<(len-1))
 	tnz	(0x05, sp)
@@ -503,11 +503,11 @@ _OLED_ShowNum:
 	ld	a, (0x10, sp)
 	ld	xl, a
 	decw	x
-	ldw	(0x03, sp), x
+	ldw	(0x01, sp), x
 	clrw	x
 	ld	a, (0x07, sp)
 	ld	xl, a
-	cpw	x, (0x03, sp)
+	cpw	x, (0x01, sp)
 	jrsge	00105$
 ;	driver/oled.c: 186: if(temp==0)
 	tnz	(0x06, sp)

@@ -139,22 +139,22 @@ _UART2_Init:
 	ld	0x5243, a
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 121: BaudRate_Mantissa    = ((uint32_t)CLK_GetClockFreq() / (BaudRate << 4));
 	call	_CLK_GetClockFreq
-	ldw	(0x19, sp), x
+	ldw	(0x15, sp), x
 	ldw	x, (0x26, sp)
-	ldw	(0x13, sp), x
+	ldw	(0x03, sp), x
 	ldw	x, (0x28, sp)
 	ld	a, #0x04
 00127$:
 	sllw	x
-	rlc	(0x14, sp)
-	rlc	(0x13, sp)
+	rlc	(0x04, sp)
+	rlc	(0x03, sp)
 	dec	a
 	jrne	00127$
-	ldw	(0x15, sp), x
+	ldw	(0x05, sp), x
 	pushw	x
-	ldw	x, (0x15, sp)
+	ldw	x, (0x05, sp)
 	pushw	x
-	ldw	x, (0x1d, sp)
+	ldw	x, (0x19, sp)
 	pushw	x
 	pushw	y
 	call	__divulong
@@ -165,11 +165,11 @@ _UART2_Init:
 	ldw	(0x20, sp), y
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 122: BaudRate_Mantissa100 = (((uint32_t)CLK_GetClockFreq() * 100) / (BaudRate << 4));
 	call	_CLK_GetClockFreq
-	ldw	(0x11, sp), x
-	ldw	(0x0f, sp), y
-	ldw	x, (0x11, sp)
+	ldw	(0x0d, sp), x
+	ldw	(0x0b, sp), y
+	ldw	x, (0x0d, sp)
 	pushw	x
-	ldw	x, (0x11, sp)
+	ldw	x, (0x0d, sp)
 	pushw	x
 	push	#0x64
 	clrw	x
@@ -177,12 +177,12 @@ _UART2_Init:
 	push	#0x00
 	call	__mullong
 	addw	sp, #8
-	ldw	(0x0d, sp), x
-	ldw	x, (0x15, sp)
+	ldw	(0x19, sp), x
+	ldw	x, (0x05, sp)
 	pushw	x
-	ldw	x, (0x15, sp)
+	ldw	x, (0x05, sp)
 	pushw	x
-	ldw	x, (0x11, sp)
+	ldw	x, (0x1d, sp)
 	pushw	x
 	pushw	y
 	call	__divulong
@@ -200,19 +200,19 @@ _UART2_Init:
 	push	#0x00
 	call	__mullong
 	addw	sp, #8
-	ldw	(0x09, sp), x
-	ldw	(0x07, sp), y
+	ldw	(0x11, sp), x
+	ldw	(0x0f, sp), y
 	ldw	x, (0x1d, sp)
-	subw	x, (0x09, sp)
-	ldw	(0x05, sp), x
+	subw	x, (0x11, sp)
+	ldw	(0x09, sp), x
 	ld	a, (0x1c, sp)
-	sbc	a, (0x08, sp)
-	ld	(0x04, sp), a
+	sbc	a, (0x10, sp)
+	ld	(0x08, sp), a
 	ld	a, (0x1b, sp)
-	sbc	a, (0x07, sp)
-	ld	(0x03, sp), a
-	ldw	x, (0x05, sp)
-	ldw	y, (0x03, sp)
+	sbc	a, (0x0f, sp)
+	ld	(0x07, sp), a
+	ldw	x, (0x09, sp)
+	ldw	y, (0x07, sp)
 	ld	a, #0x04
 00129$:
 	sllw	x
@@ -347,12 +347,12 @@ _UART2_ITConfig:
 	and	a, #0x0f
 	push	a
 	ld	a, #0x01
-	ld	(0x05, sp), a
+	ld	(0x03, sp), a
 	pop	a
 	tnz	a
 	jreq	00160$
 00159$:
-	sll	(0x04, sp)
+	sll	(0x02, sp)
 	dec	a
 	jrne	00159$
 00160$:
@@ -361,20 +361,20 @@ _UART2_ITConfig:
 	dec	a
 	jrne	00162$
 	ld	a, #0x01
-	ld	(0x03, sp), a
+	ld	(0x01, sp), a
 	.byte 0xc1
 00162$:
-	clr	(0x03, sp)
+	clr	(0x01, sp)
 00163$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 231: else if (uartreg == 0x02)
 	ld	a, xl
 	sub	a, #0x02
 	jrne	00165$
 	inc	a
-	ld	(0x02, sp), a
+	ld	(0x04, sp), a
 	.byte 0xc1
 00165$:
-	clr	(0x02, sp)
+	clr	(0x04, sp)
 00166$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 235: else if (uartreg == 0x03)
 	ld	a, xl
@@ -389,20 +389,20 @@ _UART2_ITConfig:
 	tnz	(0x09, sp)
 	jreq	00120$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 227: if (uartreg == 0x01)
-	tnz	(0x03, sp)
+	tnz	(0x01, sp)
 	jreq	00108$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 229: UART2->CR1 |= itpos;
 	ld	a, 0x5244
-	or	a, (0x04, sp)
+	or	a, (0x02, sp)
 	ld	0x5244, a
 	jra	00122$
 00108$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 231: else if (uartreg == 0x02)
-	tnz	(0x02, sp)
+	tnz	(0x04, sp)
 	jreq	00105$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 233: UART2->CR2 |= itpos;
 	ld	a, 0x5245
-	or	a, (0x04, sp)
+	or	a, (0x02, sp)
 	ld	0x5245, a
 	jra	00122$
 00105$:
@@ -411,37 +411,37 @@ _UART2_ITConfig:
 	jreq	00102$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 237: UART2->CR4 |= itpos;
 	ld	a, 0x5247
-	or	a, (0x04, sp)
+	or	a, (0x02, sp)
 	ld	0x5247, a
 	jra	00122$
 00102$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 241: UART2->CR6 |= itpos;
 	ld	a, 0x5249
-	or	a, (0x04, sp)
+	or	a, (0x02, sp)
 	ld	0x5249, a
 	jra	00122$
 00120$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 249: UART2->CR1 &= (uint8_t)(~itpos);
 	push	a
-	ld	a, (0x05, sp)
+	ld	a, (0x03, sp)
 	cpl	a
-	ld	(0x02, sp), a
+	ld	(0x04, sp), a
 	pop	a
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 247: if (uartreg == 0x01)
-	tnz	(0x03, sp)
+	tnz	(0x01, sp)
 	jreq	00117$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 249: UART2->CR1 &= (uint8_t)(~itpos);
 	ld	a, 0x5244
-	and	a, (0x01, sp)
+	and	a, (0x03, sp)
 	ld	0x5244, a
 	jra	00122$
 00117$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 251: else if (uartreg == 0x02)
-	tnz	(0x02, sp)
+	tnz	(0x04, sp)
 	jreq	00114$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 253: UART2->CR2 &= (uint8_t)(~itpos);
 	ld	a, 0x5245
-	and	a, (0x01, sp)
+	and	a, (0x03, sp)
 	ld	0x5245, a
 	jra	00122$
 00114$:
@@ -450,13 +450,13 @@ _UART2_ITConfig:
 	jreq	00111$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 257: UART2->CR4 &= (uint8_t)(~itpos);
 	ld	a, 0x5247
-	and	a, (0x01, sp)
+	and	a, (0x03, sp)
 	ld	0x5247, a
 	jra	00122$
 00111$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 261: UART2->CR6 &= (uint8_t)(~itpos);
 	ld	a, 0x5249
-	and	a, (0x01, sp)
+	and	a, (0x03, sp)
 	ld	0x5249, a
 00122$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 264: }

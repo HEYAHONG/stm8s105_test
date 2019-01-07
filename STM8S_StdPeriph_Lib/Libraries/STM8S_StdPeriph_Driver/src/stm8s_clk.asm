@@ -557,10 +557,10 @@ _CLK_SYSCLKConfig:
 	ld	0x50c6, a
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_clk.c: 508: CLK->CKDIVR |= (uint8_t)((uint8_t)CLK_Prescaler & (uint8_t)CLK_CKDIVR_HSIDIV);
 	ld	a, 0x50c6
-	ld	(0x02, sp), a
+	ld	(0x01, sp), a
 	ld	a, (0x05, sp)
 	and	a, #0x18
-	or	a, (0x02, sp)
+	or	a, (0x01, sp)
 	ld	0x50c6, a
 	jra	00104$
 00102$:
@@ -569,10 +569,10 @@ _CLK_SYSCLKConfig:
 	ld	0x50c6, a
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_clk.c: 513: CLK->CKDIVR |= (uint8_t)((uint8_t)CLK_Prescaler & (uint8_t)CLK_CKDIVR_CPUDIV);
 	ld	a, 0x50c6
-	ld	(0x01, sp), a
+	ld	(0x02, sp), a
 	ld	a, (0x05, sp)
 	and	a, #0x07
-	or	a, (0x01, sp)
+	or	a, (0x02, sp)
 	ld	0x50c6, a
 00104$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_clk.c: 515: }

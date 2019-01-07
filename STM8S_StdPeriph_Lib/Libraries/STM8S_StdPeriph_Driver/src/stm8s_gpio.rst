@@ -59,238 +59,238 @@
                                      59 ;	-----------------------------------------
                                      60 ;	 function GPIO_DeInit
                                      61 ;	-----------------------------------------
-      009433                         62 _GPIO_DeInit:
+      0094B5                         62 _GPIO_DeInit:
                                      63 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 55: GPIOx->ODR = GPIO_ODR_RESET_VALUE; /* Reset Output Data Register */
-      009433 16 03            [ 2]   64 	ldw	y, (0x03, sp)
-      009435 90 7F            [ 1]   65 	clr	(y)
+      0094B5 16 03            [ 2]   64 	ldw	y, (0x03, sp)
+      0094B7 90 7F            [ 1]   65 	clr	(y)
                                      66 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 56: GPIOx->DDR = GPIO_DDR_RESET_VALUE; /* Reset Data Direction Register */
-      009437 93               [ 1]   67 	ldw	x, y
-      009438 5C               [ 1]   68 	incw	x
-      009439 5C               [ 1]   69 	incw	x
-      00943A 7F               [ 1]   70 	clr	(x)
+      0094B9 93               [ 1]   67 	ldw	x, y
+      0094BA 5C               [ 1]   68 	incw	x
+      0094BB 5C               [ 1]   69 	incw	x
+      0094BC 7F               [ 1]   70 	clr	(x)
                                      71 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 57: GPIOx->CR1 = GPIO_CR1_RESET_VALUE; /* Reset Control Register 1 */
-      00943B 93               [ 1]   72 	ldw	x, y
-      00943C 6F 03            [ 1]   73 	clr	(0x0003, x)
+      0094BD 93               [ 1]   72 	ldw	x, y
+      0094BE 6F 03            [ 1]   73 	clr	(0x0003, x)
                                      74 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 58: GPIOx->CR2 = GPIO_CR2_RESET_VALUE; /* Reset Control Register 2 */
-      00943E 93               [ 1]   75 	ldw	x, y
-      00943F 6F 04            [ 1]   76 	clr	(0x0004, x)
+      0094C0 93               [ 1]   75 	ldw	x, y
+      0094C1 6F 04            [ 1]   76 	clr	(0x0004, x)
                                      77 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 59: }
-      009441 81               [ 4]   78 	ret
+      0094C3 81               [ 4]   78 	ret
                                      79 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 71: void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef GPIO_Pin, GPIO_Mode_TypeDef GPIO_Mode)
                                      80 ;	-----------------------------------------
                                      81 ;	 function GPIO_Init
                                      82 ;	-----------------------------------------
-      009442                         83 _GPIO_Init:
-      009442 52 05            [ 2]   84 	sub	sp, #5
+      0094C4                         83 _GPIO_Init:
+      0094C4 52 05            [ 2]   84 	sub	sp, #5
                                      85 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 81: GPIOx->CR2 &= (uint8_t)(~(GPIO_Pin));
-      009444 16 08            [ 2]   86 	ldw	y, (0x08, sp)
-      009446 93               [ 1]   87 	ldw	x, y
-      009447 1C 00 04         [ 2]   88 	addw	x, #0x0004
-      00944A 1F 01            [ 2]   89 	ldw	(0x01, sp), x
-      00944C F6               [ 1]   90 	ld	a, (x)
-      00944D 88               [ 1]   91 	push	a
-      00944E 7B 0B            [ 1]   92 	ld	a, (0x0b, sp)
-      009450 43               [ 1]   93 	cpl	a
-      009451 6B 06            [ 1]   94 	ld	(0x06, sp), a
-      009453 84               [ 1]   95 	pop	a
-      009454 14 05            [ 1]   96 	and	a, (0x05, sp)
-      009456 1E 01            [ 2]   97 	ldw	x, (0x01, sp)
-      009458 F7               [ 1]   98 	ld	(x), a
+      0094C6 16 08            [ 2]   86 	ldw	y, (0x08, sp)
+      0094C8 93               [ 1]   87 	ldw	x, y
+      0094C9 1C 00 04         [ 2]   88 	addw	x, #0x0004
+      0094CC 1F 04            [ 2]   89 	ldw	(0x04, sp), x
+      0094CE F6               [ 1]   90 	ld	a, (x)
+      0094CF 88               [ 1]   91 	push	a
+      0094D0 7B 0B            [ 1]   92 	ld	a, (0x0b, sp)
+      0094D2 43               [ 1]   93 	cpl	a
+      0094D3 6B 04            [ 1]   94 	ld	(0x04, sp), a
+      0094D5 84               [ 1]   95 	pop	a
+      0094D6 14 03            [ 1]   96 	and	a, (0x03, sp)
+      0094D8 1E 04            [ 2]   97 	ldw	x, (0x04, sp)
+      0094DA F7               [ 1]   98 	ld	(x), a
                                      99 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 98: GPIOx->DDR |= (uint8_t)GPIO_Pin;
-      009459 93               [ 1]  100 	ldw	x, y
-      00945A 5C               [ 1]  101 	incw	x
-      00945B 5C               [ 1]  102 	incw	x
-      00945C 1F 03            [ 2]  103 	ldw	(0x03, sp), x
+      0094DB 93               [ 1]  100 	ldw	x, y
+      0094DC 5C               [ 1]  101 	incw	x
+      0094DD 5C               [ 1]  102 	incw	x
+      0094DE 1F 01            [ 2]  103 	ldw	(0x01, sp), x
                                     104 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 87: if ((((uint8_t)(GPIO_Mode)) & (uint8_t)0x80) != (uint8_t)0x00) /* Output mode */
-      00945E 0D 0B            [ 1]  105 	tnz	(0x0b, sp)
-      009460 2A 1E            [ 1]  106 	jrpl	00105$
+      0094E0 0D 0B            [ 1]  105 	tnz	(0x0b, sp)
+      0094E2 2A 1E            [ 1]  106 	jrpl	00105$
                                     107 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 91: GPIOx->ODR |= (uint8_t)GPIO_Pin;
-      009462 90 F6            [ 1]  108 	ld	a, (y)
+      0094E4 90 F6            [ 1]  108 	ld	a, (y)
                                     109 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 89: if ((((uint8_t)(GPIO_Mode)) & (uint8_t)0x10) != (uint8_t)0x00) /* High level */
-      009464 88               [ 1]  110 	push	a
-      009465 7B 0C            [ 1]  111 	ld	a, (0x0c, sp)
-      009467 A5 10            [ 1]  112 	bcp	a, #0x10
-      009469 84               [ 1]  113 	pop	a
-      00946A 27 06            [ 1]  114 	jreq	00102$
+      0094E6 88               [ 1]  110 	push	a
+      0094E7 7B 0C            [ 1]  111 	ld	a, (0x0c, sp)
+      0094E9 A5 10            [ 1]  112 	bcp	a, #0x10
+      0094EB 84               [ 1]  113 	pop	a
+      0094EC 27 06            [ 1]  114 	jreq	00102$
                                     115 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 91: GPIOx->ODR |= (uint8_t)GPIO_Pin;
-      00946C 1A 0A            [ 1]  116 	or	a, (0x0a, sp)
-      00946E 90 F7            [ 1]  117 	ld	(y), a
-      009470 20 04            [ 2]  118 	jra	00103$
-      009472                        119 00102$:
+      0094EE 1A 0A            [ 1]  116 	or	a, (0x0a, sp)
+      0094F0 90 F7            [ 1]  117 	ld	(y), a
+      0094F2 20 04            [ 2]  118 	jra	00103$
+      0094F4                        119 00102$:
                                     120 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 95: GPIOx->ODR &= (uint8_t)(~(GPIO_Pin));
-      009472 14 05            [ 1]  121 	and	a, (0x05, sp)
-      009474 90 F7            [ 1]  122 	ld	(y), a
-      009476                        123 00103$:
+      0094F4 14 03            [ 1]  121 	and	a, (0x03, sp)
+      0094F6 90 F7            [ 1]  122 	ld	(y), a
+      0094F8                        123 00103$:
                                     124 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 98: GPIOx->DDR |= (uint8_t)GPIO_Pin;
-      009476 1E 03            [ 2]  125 	ldw	x, (0x03, sp)
-      009478 F6               [ 1]  126 	ld	a, (x)
-      009479 1A 0A            [ 1]  127 	or	a, (0x0a, sp)
-      00947B 1E 03            [ 2]  128 	ldw	x, (0x03, sp)
-      00947D F7               [ 1]  129 	ld	(x), a
-      00947E 20 08            [ 2]  130 	jra	00106$
-      009480                        131 00105$:
+      0094F8 1E 01            [ 2]  125 	ldw	x, (0x01, sp)
+      0094FA F6               [ 1]  126 	ld	a, (x)
+      0094FB 1A 0A            [ 1]  127 	or	a, (0x0a, sp)
+      0094FD 1E 01            [ 2]  128 	ldw	x, (0x01, sp)
+      0094FF F7               [ 1]  129 	ld	(x), a
+      009500 20 08            [ 2]  130 	jra	00106$
+      009502                        131 00105$:
                                     132 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 103: GPIOx->DDR &= (uint8_t)(~(GPIO_Pin));
-      009480 1E 03            [ 2]  133 	ldw	x, (0x03, sp)
-      009482 F6               [ 1]  134 	ld	a, (x)
-      009483 14 05            [ 1]  135 	and	a, (0x05, sp)
-      009485 1E 03            [ 2]  136 	ldw	x, (0x03, sp)
-      009487 F7               [ 1]  137 	ld	(x), a
-      009488                        138 00106$:
+      009502 1E 01            [ 2]  133 	ldw	x, (0x01, sp)
+      009504 F6               [ 1]  134 	ld	a, (x)
+      009505 14 03            [ 1]  135 	and	a, (0x03, sp)
+      009507 1E 01            [ 2]  136 	ldw	x, (0x01, sp)
+      009509 F7               [ 1]  137 	ld	(x), a
+      00950A                        138 00106$:
                                     139 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 112: GPIOx->CR1 |= (uint8_t)GPIO_Pin;
-      009488 93               [ 1]  140 	ldw	x, y
-      009489 1C 00 03         [ 2]  141 	addw	x, #0x0003
-      00948C F6               [ 1]  142 	ld	a, (x)
+      00950A 93               [ 1]  140 	ldw	x, y
+      00950B 1C 00 03         [ 2]  141 	addw	x, #0x0003
+      00950E F6               [ 1]  142 	ld	a, (x)
                                     143 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 110: if ((((uint8_t)(GPIO_Mode)) & (uint8_t)0x40) != (uint8_t)0x00) /* Pull-Up or Push-Pull */
-      00948D 88               [ 1]  144 	push	a
-      00948E 7B 0C            [ 1]  145 	ld	a, (0x0c, sp)
-      009490 A5 40            [ 1]  146 	bcp	a, #0x40
-      009492 84               [ 1]  147 	pop	a
-      009493 27 05            [ 1]  148 	jreq	00108$
+      00950F 88               [ 1]  144 	push	a
+      009510 7B 0C            [ 1]  145 	ld	a, (0x0c, sp)
+      009512 A5 40            [ 1]  146 	bcp	a, #0x40
+      009514 84               [ 1]  147 	pop	a
+      009515 27 05            [ 1]  148 	jreq	00108$
                                     149 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 112: GPIOx->CR1 |= (uint8_t)GPIO_Pin;
-      009495 1A 0A            [ 1]  150 	or	a, (0x0a, sp)
-      009497 F7               [ 1]  151 	ld	(x), a
-      009498 20 03            [ 2]  152 	jra	00109$
-      00949A                        153 00108$:
+      009517 1A 0A            [ 1]  150 	or	a, (0x0a, sp)
+      009519 F7               [ 1]  151 	ld	(x), a
+      00951A 20 03            [ 2]  152 	jra	00109$
+      00951C                        153 00108$:
                                     154 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 116: GPIOx->CR1 &= (uint8_t)(~(GPIO_Pin));
-      00949A 14 05            [ 1]  155 	and	a, (0x05, sp)
-      00949C F7               [ 1]  156 	ld	(x), a
-      00949D                        157 00109$:
+      00951C 14 03            [ 1]  155 	and	a, (0x03, sp)
+      00951E F7               [ 1]  156 	ld	(x), a
+      00951F                        157 00109$:
                                     158 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 81: GPIOx->CR2 &= (uint8_t)(~(GPIO_Pin));
-      00949D 1E 01            [ 2]  159 	ldw	x, (0x01, sp)
-      00949F F6               [ 1]  160 	ld	a, (x)
+      00951F 1E 04            [ 2]  159 	ldw	x, (0x04, sp)
+      009521 F6               [ 1]  160 	ld	a, (x)
                                     161 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 123: if ((((uint8_t)(GPIO_Mode)) & (uint8_t)0x20) != (uint8_t)0x00) /* Interrupt or Slow slope */
-      0094A0 88               [ 1]  162 	push	a
-      0094A1 7B 0C            [ 1]  163 	ld	a, (0x0c, sp)
-      0094A3 A5 20            [ 1]  164 	bcp	a, #0x20
-      0094A5 84               [ 1]  165 	pop	a
-      0094A6 27 07            [ 1]  166 	jreq	00111$
+      009522 88               [ 1]  162 	push	a
+      009523 7B 0C            [ 1]  163 	ld	a, (0x0c, sp)
+      009525 A5 20            [ 1]  164 	bcp	a, #0x20
+      009527 84               [ 1]  165 	pop	a
+      009528 27 07            [ 1]  166 	jreq	00111$
                                     167 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 125: GPIOx->CR2 |= (uint8_t)GPIO_Pin;
-      0094A8 1A 0A            [ 1]  168 	or	a, (0x0a, sp)
-      0094AA 1E 01            [ 2]  169 	ldw	x, (0x01, sp)
-      0094AC F7               [ 1]  170 	ld	(x), a
-      0094AD 20 05            [ 2]  171 	jra	00113$
-      0094AF                        172 00111$:
+      00952A 1A 0A            [ 1]  168 	or	a, (0x0a, sp)
+      00952C 1E 04            [ 2]  169 	ldw	x, (0x04, sp)
+      00952E F7               [ 1]  170 	ld	(x), a
+      00952F 20 05            [ 2]  171 	jra	00113$
+      009531                        172 00111$:
                                     173 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 129: GPIOx->CR2 &= (uint8_t)(~(GPIO_Pin));
-      0094AF 14 05            [ 1]  174 	and	a, (0x05, sp)
-      0094B1 1E 01            [ 2]  175 	ldw	x, (0x01, sp)
-      0094B3 F7               [ 1]  176 	ld	(x), a
-      0094B4                        177 00113$:
+      009531 14 03            [ 1]  174 	and	a, (0x03, sp)
+      009533 1E 04            [ 2]  175 	ldw	x, (0x04, sp)
+      009535 F7               [ 1]  176 	ld	(x), a
+      009536                        177 00113$:
                                     178 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 131: }
-      0094B4 5B 05            [ 2]  179 	addw	sp, #5
-      0094B6 81               [ 4]  180 	ret
+      009536 5B 05            [ 2]  179 	addw	sp, #5
+      009538 81               [ 4]  180 	ret
                                     181 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 141: void GPIO_Write(GPIO_TypeDef* GPIOx, uint8_t PortVal)
                                     182 ;	-----------------------------------------
                                     183 ;	 function GPIO_Write
                                     184 ;	-----------------------------------------
-      0094B7                        185 _GPIO_Write:
+      009539                        185 _GPIO_Write:
                                     186 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 143: GPIOx->ODR = PortVal;
-      0094B7 1E 03            [ 2]  187 	ldw	x, (0x03, sp)
-      0094B9 7B 05            [ 1]  188 	ld	a, (0x05, sp)
-      0094BB F7               [ 1]  189 	ld	(x), a
+      009539 1E 03            [ 2]  187 	ldw	x, (0x03, sp)
+      00953B 7B 05            [ 1]  188 	ld	a, (0x05, sp)
+      00953D F7               [ 1]  189 	ld	(x), a
                                     190 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 144: }
-      0094BC 81               [ 4]  191 	ret
+      00953E 81               [ 4]  191 	ret
                                     192 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 154: void GPIO_WriteHigh(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef PortPins)
                                     193 ;	-----------------------------------------
                                     194 ;	 function GPIO_WriteHigh
                                     195 ;	-----------------------------------------
-      0094BD                        196 _GPIO_WriteHigh:
+      00953F                        196 _GPIO_WriteHigh:
                                     197 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 156: GPIOx->ODR |= (uint8_t)PortPins;
-      0094BD 1E 03            [ 2]  198 	ldw	x, (0x03, sp)
-      0094BF F6               [ 1]  199 	ld	a, (x)
-      0094C0 1A 05            [ 1]  200 	or	a, (0x05, sp)
-      0094C2 F7               [ 1]  201 	ld	(x), a
+      00953F 1E 03            [ 2]  198 	ldw	x, (0x03, sp)
+      009541 F6               [ 1]  199 	ld	a, (x)
+      009542 1A 05            [ 1]  200 	or	a, (0x05, sp)
+      009544 F7               [ 1]  201 	ld	(x), a
                                     202 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 157: }
-      0094C3 81               [ 4]  203 	ret
+      009545 81               [ 4]  203 	ret
                                     204 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 167: void GPIO_WriteLow(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef PortPins)
                                     205 ;	-----------------------------------------
                                     206 ;	 function GPIO_WriteLow
                                     207 ;	-----------------------------------------
-      0094C4                        208 _GPIO_WriteLow:
-      0094C4 88               [ 1]  209 	push	a
+      009546                        208 _GPIO_WriteLow:
+      009546 88               [ 1]  209 	push	a
                                     210 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 169: GPIOx->ODR &= (uint8_t)(~PortPins);
-      0094C5 1E 04            [ 2]  211 	ldw	x, (0x04, sp)
-      0094C7 F6               [ 1]  212 	ld	a, (x)
-      0094C8 6B 01            [ 1]  213 	ld	(0x01, sp), a
-      0094CA 7B 06            [ 1]  214 	ld	a, (0x06, sp)
-      0094CC 43               [ 1]  215 	cpl	a
-      0094CD 14 01            [ 1]  216 	and	a, (0x01, sp)
-      0094CF F7               [ 1]  217 	ld	(x), a
+      009547 1E 04            [ 2]  211 	ldw	x, (0x04, sp)
+      009549 F6               [ 1]  212 	ld	a, (x)
+      00954A 6B 01            [ 1]  213 	ld	(0x01, sp), a
+      00954C 7B 06            [ 1]  214 	ld	a, (0x06, sp)
+      00954E 43               [ 1]  215 	cpl	a
+      00954F 14 01            [ 1]  216 	and	a, (0x01, sp)
+      009551 F7               [ 1]  217 	ld	(x), a
                                     218 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 170: }
-      0094D0 84               [ 1]  219 	pop	a
-      0094D1 81               [ 4]  220 	ret
+      009552 84               [ 1]  219 	pop	a
+      009553 81               [ 4]  220 	ret
                                     221 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 180: void GPIO_WriteReverse(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef PortPins)
                                     222 ;	-----------------------------------------
                                     223 ;	 function GPIO_WriteReverse
                                     224 ;	-----------------------------------------
-      0094D2                        225 _GPIO_WriteReverse:
+      009554                        225 _GPIO_WriteReverse:
                                     226 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 182: GPIOx->ODR ^= (uint8_t)PortPins;
-      0094D2 1E 03            [ 2]  227 	ldw	x, (0x03, sp)
-      0094D4 F6               [ 1]  228 	ld	a, (x)
-      0094D5 18 05            [ 1]  229 	xor	a, (0x05, sp)
-      0094D7 F7               [ 1]  230 	ld	(x), a
+      009554 1E 03            [ 2]  227 	ldw	x, (0x03, sp)
+      009556 F6               [ 1]  228 	ld	a, (x)
+      009557 18 05            [ 1]  229 	xor	a, (0x05, sp)
+      009559 F7               [ 1]  230 	ld	(x), a
                                     231 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 183: }
-      0094D8 81               [ 4]  232 	ret
+      00955A 81               [ 4]  232 	ret
                                     233 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 191: uint8_t GPIO_ReadOutputData(GPIO_TypeDef* GPIOx)
                                     234 ;	-----------------------------------------
                                     235 ;	 function GPIO_ReadOutputData
                                     236 ;	-----------------------------------------
-      0094D9                        237 _GPIO_ReadOutputData:
+      00955B                        237 _GPIO_ReadOutputData:
                                     238 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 193: return ((uint8_t)GPIOx->ODR);
-      0094D9 1E 03            [ 2]  239 	ldw	x, (0x03, sp)
-      0094DB F6               [ 1]  240 	ld	a, (x)
+      00955B 1E 03            [ 2]  239 	ldw	x, (0x03, sp)
+      00955D F6               [ 1]  240 	ld	a, (x)
                                     241 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 194: }
-      0094DC 81               [ 4]  242 	ret
+      00955E 81               [ 4]  242 	ret
                                     243 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 202: uint8_t GPIO_ReadInputData(GPIO_TypeDef* GPIOx)
                                     244 ;	-----------------------------------------
                                     245 ;	 function GPIO_ReadInputData
                                     246 ;	-----------------------------------------
-      0094DD                        247 _GPIO_ReadInputData:
+      00955F                        247 _GPIO_ReadInputData:
                                     248 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 204: return ((uint8_t)GPIOx->IDR);
-      0094DD 1E 03            [ 2]  249 	ldw	x, (0x03, sp)
-      0094DF E6 01            [ 1]  250 	ld	a, (0x1, x)
+      00955F 1E 03            [ 2]  249 	ldw	x, (0x03, sp)
+      009561 E6 01            [ 1]  250 	ld	a, (0x1, x)
                                     251 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 205: }
-      0094E1 81               [ 4]  252 	ret
+      009563 81               [ 4]  252 	ret
                                     253 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 213: BitStatus GPIO_ReadInputPin(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef GPIO_Pin)
                                     254 ;	-----------------------------------------
                                     255 ;	 function GPIO_ReadInputPin
                                     256 ;	-----------------------------------------
-      0094E2                        257 _GPIO_ReadInputPin:
+      009564                        257 _GPIO_ReadInputPin:
                                     258 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 215: return ((BitStatus)(GPIOx->IDR & (uint8_t)GPIO_Pin));
-      0094E2 1E 03            [ 2]  259 	ldw	x, (0x03, sp)
-      0094E4 E6 01            [ 1]  260 	ld	a, (0x1, x)
-      0094E6 14 05            [ 1]  261 	and	a, (0x05, sp)
+      009564 1E 03            [ 2]  259 	ldw	x, (0x03, sp)
+      009566 E6 01            [ 1]  260 	ld	a, (0x1, x)
+      009568 14 05            [ 1]  261 	and	a, (0x05, sp)
                                     262 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 216: }
-      0094E8 81               [ 4]  263 	ret
+      00956A 81               [ 4]  263 	ret
                                     264 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 225: void GPIO_ExternalPullUpConfig(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef GPIO_Pin, FunctionalState NewState)
                                     265 ;	-----------------------------------------
                                     266 ;	 function GPIO_ExternalPullUpConfig
                                     267 ;	-----------------------------------------
-      0094E9                        268 _GPIO_ExternalPullUpConfig:
-      0094E9 88               [ 1]  269 	push	a
+      00956B                        268 _GPIO_ExternalPullUpConfig:
+      00956B 88               [ 1]  269 	push	a
                                     270 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 233: GPIOx->CR1 |= (uint8_t)GPIO_Pin;
-      0094EA 1E 04            [ 2]  271 	ldw	x, (0x04, sp)
-      0094EC 1C 00 03         [ 2]  272 	addw	x, #0x0003
-      0094EF F6               [ 1]  273 	ld	a, (x)
+      00956C 1E 04            [ 2]  271 	ldw	x, (0x04, sp)
+      00956E 1C 00 03         [ 2]  272 	addw	x, #0x0003
+      009571 F6               [ 1]  273 	ld	a, (x)
                                     274 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 231: if (NewState != DISABLE) /* External Pull-Up Set*/
-      0094F0 0D 07            [ 1]  275 	tnz	(0x07, sp)
-      0094F2 27 05            [ 1]  276 	jreq	00102$
+      009572 0D 07            [ 1]  275 	tnz	(0x07, sp)
+      009574 27 05            [ 1]  276 	jreq	00102$
                                     277 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 233: GPIOx->CR1 |= (uint8_t)GPIO_Pin;
-      0094F4 1A 06            [ 1]  278 	or	a, (0x06, sp)
-      0094F6 F7               [ 1]  279 	ld	(x), a
-      0094F7 20 0A            [ 2]  280 	jra	00104$
-      0094F9                        281 00102$:
+      009576 1A 06            [ 1]  278 	or	a, (0x06, sp)
+      009578 F7               [ 1]  279 	ld	(x), a
+      009579 20 0A            [ 2]  280 	jra	00104$
+      00957B                        281 00102$:
                                     282 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 236: GPIOx->CR1 &= (uint8_t)(~(GPIO_Pin));
-      0094F9 88               [ 1]  283 	push	a
-      0094FA 7B 07            [ 1]  284 	ld	a, (0x07, sp)
-      0094FC 43               [ 1]  285 	cpl	a
-      0094FD 6B 02            [ 1]  286 	ld	(0x02, sp), a
-      0094FF 84               [ 1]  287 	pop	a
-      009500 14 01            [ 1]  288 	and	a, (0x01, sp)
-      009502 F7               [ 1]  289 	ld	(x), a
-      009503                        290 00104$:
+      00957B 88               [ 1]  283 	push	a
+      00957C 7B 07            [ 1]  284 	ld	a, (0x07, sp)
+      00957E 43               [ 1]  285 	cpl	a
+      00957F 6B 02            [ 1]  286 	ld	(0x02, sp), a
+      009581 84               [ 1]  287 	pop	a
+      009582 14 01            [ 1]  288 	and	a, (0x01, sp)
+      009584 F7               [ 1]  289 	ld	(x), a
+      009585                        290 00104$:
                                     291 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.c: 238: }
-      009503 84               [ 1]  292 	pop	a
-      009504 81               [ 4]  293 	ret
+      009585 84               [ 1]  292 	pop	a
+      009586 81               [ 4]  293 	ret
                                     294 	.area CODE
                                     295 	.area CONST
                                     296 	.area INITIALIZER

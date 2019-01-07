@@ -473,7 +473,7 @@ _ADC1_AWDChannelConfig:
 	jrnc	00108$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 415: ADC1->AWCRL |= (uint8_t)((uint8_t)1 << Channel);
 	ld	a, 0x540f
-	ld	(0x02, sp), a
+	ld	(0x01, sp), a
 	ld	a, #0x01
 	push	a
 	ld	a, (0x06, sp)
@@ -488,19 +488,19 @@ _ADC1_AWDChannelConfig:
 	tnz	(0x06, sp)
 	jreq	00102$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 415: ADC1->AWCRL |= (uint8_t)((uint8_t)1 << Channel);
-	or	a, (0x02, sp)
+	or	a, (0x01, sp)
 	ld	0x540f, a
 	jra	00110$
 00102$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 419: ADC1->AWCRL &= (uint8_t)~(uint8_t)((uint8_t)1 << Channel);
 	cpl	a
-	and	a, (0x02, sp)
+	and	a, (0x01, sp)
 	ld	0x540f, a
 	jra	00110$
 00108$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 426: ADC1->AWCRH |= (uint8_t)((uint8_t)1 << (Channel - (uint8_t)8));
 	ld	a, 0x540e
-	ld	(0x01, sp), a
+	ld	(0x02, sp), a
 	ld	a, (0x05, sp)
 	sub	a, #0x08
 	ld	xl, a
@@ -519,13 +519,13 @@ _ADC1_AWDChannelConfig:
 	tnz	(0x06, sp)
 	jreq	00105$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 426: ADC1->AWCRH |= (uint8_t)((uint8_t)1 << (Channel - (uint8_t)8));
-	or	a, (0x01, sp)
+	or	a, (0x02, sp)
 	ld	0x540e, a
 	jra	00110$
 00105$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 430: ADC1->AWCRH &= (uint8_t)~(uint8_t)((uint8_t)1 << (uint8_t)(Channel - (uint8_t)8));
 	cpl	a
-	and	a, (0x01, sp)
+	and	a, (0x02, sp)
 	ld	0x540e, a
 00110$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 433: }
@@ -571,7 +571,7 @@ _ADC1_GetBufferValue:
 	sub	sp, #11
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 474: if ((ADC1->CR2 & ADC1_CR2_ALIGN) != 0) /* Right alignment */
 	ld	a, 0x5402
-	ld	(0x0b, sp), a
+	ld	(0x07, sp), a
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 477: templ = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1) + 1);
 	ld	a, (0x0e, sp)
 	sll	a
@@ -591,20 +591,20 @@ _ADC1_GetBufferValue:
 	ld	a, (y)
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 474: if ((ADC1->CR2 & ADC1_CR2_ALIGN) != 0) /* Right alignment */
 	push	a
-	ld	a, (0x0c, sp)
+	ld	a, (0x08, sp)
 	bcp	a, #0x08
 	pop	a
 	jreq	00102$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 477: templ = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1) + 1);
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 479: temph = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1));
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 481: temph = (uint16_t)(templ | (uint16_t)(temph << (uint8_t)8));
-	clr	(0x08, sp)
-	clr	(0x03, sp)
-	or	a, (0x03, sp)
+	clr	(0x06, sp)
+	clr	(0x01, sp)
+	or	a, (0x01, sp)
 	rrwa	x
-	or	a, (0x08, sp)
+	or	a, (0x06, sp)
 	ld	xl, a
-	ldw	(0x01, sp), x
+	ldw	(0x0a, sp), x
 	jra	00103$
 00102$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 486: temph = *(uint8_t*)(uint16_t)((uint16_t)ADC1_BaseAddress + (uint8_t)(Buffer << 1));
@@ -619,18 +619,18 @@ _ADC1_GetBufferValue:
 	sllw	x
 	sllw	x
 	sllw	x
-	ldw	(0x09, sp), x
+	ldw	(0x03, sp), x
 	ld	xl, a
-	ld	a, (0x0a, sp)
-	ld	(0x06, sp), a
+	ld	a, (0x04, sp)
+	ld	(0x09, sp), a
 	ld	a, xl
-	or	a, (0x09, sp)
-	ld	(0x01, sp), a
-	ld	a, (0x06, sp)
-	ld	(0x02, sp), a
+	or	a, (0x03, sp)
+	ld	(0x0a, sp), a
+	ld	a, (0x09, sp)
+	ld	(0x0b, sp), a
 00103$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 493: return ((uint16_t)temph);
-	ldw	x, (0x01, sp)
+	ldw	x, (0x0a, sp)
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 494: }
 	addw	sp, #11
 	ret
@@ -722,7 +722,7 @@ _ADC1_GetFlagStatus:
 	jrnc	00102$
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 546: flagstatus = (uint8_t)(ADC1->AWSRL & (uint8_t)((uint8_t)1 << temp));
 	ld	a, 0x540d
-	ld	(0x04, sp), a
+	ld	(0x01, sp), a
 	ld	a, #0x01
 	push	a
 	ld	a, xl
@@ -734,12 +734,12 @@ _ADC1_GetFlagStatus:
 	jrne	00134$
 00135$:
 	pop	a
-	and	a, (0x04, sp)
+	and	a, (0x01, sp)
 	jra	00109$
 00102$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 550: flagstatus = (uint8_t)(ADC1->AWSRH & (uint8_t)((uint8_t)1 << (temp - 8)));
 	ld	a, 0x540c
-	ld	(0x01, sp), a
+	ld	(0x04, sp), a
 	subw	x, #8
 	ld	a, #0x01
 	push	a
@@ -752,7 +752,7 @@ _ADC1_GetFlagStatus:
 	jrne	00136$
 00137$:
 	pop	a
-	and	a, (0x01, sp)
+	and	a, (0x04, sp)
 	jra	00109$
 00105$:
 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.c: 555: flagstatus = (uint8_t)(ADC1->CSR & Flag);

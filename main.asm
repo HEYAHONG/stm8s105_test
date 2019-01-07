@@ -31,7 +31,7 @@
 ; ram data
 ;--------------------------------------------------------
 	.area DATA
-_main_count_196608_387:
+_main_count_196608_388:
 	.ds 1
 ;--------------------------------------------------------
 ; ram data
@@ -63,6 +63,32 @@ __start__stack:
 	.area HOME
 __interrupt_vect:
 	int s_GSINIT ; reset
+	int _TRAP_IRQHandler ; trap
+	int _TLI_IRQHandler ; int0
+	int _AWU_IRQHandler ; int1
+	int _CLK_IRQHandler ; int2
+	int _EXTI_PORTA_IRQHandler ; int3
+	int _EXTI_PORTB_IRQHandler ; int4
+	int _EXTI_PORTC_IRQHandler ; int5
+	int _EXTI_PORTD_IRQHandler ; int6
+	int _EXTI_PORTE_IRQHandler ; int7
+	int 0x000000 ; int8
+	int 0x000000 ; int9
+	int _SPI_IRQHandler ; int10
+	int _TIM1_UPD_OVF_TRG_BRK_IRQHandler ; int11
+	int _TIM1_CAP_COM_IRQHandler ; int12
+	int _TIM2_UPD_OVF_BRK_IRQHandler ; int13
+	int _TIM2_CAP_COM_IRQHandler ; int14
+	int 0x000000 ; int15
+	int 0x000000 ; int16
+	int 0x000000 ; int17
+	int 0x000000 ; int18
+	int _I2C_IRQHandler ; int19
+	int _UART2_TX_IRQHandler ; int20
+	int _UART2_RX_IRQHandler ; int21
+	int _ADC1_IRQHandler ; int22
+	int _TIM4_UPD_OVF_IRQHandler ; int23
+	int _EEPROM_EEC_IRQHandler ; int24
 ;--------------------------------------------------------
 ; global & static initialisations
 ;--------------------------------------------------------
@@ -90,7 +116,7 @@ __sdcc_init_data:
 00004$:
 ; stm8_genXINIT() end
 ;	main.c: 98: static u8 count=0;
-	clr	_main_count_196608_387+0
+	clr	_main_count_196608_388+0
 	.area GSFINAL
 	jp	__sdcc_program_startup
 ;--------------------------------------------------------
@@ -184,7 +210,7 @@ _main:
 	call	_ReadADC
 	ldw	y, sp
 	addw	y, #16
-	ldw	(0x34, sp), y
+	ldw	(0x1d, sp), y
 	ld	a, (0x3e, sp)
 	push	a
 	ld	a, (0x3e, sp)
@@ -196,7 +222,7 @@ _main:
 	call	_sprintf
 	addw	sp, #8
 ;	main.c: 79: printf("%s",temp);
-	ldw	x, (0x34, sp)
+	ldw	x, (0x1d, sp)
 	pushw	x
 	push	#<___str_4
 	push	#(___str_4 >> 8)
@@ -208,7 +234,7 @@ _main:
 	call	_puts
 	addw	sp, #2
 ;	main.c: 81: OLED_ShowString(0,2,temp);
-	ldw	x, (0x34, sp)
+	ldw	x, (0x1d, sp)
 	pushw	x
 	push	#0x02
 	push	#0x00
@@ -218,25 +244,25 @@ _main:
 	call	_ds1302_port_init
 ;	main.c: 85: if(ds1302_check())
 	call	_ds1302_check
-	ld	(0x3c, sp), a
+	ld	(0x1c, sp), a
 	jrne	00133$
 	jp	00102$
 00133$:
 ;	main.c: 89: ds1302_read_time(&ds_time);
 	ldw	x, sp
 	addw	x, #9
-	ldw	(0x1e, sp), x
+	ldw	(0x33, sp), x
 	pushw	x
 	call	_ds1302_read_time
 	addw	sp, #2
 ;	main.c: 90: sprintf(temp,"%2d/%2d/%2d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16);
-	ldw	x, (0x1e, sp)
+	ldw	x, (0x33, sp)
 	ld	a, (0x6, x)
-	ld	(0x2b, sp), a
-	clr	(0x2a, sp)
+	ld	(0x3c, sp), a
+	clr	(0x3b, sp)
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x2c, sp)
+	ldw	x, (0x3d, sp)
 	pushw	x
 	call	__divsint
 	addw	sp, #4
@@ -246,22 +272,22 @@ _main:
 	addw	x, (1, sp)
 	sllw	x
 	addw	sp, #2
-	ldw	(0x30, sp), x
+	ldw	(0x29, sp), x
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x2c, sp)
+	ldw	x, (0x3d, sp)
 	pushw	x
 	call	__modsint
 	addw	sp, #4
-	addw	x, (0x30, sp)
-	ldw	(0x32, sp), x
-	ldw	x, (0x1e, sp)
+	addw	x, (0x29, sp)
+	ldw	(0x2f, sp), x
+	ldw	x, (0x33, sp)
 	ld	a, (0x5, x)
-	ld	(0x2d, sp), a
-	clr	(0x2c, sp)
+	ld	(0x32, sp), a
+	clr	(0x31, sp)
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x2e, sp)
+	ldw	x, (0x33, sp)
 	pushw	x
 	call	__divsint
 	addw	sp, #4
@@ -271,22 +297,22 @@ _main:
 	addw	x, (1, sp)
 	sllw	x
 	addw	sp, #2
-	ldw	(0x2e, sp), x
+	ldw	(0x2b, sp), x
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x2e, sp)
+	ldw	x, (0x33, sp)
 	pushw	x
 	call	__modsint
 	addw	sp, #4
-	addw	x, (0x2e, sp)
-	ldw	(0x24, sp), x
-	ldw	x, (0x1e, sp)
+	addw	x, (0x2b, sp)
+	ldw	(0x2d, sp), x
+	ldw	x, (0x33, sp)
 	ld	a, (0x4, x)
-	ld	(0x23, sp), a
-	clr	(0x22, sp)
+	ld	(0x1b, sp), a
+	clr	(0x1a, sp)
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x24, sp)
+	ldw	x, (0x1c, sp)
 	pushw	x
 	call	__divsint
 	addw	sp, #4
@@ -296,25 +322,25 @@ _main:
 	addw	x, (1, sp)
 	sllw	x
 	addw	sp, #2
-	ldw	(0x20, sp), x
+	ldw	(0x1f, sp), x
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x24, sp)
+	ldw	x, (0x1c, sp)
 	pushw	x
 	call	__modsint
 	addw	sp, #4
-	addw	x, (0x20, sp)
+	addw	x, (0x1f, sp)
 	exgw	x, y
 	ldw	x, sp
 	addw	x, #16
-	ldw	(0x1c, sp), x
-	ld	a, (0x33, sp)
+	ldw	(0x39, sp), x
+	ld	a, (0x30, sp)
 	push	a
-	ld	a, (0x33, sp)
+	ld	a, (0x30, sp)
 	push	a
-	ld	a, (0x27, sp)
+	ld	a, (0x30, sp)
 	push	a
-	ld	a, (0x27, sp)
+	ld	a, (0x30, sp)
 	push	a
 	pushw	y
 	push	#<___str_7
@@ -323,7 +349,7 @@ _main:
 	call	_sprintf
 	addw	sp, #10
 ;	main.c: 91: printf("%s",temp);
-	ldw	x, (0x1c, sp)
+	ldw	x, (0x39, sp)
 	pushw	x
 	push	#<___str_4
 	push	#(___str_4 >> 8)
@@ -335,7 +361,7 @@ _main:
 	call	_puts
 	addw	sp, #2
 ;	main.c: 93: OLED_ShowString(0,4,temp);
-	ldw	x, (0x1c, sp)
+	ldw	x, (0x39, sp)
 	pushw	x
 	push	#0x04
 	push	#0x00
@@ -345,7 +371,7 @@ _main:
 ;	main.c: 95: ds1302_port_deinit();
 	call	_ds1302_port_deinit
 ;	main.c: 100: if(count>=2)
-	ld	a, _main_count_196608_387+0
+	ld	a, _main_count_196608_388+0
 	cp	a, #0x02
 	jrnc	00134$
 	jp	00104$
@@ -362,36 +388,36 @@ _main:
 ;	main.c: 105: sprintf(temp,"%2d.%1dC/%2d.%1d%%/%3d",data.T,data.T1,data.W,data.W1,data.sum);
 	ldw	x, y
 	ld	a, (0x4, x)
-	ld	(0x1b, sp), a
-	clr	(0x1a, sp)
+	ld	(0x38, sp), a
+	clr	(0x37, sp)
 	ldw	x, y
 	ld	a, (0x3, x)
-	ld	(0x3b, sp), a
-	clr	(0x3a, sp)
+	ld	(0x28, sp), a
+	clr	(0x27, sp)
 	ldw	x, y
 	ld	a, (0x2, x)
-	ld	(0x39, sp), a
-	clr	(0x38, sp)
+	ld	(0x26, sp), a
+	clr	(0x25, sp)
 	ldw	x, y
 	ld	a, (0x1, x)
-	ld	(0x37, sp), a
-	clr	(0x36, sp)
+	ld	(0x24, sp), a
+	clr	(0x23, sp)
 	ld	a, (y)
-	clr	(0x28, sp)
+	clr	(0x21, sp)
 	ldw	x, sp
 	incw	x
-	ldw	(0x26, sp), x
+	ldw	(0x35, sp), x
 	ldw	y, x
-	ldw	x, (0x1a, sp)
+	ldw	x, (0x37, sp)
 	pushw	x
-	ldw	x, (0x3c, sp)
+	ldw	x, (0x29, sp)
 	pushw	x
-	ldw	x, (0x3c, sp)
+	ldw	x, (0x29, sp)
 	pushw	x
-	ldw	x, (0x3c, sp)
+	ldw	x, (0x29, sp)
 	pushw	x
 	push	a
-	ld	a, (0x31, sp)
+	ld	a, (0x2a, sp)
 	push	a
 	push	#<___str_9
 	push	#(___str_9 >> 8)
@@ -399,7 +425,7 @@ _main:
 	call	_sprintf
 	addw	sp, #14
 ;	main.c: 106: printf("%s",temp);
-	ldw	x, (0x26, sp)
+	ldw	x, (0x35, sp)
 	pushw	x
 	push	#<___str_4
 	push	#(___str_4 >> 8)
@@ -411,17 +437,17 @@ _main:
 	call	_puts
 	addw	sp, #2
 ;	main.c: 108: OLED_ShowString(0,6,temp);
-	ldw	x, (0x26, sp)
+	ldw	x, (0x35, sp)
 	pushw	x
 	push	#0x06
 	push	#0x00
 	call	_OLED_ShowString
 	addw	sp, #4
 ;	main.c: 109: count=0;
-	clr	_main_count_196608_387+0
+	clr	_main_count_196608_388+0
 00104$:
 ;	main.c: 112: count++;
-	inc	_main_count_196608_387+0
+	inc	_main_count_196608_388+0
 ;	main.c: 114: GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
 	push	#0x20
 	push	#0x14

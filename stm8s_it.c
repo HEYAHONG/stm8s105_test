@@ -421,13 +421,19 @@ INTERRUPT_HANDLER(I2C_IRQHandler, 19)
    while(UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET);
    UART2_SendData8(UART2_ReceiveData8());
   }
-   UART2_ClearITPendingBit(UART2_IT_RXNE);	
+         UART2_ClearITPendingBit(UART2_IT_RXNE);	
 	  
 	 //如果发生了过载错误，则清除该中断标志。
-	 if(UART2->SR & UART2_SR_OR)
+	 if(UART2_GetITStatus(UART2_IT_OR))
 	 {
 		UART2_ClearITPendingBit(UART2_IT_OR);
 	  }	 
+	if(UART2_GetFlagStatus(UART2_FLAG_OR_LHE))
+         {
+                UART2_ClearFlag(UART2_FLAG_OR_LHE);
+          }
+	
+   //   UART2_ITConfig(UART2_IT_RXNE_OR, DISABLE);      
  }
 #endif /* (STM8S105) || (STM8AF626x) */
 

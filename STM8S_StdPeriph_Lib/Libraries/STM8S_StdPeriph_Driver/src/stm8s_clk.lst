@@ -557,10 +557,10 @@
       000225 C7 50 C6         [ 1]  557 	ld	0x50c6, a
                                     558 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_clk.c: 508: CLK->CKDIVR |= (uint8_t)((uint8_t)CLK_Prescaler & (uint8_t)CLK_CKDIVR_HSIDIV);
       000228 C6 50 C6         [ 1]  559 	ld	a, 0x50c6
-      00022B 6B 02            [ 1]  560 	ld	(0x02, sp), a
+      00022B 6B 01            [ 1]  560 	ld	(0x01, sp), a
       00022D 7B 05            [ 1]  561 	ld	a, (0x05, sp)
       00022F A4 18            [ 1]  562 	and	a, #0x18
-      000231 1A 02            [ 1]  563 	or	a, (0x02, sp)
+      000231 1A 01            [ 1]  563 	or	a, (0x01, sp)
       000233 C7 50 C6         [ 1]  564 	ld	0x50c6, a
       000236 20 13            [ 2]  565 	jra	00104$
       000238                        566 00102$:
@@ -569,10 +569,10 @@
       00023A C7 50 C6         [ 1]  569 	ld	0x50c6, a
                                     570 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_clk.c: 513: CLK->CKDIVR |= (uint8_t)((uint8_t)CLK_Prescaler & (uint8_t)CLK_CKDIVR_CPUDIV);
       00023D C6 50 C6         [ 1]  571 	ld	a, 0x50c6
-      000240 6B 01            [ 1]  572 	ld	(0x01, sp), a
+      000240 6B 02            [ 1]  572 	ld	(0x02, sp), a
       000242 7B 05            [ 1]  573 	ld	a, (0x05, sp)
       000244 A4 07            [ 1]  574 	and	a, #0x07
-      000246 1A 01            [ 1]  575 	or	a, (0x01, sp)
+      000246 1A 02            [ 1]  575 	or	a, (0x02, sp)
       000248 C7 50 C6         [ 1]  576 	ld	0x50c6, a
       00024B                        577 00104$:
                                     578 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_clk.c: 515: }

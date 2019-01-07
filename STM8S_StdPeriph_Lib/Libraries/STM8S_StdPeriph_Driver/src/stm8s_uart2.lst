@@ -139,22 +139,22 @@
       000069 C7 52 43         [ 1]  139 	ld	0x5243, a
                                     140 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 121: BaudRate_Mantissa    = ((uint32_t)CLK_GetClockFreq() / (BaudRate << 4));
       00006C CDr00r00         [ 4]  141 	call	_CLK_GetClockFreq
-      00006F 1F 19            [ 2]  142 	ldw	(0x19, sp), x
+      00006F 1F 15            [ 2]  142 	ldw	(0x15, sp), x
       000071 1E 26            [ 2]  143 	ldw	x, (0x26, sp)
-      000073 1F 13            [ 2]  144 	ldw	(0x13, sp), x
+      000073 1F 03            [ 2]  144 	ldw	(0x03, sp), x
       000075 1E 28            [ 2]  145 	ldw	x, (0x28, sp)
       000077 A6 04            [ 1]  146 	ld	a, #0x04
       000079                        147 00127$:
       000079 58               [ 2]  148 	sllw	x
-      00007A 09 14            [ 1]  149 	rlc	(0x14, sp)
-      00007C 09 13            [ 1]  150 	rlc	(0x13, sp)
+      00007A 09 04            [ 1]  149 	rlc	(0x04, sp)
+      00007C 09 03            [ 1]  150 	rlc	(0x03, sp)
       00007E 4A               [ 1]  151 	dec	a
       00007F 26 F8            [ 1]  152 	jrne	00127$
-      000081 1F 15            [ 2]  153 	ldw	(0x15, sp), x
+      000081 1F 05            [ 2]  153 	ldw	(0x05, sp), x
       000083 89               [ 2]  154 	pushw	x
-      000084 1E 15            [ 2]  155 	ldw	x, (0x15, sp)
+      000084 1E 05            [ 2]  155 	ldw	x, (0x05, sp)
       000086 89               [ 2]  156 	pushw	x
-      000087 1E 1D            [ 2]  157 	ldw	x, (0x1d, sp)
+      000087 1E 19            [ 2]  157 	ldw	x, (0x19, sp)
       000089 89               [ 2]  158 	pushw	x
       00008A 90 89            [ 2]  159 	pushw	y
       00008C CDr00r00         [ 4]  160 	call	__divulong
@@ -165,11 +165,11 @@
       000097 17 20            [ 2]  165 	ldw	(0x20, sp), y
                                     166 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 122: BaudRate_Mantissa100 = (((uint32_t)CLK_GetClockFreq() * 100) / (BaudRate << 4));
       000099 CDr00r00         [ 4]  167 	call	_CLK_GetClockFreq
-      00009C 1F 11            [ 2]  168 	ldw	(0x11, sp), x
-      00009E 17 0F            [ 2]  169 	ldw	(0x0f, sp), y
-      0000A0 1E 11            [ 2]  170 	ldw	x, (0x11, sp)
+      00009C 1F 0D            [ 2]  168 	ldw	(0x0d, sp), x
+      00009E 17 0B            [ 2]  169 	ldw	(0x0b, sp), y
+      0000A0 1E 0D            [ 2]  170 	ldw	x, (0x0d, sp)
       0000A2 89               [ 2]  171 	pushw	x
-      0000A3 1E 11            [ 2]  172 	ldw	x, (0x11, sp)
+      0000A3 1E 0D            [ 2]  172 	ldw	x, (0x0d, sp)
       0000A5 89               [ 2]  173 	pushw	x
       0000A6 4B 64            [ 1]  174 	push	#0x64
       0000A8 5F               [ 1]  175 	clrw	x
@@ -177,12 +177,12 @@
       0000AA 4B 00            [ 1]  177 	push	#0x00
       0000AC CDr00r00         [ 4]  178 	call	__mullong
       0000AF 5B 08            [ 2]  179 	addw	sp, #8
-      0000B1 1F 0D            [ 2]  180 	ldw	(0x0d, sp), x
-      0000B3 1E 15            [ 2]  181 	ldw	x, (0x15, sp)
+      0000B1 1F 19            [ 2]  180 	ldw	(0x19, sp), x
+      0000B3 1E 05            [ 2]  181 	ldw	x, (0x05, sp)
       0000B5 89               [ 2]  182 	pushw	x
-      0000B6 1E 15            [ 2]  183 	ldw	x, (0x15, sp)
+      0000B6 1E 05            [ 2]  183 	ldw	x, (0x05, sp)
       0000B8 89               [ 2]  184 	pushw	x
-      0000B9 1E 11            [ 2]  185 	ldw	x, (0x11, sp)
+      0000B9 1E 1D            [ 2]  185 	ldw	x, (0x1d, sp)
       0000BB 89               [ 2]  186 	pushw	x
       0000BC 90 89            [ 2]  187 	pushw	y
       0000BE CDr00r00         [ 4]  188 	call	__divulong
@@ -200,19 +200,19 @@
       0000D1 4B 00            [ 1]  200 	push	#0x00
       0000D3 CDr00r00         [ 4]  201 	call	__mullong
       0000D6 5B 08            [ 2]  202 	addw	sp, #8
-      0000D8 1F 09            [ 2]  203 	ldw	(0x09, sp), x
-      0000DA 17 07            [ 2]  204 	ldw	(0x07, sp), y
+      0000D8 1F 11            [ 2]  203 	ldw	(0x11, sp), x
+      0000DA 17 0F            [ 2]  204 	ldw	(0x0f, sp), y
       0000DC 1E 1D            [ 2]  205 	ldw	x, (0x1d, sp)
-      0000DE 72 F0 09         [ 2]  206 	subw	x, (0x09, sp)
-      0000E1 1F 05            [ 2]  207 	ldw	(0x05, sp), x
+      0000DE 72 F0 11         [ 2]  206 	subw	x, (0x11, sp)
+      0000E1 1F 09            [ 2]  207 	ldw	(0x09, sp), x
       0000E3 7B 1C            [ 1]  208 	ld	a, (0x1c, sp)
-      0000E5 12 08            [ 1]  209 	sbc	a, (0x08, sp)
-      0000E7 6B 04            [ 1]  210 	ld	(0x04, sp), a
+      0000E5 12 10            [ 1]  209 	sbc	a, (0x10, sp)
+      0000E7 6B 08            [ 1]  210 	ld	(0x08, sp), a
       0000E9 7B 1B            [ 1]  211 	ld	a, (0x1b, sp)
-      0000EB 12 07            [ 1]  212 	sbc	a, (0x07, sp)
-      0000ED 6B 03            [ 1]  213 	ld	(0x03, sp), a
-      0000EF 1E 05            [ 2]  214 	ldw	x, (0x05, sp)
-      0000F1 16 03            [ 2]  215 	ldw	y, (0x03, sp)
+      0000EB 12 0F            [ 1]  212 	sbc	a, (0x0f, sp)
+      0000ED 6B 07            [ 1]  213 	ld	(0x07, sp), a
+      0000EF 1E 09            [ 2]  214 	ldw	x, (0x09, sp)
+      0000F1 16 07            [ 2]  215 	ldw	y, (0x07, sp)
       0000F3 A6 04            [ 1]  216 	ld	a, #0x04
       0000F5                        217 00129$:
       0000F5 58               [ 2]  218 	sllw	x
@@ -347,12 +347,12 @@
       0001A6 A4 0F            [ 1]  347 	and	a, #0x0f
       0001A8 88               [ 1]  348 	push	a
       0001A9 A6 01            [ 1]  349 	ld	a, #0x01
-      0001AB 6B 05            [ 1]  350 	ld	(0x05, sp), a
+      0001AB 6B 03            [ 1]  350 	ld	(0x03, sp), a
       0001AD 84               [ 1]  351 	pop	a
       0001AE 4D               [ 1]  352 	tnz	a
       0001AF 27 05            [ 1]  353 	jreq	00160$
       0001B1                        354 00159$:
-      0001B1 08 04            [ 1]  355 	sll	(0x04, sp)
+      0001B1 08 02            [ 1]  355 	sll	(0x02, sp)
       0001B3 4A               [ 1]  356 	dec	a
       0001B4 26 FB            [ 1]  357 	jrne	00159$
       0001B6                        358 00160$:
@@ -361,20 +361,20 @@
       0001B7 4A               [ 1]  361 	dec	a
       0001B8 26 05            [ 1]  362 	jrne	00162$
       0001BA A6 01            [ 1]  363 	ld	a, #0x01
-      0001BC 6B 03            [ 1]  364 	ld	(0x03, sp), a
+      0001BC 6B 01            [ 1]  364 	ld	(0x01, sp), a
       0001BE C1                     365 	.byte 0xc1
       0001BF                        366 00162$:
-      0001BF 0F 03            [ 1]  367 	clr	(0x03, sp)
+      0001BF 0F 01            [ 1]  367 	clr	(0x01, sp)
       0001C1                        368 00163$:
                                     369 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 231: else if (uartreg == 0x02)
       0001C1 9F               [ 1]  370 	ld	a, xl
       0001C2 A0 02            [ 1]  371 	sub	a, #0x02
       0001C4 26 04            [ 1]  372 	jrne	00165$
       0001C6 4C               [ 1]  373 	inc	a
-      0001C7 6B 02            [ 1]  374 	ld	(0x02, sp), a
+      0001C7 6B 04            [ 1]  374 	ld	(0x04, sp), a
       0001C9 C1                     375 	.byte 0xc1
       0001CA                        376 00165$:
-      0001CA 0F 02            [ 1]  377 	clr	(0x02, sp)
+      0001CA 0F 04            [ 1]  377 	clr	(0x04, sp)
       0001CC                        378 00166$:
                                     379 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 235: else if (uartreg == 0x03)
       0001CC 9F               [ 1]  380 	ld	a, xl
@@ -389,20 +389,20 @@
       0001D4 0D 09            [ 1]  389 	tnz	(0x09, sp)
       0001D6 27 33            [ 1]  390 	jreq	00120$
                                     391 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 227: if (uartreg == 0x01)
-      0001D8 0D 03            [ 1]  392 	tnz	(0x03, sp)
+      0001D8 0D 01            [ 1]  392 	tnz	(0x01, sp)
       0001DA 27 0A            [ 1]  393 	jreq	00108$
                                     394 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 229: UART2->CR1 |= itpos;
       0001DC C6 52 44         [ 1]  395 	ld	a, 0x5244
-      0001DF 1A 04            [ 1]  396 	or	a, (0x04, sp)
+      0001DF 1A 02            [ 1]  396 	or	a, (0x02, sp)
       0001E1 C7 52 44         [ 1]  397 	ld	0x5244, a
       0001E4 20 5D            [ 2]  398 	jra	00122$
       0001E6                        399 00108$:
                                     400 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 231: else if (uartreg == 0x02)
-      0001E6 0D 02            [ 1]  401 	tnz	(0x02, sp)
+      0001E6 0D 04            [ 1]  401 	tnz	(0x04, sp)
       0001E8 27 0A            [ 1]  402 	jreq	00105$
                                     403 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 233: UART2->CR2 |= itpos;
       0001EA C6 52 45         [ 1]  404 	ld	a, 0x5245
-      0001ED 1A 04            [ 1]  405 	or	a, (0x04, sp)
+      0001ED 1A 02            [ 1]  405 	or	a, (0x02, sp)
       0001EF C7 52 45         [ 1]  406 	ld	0x5245, a
       0001F2 20 4F            [ 2]  407 	jra	00122$
       0001F4                        408 00105$:
@@ -411,37 +411,37 @@
       0001F5 27 0A            [ 1]  411 	jreq	00102$
                                     412 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 237: UART2->CR4 |= itpos;
       0001F7 C6 52 47         [ 1]  413 	ld	a, 0x5247
-      0001FA 1A 04            [ 1]  414 	or	a, (0x04, sp)
+      0001FA 1A 02            [ 1]  414 	or	a, (0x02, sp)
       0001FC C7 52 47         [ 1]  415 	ld	0x5247, a
       0001FF 20 42            [ 2]  416 	jra	00122$
       000201                        417 00102$:
                                     418 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 241: UART2->CR6 |= itpos;
       000201 C6 52 49         [ 1]  419 	ld	a, 0x5249
-      000204 1A 04            [ 1]  420 	or	a, (0x04, sp)
+      000204 1A 02            [ 1]  420 	or	a, (0x02, sp)
       000206 C7 52 49         [ 1]  421 	ld	0x5249, a
       000209 20 38            [ 2]  422 	jra	00122$
       00020B                        423 00120$:
                                     424 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 249: UART2->CR1 &= (uint8_t)(~itpos);
       00020B 88               [ 1]  425 	push	a
-      00020C 7B 05            [ 1]  426 	ld	a, (0x05, sp)
+      00020C 7B 03            [ 1]  426 	ld	a, (0x03, sp)
       00020E 43               [ 1]  427 	cpl	a
-      00020F 6B 02            [ 1]  428 	ld	(0x02, sp), a
+      00020F 6B 04            [ 1]  428 	ld	(0x04, sp), a
       000211 84               [ 1]  429 	pop	a
                                     430 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 247: if (uartreg == 0x01)
-      000212 0D 03            [ 1]  431 	tnz	(0x03, sp)
+      000212 0D 01            [ 1]  431 	tnz	(0x01, sp)
       000214 27 0A            [ 1]  432 	jreq	00117$
                                     433 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 249: UART2->CR1 &= (uint8_t)(~itpos);
       000216 C6 52 44         [ 1]  434 	ld	a, 0x5244
-      000219 14 01            [ 1]  435 	and	a, (0x01, sp)
+      000219 14 03            [ 1]  435 	and	a, (0x03, sp)
       00021B C7 52 44         [ 1]  436 	ld	0x5244, a
       00021E 20 23            [ 2]  437 	jra	00122$
       000220                        438 00117$:
                                     439 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 251: else if (uartreg == 0x02)
-      000220 0D 02            [ 1]  440 	tnz	(0x02, sp)
+      000220 0D 04            [ 1]  440 	tnz	(0x04, sp)
       000222 27 0A            [ 1]  441 	jreq	00114$
                                     442 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 253: UART2->CR2 &= (uint8_t)(~itpos);
       000224 C6 52 45         [ 1]  443 	ld	a, 0x5245
-      000227 14 01            [ 1]  444 	and	a, (0x01, sp)
+      000227 14 03            [ 1]  444 	and	a, (0x03, sp)
       000229 C7 52 45         [ 1]  445 	ld	0x5245, a
       00022C 20 15            [ 2]  446 	jra	00122$
       00022E                        447 00114$:
@@ -450,13 +450,13 @@
       00022F 27 0A            [ 1]  450 	jreq	00111$
                                     451 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 257: UART2->CR4 &= (uint8_t)(~itpos);
       000231 C6 52 47         [ 1]  452 	ld	a, 0x5247
-      000234 14 01            [ 1]  453 	and	a, (0x01, sp)
+      000234 14 03            [ 1]  453 	and	a, (0x03, sp)
       000236 C7 52 47         [ 1]  454 	ld	0x5247, a
       000239 20 08            [ 2]  455 	jra	00122$
       00023B                        456 00111$:
                                     457 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 261: UART2->CR6 &= (uint8_t)(~itpos);
       00023B C6 52 49         [ 1]  458 	ld	a, 0x5249
-      00023E 14 01            [ 1]  459 	and	a, (0x01, sp)
+      00023E 14 03            [ 1]  459 	and	a, (0x03, sp)
       000240 C7 52 49         [ 1]  460 	ld	0x5249, a
       000243                        461 00122$:
                                     462 ;	STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.c: 264: }
