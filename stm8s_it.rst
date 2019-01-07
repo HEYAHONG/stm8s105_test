@@ -209,7 +209,7 @@
                                     209 ;	stm8s_it.c: 419: if(UART2_GetITStatus(UART2_IT_RXNE))
       0086F4 4B 55            [ 1]  210 	push	#0x55
       0086F6 4B 02            [ 1]  211 	push	#0x02
-      0086F8 CD 9D ED         [ 4]  212 	call	_UART2_GetITStatus
+      0086F8 CD 9E 19         [ 4]  212 	call	_UART2_GetITStatus
       0086FB 5B 02            [ 2]  213 	addw	sp, #2
       0086FD 4D               [ 1]  214 	tnz	a
       0086FE 27 14            [ 1]  215 	jreq	00105$
@@ -217,45 +217,45 @@
       008700                        217 00101$:
       008700 4B 80            [ 1]  218 	push	#0x80
       008702 4B 00            [ 1]  219 	push	#0x00
-      008704 CD 9D 66         [ 4]  220 	call	_UART2_GetFlagStatus
+      008704 CD 9D 92         [ 4]  220 	call	_UART2_GetFlagStatus
       008707 5B 02            [ 2]  221 	addw	sp, #2
       008709 4D               [ 1]  222 	tnz	a
       00870A 27 F4            [ 1]  223 	jreq	00101$
                                     224 ;	stm8s_it.c: 422: UART2_SendData8(UART2_ReceiveData8());
-      00870C CD 9C FC         [ 4]  225 	call	_UART2_ReceiveData8
+      00870C CD 9D 28         [ 4]  225 	call	_UART2_ReceiveData8
       00870F 88               [ 1]  226 	push	a
-      008710 CD 9D 1E         [ 4]  227 	call	_UART2_SendData8
+      008710 CD 9D 4A         [ 4]  227 	call	_UART2_SendData8
       008713 84               [ 1]  228 	pop	a
       008714                        229 00105$:
                                     230 ;	stm8s_it.c: 424: UART2_ClearITPendingBit(UART2_IT_RXNE);	
       008714 4B 55            [ 1]  231 	push	#0x55
       008716 4B 02            [ 1]  232 	push	#0x02
-      008718 CD 9E 89         [ 4]  233 	call	_UART2_ClearITPendingBit
+      008718 CD 9E B5         [ 4]  233 	call	_UART2_ClearITPendingBit
       00871B 5B 02            [ 2]  234 	addw	sp, #2
                                     235 ;	stm8s_it.c: 427: if(UART2_GetITStatus(UART2_IT_OR))
       00871D 4B 35            [ 1]  236 	push	#0x35
       00871F 4B 02            [ 1]  237 	push	#0x02
-      008721 CD 9D ED         [ 4]  238 	call	_UART2_GetITStatus
+      008721 CD 9E 19         [ 4]  238 	call	_UART2_GetITStatus
       008724 5B 02            [ 2]  239 	addw	sp, #2
       008726 4D               [ 1]  240 	tnz	a
       008727 27 09            [ 1]  241 	jreq	00107$
                                     242 ;	stm8s_it.c: 429: UART2_ClearITPendingBit(UART2_IT_OR);
       008729 4B 35            [ 1]  243 	push	#0x35
       00872B 4B 02            [ 1]  244 	push	#0x02
-      00872D CD 9E 89         [ 4]  245 	call	_UART2_ClearITPendingBit
+      00872D CD 9E B5         [ 4]  245 	call	_UART2_ClearITPendingBit
       008730 5B 02            [ 2]  246 	addw	sp, #2
       008732                        247 00107$:
                                     248 ;	stm8s_it.c: 431: if(UART2_GetFlagStatus(UART2_FLAG_OR_LHE))
       008732 4B 08            [ 1]  249 	push	#0x08
       008734 4B 00            [ 1]  250 	push	#0x00
-      008736 CD 9D 66         [ 4]  251 	call	_UART2_GetFlagStatus
+      008736 CD 9D 92         [ 4]  251 	call	_UART2_GetFlagStatus
       008739 5B 02            [ 2]  252 	addw	sp, #2
       00873B 4D               [ 1]  253 	tnz	a
       00873C 27 09            [ 1]  254 	jreq	00110$
                                     255 ;	stm8s_it.c: 433: UART2_ClearFlag(UART2_FLAG_OR_LHE);
       00873E 4B 08            [ 1]  256 	push	#0x08
       008740 4B 00            [ 1]  257 	push	#0x00
-      008742 CD 9D BF         [ 4]  258 	call	_UART2_ClearFlag
+      008742 CD 9D EB         [ 4]  258 	call	_UART2_ClearFlag
       008745 5B 02            [ 2]  259 	addw	sp, #2
       008747                        260 00110$:
                                     261 ;	stm8s_it.c: 437: }

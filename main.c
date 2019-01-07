@@ -70,6 +70,13 @@ ds1302_active();
 
  OLED_ShowString(0,0,"STM8 Started!");
  printf("STM8 Started!\r\n");
+  {//测试峰鸣器（PD7）
+	GPIO_Init(GPIOD, GPIO_PIN_7, GPIO_MODE_OUT_PP_LOW_FAST);
+	GPIO_WriteHigh(GPIOD,GPIO_PIN_7);
+	Delay(0xffff);
+	GPIO_WriteLow(GPIOD,GPIO_PIN_7);
+
+  }
   /* Infinite loop */
   while (1)
   {
