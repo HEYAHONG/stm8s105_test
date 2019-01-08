@@ -14,6 +14,7 @@
 	.globl _sprintf
 	.globl _printf
 	.globl _ReadADC
+	.globl _key_init
 	.globl _ReadDHT12
 	.globl _ds1302_read_time
 	.globl _ds1302_check
@@ -33,7 +34,7 @@
 ; ram data
 ;--------------------------------------------------------
 	.area DATA
-_main_count_196608_389:
+_main_count_196608_390:
 	.ds 1
 ;--------------------------------------------------------
 ; ram data
@@ -117,8 +118,8 @@ __sdcc_init_data:
 	jrne	00003$
 00004$:
 ; stm8_genXINIT() end
-;	main.c: 105: static u8 count=0;
-	clr	_main_count_196608_389+0
+;	main.c: 107: static u8 count=0;
+	clr	_main_count_196608_390+0
 	.area GSFINAL
 	jp	__sdcc_program_startup
 ;--------------------------------------------------------
@@ -133,92 +134,94 @@ __sdcc_program_startup:
 ; code
 ;--------------------------------------------------------
 	.area CODE
-;	main.c: 47: void Delay(uint16_t nCount)
+;	main.c: 48: void Delay(uint16_t nCount)
 ;	-----------------------------------------
 ;	 function Delay
 ;	-----------------------------------------
 _Delay:
-;	main.c: 50: while (nCount != 0)
+;	main.c: 51: while (nCount != 0)
 	ldw	x, (0x03, sp)
 00101$:
 	tnzw	x
 	jrne	00117$
 	ret
 00117$:
-;	main.c: 52: nCount--;
+;	main.c: 53: nCount--;
 	decw	x
 	jra	00101$
-;	main.c: 54: }
+;	main.c: 55: }
 	ret
-;	main.c: 58: void main(void)
+;	main.c: 59: void main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-	sub	sp, #62
-;	main.c: 62: GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
+	sub	sp, #74
+;	main.c: 63: GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
 	push	#0xe0
 	push	#0x20
 	push	#0x14
 	push	#0x50
 	call	_GPIO_Init
 	addw	sp, #4
-;	main.c: 63: GPIO_Init(GPIOF,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
+;	main.c: 64: GPIO_Init(GPIOF,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
 	push	#0x00
 	push	#0x10
 	push	#0x19
 	push	#0x50
 	call	_GPIO_Init
 	addw	sp, #4
-;	main.c: 65: Init_UART2();
+;	main.c: 66: Init_UART2();
 	call	_Init_UART2
-;	main.c: 66: OLED_Init();
+;	main.c: 67: OLED_Init();
 	call	_OLED_Init
-;	main.c: 67: ds1302_active();
+;	main.c: 68: ds1302_active();
 	call	_ds1302_active
-;	main.c: 68: OLED_Clear();
+;	main.c: 69: key_init();
+	call	_key_init
+;	main.c: 70: OLED_Clear();
 	call	_OLED_Clear
-;	main.c: 69: enableInterrupts(); //使能中断
+;	main.c: 71: enableInterrupts(); //使能中断
 	rim
-;	main.c: 71: OLED_ShowString(0,0,"STM8 Started!");
+;	main.c: 73: OLED_ShowString(0,0,"STM8 Started!");
 	push	#<___str_0
 	push	#(___str_0 >> 8)
 	push	#0x00
 	push	#0x00
 	call	_OLED_ShowString
 	addw	sp, #4
-;	main.c: 72: printf("STM8 Started!\r\n");
+;	main.c: 74: printf("STM8 Started!\r\n");
 	push	#<___str_2
 	push	#(___str_2 >> 8)
 	call	_puts
 	addw	sp, #2
-;	main.c: 74: GPIO_Init(GPIOD, GPIO_PIN_7, GPIO_MODE_OUT_PP_LOW_FAST);
+;	main.c: 76: GPIO_Init(GPIOD, GPIO_PIN_7, GPIO_MODE_OUT_PP_LOW_FAST);
 	push	#0xe0
 	push	#0x80
 	push	#0x0f
 	push	#0x50
 	call	_GPIO_Init
 	addw	sp, #4
-;	main.c: 75: GPIO_WriteHigh(GPIOD,GPIO_PIN_7);
+;	main.c: 77: GPIO_WriteHigh(GPIOD,GPIO_PIN_7);
 	push	#0x80
 	push	#0x0f
 	push	#0x50
 	call	_GPIO_WriteHigh
 	addw	sp, #3
-;	main.c: 76: Delay(0xffff);
+;	main.c: 78: Delay(0xffff);
 	push	#0xff
 	push	#0xff
 	call	_Delay
 	addw	sp, #2
-;	main.c: 77: GPIO_WriteLow(GPIOD,GPIO_PIN_7);
+;	main.c: 79: GPIO_WriteLow(GPIOD,GPIO_PIN_7);
 	push	#0x80
 	push	#0x0f
 	push	#0x50
 	call	_GPIO_WriteLow
 	addw	sp, #3
-;	main.c: 81: while (1)
+;	main.c: 83: while (1)
 00106$:
-;	main.c: 85: sprintf(temp,"V:%4d,S:%1d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1);
+;	main.c: 87: sprintf(temp,"V:%4d,S:%1d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1);
 	push	#0x10
 	push	#0x19
 	push	#0x50
@@ -227,19 +230,19 @@ _main:
 	tnz	a
 	jrne	00110$
 	clrw	x
-	ldw	(0x31, sp), x
+	ldw	(0x1a, sp), x
 	jra	00111$
 00110$:
 	ldw	x, #0x0001
-	ldw	(0x31, sp), x
+	ldw	(0x1a, sp), x
 00111$:
 	call	_ReadADC
 	ldw	y, sp
 	addw	y, #16
-	ldw	(0x27, sp), y
-	ld	a, (0x32, sp)
+	ldw	(0x32, sp), y
+	ld	a, (0x1b, sp)
 	push	a
-	ld	a, (0x32, sp)
+	ld	a, (0x1b, sp)
 	push	a
 	pushw	x
 	push	#<___str_3
@@ -247,48 +250,48 @@ _main:
 	pushw	y
 	call	_sprintf
 	addw	sp, #8
-;	main.c: 86: printf("%s",temp);
-	ldw	x, (0x27, sp)
+;	main.c: 88: printf("%s",temp);
+	ldw	x, (0x32, sp)
 	pushw	x
 	push	#<___str_4
 	push	#(___str_4 >> 8)
 	call	_printf
 	addw	sp, #4
-;	main.c: 87: printf("\r\n");
+;	main.c: 89: printf("\r\n");
 	push	#<___str_6
 	push	#(___str_6 >> 8)
 	call	_puts
 	addw	sp, #2
-;	main.c: 88: OLED_ShowString(0,2,temp);
-	ldw	x, (0x27, sp)
+;	main.c: 90: OLED_ShowString(0,2,temp);
+	ldw	x, (0x32, sp)
 	pushw	x
 	push	#0x02
 	push	#0x00
 	call	_OLED_ShowString
 	addw	sp, #4
-;	main.c: 91: ds1302_port_init();
+;	main.c: 93: ds1302_port_init();
 	call	_ds1302_port_init
-;	main.c: 92: if(ds1302_check())
+;	main.c: 94: if(ds1302_check())
 	call	_ds1302_check
-	ld	(0x22, sp), a
+	ld	(0x42, sp), a
 	jrne	00133$
 	jp	00102$
 00133$:
-;	main.c: 96: ds1302_read_time(&ds_time);
+;	main.c: 98: ds1302_read_time(&ds_time);
 	ldw	x, sp
 	addw	x, #9
-	ldw	(0x2d, sp), x
+	ldw	(0x26, sp), x
 	pushw	x
 	call	_ds1302_read_time
 	addw	sp, #2
-;	main.c: 97: sprintf(temp,"%2d/%2d/%2d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16);
-	ldw	x, (0x2d, sp)
+;	main.c: 99: sprintf(temp,"%2d/%2d/%2d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16);
+	ldw	x, (0x26, sp)
 	ld	a, (0x6, x)
-	ld	(0x30, sp), a
-	clr	(0x2f, sp)
+	ld	(0x41, sp), a
+	clr	(0x40, sp)
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x31, sp)
+	ldw	x, (0x42, sp)
 	pushw	x
 	call	__divsint
 	addw	sp, #4
@@ -298,22 +301,22 @@ _main:
 	addw	x, (1, sp)
 	sllw	x
 	addw	sp, #2
-	ldw	(0x39, sp), x
+	ldw	(0x3e, sp), x
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x31, sp)
+	ldw	x, (0x42, sp)
 	pushw	x
 	call	__modsint
 	addw	sp, #4
-	addw	x, (0x39, sp)
-	ldw	(0x29, sp), x
-	ldw	x, (0x2d, sp)
+	addw	x, (0x3e, sp)
+	ldw	(0x1e, sp), x
+	ldw	x, (0x26, sp)
 	ld	a, (0x5, x)
-	ld	(0x2c, sp), a
-	clr	(0x2b, sp)
+	ld	(0x1d, sp), a
+	clr	(0x1c, sp)
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x2d, sp)
+	ldw	x, (0x1e, sp)
 	pushw	x
 	call	__divsint
 	addw	sp, #4
@@ -323,22 +326,22 @@ _main:
 	addw	x, (1, sp)
 	sllw	x
 	addw	sp, #2
-	ldw	(0x1a, sp), x
+	ldw	(0x30, sp), x
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x2d, sp)
+	ldw	x, (0x1e, sp)
 	pushw	x
 	call	__modsint
 	addw	sp, #4
-	addw	x, (0x1a, sp)
-	ldw	(0x23, sp), x
-	ldw	x, (0x2d, sp)
+	addw	x, (0x30, sp)
+	ldw	(0x2e, sp), x
+	ldw	x, (0x26, sp)
 	ld	a, (0x4, x)
-	ld	(0x26, sp), a
-	clr	(0x25, sp)
+	ld	(0x25, sp), a
+	clr	(0x24, sp)
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x27, sp)
+	ldw	x, (0x26, sp)
 	pushw	x
 	call	__divsint
 	addw	sp, #4
@@ -348,25 +351,25 @@ _main:
 	addw	x, (1, sp)
 	sllw	x
 	addw	sp, #2
-	ldw	(0x3d, sp), x
+	ldw	(0x22, sp), x
 	push	#0x10
 	push	#0x00
-	ldw	x, (0x27, sp)
+	ldw	x, (0x26, sp)
 	pushw	x
 	call	__modsint
 	addw	sp, #4
-	addw	x, (0x3d, sp)
+	addw	x, (0x22, sp)
 	exgw	x, y
 	ldw	x, sp
 	addw	x, #16
-	ldw	(0x3b, sp), x
-	ld	a, (0x2a, sp)
+	ldw	(0x20, sp), x
+	ld	a, (0x1f, sp)
 	push	a
-	ld	a, (0x2a, sp)
+	ld	a, (0x1f, sp)
 	push	a
-	ld	a, (0x26, sp)
+	ld	a, (0x31, sp)
 	push	a
-	ld	a, (0x26, sp)
+	ld	a, (0x31, sp)
 	push	a
 	pushw	y
 	push	#<___str_7
@@ -374,35 +377,35 @@ _main:
 	pushw	x
 	call	_sprintf
 	addw	sp, #10
-;	main.c: 98: printf("%s",temp);
-	ldw	x, (0x3b, sp)
+;	main.c: 100: printf("%s",temp);
+	ldw	x, (0x20, sp)
 	pushw	x
 	push	#<___str_4
 	push	#(___str_4 >> 8)
 	call	_printf
 	addw	sp, #4
-;	main.c: 99: printf("\r\n");
+;	main.c: 101: printf("\r\n");
 	push	#<___str_6
 	push	#(___str_6 >> 8)
 	call	_puts
 	addw	sp, #2
-;	main.c: 100: OLED_ShowString(0,4,temp);
-	ldw	x, (0x3b, sp)
+;	main.c: 102: OLED_ShowString(0,4,temp);
+	ldw	x, (0x20, sp)
 	pushw	x
 	push	#0x04
 	push	#0x00
 	call	_OLED_ShowString
 	addw	sp, #4
 00102$:
-;	main.c: 102: ds1302_port_deinit();
+;	main.c: 104: ds1302_port_deinit();
 	call	_ds1302_port_deinit
-;	main.c: 107: if(count>=2)
-	ld	a, _main_count_196608_389+0
+;	main.c: 109: if(count>=2)
+	ld	a, _main_count_196608_390+0
 	cp	a, #0x02
 	jrnc	00134$
 	jp	00104$
 00134$:
-;	main.c: 111: ReadDHT12(&data);
+;	main.c: 113: ReadDHT12(&data);
 	ldw	y, sp
 	addw	y, #21
 	ldw	x, y
@@ -411,81 +414,140 @@ _main:
 	call	_ReadDHT12
 	addw	sp, #2
 	popw	y
-;	main.c: 112: sprintf(temp,"%2d.%1dC/%2d.%1d%%/%3d",data.T,data.T1,data.W,data.W1,data.sum);
+;	main.c: 114: sprintf(temp,"%2d.%1dC/%2d.%1d%%/%3d",data.T,data.T1,data.W,data.W1,data.sum);
 	ldw	x, y
 	ld	a, (0x4, x)
-	ld	(0x21, sp), a
-	clr	(0x20, sp)
+	ld	(0x2d, sp), a
+	clr	(0x2c, sp)
 	ldw	x, y
 	ld	a, (0x3, x)
-	ld	(0x1f, sp), a
-	clr	(0x1e, sp)
+	ld	(0x2b, sp), a
+	clr	(0x2a, sp)
 	ldw	x, y
 	ld	a, (0x2, x)
-	ld	(0x1d, sp), a
-	clr	(0x1c, sp)
+	ld	(0x29, sp), a
+	clr	(0x28, sp)
 	ldw	x, y
 	ld	a, (0x1, x)
-	ld	(0x38, sp), a
-	clr	(0x37, sp)
+	ld	(0x3d, sp), a
+	clr	(0x3c, sp)
 	ld	a, (y)
-	clr	(0x35, sp)
+	clr	(0x3a, sp)
 	ldw	x, sp
 	incw	x
-	ldw	(0x33, sp), x
+	ldw	(0x38, sp), x
 	ldw	y, x
-	ldw	x, (0x20, sp)
+	ldw	x, (0x2c, sp)
 	pushw	x
-	ldw	x, (0x20, sp)
+	ldw	x, (0x2c, sp)
 	pushw	x
-	ldw	x, (0x20, sp)
+	ldw	x, (0x2c, sp)
 	pushw	x
-	ldw	x, (0x3d, sp)
+	ldw	x, (0x42, sp)
 	pushw	x
 	push	a
-	ld	a, (0x3e, sp)
+	ld	a, (0x43, sp)
 	push	a
 	push	#<___str_9
 	push	#(___str_9 >> 8)
 	pushw	y
 	call	_sprintf
 	addw	sp, #14
-;	main.c: 113: printf("%s",temp);
-	ldw	x, (0x33, sp)
+;	main.c: 115: printf("%s",temp);
+	ldw	x, (0x38, sp)
 	pushw	x
 	push	#<___str_4
 	push	#(___str_4 >> 8)
 	call	_printf
 	addw	sp, #4
-;	main.c: 114: printf("\r\n");
+;	main.c: 116: printf("\r\n");
 	push	#<___str_6
 	push	#(___str_6 >> 8)
 	call	_puts
 	addw	sp, #2
-;	main.c: 115: OLED_ShowString(0,6,temp);
-	ldw	x, (0x33, sp)
+;	main.c: 117: OLED_ShowString(0,6,temp);
+	ldw	x, (0x38, sp)
 	pushw	x
 	push	#0x06
 	push	#0x00
 	call	_OLED_ShowString
 	addw	sp, #4
-;	main.c: 116: count=0;
-	clr	_main_count_196608_389+0
+;	main.c: 118: count=0;
+	clr	_main_count_196608_390+0
 00104$:
-;	main.c: 119: count++;
-	inc	_main_count_196608_389+0
-;	main.c: 121: GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
+;	main.c: 121: count++;
+	inc	_main_count_196608_390+0
+;	main.c: 125: sprintf(temp,"%2d/%2d/%2d/%2d/%2d",keycount[0],keycount[1],keycount[2],keycount[3],keycount[4]);
+	ldw	y, #_keycount+0
+	ldw	x, y
+	ld	a, (0x4, x)
+	ld	(0x37, sp), a
+	clr	(0x36, sp)
+	ldw	x, y
+	ld	a, (0x3, x)
+	ld	(0x35, sp), a
+	clr	(0x34, sp)
+	ldw	x, y
+	ld	a, (0x2, x)
+	ld	(0x4a, sp), a
+	clr	(0x49, sp)
+	ldw	x, y
+	ld	a, (0x1, x)
+	ld	(0x48, sp), a
+	clr	(0x47, sp)
+	ld	a, (y)
+	clr	(0x45, sp)
+	ldw	x, sp
+	addw	x, #6
+	ldw	(0x43, sp), x
+	ldw	y, x
+	ldw	x, (0x36, sp)
+	pushw	x
+	ldw	x, (0x36, sp)
+	pushw	x
+	ldw	x, (0x4d, sp)
+	pushw	x
+	ldw	x, (0x4d, sp)
+	pushw	x
+	push	a
+	ld	a, (0x4e, sp)
+	push	a
+	push	#<___str_11
+	push	#(___str_11 >> 8)
+	pushw	y
+	call	_sprintf
+	addw	sp, #14
+;	main.c: 126: printf("%s",temp);
+	ldw	x, (0x43, sp)
+	pushw	x
+	push	#<___str_4
+	push	#(___str_4 >> 8)
+	call	_printf
+	addw	sp, #4
+;	main.c: 127: printf("\r\n");
+	push	#<___str_6
+	push	#(___str_6 >> 8)
+	call	_puts
+	addw	sp, #2
+;	main.c: 128: OLED_ShowString(0,0,temp);
+	ldw	x, (0x43, sp)
+	pushw	x
+	push	#0x00
+	push	#0x00
+	call	_OLED_ShowString
+	addw	sp, #4
+;	main.c: 130: GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
 	push	#0x20
 	push	#0x14
 	push	#0x50
 	call	_GPIO_WriteReverse
 	addw	sp, #3
-;	main.c: 122: Delay(0xffff);
+;	main.c: 131: Delay(0xffff);
 	push	#0xff
 	push	#0xff
 	call	_Delay
 	addw	sp, #2
-;	main.c: 125: }
+;	main.c: 134: }
 	jp	00106$
 	.area CODE
 	.area CONST
@@ -510,6 +572,9 @@ ___str_7:
 	.db 0x00
 ___str_9:
 	.ascii "%2d.%1dC/%2d.%1d%%/%3d"
+	.db 0x00
+___str_11:
+	.ascii "%2d/%2d/%2d/%2d/%2d"
 	.db 0x00
 	.area INITIALIZER
 	.area CABS (ABS)

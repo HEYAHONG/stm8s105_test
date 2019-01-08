@@ -29,7 +29,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s_it.h"
-
+#include "key.h"
 /** @addtogroup Template_Project
   * @{
   */
@@ -151,11 +151,22 @@ INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
   * @param  None
   * @retval None
   */
+
 INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 {
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+u8 temp=0;
+for(temp=0;temp<100;temp++) //延时去抖
+{
+nop();nop();nop();nop();nop();
+}
+for(temp=0;temp<5;temp++)
+{
+if(key_read(temp)==RESET) keycount[temp]++;
+}
+
 }
 
 /**

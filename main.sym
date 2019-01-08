@@ -40,6 +40,7 @@ Symbol Table
     _UART2_RX_IRQHandler                                           ****** GX
     _UART2_TX_IRQHandler                                           ****** GX
   8 ___str_0                                                       000000 R
+  8 ___str_11                                                      000051 R
   8 ___str_2                                                       00000E R
   8 ___str_3                                                       00001D R
   8 ___str_4                                                       000029 R
@@ -57,14 +58,16 @@ Symbol Table
     _ds1302_check                                                  ****** GX
     _ds1302_port_deinit                                            ****** GX
     _ds1302_port_init                                              ****** GX
-    _ds1302_read_time                                              ****** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 2.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    _ds1302_read_time                                              ****** GX
+    _key_init                                                      ****** GX
+    _keycount                                                      ****** GX
   A _main                                                          00000A GR
-  1 _main_count_196608_389                                         000000 R
+  1 _main_count_196608_390                                         000000 R
     _printf                                                        ****** GX
     _puts                                                          ****** GX
     _sprintf                                                       ****** GX
@@ -88,8 +91,8 @@ Area Table
    5 HOME                                       size     6F   flags    0
    6 GSINIT                                     size     1E   flags    0
    7 GSFINAL                                    size      3   flags    0
-   8 CONST                                      size     51   flags    0
+   8 CONST                                      size     65   flags    0
    9 INITIALIZER                                size      0   flags    0
-   A CODE                                       size    251   flags    0
+   A CODE                                       size    2BC   flags    0
    B CABS                                       size      0   flags    8
 

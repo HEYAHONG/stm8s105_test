@@ -37,6 +37,7 @@
 #include "uart.h"
 #include "ds1302.h"
 #include "dht12.h"
+#include "key.h"
 #include "adc.h"
 #include "stdio.h"
 /* Private defines -----------------------------------------------------------*/
@@ -65,6 +66,7 @@ void main(void)
  Init_UART2();
  OLED_Init();
 ds1302_active();
+ key_init();
  OLED_Clear();
  enableInterrupts(); //使能中断
 
@@ -117,6 +119,13 @@ ds1302_active();
     
    }
     count++;
+    }
+    {
+    u8  temp[20];
+    sprintf(temp,"%2d/%2d/%2d/%2d/%2d",keycount[0],keycount[1],keycount[2],keycount[3],keycount[4]);
+    printf("%s",temp);
+    printf("\r\n");
+    OLED_ShowString(0,0,temp);
     }
     GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
     Delay(0xffff);

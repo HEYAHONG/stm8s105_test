@@ -10,278 +10,317 @@
                                      10 ;--------------------------------------------------------
                                      11 	.globl _TIM3_CAP_COM_IRQHandler
                                      12 	.globl _TIM3_UPD_OVF_BRK_IRQHandler
-                                     13 	.globl _UART2_ClearITPendingBit
-                                     14 	.globl _UART2_GetITStatus
-                                     15 	.globl _UART2_ClearFlag
-                                     16 	.globl _UART2_GetFlagStatus
-                                     17 	.globl _UART2_SendData8
-                                     18 	.globl _UART2_ReceiveData8
-                                     19 	.globl _TRAP_IRQHandler
-                                     20 	.globl _TLI_IRQHandler
-                                     21 	.globl _AWU_IRQHandler
-                                     22 	.globl _CLK_IRQHandler
-                                     23 	.globl _EXTI_PORTA_IRQHandler
-                                     24 	.globl _EXTI_PORTB_IRQHandler
-                                     25 	.globl _EXTI_PORTC_IRQHandler
-                                     26 	.globl _EXTI_PORTD_IRQHandler
-                                     27 	.globl _EXTI_PORTE_IRQHandler
-                                     28 	.globl _SPI_IRQHandler
-                                     29 	.globl _TIM1_UPD_OVF_TRG_BRK_IRQHandler
-                                     30 	.globl _TIM1_CAP_COM_IRQHandler
-                                     31 	.globl _TIM2_UPD_OVF_BRK_IRQHandler
-                                     32 	.globl _TIM2_CAP_COM_IRQHandler
-                                     33 	.globl _I2C_IRQHandler
-                                     34 	.globl _UART2_TX_IRQHandler
-                                     35 	.globl _UART2_RX_IRQHandler
-                                     36 	.globl _ADC1_IRQHandler
-                                     37 	.globl _TIM4_UPD_OVF_IRQHandler
-                                     38 	.globl _EEPROM_EEC_IRQHandler
-                                     39 ;--------------------------------------------------------
-                                     40 ; ram data
-                                     41 ;--------------------------------------------------------
-                                     42 	.area DATA
-                                     43 ;--------------------------------------------------------
-                                     44 ; ram data
-                                     45 ;--------------------------------------------------------
-                                     46 	.area INITIALIZED
-                                     47 ;--------------------------------------------------------
-                                     48 ; absolute external ram data
-                                     49 ;--------------------------------------------------------
-                                     50 	.area DABS (ABS)
-                                     51 
-                                     52 ; default segment ordering for linker
-                                     53 	.area HOME
-                                     54 	.area GSINIT
-                                     55 	.area GSFINAL
-                                     56 	.area CONST
-                                     57 	.area INITIALIZER
-                                     58 	.area CODE
-                                     59 
-                                     60 ;--------------------------------------------------------
-                                     61 ; global & static initialisations
-                                     62 ;--------------------------------------------------------
-                                     63 	.area HOME
-                                     64 	.area GSINIT
-                                     65 	.area GSFINAL
-                                     66 	.area GSINIT
-                                     67 ;--------------------------------------------------------
-                                     68 ; Home
-                                     69 ;--------------------------------------------------------
-                                     70 	.area HOME
+                                     13 	.globl _key_read
+                                     14 	.globl _UART2_ClearITPendingBit
+                                     15 	.globl _UART2_GetITStatus
+                                     16 	.globl _UART2_ClearFlag
+                                     17 	.globl _UART2_GetFlagStatus
+                                     18 	.globl _UART2_SendData8
+                                     19 	.globl _UART2_ReceiveData8
+                                     20 	.globl _TRAP_IRQHandler
+                                     21 	.globl _TLI_IRQHandler
+                                     22 	.globl _AWU_IRQHandler
+                                     23 	.globl _CLK_IRQHandler
+                                     24 	.globl _EXTI_PORTA_IRQHandler
+                                     25 	.globl _EXTI_PORTB_IRQHandler
+                                     26 	.globl _EXTI_PORTC_IRQHandler
+                                     27 	.globl _EXTI_PORTD_IRQHandler
+                                     28 	.globl _EXTI_PORTE_IRQHandler
+                                     29 	.globl _SPI_IRQHandler
+                                     30 	.globl _TIM1_UPD_OVF_TRG_BRK_IRQHandler
+                                     31 	.globl _TIM1_CAP_COM_IRQHandler
+                                     32 	.globl _TIM2_UPD_OVF_BRK_IRQHandler
+                                     33 	.globl _TIM2_CAP_COM_IRQHandler
+                                     34 	.globl _I2C_IRQHandler
+                                     35 	.globl _UART2_TX_IRQHandler
+                                     36 	.globl _UART2_RX_IRQHandler
+                                     37 	.globl _ADC1_IRQHandler
+                                     38 	.globl _TIM4_UPD_OVF_IRQHandler
+                                     39 	.globl _EEPROM_EEC_IRQHandler
+                                     40 ;--------------------------------------------------------
+                                     41 ; ram data
+                                     42 ;--------------------------------------------------------
+                                     43 	.area DATA
+                                     44 ;--------------------------------------------------------
+                                     45 ; ram data
+                                     46 ;--------------------------------------------------------
+                                     47 	.area INITIALIZED
+                                     48 ;--------------------------------------------------------
+                                     49 ; absolute external ram data
+                                     50 ;--------------------------------------------------------
+                                     51 	.area DABS (ABS)
+                                     52 
+                                     53 ; default segment ordering for linker
+                                     54 	.area HOME
+                                     55 	.area GSINIT
+                                     56 	.area GSFINAL
+                                     57 	.area CONST
+                                     58 	.area INITIALIZER
+                                     59 	.area CODE
+                                     60 
+                                     61 ;--------------------------------------------------------
+                                     62 ; global & static initialisations
+                                     63 ;--------------------------------------------------------
+                                     64 	.area HOME
+                                     65 	.area GSINIT
+                                     66 	.area GSFINAL
+                                     67 	.area GSINIT
+                                     68 ;--------------------------------------------------------
+                                     69 ; Home
+                                     70 ;--------------------------------------------------------
                                      71 	.area HOME
-                                     72 ;--------------------------------------------------------
-                                     73 ; code
-                                     74 ;--------------------------------------------------------
-                                     75 	.area CODE
-                                     76 ;	stm8s_it.c: 67: INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler)
-                                     77 ;	-----------------------------------------
-                                     78 ;	 function TRAP_IRQHandler
-                                     79 ;	-----------------------------------------
-      0086E0                         80 _TRAP_IRQHandler:
-                                     81 ;	stm8s_it.c: 74: }
-      0086E0 80               [11]   82 	iret
-                                     83 ;	stm8s_it.c: 81: INTERRUPT_HANDLER(TLI_IRQHandler, 0)
-                                     84 ;	-----------------------------------------
-                                     85 ;	 function TLI_IRQHandler
-                                     86 ;	-----------------------------------------
-      0086E1                         87 _TLI_IRQHandler:
-                                     88 ;	stm8s_it.c: 87: }
-      0086E1 80               [11]   89 	iret
-                                     90 ;	stm8s_it.c: 94: INTERRUPT_HANDLER(AWU_IRQHandler, 1)
-                                     91 ;	-----------------------------------------
-                                     92 ;	 function AWU_IRQHandler
-                                     93 ;	-----------------------------------------
-      0086E2                         94 _AWU_IRQHandler:
-                                     95 ;	stm8s_it.c: 99: }
-      0086E2 80               [11]   96 	iret
-                                     97 ;	stm8s_it.c: 106: INTERRUPT_HANDLER(CLK_IRQHandler, 2)
-                                     98 ;	-----------------------------------------
-                                     99 ;	 function CLK_IRQHandler
-                                    100 ;	-----------------------------------------
-      0086E3                        101 _CLK_IRQHandler:
-                                    102 ;	stm8s_it.c: 111: }
-      0086E3 80               [11]  103 	iret
-                                    104 ;	stm8s_it.c: 118: INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
-                                    105 ;	-----------------------------------------
-                                    106 ;	 function EXTI_PORTA_IRQHandler
-                                    107 ;	-----------------------------------------
-      0086E4                        108 _EXTI_PORTA_IRQHandler:
-                                    109 ;	stm8s_it.c: 123: }
-      0086E4 80               [11]  110 	iret
-                                    111 ;	stm8s_it.c: 130: INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
-                                    112 ;	-----------------------------------------
-                                    113 ;	 function EXTI_PORTB_IRQHandler
-                                    114 ;	-----------------------------------------
-      0086E5                        115 _EXTI_PORTB_IRQHandler:
-                                    116 ;	stm8s_it.c: 135: }
-      0086E5 80               [11]  117 	iret
-                                    118 ;	stm8s_it.c: 142: INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
-                                    119 ;	-----------------------------------------
-                                    120 ;	 function EXTI_PORTC_IRQHandler
-                                    121 ;	-----------------------------------------
-      0086E6                        122 _EXTI_PORTC_IRQHandler:
-                                    123 ;	stm8s_it.c: 147: }
-      0086E6 80               [11]  124 	iret
-                                    125 ;	stm8s_it.c: 154: INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
-                                    126 ;	-----------------------------------------
-                                    127 ;	 function EXTI_PORTD_IRQHandler
-                                    128 ;	-----------------------------------------
-      0086E7                        129 _EXTI_PORTD_IRQHandler:
-                                    130 ;	stm8s_it.c: 159: }
-      0086E7 80               [11]  131 	iret
-                                    132 ;	stm8s_it.c: 166: INTERRUPT_HANDLER(EXTI_PORTE_IRQHandler, 7)
-                                    133 ;	-----------------------------------------
-                                    134 ;	 function EXTI_PORTE_IRQHandler
-                                    135 ;	-----------------------------------------
-      0086E8                        136 _EXTI_PORTE_IRQHandler:
-                                    137 ;	stm8s_it.c: 171: }
-      0086E8 80               [11]  138 	iret
-                                    139 ;	stm8s_it.c: 218: INTERRUPT_HANDLER(SPI_IRQHandler, 10)
-                                    140 ;	-----------------------------------------
-                                    141 ;	 function SPI_IRQHandler
-                                    142 ;	-----------------------------------------
-      0086E9                        143 _SPI_IRQHandler:
-                                    144 ;	stm8s_it.c: 223: }
-      0086E9 80               [11]  145 	iret
-                                    146 ;	stm8s_it.c: 230: INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_BRK_IRQHandler, 11)
-                                    147 ;	-----------------------------------------
-                                    148 ;	 function TIM1_UPD_OVF_TRG_BRK_IRQHandler
-                                    149 ;	-----------------------------------------
-      0086EA                        150 _TIM1_UPD_OVF_TRG_BRK_IRQHandler:
-                                    151 ;	stm8s_it.c: 235: }
-      0086EA 80               [11]  152 	iret
-                                    153 ;	stm8s_it.c: 242: INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
-                                    154 ;	-----------------------------------------
-                                    155 ;	 function TIM1_CAP_COM_IRQHandler
-                                    156 ;	-----------------------------------------
-      0086EB                        157 _TIM1_CAP_COM_IRQHandler:
-                                    158 ;	stm8s_it.c: 247: }
-      0086EB 80               [11]  159 	iret
-                                    160 ;	stm8s_it.c: 280: INTERRUPT_HANDLER(TIM2_UPD_OVF_BRK_IRQHandler, 13)
-                                    161 ;	-----------------------------------------
-                                    162 ;	 function TIM2_UPD_OVF_BRK_IRQHandler
-                                    163 ;	-----------------------------------------
-      0086EC                        164 _TIM2_UPD_OVF_BRK_IRQHandler:
-                                    165 ;	stm8s_it.c: 285: }
-      0086EC 80               [11]  166 	iret
-                                    167 ;	stm8s_it.c: 292: INTERRUPT_HANDLER(TIM2_CAP_COM_IRQHandler, 14)
-                                    168 ;	-----------------------------------------
-                                    169 ;	 function TIM2_CAP_COM_IRQHandler
-                                    170 ;	-----------------------------------------
-      0086ED                        171 _TIM2_CAP_COM_IRQHandler:
-                                    172 ;	stm8s_it.c: 297: }
-      0086ED 80               [11]  173 	iret
-                                    174 ;	stm8s_it.c: 307: INTERRUPT_HANDLER(TIM3_UPD_OVF_BRK_IRQHandler, 15)
-                                    175 ;	-----------------------------------------
-                                    176 ;	 function TIM3_UPD_OVF_BRK_IRQHandler
-                                    177 ;	-----------------------------------------
-      0086EE                        178 _TIM3_UPD_OVF_BRK_IRQHandler:
-                                    179 ;	stm8s_it.c: 312: }
-      0086EE 80               [11]  180 	iret
-                                    181 ;	stm8s_it.c: 319: INTERRUPT_HANDLER(TIM3_CAP_COM_IRQHandler, 16)
-                                    182 ;	-----------------------------------------
-                                    183 ;	 function TIM3_CAP_COM_IRQHandler
-                                    184 ;	-----------------------------------------
-      0086EF                        185 _TIM3_CAP_COM_IRQHandler:
-                                    186 ;	stm8s_it.c: 324: }
-      0086EF 80               [11]  187 	iret
-                                    188 ;	stm8s_it.c: 389: INTERRUPT_HANDLER(I2C_IRQHandler, 19)
-                                    189 ;	-----------------------------------------
-                                    190 ;	 function I2C_IRQHandler
-                                    191 ;	-----------------------------------------
-      0086F0                        192 _I2C_IRQHandler:
-                                    193 ;	stm8s_it.c: 394: }
-      0086F0 80               [11]  194 	iret
-                                    195 ;	stm8s_it.c: 402: INTERRUPT_HANDLER(UART2_TX_IRQHandler, 20)
-                                    196 ;	-----------------------------------------
-                                    197 ;	 function UART2_TX_IRQHandler
-                                    198 ;	-----------------------------------------
-      0086F1                        199 _UART2_TX_IRQHandler:
-                                    200 ;	stm8s_it.c: 407: }
-      0086F1 80               [11]  201 	iret
-                                    202 ;	stm8s_it.c: 414: INTERRUPT_HANDLER(UART2_RX_IRQHandler, 21)
-                                    203 ;	-----------------------------------------
-                                    204 ;	 function UART2_RX_IRQHandler
-                                    205 ;	-----------------------------------------
-      0086F2                        206 _UART2_RX_IRQHandler:
-      0086F2 4F               [ 1]  207 	clr	a
-      0086F3 62               [ 2]  208 	div	x, a
-                                    209 ;	stm8s_it.c: 419: if(UART2_GetITStatus(UART2_IT_RXNE))
-      0086F4 4B 55            [ 1]  210 	push	#0x55
-      0086F6 4B 02            [ 1]  211 	push	#0x02
-      0086F8 CD 9E 19         [ 4]  212 	call	_UART2_GetITStatus
-      0086FB 5B 02            [ 2]  213 	addw	sp, #2
-      0086FD 4D               [ 1]  214 	tnz	a
-      0086FE 27 14            [ 1]  215 	jreq	00105$
-                                    216 ;	stm8s_it.c: 421: while(UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET);
-      008700                        217 00101$:
-      008700 4B 80            [ 1]  218 	push	#0x80
-      008702 4B 00            [ 1]  219 	push	#0x00
-      008704 CD 9D 92         [ 4]  220 	call	_UART2_GetFlagStatus
-      008707 5B 02            [ 2]  221 	addw	sp, #2
-      008709 4D               [ 1]  222 	tnz	a
-      00870A 27 F4            [ 1]  223 	jreq	00101$
-                                    224 ;	stm8s_it.c: 422: UART2_SendData8(UART2_ReceiveData8());
-      00870C CD 9D 28         [ 4]  225 	call	_UART2_ReceiveData8
-      00870F 88               [ 1]  226 	push	a
-      008710 CD 9D 4A         [ 4]  227 	call	_UART2_SendData8
-      008713 84               [ 1]  228 	pop	a
-      008714                        229 00105$:
-                                    230 ;	stm8s_it.c: 424: UART2_ClearITPendingBit(UART2_IT_RXNE);	
-      008714 4B 55            [ 1]  231 	push	#0x55
-      008716 4B 02            [ 1]  232 	push	#0x02
-      008718 CD 9E B5         [ 4]  233 	call	_UART2_ClearITPendingBit
-      00871B 5B 02            [ 2]  234 	addw	sp, #2
-                                    235 ;	stm8s_it.c: 427: if(UART2_GetITStatus(UART2_IT_OR))
-      00871D 4B 35            [ 1]  236 	push	#0x35
-      00871F 4B 02            [ 1]  237 	push	#0x02
-      008721 CD 9E 19         [ 4]  238 	call	_UART2_GetITStatus
-      008724 5B 02            [ 2]  239 	addw	sp, #2
-      008726 4D               [ 1]  240 	tnz	a
-      008727 27 09            [ 1]  241 	jreq	00107$
-                                    242 ;	stm8s_it.c: 429: UART2_ClearITPendingBit(UART2_IT_OR);
-      008729 4B 35            [ 1]  243 	push	#0x35
-      00872B 4B 02            [ 1]  244 	push	#0x02
-      00872D CD 9E B5         [ 4]  245 	call	_UART2_ClearITPendingBit
-      008730 5B 02            [ 2]  246 	addw	sp, #2
-      008732                        247 00107$:
-                                    248 ;	stm8s_it.c: 431: if(UART2_GetFlagStatus(UART2_FLAG_OR_LHE))
-      008732 4B 08            [ 1]  249 	push	#0x08
-      008734 4B 00            [ 1]  250 	push	#0x00
-      008736 CD 9D 92         [ 4]  251 	call	_UART2_GetFlagStatus
-      008739 5B 02            [ 2]  252 	addw	sp, #2
-      00873B 4D               [ 1]  253 	tnz	a
-      00873C 27 09            [ 1]  254 	jreq	00110$
-                                    255 ;	stm8s_it.c: 433: UART2_ClearFlag(UART2_FLAG_OR_LHE);
-      00873E 4B 08            [ 1]  256 	push	#0x08
-      008740 4B 00            [ 1]  257 	push	#0x00
-      008742 CD 9D EB         [ 4]  258 	call	_UART2_ClearFlag
-      008745 5B 02            [ 2]  259 	addw	sp, #2
-      008747                        260 00110$:
-                                    261 ;	stm8s_it.c: 437: }
-      008747 80               [11]  262 	iret
-                                    263 ;	stm8s_it.c: 486: INTERRUPT_HANDLER(ADC1_IRQHandler, 22)
-                                    264 ;	-----------------------------------------
-                                    265 ;	 function ADC1_IRQHandler
-                                    266 ;	-----------------------------------------
-      008748                        267 _ADC1_IRQHandler:
-                                    268 ;	stm8s_it.c: 491: }
-      008748 80               [11]  269 	iret
-                                    270 ;	stm8s_it.c: 512: INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 23)
-                                    271 ;	-----------------------------------------
-                                    272 ;	 function TIM4_UPD_OVF_IRQHandler
-                                    273 ;	-----------------------------------------
-      008749                        274 _TIM4_UPD_OVF_IRQHandler:
-                                    275 ;	stm8s_it.c: 517: }
-      008749 80               [11]  276 	iret
-                                    277 ;	stm8s_it.c: 525: INTERRUPT_HANDLER(EEPROM_EEC_IRQHandler, 24)
-                                    278 ;	-----------------------------------------
-                                    279 ;	 function EEPROM_EEC_IRQHandler
-                                    280 ;	-----------------------------------------
-      00874A                        281 _EEPROM_EEC_IRQHandler:
-                                    282 ;	stm8s_it.c: 530: }
-      00874A 80               [11]  283 	iret
-                                    284 	.area CODE
-                                    285 	.area CONST
-                                    286 	.area INITIALIZER
-                                    287 	.area CABS (ABS)
+                                     72 	.area HOME
+                                     73 ;--------------------------------------------------------
+                                     74 ; code
+                                     75 ;--------------------------------------------------------
+                                     76 	.area CODE
+                                     77 ;	stm8s_it.c: 67: INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler)
+                                     78 ;	-----------------------------------------
+                                     79 ;	 function TRAP_IRQHandler
+                                     80 ;	-----------------------------------------
+      0086F9                         81 _TRAP_IRQHandler:
+                                     82 ;	stm8s_it.c: 74: }
+      0086F9 80               [11]   83 	iret
+                                     84 ;	stm8s_it.c: 81: INTERRUPT_HANDLER(TLI_IRQHandler, 0)
+                                     85 ;	-----------------------------------------
+                                     86 ;	 function TLI_IRQHandler
+                                     87 ;	-----------------------------------------
+      0086FA                         88 _TLI_IRQHandler:
+                                     89 ;	stm8s_it.c: 87: }
+      0086FA 80               [11]   90 	iret
+                                     91 ;	stm8s_it.c: 94: INTERRUPT_HANDLER(AWU_IRQHandler, 1)
+                                     92 ;	-----------------------------------------
+                                     93 ;	 function AWU_IRQHandler
+                                     94 ;	-----------------------------------------
+      0086FB                         95 _AWU_IRQHandler:
+                                     96 ;	stm8s_it.c: 99: }
+      0086FB 80               [11]   97 	iret
+                                     98 ;	stm8s_it.c: 106: INTERRUPT_HANDLER(CLK_IRQHandler, 2)
+                                     99 ;	-----------------------------------------
+                                    100 ;	 function CLK_IRQHandler
+                                    101 ;	-----------------------------------------
+      0086FC                        102 _CLK_IRQHandler:
+                                    103 ;	stm8s_it.c: 111: }
+      0086FC 80               [11]  104 	iret
+                                    105 ;	stm8s_it.c: 118: INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
+                                    106 ;	-----------------------------------------
+                                    107 ;	 function EXTI_PORTA_IRQHandler
+                                    108 ;	-----------------------------------------
+      0086FD                        109 _EXTI_PORTA_IRQHandler:
+                                    110 ;	stm8s_it.c: 123: }
+      0086FD 80               [11]  111 	iret
+                                    112 ;	stm8s_it.c: 130: INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
+                                    113 ;	-----------------------------------------
+                                    114 ;	 function EXTI_PORTB_IRQHandler
+                                    115 ;	-----------------------------------------
+      0086FE                        116 _EXTI_PORTB_IRQHandler:
+                                    117 ;	stm8s_it.c: 135: }
+      0086FE 80               [11]  118 	iret
+                                    119 ;	stm8s_it.c: 142: INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
+                                    120 ;	-----------------------------------------
+                                    121 ;	 function EXTI_PORTC_IRQHandler
+                                    122 ;	-----------------------------------------
+      0086FF                        123 _EXTI_PORTC_IRQHandler:
+                                    124 ;	stm8s_it.c: 147: }
+      0086FF 80               [11]  125 	iret
+                                    126 ;	stm8s_it.c: 155: INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
+                                    127 ;	-----------------------------------------
+                                    128 ;	 function EXTI_PORTD_IRQHandler
+                                    129 ;	-----------------------------------------
+      008700                        130 _EXTI_PORTD_IRQHandler:
+      008700 4F               [ 1]  131 	clr	a
+      008701 62               [ 2]  132 	div	x, a
+      008702 88               [ 1]  133 	push	a
+                                    134 ;	stm8s_it.c: 161: for(temp=0;temp<100;temp++) //延时去抖
+      008703 A6 64            [ 1]  135 	ld	a, #0x64
+      008705                        136 00107$:
+                                    137 ;	stm8s_it.c: 163: nop();nop();nop();nop();nop();
+      008705 9D               [ 1]  138 	nop
+      008706 9D               [ 1]  139 	nop
+      008707 9D               [ 1]  140 	nop
+      008708 9D               [ 1]  141 	nop
+      008709 9D               [ 1]  142 	nop
+      00870A 4A               [ 1]  143 	dec	a
+                                    144 ;	stm8s_it.c: 161: for(temp=0;temp<100;temp++) //延时去抖
+      00870B 4D               [ 1]  145 	tnz	a
+      00870C 26 F7            [ 1]  146 	jrne	00107$
+                                    147 ;	stm8s_it.c: 165: for(temp=0;temp<5;temp++)
+      00870E 0F 01            [ 1]  148 	clr	(0x01, sp)
+      008710                        149 00108$:
+                                    150 ;	stm8s_it.c: 167: if(key_read(temp)==RESET) keycount[temp]++;
+      008710 7B 01            [ 1]  151 	ld	a, (0x01, sp)
+      008712 88               [ 1]  152 	push	a
+      008713 CD 8E 3E         [ 4]  153 	call	_key_read
+      008716 5B 01            [ 2]  154 	addw	sp, #1
+      008718 4D               [ 1]  155 	tnz	a
+      008719 26 08            [ 1]  156 	jrne	00109$
+      00871B 5F               [ 1]  157 	clrw	x
+      00871C 7B 01            [ 1]  158 	ld	a, (0x01, sp)
+      00871E 97               [ 1]  159 	ld	xl, a
+      00871F 1C 00 02         [ 2]  160 	addw	x, #_keycount
+      008722 7C               [ 1]  161 	inc	(x)
+      008723                        162 00109$:
+                                    163 ;	stm8s_it.c: 165: for(temp=0;temp<5;temp++)
+      008723 0C 01            [ 1]  164 	inc	(0x01, sp)
+      008725 7B 01            [ 1]  165 	ld	a, (0x01, sp)
+      008727 A1 05            [ 1]  166 	cp	a, #0x05
+      008729 25 E5            [ 1]  167 	jrc	00108$
+                                    168 ;	stm8s_it.c: 170: }
+      00872B 84               [ 1]  169 	pop	a
+      00872C 80               [11]  170 	iret
+                                    171 ;	stm8s_it.c: 177: INTERRUPT_HANDLER(EXTI_PORTE_IRQHandler, 7)
+                                    172 ;	-----------------------------------------
+                                    173 ;	 function EXTI_PORTE_IRQHandler
+                                    174 ;	-----------------------------------------
+      00872D                        175 _EXTI_PORTE_IRQHandler:
+                                    176 ;	stm8s_it.c: 182: }
+      00872D 80               [11]  177 	iret
+                                    178 ;	stm8s_it.c: 229: INTERRUPT_HANDLER(SPI_IRQHandler, 10)
+                                    179 ;	-----------------------------------------
+                                    180 ;	 function SPI_IRQHandler
+                                    181 ;	-----------------------------------------
+      00872E                        182 _SPI_IRQHandler:
+                                    183 ;	stm8s_it.c: 234: }
+      00872E 80               [11]  184 	iret
+                                    185 ;	stm8s_it.c: 241: INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_BRK_IRQHandler, 11)
+                                    186 ;	-----------------------------------------
+                                    187 ;	 function TIM1_UPD_OVF_TRG_BRK_IRQHandler
+                                    188 ;	-----------------------------------------
+      00872F                        189 _TIM1_UPD_OVF_TRG_BRK_IRQHandler:
+                                    190 ;	stm8s_it.c: 246: }
+      00872F 80               [11]  191 	iret
+                                    192 ;	stm8s_it.c: 253: INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
+                                    193 ;	-----------------------------------------
+                                    194 ;	 function TIM1_CAP_COM_IRQHandler
+                                    195 ;	-----------------------------------------
+      008730                        196 _TIM1_CAP_COM_IRQHandler:
+                                    197 ;	stm8s_it.c: 258: }
+      008730 80               [11]  198 	iret
+                                    199 ;	stm8s_it.c: 291: INTERRUPT_HANDLER(TIM2_UPD_OVF_BRK_IRQHandler, 13)
+                                    200 ;	-----------------------------------------
+                                    201 ;	 function TIM2_UPD_OVF_BRK_IRQHandler
+                                    202 ;	-----------------------------------------
+      008731                        203 _TIM2_UPD_OVF_BRK_IRQHandler:
+                                    204 ;	stm8s_it.c: 296: }
+      008731 80               [11]  205 	iret
+                                    206 ;	stm8s_it.c: 303: INTERRUPT_HANDLER(TIM2_CAP_COM_IRQHandler, 14)
+                                    207 ;	-----------------------------------------
+                                    208 ;	 function TIM2_CAP_COM_IRQHandler
+                                    209 ;	-----------------------------------------
+      008732                        210 _TIM2_CAP_COM_IRQHandler:
+                                    211 ;	stm8s_it.c: 308: }
+      008732 80               [11]  212 	iret
+                                    213 ;	stm8s_it.c: 318: INTERRUPT_HANDLER(TIM3_UPD_OVF_BRK_IRQHandler, 15)
+                                    214 ;	-----------------------------------------
+                                    215 ;	 function TIM3_UPD_OVF_BRK_IRQHandler
+                                    216 ;	-----------------------------------------
+      008733                        217 _TIM3_UPD_OVF_BRK_IRQHandler:
+                                    218 ;	stm8s_it.c: 323: }
+      008733 80               [11]  219 	iret
+                                    220 ;	stm8s_it.c: 330: INTERRUPT_HANDLER(TIM3_CAP_COM_IRQHandler, 16)
+                                    221 ;	-----------------------------------------
+                                    222 ;	 function TIM3_CAP_COM_IRQHandler
+                                    223 ;	-----------------------------------------
+      008734                        224 _TIM3_CAP_COM_IRQHandler:
+                                    225 ;	stm8s_it.c: 335: }
+      008734 80               [11]  226 	iret
+                                    227 ;	stm8s_it.c: 400: INTERRUPT_HANDLER(I2C_IRQHandler, 19)
+                                    228 ;	-----------------------------------------
+                                    229 ;	 function I2C_IRQHandler
+                                    230 ;	-----------------------------------------
+      008735                        231 _I2C_IRQHandler:
+                                    232 ;	stm8s_it.c: 405: }
+      008735 80               [11]  233 	iret
+                                    234 ;	stm8s_it.c: 413: INTERRUPT_HANDLER(UART2_TX_IRQHandler, 20)
+                                    235 ;	-----------------------------------------
+                                    236 ;	 function UART2_TX_IRQHandler
+                                    237 ;	-----------------------------------------
+      008736                        238 _UART2_TX_IRQHandler:
+                                    239 ;	stm8s_it.c: 418: }
+      008736 80               [11]  240 	iret
+                                    241 ;	stm8s_it.c: 425: INTERRUPT_HANDLER(UART2_RX_IRQHandler, 21)
+                                    242 ;	-----------------------------------------
+                                    243 ;	 function UART2_RX_IRQHandler
+                                    244 ;	-----------------------------------------
+      008737                        245 _UART2_RX_IRQHandler:
+      008737 4F               [ 1]  246 	clr	a
+      008738 62               [ 2]  247 	div	x, a
+                                    248 ;	stm8s_it.c: 430: if(UART2_GetITStatus(UART2_IT_RXNE))
+      008739 4B 55            [ 1]  249 	push	#0x55
+      00873B 4B 02            [ 1]  250 	push	#0x02
+      00873D CD A0 29         [ 4]  251 	call	_UART2_GetITStatus
+      008740 5B 02            [ 2]  252 	addw	sp, #2
+      008742 4D               [ 1]  253 	tnz	a
+      008743 27 14            [ 1]  254 	jreq	00105$
+                                    255 ;	stm8s_it.c: 432: while(UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET);
+      008745                        256 00101$:
+      008745 4B 80            [ 1]  257 	push	#0x80
+      008747 4B 00            [ 1]  258 	push	#0x00
+      008749 CD 9F A2         [ 4]  259 	call	_UART2_GetFlagStatus
+      00874C 5B 02            [ 2]  260 	addw	sp, #2
+      00874E 4D               [ 1]  261 	tnz	a
+      00874F 27 F4            [ 1]  262 	jreq	00101$
+                                    263 ;	stm8s_it.c: 433: UART2_SendData8(UART2_ReceiveData8());
+      008751 CD 9F 38         [ 4]  264 	call	_UART2_ReceiveData8
+      008754 88               [ 1]  265 	push	a
+      008755 CD 9F 5A         [ 4]  266 	call	_UART2_SendData8
+      008758 84               [ 1]  267 	pop	a
+      008759                        268 00105$:
+                                    269 ;	stm8s_it.c: 435: UART2_ClearITPendingBit(UART2_IT_RXNE);	
+      008759 4B 55            [ 1]  270 	push	#0x55
+      00875B 4B 02            [ 1]  271 	push	#0x02
+      00875D CD A0 C5         [ 4]  272 	call	_UART2_ClearITPendingBit
+      008760 5B 02            [ 2]  273 	addw	sp, #2
+                                    274 ;	stm8s_it.c: 438: if(UART2_GetITStatus(UART2_IT_OR))
+      008762 4B 35            [ 1]  275 	push	#0x35
+      008764 4B 02            [ 1]  276 	push	#0x02
+      008766 CD A0 29         [ 4]  277 	call	_UART2_GetITStatus
+      008769 5B 02            [ 2]  278 	addw	sp, #2
+      00876B 4D               [ 1]  279 	tnz	a
+      00876C 27 09            [ 1]  280 	jreq	00107$
+                                    281 ;	stm8s_it.c: 440: UART2_ClearITPendingBit(UART2_IT_OR);
+      00876E 4B 35            [ 1]  282 	push	#0x35
+      008770 4B 02            [ 1]  283 	push	#0x02
+      008772 CD A0 C5         [ 4]  284 	call	_UART2_ClearITPendingBit
+      008775 5B 02            [ 2]  285 	addw	sp, #2
+      008777                        286 00107$:
+                                    287 ;	stm8s_it.c: 442: if(UART2_GetFlagStatus(UART2_FLAG_OR_LHE))
+      008777 4B 08            [ 1]  288 	push	#0x08
+      008779 4B 00            [ 1]  289 	push	#0x00
+      00877B CD 9F A2         [ 4]  290 	call	_UART2_GetFlagStatus
+      00877E 5B 02            [ 2]  291 	addw	sp, #2
+      008780 4D               [ 1]  292 	tnz	a
+      008781 27 09            [ 1]  293 	jreq	00110$
+                                    294 ;	stm8s_it.c: 444: UART2_ClearFlag(UART2_FLAG_OR_LHE);
+      008783 4B 08            [ 1]  295 	push	#0x08
+      008785 4B 00            [ 1]  296 	push	#0x00
+      008787 CD 9F FB         [ 4]  297 	call	_UART2_ClearFlag
+      00878A 5B 02            [ 2]  298 	addw	sp, #2
+      00878C                        299 00110$:
+                                    300 ;	stm8s_it.c: 448: }
+      00878C 80               [11]  301 	iret
+                                    302 ;	stm8s_it.c: 497: INTERRUPT_HANDLER(ADC1_IRQHandler, 22)
+                                    303 ;	-----------------------------------------
+                                    304 ;	 function ADC1_IRQHandler
+                                    305 ;	-----------------------------------------
+      00878D                        306 _ADC1_IRQHandler:
+                                    307 ;	stm8s_it.c: 502: }
+      00878D 80               [11]  308 	iret
+                                    309 ;	stm8s_it.c: 523: INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 23)
+                                    310 ;	-----------------------------------------
+                                    311 ;	 function TIM4_UPD_OVF_IRQHandler
+                                    312 ;	-----------------------------------------
+      00878E                        313 _TIM4_UPD_OVF_IRQHandler:
+                                    314 ;	stm8s_it.c: 528: }
+      00878E 80               [11]  315 	iret
+                                    316 ;	stm8s_it.c: 536: INTERRUPT_HANDLER(EEPROM_EEC_IRQHandler, 24)
+                                    317 ;	-----------------------------------------
+                                    318 ;	 function EEPROM_EEC_IRQHandler
+                                    319 ;	-----------------------------------------
+      00878F                        320 _EEPROM_EEC_IRQHandler:
+                                    321 ;	stm8s_it.c: 541: }
+      00878F 80               [11]  322 	iret
+                                    323 	.area CODE
+                                    324 	.area CONST
+                                    325 	.area INITIALIZER
+                                    326 	.area CABS (ABS)
