@@ -39,6 +39,7 @@
 #include "dht12.h"
 #include "key.h"
 #include "adc.h"
+#include "eeprom.h"
 #include "stdio.h"
 /* Private defines -----------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -68,6 +69,7 @@ void main(void)
 ds1302_active();
  key_init();
  OLED_Clear();
+// eeprom_write(10,108);
  enableInterrupts(); //使能中断
 
  OLED_ShowString(0,0,"STM8 Started!");
@@ -84,7 +86,7 @@ ds1302_active();
   {
   /* Toggles LEDs */
    { u8  temp[10];
-    sprintf(temp,"V:%4d,S:%1d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1);
+    sprintf(temp,"V:%4d,S:%1d %d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1,eeprom_read(10));
     printf("%s",temp);
     printf("\r\n");
     OLED_ShowString(0,2,temp);

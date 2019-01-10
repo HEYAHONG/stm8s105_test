@@ -10,12 +10,14 @@
 stm8s_it.rel
 main.rel
 driver/dht12.rel
-driver/uart.rel
-driver/key.rel
 driver/ds1302.rel
+driver/uart.rel
+driver/eeprom.rel
+driver/key.rel
 driver/oled.rel
 driver/adc.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.rel
+STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_exti.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_adc1.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_uart2.rel
