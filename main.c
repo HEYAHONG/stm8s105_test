@@ -65,14 +65,15 @@ void main(void)
 /* Initialize I/Os in Output Mode */
   GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
   GPIO_Init(GPIOF,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
+ driver_init(); //驱动初始化
 //Initialize UART
- Init_UART2();
- OLED_Init();
-ds1302_active();
- key_init();
- OLED_Clear();
+ //Init_UART2();
+// OLED_Init();
+//ds1302_active();
+ //key_init();
+ //OLED_Clear();
 // eeprom_write(10,108);
- enableInterrupts(); //使能中断
+// enableInterrupts(); //使能中断
 
  OLED_ShowString(0,0,"STM8 Started!");
  printf("STM8 Started!\r\n");

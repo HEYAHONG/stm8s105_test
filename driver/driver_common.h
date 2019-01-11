@@ -12,5 +12,7 @@
 #include   "oled.h"
 #include   "uart.h"
 // 将UART用作DEBUG，即printf的输出到串口。不用时取消注释
-#define UART_DEBUG
+//#define UART_DEBUG
+
+void driver_init();
 #endif

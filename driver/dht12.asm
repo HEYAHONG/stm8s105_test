@@ -471,7 +471,7 @@ _I2C_Read:
 	call	_SendByte
 	addw	sp, #1
 ;	driver/dht12.c: 402: if(!I2CAck)  
-	ld	(0x07, sp), a
+	ld	(0x05, sp), a
 	jrne	00102$
 ;	driver/dht12.c: 406: return I2C_ERR;  
 	clr	a
@@ -510,23 +510,23 @@ _I2C_Read:
 	ld	a, (0x10, sp)
 	ld	xl, a
 	decw	x
-	ldw	(0x05, sp), x
+	ldw	(0x03, sp), x
 	ld	a, (0x09, sp)
-	ld	(0x04, sp), a
-	clr	(0x03, sp)
+	ld	(0x02, sp), a
+	clr	(0x01, sp)
 ;	driver/dht12.c: 438: *(pRdDat+i) = RcvByte();  
 	clrw	x
 	ld	a, (0x09, sp)
 	ld	xl, a
 	addw	x, (0x0e, sp)
-	ldw	(0x01, sp), x
+	ldw	(0x06, sp), x
 ;	driver/dht12.c: 434: for(i=0;i<num-1;i++)  
-	ldw	x, (0x03, sp)
-	cpw	x, (0x05, sp)
+	ldw	x, (0x01, sp)
+	cpw	x, (0x03, sp)
 	jrsge	00107$
 ;	driver/dht12.c: 438: *(pRdDat+i) = RcvByte();  
 	call	_RcvByte
-	ldw	x, (0x01, sp)
+	ldw	x, (0x06, sp)
 	ld	(x), a
 ;	driver/dht12.c: 440: I2C_Rack();  
 	call	_I2C_Rack
@@ -535,12 +535,12 @@ _I2C_Read:
 	jra	00111$
 00107$:
 ;	driver/dht12.c: 444: if(i==num-1)  
-	ldw	x, (0x03, sp)
-	cpw	x, (0x05, sp)
+	ldw	x, (0x01, sp)
+	cpw	x, (0x03, sp)
 	jrne	00109$
 ;	driver/dht12.c: 448: *(pRdDat+i) = RcvByte();  
 	call	_RcvByte
-	ldw	x, (0x01, sp)
+	ldw	x, (0x06, sp)
 	ld	(x), a
 ;	driver/dht12.c: 450: I2C_Rack();
 	call	_I2C_Rack

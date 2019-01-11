@@ -148,24 +148,11 @@
                                     148 ;	 function putchar
                                     149 ;	-----------------------------------------
       00006B                        150 _putchar:
-                                    151 ;	driver/uart.c: 36: while(( UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET));
-      00006B                        152 00101$:
-      00006B 4B 80            [ 1]  153 	push	#0x80
-      00006D 4B 00            [ 1]  154 	push	#0x00
-      00006F CDr00r00         [ 4]  155 	call	_UART2_GetFlagStatus
-      000072 5B 02            [ 2]  156 	addw	sp, #2
-      000074 4D               [ 1]  157 	tnz	a
-      000075 27 F4            [ 1]  158 	jreq	00101$
-                                    159 ;	driver/uart.c: 38: UART2_SendData8((u8)dat);
-      000077 7B 04            [ 1]  160 	ld	a, (0x04, sp)
-      000079 88               [ 1]  161 	push	a
-      00007A CDr00r00         [ 4]  162 	call	_UART2_SendData8
-      00007D 84               [ 1]  163 	pop	a
-                                    164 ;	driver/uart.c: 40: return 0;
-      00007E 5F               [ 1]  165 	clrw	x
-                                    166 ;	driver/uart.c: 41: }
-      00007F 81               [ 4]  167 	ret
-                                    168 	.area CODE
-                                    169 	.area CONST
-                                    170 	.area INITIALIZER
-                                    171 	.area CABS (ABS)
+                                    151 ;	driver/uart.c: 40: return 0;
+      00006B 5F               [ 1]  152 	clrw	x
+                                    153 ;	driver/uart.c: 41: }
+      00006C 81               [ 4]  154 	ret
+                                    155 	.area CODE
+                                    156 	.area CONST
+                                    157 	.area INITIALIZER
+                                    158 	.area CABS (ABS)

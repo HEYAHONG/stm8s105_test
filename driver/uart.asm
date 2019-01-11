@@ -148,19 +148,6 @@ _UART2_Send_STR:
 ;	 function putchar
 ;	-----------------------------------------
 _putchar:
-;	driver/uart.c: 36: while(( UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET));
-00101$:
-	push	#0x80
-	push	#0x00
-	call	_UART2_GetFlagStatus
-	addw	sp, #2
-	tnz	a
-	jreq	00101$
-;	driver/uart.c: 38: UART2_SendData8((u8)dat);
-	ld	a, (0x04, sp)
-	push	a
-	call	_UART2_SendData8
-	pop	a
 ;	driver/uart.c: 40: return 0;
 	clrw	x
 ;	driver/uart.c: 41: }

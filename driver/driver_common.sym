@@ -7,17 +7,13 @@ Symbol Table
     .__.ABS.                                                    =  000000 G
     .__.CPU.                                                    =  000000 L
     .__.H$L.                                                    =  000001 L
-    _GPIO_Init                                                     ****** GX
-  9 _Init_UART2                                                    000000 GR
-    _UART2_Cmd                                                     ****** GX
-    _UART2_DeInit                                                  ****** GX
-    _UART2_GetFlagStatus                                           ****** GX
-    _UART2_ITConfig                                                ****** GX
-    _UART2_Init                                                    ****** GX
-    _UART2_SendData8                                               ****** GX
-  9 _UART2_Send_Char                                               000046 GR
-  9 _UART2_Send_STR                                                00005A GR
-  9 _putchar                                                       00006B GR
+    _Init_UART2                                                    ****** GX
+    _OLED_Clear                                                    ****** GX
+    _OLED_Init                                                     ****** GX
+  9 _driver_init                                                   000000 GR
+    _ds1302_active                                                 ****** GX
+    _key_init                                                      ****** GX
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 2.
 Hexadecimal [24-Bits]
@@ -33,6 +29,6 @@ Area Table
    6 GSFINAL                                    size      0   flags    0
    7 CONST                                      size      0   flags    0
    8 INITIALIZER                                size      0   flags    0
-   9 CODE                                       size     6D   flags    0
+   9 CODE                                       size     11   flags    0
    A CABS                                       size      0   flags    8
 

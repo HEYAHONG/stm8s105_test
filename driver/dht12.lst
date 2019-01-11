@@ -471,7 +471,7 @@
       000238 CDr01r22         [ 4]  471 	call	_SendByte
       00023B 5B 01            [ 2]  472 	addw	sp, #1
                                     473 ;	driver/dht12.c: 402: if(!I2CAck)  
-      00023D 6B 07            [ 1]  474 	ld	(0x07, sp), a
+      00023D 6B 05            [ 1]  474 	ld	(0x05, sp), a
       00023F 26 03            [ 1]  475 	jrne	00102$
                                     476 ;	driver/dht12.c: 406: return I2C_ERR;  
       000241 4F               [ 1]  477 	clr	a
@@ -510,23 +510,23 @@
       000266 7B 10            [ 1]  510 	ld	a, (0x10, sp)
       000268 97               [ 1]  511 	ld	xl, a
       000269 5A               [ 2]  512 	decw	x
-      00026A 1F 05            [ 2]  513 	ldw	(0x05, sp), x
+      00026A 1F 03            [ 2]  513 	ldw	(0x03, sp), x
       00026C 7B 09            [ 1]  514 	ld	a, (0x09, sp)
-      00026E 6B 04            [ 1]  515 	ld	(0x04, sp), a
-      000270 0F 03            [ 1]  516 	clr	(0x03, sp)
+      00026E 6B 02            [ 1]  515 	ld	(0x02, sp), a
+      000270 0F 01            [ 1]  516 	clr	(0x01, sp)
                                     517 ;	driver/dht12.c: 438: *(pRdDat+i) = RcvByte();  
       000272 5F               [ 1]  518 	clrw	x
       000273 7B 09            [ 1]  519 	ld	a, (0x09, sp)
       000275 97               [ 1]  520 	ld	xl, a
       000276 72 FB 0E         [ 2]  521 	addw	x, (0x0e, sp)
-      000279 1F 01            [ 2]  522 	ldw	(0x01, sp), x
+      000279 1F 06            [ 2]  522 	ldw	(0x06, sp), x
                                     523 ;	driver/dht12.c: 434: for(i=0;i<num-1;i++)  
-      00027B 1E 03            [ 2]  524 	ldw	x, (0x03, sp)
-      00027D 13 05            [ 2]  525 	cpw	x, (0x05, sp)
+      00027B 1E 01            [ 2]  524 	ldw	x, (0x01, sp)
+      00027D 13 03            [ 2]  525 	cpw	x, (0x03, sp)
       00027F 2E 0D            [ 1]  526 	jrsge	00107$
                                     527 ;	driver/dht12.c: 438: *(pRdDat+i) = RcvByte();  
       000281 CDr01rC7         [ 4]  528 	call	_RcvByte
-      000284 1E 01            [ 2]  529 	ldw	x, (0x01, sp)
+      000284 1E 06            [ 2]  529 	ldw	x, (0x06, sp)
       000286 F7               [ 1]  530 	ld	(x), a
                                     531 ;	driver/dht12.c: 440: I2C_Rack();  
       000287 CDr00rBC         [ 4]  532 	call	_I2C_Rack
@@ -535,12 +535,12 @@
       00028C 20 D7            [ 2]  535 	jra	00111$
       00028E                        536 00107$:
                                     537 ;	driver/dht12.c: 444: if(i==num-1)  
-      00028E 1E 03            [ 2]  538 	ldw	x, (0x03, sp)
-      000290 13 05            [ 2]  539 	cpw	x, (0x05, sp)
+      00028E 1E 01            [ 2]  538 	ldw	x, (0x01, sp)
+      000290 13 03            [ 2]  539 	cpw	x, (0x03, sp)
       000292 26 0F            [ 1]  540 	jrne	00109$
                                     541 ;	driver/dht12.c: 448: *(pRdDat+i) = RcvByte();  
       000294 CDr01rC7         [ 4]  542 	call	_RcvByte
-      000297 1E 01            [ 2]  543 	ldw	x, (0x01, sp)
+      000297 1E 06            [ 2]  543 	ldw	x, (0x06, sp)
       000299 F7               [ 1]  544 	ld	(x), a
                                     545 ;	driver/dht12.c: 450: I2C_Rack();
       00029A CDr00rBC         [ 4]  546 	call	_I2C_Rack
