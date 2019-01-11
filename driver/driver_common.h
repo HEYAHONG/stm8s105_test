@@ -2,6 +2,7 @@
 #define DRIVER_COMMON_H__
 
 //包含所有驱动头文件
+#include "relay.h"
 #include "adc.h"
 #include "dht12.h"
 #include "ds1302.h"

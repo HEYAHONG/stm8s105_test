@@ -10,6 +10,7 @@
 main.rel
 driver/dht12.rel
 driver/driver_common.rel
+driver/relay.rel
 driver/uart.rel
 driver/ds1302.rel
 driver/stm8s_it.rel

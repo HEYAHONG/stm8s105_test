@@ -5,6 +5,7 @@
 #ifndef BEEP_H__
 #define BEEP_H__
 void beep_init();
+BitStatus beep_read();
 void beep_on();
 void beep_off();
 

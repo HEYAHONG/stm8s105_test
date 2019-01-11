@@ -46,8 +46,8 @@
 /* Private defines -----------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
-#define LED_GPIO_PORT  (GPIOE)
-#define LED_GPIO_PINS  (GPIO_PIN_5)
+//#define LED_GPIO_PORT  (GPIOE)
+//#define LED_GPIO_PINS  (GPIO_PIN_5)
 void Delay(uint16_t nCount)
 {
   /* Decrement nCount value */
@@ -63,7 +63,7 @@ void main(void)
 {
 
 /* Initialize I/Os in Output Mode */
-  GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
+//  GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
   GPIO_Init(GPIOF,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
  driver_init(); //驱动初始化
 //Initialize UART
@@ -136,7 +136,8 @@ void main(void)
     printf("\r\n");
     OLED_ShowString(0,0,temp);
     }
-    GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
+    //GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
+   (relay_read()==RESET)?relay_on():relay_off();
     Delay(0xffff);
   }
 

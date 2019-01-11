@@ -3,6 +3,11 @@ void beep_init()
 {
 GPIO_Init(GPIOD, GPIO_PIN_7, GPIO_MODE_IN_FL_NO_IT);
 }
+
+BitStatus beep_read()
+{
+return GPIO_ReadInputPin(GPIOD,GPIO_PIN_7);
+}
 void beep_on()
 {
 GPIO_Init(GPIOD, GPIO_PIN_7, GPIO_MODE_OUT_PP_HIGH_SLOW);
