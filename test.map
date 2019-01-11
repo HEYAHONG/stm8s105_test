@@ -136,22 +136,22 @@ CODE                                000086FC    00002926 =       10534. bytes (R
      00008BDB  _I2C_Read                          dht12
      00008C5B  _i2c_read                          dht12
      00008C76  _ReadDHT12                         dht12
-     00008CD1  _ds1302_port_deinit                ds1302
-     00008CF9  _ds1302_port_init                  ds1302
-     00008D37  _read_IO                           ds1302
-     00008D45  _write_IO                          ds1302
-     00008D53  _ds1302_write_byte                 ds1302
-     00008D95  _ds1302_read_byte                  ds1302
-     00008DD7  _ds1302_write                      ds1302
-     00008E15  _ds1302_read                       ds1302
-     00008E56  _ds1302_read_time                  ds1302
-     00008EC6  _ds1302_write_time                 ds1302
-     00008F54  _ds1302_active                     ds1302
-     00008F8E  _driver_init                       driver_common
-     00008F9F  _Init_UART2                        uart
-     00008FE5  _UART2_Send_Char                   uart
-     00008FF9  _UART2_Send_STR                    uart
-     0000900A  _putchar                           uart
+     00008CD1  _driver_init                       driver_common
+     00008CE2  _Init_UART2                        uart
+     00008D28  _UART2_Send_Char                   uart
+     00008D3C  _UART2_Send_STR                    uart
+     00008D4D  _putchar                           uart
+     00008D4F  _ds1302_port_deinit                ds1302
+     00008D77  _ds1302_port_init                  ds1302
+     00008DB5  _read_IO                           ds1302
+     00008DC3  _write_IO                          ds1302
+     00008DD1  _ds1302_write_byte                 ds1302
+     00008E13  _ds1302_read_byte                  ds1302
+     00008E55  _ds1302_write                      ds1302
+     00008E93  _ds1302_read                       ds1302
+     00008ED4  _ds1302_read_time                  ds1302
+     00008F44  _ds1302_write_time                 ds1302
+     00008FD2  _ds1302_active                     ds1302
      0000900C  _TRAP_IRQHandler                   stm8s_it
      0000900D  _TLI_IRQHandler                    stm8s_it
      0000900E  _AWU_IRQHandler                    stm8s_it
@@ -183,21 +183,21 @@ CODE                                000086FC    00002926 =       10534. bytes (R
       -----  --------------------------------   ------------------------
      000090A1  _TIM4_UPD_OVF_IRQHandler           stm8s_it
      000090A2  _EEPROM_EEC_IRQHandler             stm8s_it
-     000090A3  _key_init                          key
-     000090F4  _key_read                          key
-     0000910C  _delay_ms                          oled
-     0000912A  _OLED_WR_Byte                      oled
-     000091A7  _OLED_Set_Pos                      oled
-     000091E4  _OLED_Display_On                   oled
-     00009200  _OLED_Display_Off                  oled
-     0000921C  _OLED_Clear                        oled
-     00009258  _OLED_ShowChar                     oled
-     000092CF  _oled_pow                          oled
-     00009304  _OLED_ShowNum                      oled
-     000093A1  _OLED_ShowString                   oled
-     000093D4  _OLED_Init                         oled
-     0000955A  _eeprom_read                       eeprom
-     00009573  _eeprom_write                      eeprom
+     000090A3  _eeprom_read                       eeprom
+     000090BC  _eeprom_write                      eeprom
+     000090FF  _key_init                          key
+     00009150  _key_read                          key
+     00009168  _delay_ms                          oled
+     00009186  _OLED_WR_Byte                      oled
+     00009203  _OLED_Set_Pos                      oled
+     00009240  _OLED_Display_On                   oled
+     0000925C  _OLED_Display_Off                  oled
+     00009278  _OLED_Clear                        oled
+     000092B4  _OLED_ShowChar                     oled
+     0000932B  _oled_pow                          oled
+     00009360  _OLED_ShowNum                      oled
+     000093FD  _OLED_ShowString                   oled
+     00009430  _OLED_Init                         oled
      000095B6  _ReadADC                           adc
      00009608  _GPIO_DeInit                       stm8s_gpio
      00009617  _GPIO_Init                         stm8s_gpio
@@ -341,13 +341,13 @@ Files Linked                              [ module(s) ]
 
 main.rel                                  [ main ]
 driver/dht12.rel                          [ dht12 ]
-driver/ds1302.rel                         [ ds1302 ]
 driver/driver_common.rel                  [ driver_common ]
 driver/uart.rel                           [ uart ]
+driver/ds1302.rel                         [ ds1302 ]
 driver/stm8s_it.rel                       [ stm8s_it ]
+driver/eeprom.rel                         [ eeprom ]
 driver/key.rel                            [ key ]
 driver/oled.rel                           [ oled ]
-driver/eeprom.rel                         [ eeprom ]
 driver/adc.rel                            [ adc ]
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.rel
                                           [ stm8s_gpio ]

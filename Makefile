@@ -34,7 +34,7 @@ SYM_DST=$(patsubst %.rel,%.sym,$(OBJ_SRC))
 
 
 all: $(PROJECT).hex 
-	 -rm -rf $(OBJ_SRC) $(ASM_DST) $(LST_DST) $(RST_DST) $(SYM_DST)
+
 
 
 $(PROJECT).hex:$(PROJECT).ihx
@@ -43,6 +43,7 @@ $(PROJECT).hex:$(PROJECT).ihx
 
 $(PROJECT).ihx:$(OBJ_SRC)
 	$(SDCC) $(CFLAGS)  $^ -o $(PROJECT).ihx
+	 -rm -rf $(OBJ_SRC) $(ASM_DST) $(LST_DST) $(RST_DST) $(SYM_DST)
 
 %.rel:%.c
 	$(SDCC) -c $(CFLAGS) $^ -o $@
