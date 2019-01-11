@@ -93,7 +93,7 @@ void main(void)
 //OLED_Clear();
   /* Toggles LEDs */
    { u8  temp[10];
-    sprintf(temp,"V:%4d,S:%1d %d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1,eeprom_read(10));
+    sprintf(temp,"V:%4d,S:%1d %d",ReadADC(),ReadDin()==RESET?0:1,eeprom_read(10));
     printf("%s",temp);
     printf("\r\n");
     OLED_ShowString(0,2,temp);

@@ -37,3 +37,9 @@ GPIO_Init(ADC_GPIO,ADC_PIN,GPIO_MODE_IN_FL_NO_IT);//AIN4 IO设置为悬浮输入
     return ret;
 
 }
+
+BitStatus ReadDin()
+{
+GPIO_Init(GPIOF, GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
+return  GPIO_ReadInputPin(GPIOF,GPIO_PIN_4);
+}
