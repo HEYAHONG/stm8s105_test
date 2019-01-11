@@ -1,3 +1,4 @@
+#include "driver_common.h"
 #include "key.h"
 u8 keycount[5]={0,0,0,0,0};
 void key_init()

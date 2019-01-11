@@ -1,3 +1,4 @@
+#include "driver_common.h"
 #include "ds1302.h" 
 
 
@@ -116,19 +117,23 @@ unsigned char ds1302_read( unsigned char address )
  	GPIO_LOW(DS1302_PORT_RST,DS1302_RST_PIN);
 	return (ret);		
 }	
- 
+#if 0
 unsigned char ds1302_check(void) 
 { 
     unsigned char ret;
+    ds1302_port_init();
     ds1302_write(DS1302_CONTROL_REG,0x80); 
     ret = ds1302_read(DS1302_CONTROL_REG);
+    ds1302_port_deinit();
     if(ret==0x80)
        return 1; 
     return 0; 
 }
- 
+#endif
+
 void ds1302_read_time(DS1302_TIME* time) 
 { 
+   ds1302_port_init();
    time->year=ds1302_read(DS1302_YEAR_REG); //年 
     time->month=ds1302_read(DS1302_MONTH_REG);//月 
    time->day=ds1302_read(DS1302_DATE_REG); //日 
@@ -136,10 +141,11 @@ void ds1302_read_time(DS1302_TIME* time)
     time->hour=ds1302_read(DS1302_HR_REG); //时 
     time->minute=ds1302_read(DS1302_MIN_REG); //分 
     time->second=ds1302_read(DS1302_SEC_REG); //秒 
- 
+    ds1302_port_deinit();
 } 
 void ds1302_write_time(DS1302_TIME* time) 
 { 
+     ds1302_port_init();
     ds1302_write(DS1302_CONTROL_REG,0x00); //关闭写保护 
     ds1302_write(DS1302_SEC_REG,0x80); //暂停 
     ds1302_write(DS1302_CHARGER_REG,0xa9); //涓流充电 
@@ -153,8 +159,10 @@ void ds1302_write_time(DS1302_TIME* time)
     ds1302_write(DS1302_MIN_REG,time->minute); //分 
     ds1302_write(DS1302_SEC_REG,time->second); //秒 
     ds1302_write(DS1302_CONTROL_REG,0x80); //打开写保护 
+    ds1302_port_deinit();
 }
- 
+
+#if 0 
 void ds1302_write_ram(unsigned char ram_num,unsigned char dat) 
 { 
     ds1302_write(DS1302_CONTROL_REG,0x00); //关闭写保护 
@@ -168,6 +176,7 @@ unsigned char  ds1302_read_ram(unsigned char ram_num)
     ret = ds1302_read((DS1302_RAM_REG|(ram_num<<2)));
     return ret;
 }
+#endif
 void ds1302_active()
 {
 ds1302_port_init();

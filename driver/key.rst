@@ -54,80 +54,80 @@
                                      54 ; code
                                      55 ;--------------------------------------------------------
                                      56 	.area CODE
-                                     57 ;	driver/key.c: 3: void key_init()
+                                     57 ;	driver/key.c: 4: void key_init()
                                      58 ;	-----------------------------------------
                                      59 ;	 function key_init
                                      60 ;	-----------------------------------------
-      009165                         61 _key_init:
-                                     62 ;	driver/key.c: 5: GPIO_Init(GPIOD,GPIO_PIN_0,GPIO_MODE_IN_PU_IT);
-      009165 4B 60            [ 1]   63 	push	#0x60
-      009167 4B 01            [ 1]   64 	push	#0x01
-      009169 4B 0F            [ 1]   65 	push	#0x0f
-      00916B 4B 50            [ 1]   66 	push	#0x50
-      00916D CD 96 7D         [ 4]   67 	call	_GPIO_Init
-      009170 5B 04            [ 2]   68 	addw	sp, #4
-                                     69 ;	driver/key.c: 6: GPIO_Init(GPIOD,GPIO_PIN_1,GPIO_MODE_IN_PU_IT);
-      009172 4B 60            [ 1]   70 	push	#0x60
-      009174 4B 02            [ 1]   71 	push	#0x02
-      009176 4B 0F            [ 1]   72 	push	#0x0f
-      009178 4B 50            [ 1]   73 	push	#0x50
-      00917A CD 96 7D         [ 4]   74 	call	_GPIO_Init
-      00917D 5B 04            [ 2]   75 	addw	sp, #4
-                                     76 ;	driver/key.c: 7: GPIO_Init(GPIOD,GPIO_PIN_2,GPIO_MODE_IN_PU_IT);
-      00917F 4B 60            [ 1]   77 	push	#0x60
-      009181 4B 04            [ 1]   78 	push	#0x04
-      009183 4B 0F            [ 1]   79 	push	#0x0f
-      009185 4B 50            [ 1]   80 	push	#0x50
-      009187 CD 96 7D         [ 4]   81 	call	_GPIO_Init
-      00918A 5B 04            [ 2]   82 	addw	sp, #4
-                                     83 ;	driver/key.c: 8: GPIO_Init(GPIOD,GPIO_PIN_3,GPIO_MODE_IN_PU_IT);
-      00918C 4B 60            [ 1]   84 	push	#0x60
-      00918E 4B 08            [ 1]   85 	push	#0x08
-      009190 4B 0F            [ 1]   86 	push	#0x0f
-      009192 4B 50            [ 1]   87 	push	#0x50
-      009194 CD 96 7D         [ 4]   88 	call	_GPIO_Init
-      009197 5B 04            [ 2]   89 	addw	sp, #4
-                                     90 ;	driver/key.c: 9: GPIO_Init(GPIOD,GPIO_PIN_4,GPIO_MODE_IN_PU_IT);
-      009199 4B 60            [ 1]   91 	push	#0x60
-      00919B 4B 10            [ 1]   92 	push	#0x10
-      00919D 4B 0F            [ 1]   93 	push	#0x0f
-      00919F 4B 50            [ 1]   94 	push	#0x50
-      0091A1 CD 96 7D         [ 4]   95 	call	_GPIO_Init
-      0091A4 5B 04            [ 2]   96 	addw	sp, #4
-                                     97 ;	driver/key.c: 10: EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD,EXTI_SENSITIVITY_FALL_ONLY);
-      0091A6 4B 02            [ 1]   98 	push	#0x02
-      0091A8 4B 03            [ 1]   99 	push	#0x03
-      0091AA CD 9A 13         [ 4]  100 	call	_EXTI_SetExtIntSensitivity
-      0091AD 5B 02            [ 2]  101 	addw	sp, #2
-                                    102 ;	driver/key.c: 11: EXTI_SetTLISensitivity(EXTI_TLISENSITIVITY_FALL_ONLY);
-      0091AF 4B 00            [ 1]  103 	push	#0x00
-      0091B1 CD 9A A5         [ 4]  104 	call	_EXTI_SetTLISensitivity
-      0091B4 84               [ 1]  105 	pop	a
-                                    106 ;	driver/key.c: 12: }
-      0091B5 81               [ 4]  107 	ret
-                                    108 ;	driver/key.c: 13: BitStatus key_read(u8 num)
+      0090B2                         61 _key_init:
+                                     62 ;	driver/key.c: 6: GPIO_Init(GPIOD,GPIO_PIN_0,GPIO_MODE_IN_PU_IT);
+      0090B2 4B 60            [ 1]   63 	push	#0x60
+      0090B4 4B 01            [ 1]   64 	push	#0x01
+      0090B6 4B 0F            [ 1]   65 	push	#0x0f
+      0090B8 4B 50            [ 1]   66 	push	#0x50
+      0090BA CD 96 26         [ 4]   67 	call	_GPIO_Init
+      0090BD 5B 04            [ 2]   68 	addw	sp, #4
+                                     69 ;	driver/key.c: 7: GPIO_Init(GPIOD,GPIO_PIN_1,GPIO_MODE_IN_PU_IT);
+      0090BF 4B 60            [ 1]   70 	push	#0x60
+      0090C1 4B 02            [ 1]   71 	push	#0x02
+      0090C3 4B 0F            [ 1]   72 	push	#0x0f
+      0090C5 4B 50            [ 1]   73 	push	#0x50
+      0090C7 CD 96 26         [ 4]   74 	call	_GPIO_Init
+      0090CA 5B 04            [ 2]   75 	addw	sp, #4
+                                     76 ;	driver/key.c: 8: GPIO_Init(GPIOD,GPIO_PIN_2,GPIO_MODE_IN_PU_IT);
+      0090CC 4B 60            [ 1]   77 	push	#0x60
+      0090CE 4B 04            [ 1]   78 	push	#0x04
+      0090D0 4B 0F            [ 1]   79 	push	#0x0f
+      0090D2 4B 50            [ 1]   80 	push	#0x50
+      0090D4 CD 96 26         [ 4]   81 	call	_GPIO_Init
+      0090D7 5B 04            [ 2]   82 	addw	sp, #4
+                                     83 ;	driver/key.c: 9: GPIO_Init(GPIOD,GPIO_PIN_3,GPIO_MODE_IN_PU_IT);
+      0090D9 4B 60            [ 1]   84 	push	#0x60
+      0090DB 4B 08            [ 1]   85 	push	#0x08
+      0090DD 4B 0F            [ 1]   86 	push	#0x0f
+      0090DF 4B 50            [ 1]   87 	push	#0x50
+      0090E1 CD 96 26         [ 4]   88 	call	_GPIO_Init
+      0090E4 5B 04            [ 2]   89 	addw	sp, #4
+                                     90 ;	driver/key.c: 10: GPIO_Init(GPIOD,GPIO_PIN_4,GPIO_MODE_IN_PU_IT);
+      0090E6 4B 60            [ 1]   91 	push	#0x60
+      0090E8 4B 10            [ 1]   92 	push	#0x10
+      0090EA 4B 0F            [ 1]   93 	push	#0x0f
+      0090EC 4B 50            [ 1]   94 	push	#0x50
+      0090EE CD 96 26         [ 4]   95 	call	_GPIO_Init
+      0090F1 5B 04            [ 2]   96 	addw	sp, #4
+                                     97 ;	driver/key.c: 11: EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD,EXTI_SENSITIVITY_FALL_ONLY);
+      0090F3 4B 02            [ 1]   98 	push	#0x02
+      0090F5 4B 03            [ 1]   99 	push	#0x03
+      0090F7 CD 99 BC         [ 4]  100 	call	_EXTI_SetExtIntSensitivity
+      0090FA 5B 02            [ 2]  101 	addw	sp, #2
+                                    102 ;	driver/key.c: 12: EXTI_SetTLISensitivity(EXTI_TLISENSITIVITY_FALL_ONLY);
+      0090FC 4B 00            [ 1]  103 	push	#0x00
+      0090FE CD 9A 4E         [ 4]  104 	call	_EXTI_SetTLISensitivity
+      009101 84               [ 1]  105 	pop	a
+                                    106 ;	driver/key.c: 13: }
+      009102 81               [ 4]  107 	ret
+                                    108 ;	driver/key.c: 14: BitStatus key_read(u8 num)
                                     109 ;	-----------------------------------------
                                     110 ;	 function key_read
                                     111 ;	-----------------------------------------
-      0091B6                        112 _key_read:
-                                    113 ;	driver/key.c: 16: return GPIO_ReadInputPin(GPIOD,GPIO_PIN_0 << num);
-      0091B6 A6 01            [ 1]  114 	ld	a, #0x01
-      0091B8 88               [ 1]  115 	push	a
-      0091B9 7B 04            [ 1]  116 	ld	a, (0x04, sp)
-      0091BB 27 05            [ 1]  117 	jreq	00104$
-      0091BD                        118 00103$:
-      0091BD 08 01            [ 1]  119 	sll	(1, sp)
-      0091BF 4A               [ 1]  120 	dec	a
-      0091C0 26 FB            [ 1]  121 	jrne	00103$
-      0091C2                        122 00104$:
-      0091C2 84               [ 1]  123 	pop	a
-      0091C3 88               [ 1]  124 	push	a
-      0091C4 4B 0F            [ 1]  125 	push	#0x0f
-      0091C6 4B 50            [ 1]  126 	push	#0x50
-      0091C8 CD 97 1D         [ 4]  127 	call	_GPIO_ReadInputPin
-      0091CB 5B 03            [ 2]  128 	addw	sp, #3
-                                    129 ;	driver/key.c: 18: }
-      0091CD 81               [ 4]  130 	ret
+      009103                        112 _key_read:
+                                    113 ;	driver/key.c: 17: return GPIO_ReadInputPin(GPIOD,GPIO_PIN_0 << num);
+      009103 A6 01            [ 1]  114 	ld	a, #0x01
+      009105 88               [ 1]  115 	push	a
+      009106 7B 04            [ 1]  116 	ld	a, (0x04, sp)
+      009108 27 05            [ 1]  117 	jreq	00104$
+      00910A                        118 00103$:
+      00910A 08 01            [ 1]  119 	sll	(1, sp)
+      00910C 4A               [ 1]  120 	dec	a
+      00910D 26 FB            [ 1]  121 	jrne	00103$
+      00910F                        122 00104$:
+      00910F 84               [ 1]  123 	pop	a
+      009110 88               [ 1]  124 	push	a
+      009111 4B 0F            [ 1]  125 	push	#0x0f
+      009113 4B 50            [ 1]  126 	push	#0x50
+      009115 CD 96 C6         [ 4]  127 	call	_GPIO_ReadInputPin
+      009118 5B 03            [ 2]  128 	addw	sp, #3
+                                    129 ;	driver/key.c: 19: }
+      00911A 81               [ 4]  130 	ret
                                     131 	.area CODE
                                     132 	.area CONST
                                     133 	.area INITIALIZER

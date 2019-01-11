@@ -1,3 +1,4 @@
+#include "driver_common.h"
 #include "uart.h"
 
 void Init_UART2(void)
@@ -31,8 +32,10 @@ UART2_Send_Char(*src++);
 }
 int putchar(int dat) //support printf function
 {
+#ifdef UART_DEBUG
   while(( UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET));
 
                 UART2_SendData8((u8)dat);
+#endif
 return 0;
 }

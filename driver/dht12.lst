@@ -61,57 +61,57 @@
                                      61 ; code
                                      62 ;--------------------------------------------------------
                                      63 	.area CODE
-                                     64 ;	driver/dht12.c: 38: void i2c_init()
+                                     64 ;	driver/dht12.c: 39: void i2c_init()
                                      65 ;	-----------------------------------------
                                      66 ;	 function i2c_init
                                      67 ;	-----------------------------------------
       000000                         68 _i2c_init:
-                                     69 ;	driver/dht12.c: 40: GPIO_Init(GPIOB,GPIO_PIN_4,GPIO_MODE_OUT_OD_LOW_FAST);
+                                     69 ;	driver/dht12.c: 41: GPIO_Init(GPIOB,GPIO_PIN_4,GPIO_MODE_OUT_OD_LOW_FAST);
       000000 4B A0            [ 1]   70 	push	#0xa0
       000002 4B 10            [ 1]   71 	push	#0x10
       000004 4B 05            [ 1]   72 	push	#0x05
       000006 4B 50            [ 1]   73 	push	#0x50
       000008 CDr00r00         [ 4]   74 	call	_GPIO_Init
       00000B 5B 04            [ 2]   75 	addw	sp, #4
-                                     76 ;	driver/dht12.c: 41: GPIO_Init(GPIOB,GPIO_PIN_5,GPIO_MODE_OUT_OD_LOW_FAST);
+                                     76 ;	driver/dht12.c: 42: GPIO_Init(GPIOB,GPIO_PIN_5,GPIO_MODE_OUT_OD_LOW_FAST);
       00000D 4B A0            [ 1]   77 	push	#0xa0
       00000F 4B 20            [ 1]   78 	push	#0x20
       000011 4B 05            [ 1]   79 	push	#0x05
       000013 4B 50            [ 1]   80 	push	#0x50
       000015 CDr00r00         [ 4]   81 	call	_GPIO_Init
       000018 5B 04            [ 2]   82 	addw	sp, #4
-                                     83 ;	driver/dht12.c: 42: }
+                                     83 ;	driver/dht12.c: 43: }
       00001A 81               [ 4]   84 	ret
-                                     85 ;	driver/dht12.c: 43: void i2c_deinit() 
+                                     85 ;	driver/dht12.c: 44: void i2c_deinit() 
                                      86 ;	-----------------------------------------
                                      87 ;	 function i2c_deinit
                                      88 ;	-----------------------------------------
       00001B                         89 _i2c_deinit:
-                                     90 ;	driver/dht12.c: 46: GPIO_Init(GPIOB,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
+                                     90 ;	driver/dht12.c: 47: GPIO_Init(GPIOB,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
       00001B 4B 00            [ 1]   91 	push	#0x00
       00001D 4B 10            [ 1]   92 	push	#0x10
       00001F 4B 05            [ 1]   93 	push	#0x05
       000021 4B 50            [ 1]   94 	push	#0x50
       000023 CDr00r00         [ 4]   95 	call	_GPIO_Init
       000026 5B 04            [ 2]   96 	addw	sp, #4
-                                     97 ;	driver/dht12.c: 47: GPIO_Init(GPIOB,GPIO_PIN_5, GPIO_MODE_IN_FL_NO_IT);
+                                     97 ;	driver/dht12.c: 48: GPIO_Init(GPIOB,GPIO_PIN_5, GPIO_MODE_IN_FL_NO_IT);
       000028 4B 00            [ 1]   98 	push	#0x00
       00002A 4B 20            [ 1]   99 	push	#0x20
       00002C 4B 05            [ 1]  100 	push	#0x05
       00002E 4B 50            [ 1]  101 	push	#0x50
       000030 CDr00r00         [ 4]  102 	call	_GPIO_Init
       000033 5B 04            [ 2]  103 	addw	sp, #4
-                                    104 ;	driver/dht12.c: 48: }
+                                    104 ;	driver/dht12.c: 49: }
       000035 81               [ 4]  105 	ret
-                                    106 ;	driver/dht12.c: 63: void I2CDataInOut(bool InOut)  
+                                    106 ;	driver/dht12.c: 64: void I2CDataInOut(bool InOut)  
                                     107 ;	-----------------------------------------
                                     108 ;	 function I2CDataInOut
                                     109 ;	-----------------------------------------
       000036                        110 _I2CDataInOut:
-                                    111 ;	driver/dht12.c: 67: if(InOut)  
+                                    111 ;	driver/dht12.c: 68: if(InOut)  
       000036 0D 03            [ 1]  112 	tnz	(0x03, sp)
       000038 27 0E            [ 1]  113 	jreq	00102$
-                                    114 ;	driver/dht12.c: 71: GPIO_Init(I2C_PORT,I2CSDA,GPIO_MODE_IN_FL_NO_IT);  
+                                    114 ;	driver/dht12.c: 72: GPIO_Init(I2C_PORT,I2CSDA,GPIO_MODE_IN_FL_NO_IT);  
       00003A 4B 00            [ 1]  115 	push	#0x00
       00003C 4B 20            [ 1]  116 	push	#0x20
       00003E 4B 05            [ 1]  117 	push	#0x05
@@ -120,174 +120,174 @@
       000045 5B 04            [ 2]  120 	addw	sp, #4
       000047 81               [ 4]  121 	ret
       000048                        122 00102$:
-                                    123 ;	driver/dht12.c: 79: GPIO_Init(I2C_PORT,I2CSDA,GPIO_MODE_OUT_PP_LOW_FAST);  
+                                    123 ;	driver/dht12.c: 80: GPIO_Init(I2C_PORT,I2CSDA,GPIO_MODE_OUT_PP_LOW_FAST);  
       000048 4B E0            [ 1]  124 	push	#0xe0
       00004A 4B 20            [ 1]  125 	push	#0x20
       00004C 4B 05            [ 1]  126 	push	#0x05
       00004E 4B 50            [ 1]  127 	push	#0x50
       000050 CDr00r00         [ 4]  128 	call	_GPIO_Init
       000053 5B 04            [ 2]  129 	addw	sp, #4
-                                    130 ;	driver/dht12.c: 83: }  
+                                    130 ;	driver/dht12.c: 84: }  
       000055 81               [ 4]  131 	ret
-                                    132 ;	driver/dht12.c: 95: void I2C_Start (void)  
+                                    132 ;	driver/dht12.c: 96: void I2C_Start (void)  
                                     133 ;	-----------------------------------------
                                     134 ;	 function I2C_Start
                                     135 ;	-----------------------------------------
       000056                        136 _I2C_Start:
-                                    137 ;	driver/dht12.c: 98: I2CDataInOut(I2CDataOut);
+                                    137 ;	driver/dht12.c: 99: I2CDataInOut(I2CDataOut);
       000056 4B 00            [ 1]  138 	push	#0x00
       000058 CDr00r36         [ 4]  139 	call	_I2CDataInOut
       00005B 84               [ 1]  140 	pop	a
-                                    141 ;	driver/dht12.c: 100: GPIO_WriteHigh(I2C_PORT, I2CSDA);  
+                                    141 ;	driver/dht12.c: 101: GPIO_WriteHigh(I2C_PORT, I2CSDA);  
       00005C 4B 20            [ 1]  142 	push	#0x20
       00005E 4B 05            [ 1]  143 	push	#0x05
       000060 4B 50            [ 1]  144 	push	#0x50
       000062 CDr00r00         [ 4]  145 	call	_GPIO_WriteHigh
       000065 5B 03            [ 2]  146 	addw	sp, #3
-                                    147 ;	driver/dht12.c: 104: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
+                                    147 ;	driver/dht12.c: 105: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
       000067 4B 10            [ 1]  148 	push	#0x10
       000069 4B 05            [ 1]  149 	push	#0x05
       00006B 4B 50            [ 1]  150 	push	#0x50
       00006D CDr00r00         [ 4]  151 	call	_GPIO_WriteHigh
       000070 5B 03            [ 2]  152 	addw	sp, #3
-                                    153 ;	driver/dht12.c: 108: GPIO_WriteLow(I2C_PORT, I2CSDA);  
+                                    153 ;	driver/dht12.c: 109: GPIO_WriteLow(I2C_PORT, I2CSDA);  
       000072 4B 20            [ 1]  154 	push	#0x20
       000074 4B 05            [ 1]  155 	push	#0x05
       000076 4B 50            [ 1]  156 	push	#0x50
       000078 CDr00r00         [ 4]  157 	call	_GPIO_WriteLow
       00007B 5B 03            [ 2]  158 	addw	sp, #3
-                                    159 ;	driver/dht12.c: 111: GPIO_WriteLow(I2C_PORT, I2CSCL);    
+                                    159 ;	driver/dht12.c: 112: GPIO_WriteLow(I2C_PORT, I2CSCL);    
       00007D 4B 10            [ 1]  160 	push	#0x10
       00007F 4B 05            [ 1]  161 	push	#0x05
       000081 4B 50            [ 1]  162 	push	#0x50
       000083 CDr00r00         [ 4]  163 	call	_GPIO_WriteLow
       000086 5B 03            [ 2]  164 	addw	sp, #3
-                                    165 ;	driver/dht12.c: 112: }  
+                                    165 ;	driver/dht12.c: 113: }  
       000088 81               [ 4]  166 	ret
-                                    167 ;	driver/dht12.c: 122: void I2C_Stop (void)  
+                                    167 ;	driver/dht12.c: 123: void I2C_Stop (void)  
                                     168 ;	-----------------------------------------
                                     169 ;	 function I2C_Stop
                                     170 ;	-----------------------------------------
       000089                        171 _I2C_Stop:
-                                    172 ;	driver/dht12.c: 125: I2CDataInOut(I2CDataOut);
+                                    172 ;	driver/dht12.c: 126: I2CDataInOut(I2CDataOut);
       000089 4B 00            [ 1]  173 	push	#0x00
       00008B CDr00r36         [ 4]  174 	call	_I2CDataInOut
       00008E 84               [ 1]  175 	pop	a
-                                    176 ;	driver/dht12.c: 126: GPIO_WriteLow(I2C_PORT, I2CSCL); 
+                                    176 ;	driver/dht12.c: 127: GPIO_WriteLow(I2C_PORT, I2CSCL); 
       00008F 4B 10            [ 1]  177 	push	#0x10
       000091 4B 05            [ 1]  178 	push	#0x05
       000093 4B 50            [ 1]  179 	push	#0x50
       000095 CDr00r00         [ 4]  180 	call	_GPIO_WriteLow
       000098 5B 03            [ 2]  181 	addw	sp, #3
-                                    182 ;	driver/dht12.c: 128: GPIO_WriteLow(I2C_PORT, I2CSDA);  
+                                    182 ;	driver/dht12.c: 129: GPIO_WriteLow(I2C_PORT, I2CSDA);  
       00009A 4B 20            [ 1]  183 	push	#0x20
       00009C 4B 05            [ 1]  184 	push	#0x05
       00009E 4B 50            [ 1]  185 	push	#0x50
       0000A0 CDr00r00         [ 4]  186 	call	_GPIO_WriteLow
       0000A3 5B 03            [ 2]  187 	addw	sp, #3
-                                    188 ;	driver/dht12.c: 132: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
+                                    188 ;	driver/dht12.c: 133: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
       0000A5 4B 10            [ 1]  189 	push	#0x10
       0000A7 4B 05            [ 1]  190 	push	#0x05
       0000A9 4B 50            [ 1]  191 	push	#0x50
       0000AB CDr00r00         [ 4]  192 	call	_GPIO_WriteHigh
       0000AE 5B 03            [ 2]  193 	addw	sp, #3
-                                    194 ;	driver/dht12.c: 136: GPIO_WriteHigh(I2C_PORT, I2CSDA);  
+                                    194 ;	driver/dht12.c: 137: GPIO_WriteHigh(I2C_PORT, I2CSDA);  
       0000B0 4B 20            [ 1]  195 	push	#0x20
       0000B2 4B 05            [ 1]  196 	push	#0x05
       0000B4 4B 50            [ 1]  197 	push	#0x50
       0000B6 CDr00r00         [ 4]  198 	call	_GPIO_WriteHigh
       0000B9 5B 03            [ 2]  199 	addw	sp, #3
-                                    200 ;	driver/dht12.c: 138: }  
+                                    200 ;	driver/dht12.c: 139: }  
       0000BB 81               [ 4]  201 	ret
-                                    202 ;	driver/dht12.c: 152: void I2C_Rack(void)  
+                                    202 ;	driver/dht12.c: 153: void I2C_Rack(void)  
                                     203 ;	-----------------------------------------
                                     204 ;	 function I2C_Rack
                                     205 ;	-----------------------------------------
       0000BC                        206 _I2C_Rack:
-                                    207 ;	driver/dht12.c: 155: I2CDataInOut(I2CDataOut);
+                                    207 ;	driver/dht12.c: 156: I2CDataInOut(I2CDataOut);
       0000BC 4B 00            [ 1]  208 	push	#0x00
       0000BE CDr00r36         [ 4]  209 	call	_I2CDataInOut
       0000C1 84               [ 1]  210 	pop	a
-                                    211 ;	driver/dht12.c: 157: GPIO_WriteLow(I2C_PORT, I2CSDA);  
+                                    211 ;	driver/dht12.c: 158: GPIO_WriteLow(I2C_PORT, I2CSDA);  
       0000C2 4B 20            [ 1]  212 	push	#0x20
       0000C4 4B 05            [ 1]  213 	push	#0x05
       0000C6 4B 50            [ 1]  214 	push	#0x50
       0000C8 CDr00r00         [ 4]  215 	call	_GPIO_WriteLow
       0000CB 5B 03            [ 2]  216 	addw	sp, #3
-                                    217 ;	driver/dht12.c: 160: GPIO_WriteLow(I2C_PORT, I2CSCL);  
+                                    217 ;	driver/dht12.c: 161: GPIO_WriteLow(I2C_PORT, I2CSCL);  
       0000CD 4B 10            [ 1]  218 	push	#0x10
       0000CF 4B 05            [ 1]  219 	push	#0x05
       0000D1 4B 50            [ 1]  220 	push	#0x50
       0000D3 CDr00r00         [ 4]  221 	call	_GPIO_WriteLow
       0000D6 5B 03            [ 2]  222 	addw	sp, #3
-                                    223 ;	driver/dht12.c: 162: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
+                                    223 ;	driver/dht12.c: 163: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
       0000D8 4B 10            [ 1]  224 	push	#0x10
       0000DA 4B 05            [ 1]  225 	push	#0x05
       0000DC 4B 50            [ 1]  226 	push	#0x50
       0000DE CDr00r00         [ 4]  227 	call	_GPIO_WriteHigh
       0000E1 5B 03            [ 2]  228 	addw	sp, #3
-                                    229 ;	driver/dht12.c: 166: GPIO_WriteLow(I2C_PORT, I2CSCL);  
+                                    229 ;	driver/dht12.c: 167: GPIO_WriteLow(I2C_PORT, I2CSCL);  
       0000E3 4B 10            [ 1]  230 	push	#0x10
       0000E5 4B 05            [ 1]  231 	push	#0x05
       0000E7 4B 50            [ 1]  232 	push	#0x50
       0000E9 CDr00r00         [ 4]  233 	call	_GPIO_WriteLow
       0000EC 5B 03            [ 2]  234 	addw	sp, #3
-                                    235 ;	driver/dht12.c: 170: }  
+                                    235 ;	driver/dht12.c: 171: }  
       0000EE 81               [ 4]  236 	ret
-                                    237 ;	driver/dht12.c: 185: void I2C_nAck (void)  
+                                    237 ;	driver/dht12.c: 186: void I2C_nAck (void)  
                                     238 ;	-----------------------------------------
                                     239 ;	 function I2C_nAck
                                     240 ;	-----------------------------------------
       0000EF                        241 _I2C_nAck:
-                                    242 ;	driver/dht12.c: 188: I2CDataInOut(I2CDataOut);
+                                    242 ;	driver/dht12.c: 189: I2CDataInOut(I2CDataOut);
       0000EF 4B 00            [ 1]  243 	push	#0x00
       0000F1 CDr00r36         [ 4]  244 	call	_I2CDataInOut
       0000F4 84               [ 1]  245 	pop	a
-                                    246 ;	driver/dht12.c: 191: GPIO_WriteHigh(I2C_PORT, I2CSDA);  
+                                    246 ;	driver/dht12.c: 192: GPIO_WriteHigh(I2C_PORT, I2CSDA);  
       0000F5 4B 20            [ 1]  247 	push	#0x20
       0000F7 4B 05            [ 1]  248 	push	#0x05
       0000F9 4B 50            [ 1]  249 	push	#0x50
       0000FB CDr00r00         [ 4]  250 	call	_GPIO_WriteHigh
       0000FE 5B 03            [ 2]  251 	addw	sp, #3
-                                    252 ;	driver/dht12.c: 195: GPIO_WriteLow(I2C_PORT, I2CSCL); 
+                                    252 ;	driver/dht12.c: 196: GPIO_WriteLow(I2C_PORT, I2CSCL); 
       000100 4B 10            [ 1]  253 	push	#0x10
       000102 4B 05            [ 1]  254 	push	#0x05
       000104 4B 50            [ 1]  255 	push	#0x50
       000106 CDr00r00         [ 4]  256 	call	_GPIO_WriteLow
       000109 5B 03            [ 2]  257 	addw	sp, #3
-                                    258 ;	driver/dht12.c: 197: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
+                                    258 ;	driver/dht12.c: 198: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
       00010B 4B 10            [ 1]  259 	push	#0x10
       00010D 4B 05            [ 1]  260 	push	#0x05
       00010F 4B 50            [ 1]  261 	push	#0x50
       000111 CDr00r00         [ 4]  262 	call	_GPIO_WriteHigh
       000114 5B 03            [ 2]  263 	addw	sp, #3
-                                    264 ;	driver/dht12.c: 201: GPIO_WriteLow(I2C_PORT, I2CSCL);  
+                                    264 ;	driver/dht12.c: 202: GPIO_WriteLow(I2C_PORT, I2CSCL);  
       000116 4B 10            [ 1]  265 	push	#0x10
       000118 4B 05            [ 1]  266 	push	#0x05
       00011A 4B 50            [ 1]  267 	push	#0x50
       00011C CDr00r00         [ 4]  268 	call	_GPIO_WriteLow
       00011F 5B 03            [ 2]  269 	addw	sp, #3
-                                    270 ;	driver/dht12.c: 205: }  
+                                    270 ;	driver/dht12.c: 206: }  
       000121 81               [ 4]  271 	ret
-                                    272 ;	driver/dht12.c: 215: bool SendByte(UCHAR I2cData)  
+                                    272 ;	driver/dht12.c: 216: bool SendByte(UCHAR I2cData)  
                                     273 ;	-----------------------------------------
                                     274 ;	 function SendByte
                                     275 ;	-----------------------------------------
       000122                        276 _SendByte:
       000122 52 03            [ 2]  277 	sub	sp, #3
-                                    278 ;	driver/dht12.c: 224: for(i=0; i<8; i++)  
+                                    278 ;	driver/dht12.c: 225: for(i=0; i<8; i++)  
       000124 0F 03            [ 1]  279 	clr	(0x03, sp)
       000126                        280 00112$:
-                                    281 ;	driver/dht12.c: 228: GPIO_WriteLow(I2C_PORT, I2CSCL);  
+                                    281 ;	driver/dht12.c: 229: GPIO_WriteLow(I2C_PORT, I2CSCL);  
       000126 4B 10            [ 1]  282 	push	#0x10
       000128 4B 05            [ 1]  283 	push	#0x05
       00012A 4B 50            [ 1]  284 	push	#0x50
       00012C CDr00r00         [ 4]  285 	call	_GPIO_WriteLow
       00012F 5B 03            [ 2]  286 	addw	sp, #3
-                                    287 ;	driver/dht12.c: 232: if(I2cData & 0x80)  
+                                    287 ;	driver/dht12.c: 233: if(I2cData & 0x80)  
       000131 7B 06            [ 1]  288 	ld	a, (0x06, sp)
       000133 2A 0D            [ 1]  289 	jrpl	00102$
-                                    290 ;	driver/dht12.c: 234: {GPIO_WriteHigh(I2C_PORT, I2CSDA);}  
+                                    290 ;	driver/dht12.c: 235: {GPIO_WriteHigh(I2C_PORT, I2CSDA);}  
       000135 4B 20            [ 1]  291 	push	#0x20
       000137 4B 05            [ 1]  292 	push	#0x05
       000139 4B 50            [ 1]  293 	push	#0x50
@@ -295,49 +295,49 @@
       00013E 5B 03            [ 2]  295 	addw	sp, #3
       000140 20 0B            [ 2]  296 	jra	00103$
       000142                        297 00102$:
-                                    298 ;	driver/dht12.c: 238: {GPIO_WriteLow(I2C_PORT, I2CSDA);}  
+                                    298 ;	driver/dht12.c: 239: {GPIO_WriteLow(I2C_PORT, I2CSDA);}  
       000142 4B 20            [ 1]  299 	push	#0x20
       000144 4B 05            [ 1]  300 	push	#0x05
       000146 4B 50            [ 1]  301 	push	#0x50
       000148 CDr00r00         [ 4]  302 	call	_GPIO_WriteLow
       00014B 5B 03            [ 2]  303 	addw	sp, #3
       00014D                        304 00103$:
-                                    305 ;	driver/dht12.c: 240: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
+                                    305 ;	driver/dht12.c: 241: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
       00014D 4B 10            [ 1]  306 	push	#0x10
       00014F 4B 05            [ 1]  307 	push	#0x05
       000151 4B 50            [ 1]  308 	push	#0x50
       000153 CDr00r00         [ 4]  309 	call	_GPIO_WriteHigh
       000156 5B 03            [ 2]  310 	addw	sp, #3
-                                    311 ;	driver/dht12.c: 244: I2cData <<= 1;  
+                                    311 ;	driver/dht12.c: 245: I2cData <<= 1;  
       000158 08 06            [ 1]  312 	sll	(0x06, sp)
-                                    313 ;	driver/dht12.c: 224: for(i=0; i<8; i++)  
+                                    313 ;	driver/dht12.c: 225: for(i=0; i<8; i++)  
       00015A 0C 03            [ 1]  314 	inc	(0x03, sp)
       00015C 7B 03            [ 1]  315 	ld	a, (0x03, sp)
       00015E A1 08            [ 1]  316 	cp	a, #0x08
       000160 25 C4            [ 1]  317 	jrc	00112$
-                                    318 ;	driver/dht12.c: 248: GPIO_WriteLow(I2C_PORT, I2CSCL);  
+                                    318 ;	driver/dht12.c: 249: GPIO_WriteLow(I2C_PORT, I2CSCL);  
       000162 4B 10            [ 1]  319 	push	#0x10
       000164 4B 05            [ 1]  320 	push	#0x05
       000166 4B 50            [ 1]  321 	push	#0x50
       000168 CDr00r00         [ 4]  322 	call	_GPIO_WriteLow
       00016B 5B 03            [ 2]  323 	addw	sp, #3
-                                    324 ;	driver/dht12.c: 250: GPIO_WriteHigh(I2C_PORT, I2CSDA);//发送完一字节，接收应答  
+                                    324 ;	driver/dht12.c: 251: GPIO_WriteHigh(I2C_PORT, I2CSDA);//发送完一字节，接收应答  
       00016D 4B 20            [ 1]  325 	push	#0x20
       00016F 4B 05            [ 1]  326 	push	#0x05
       000171 4B 50            [ 1]  327 	push	#0x50
       000173 CDr00r00         [ 4]  328 	call	_GPIO_WriteHigh
       000176 5B 03            [ 2]  329 	addw	sp, #3
-                                    330 ;	driver/dht12.c: 254: I2CDataInOut(I2CDataIn);  
+                                    330 ;	driver/dht12.c: 255: I2CDataInOut(I2CDataIn);  
       000178 4B 01            [ 1]  331 	push	#0x01
       00017A CDr00r36         [ 4]  332 	call	_I2CDataInOut
       00017D 84               [ 1]  333 	pop	a
-                                    334 ;	driver/dht12.c: 257: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
+                                    334 ;	driver/dht12.c: 258: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
       00017E 4B 10            [ 1]  335 	push	#0x10
       000180 4B 05            [ 1]  336 	push	#0x05
       000182 4B 50            [ 1]  337 	push	#0x50
       000184 CDr00r00         [ 4]  338 	call	_GPIO_WriteHigh
       000187 5B 03            [ 2]  339 	addw	sp, #3
-                                    340 ;	driver/dht12.c: 279: while(GPIO_ReadInputPin(I2C_PORT,I2CSDA) &&count--)
+                                    340 ;	driver/dht12.c: 280: while(GPIO_ReadInputPin(I2C_PORT,I2CSDA) &&count--)
       000189 AE 03 E8         [ 2]  341 	ldw	x, #0x03e8
       00018C 1F 01            [ 2]  342 	ldw	(0x01, sp), x
       00018E                        343 00106$:
@@ -354,73 +354,73 @@
       0001A2 17 01            [ 2]  354 	ldw	(0x01, sp), y
       0001A4 5D               [ 2]  355 	tnzw	x
       0001A5 27 04            [ 1]  356 	jreq	00108$
-                                    357 ;	driver/dht12.c: 280: {nop();nop();};
+                                    357 ;	driver/dht12.c: 281: {nop();nop();};
       0001A7 9D               [ 1]  358 	nop
       0001A8 9D               [ 1]  359 	nop
       0001A9 20 E3            [ 2]  360 	jra	00106$
       0001AB                        361 00108$:
-                                    362 ;	driver/dht12.c: 281: GPIO_WriteLow(I2C_PORT, I2CSCL);
+                                    362 ;	driver/dht12.c: 282: GPIO_WriteLow(I2C_PORT, I2CSCL);
       0001AB 4B 10            [ 1]  363 	push	#0x10
       0001AD 4B 05            [ 1]  364 	push	#0x05
       0001AF 4B 50            [ 1]  365 	push	#0x50
       0001B1 CDr00r00         [ 4]  366 	call	_GPIO_WriteLow
       0001B4 5B 03            [ 2]  367 	addw	sp, #3
-                                    368 ;	driver/dht12.c: 286: I2CDataInOut(I2CDataOut);  
+                                    368 ;	driver/dht12.c: 287: I2CDataInOut(I2CDataOut);  
       0001B6 4B 00            [ 1]  369 	push	#0x00
       0001B8 CDr00r36         [ 4]  370 	call	_I2CDataInOut
       0001BB 84               [ 1]  371 	pop	a
-                                    372 ;	driver/dht12.c: 287: if(count)
+                                    372 ;	driver/dht12.c: 288: if(count)
       0001BC 1E 01            [ 2]  373 	ldw	x, (0x01, sp)
       0001BE 27 03            [ 1]  374 	jreq	00110$
-                                    375 ;	driver/dht12.c: 290: I2CStatus = I2C_CRR;  
+                                    375 ;	driver/dht12.c: 291: I2CStatus = I2C_CRR;  
       0001C0 A6 01            [ 1]  376 	ld	a, #0x01
-                                    377 ;	driver/dht12.c: 298: I2CStatus = I2C_ERR;  
+                                    377 ;	driver/dht12.c: 299: I2CStatus = I2C_ERR;  
       0001C2 21                     378 	.byte 0x21
       0001C3                        379 00110$:
       0001C3 4F               [ 1]  380 	clr	a
       0001C4                        381 00111$:
-                                    382 ;	driver/dht12.c: 301: return I2CStatus;  
-                                    383 ;	driver/dht12.c: 303: }  
+                                    382 ;	driver/dht12.c: 302: return I2CStatus;  
+                                    383 ;	driver/dht12.c: 304: }  
       0001C4 5B 03            [ 2]  384 	addw	sp, #3
       0001C6 81               [ 4]  385 	ret
-                                    386 ;	driver/dht12.c: 318: UCHAR RcvByte(void)  
+                                    386 ;	driver/dht12.c: 319: UCHAR RcvByte(void)  
                                     387 ;	-----------------------------------------
                                     388 ;	 function RcvByte
                                     389 ;	-----------------------------------------
       0001C7                        390 _RcvByte:
       0001C7 52 02            [ 2]  391 	sub	sp, #2
-                                    392 ;	driver/dht12.c: 324: UCHAR ReadByte=0;  
+                                    392 ;	driver/dht12.c: 325: UCHAR ReadByte=0;  
       0001C9 0F 01            [ 1]  393 	clr	(0x01, sp)
-                                    394 ;	driver/dht12.c: 326: GPIO_WriteHigh(I2C_PORT, I2CSDA);  
+                                    394 ;	driver/dht12.c: 327: GPIO_WriteHigh(I2C_PORT, I2CSDA);  
       0001CB 4B 20            [ 1]  395 	push	#0x20
       0001CD 4B 05            [ 1]  396 	push	#0x05
       0001CF 4B 50            [ 1]  397 	push	#0x50
       0001D1 CDr00r00         [ 4]  398 	call	_GPIO_WriteHigh
       0001D4 5B 03            [ 2]  399 	addw	sp, #3
-                                    400 ;	driver/dht12.c: 329: I2CDataInOut(I2CDataIn);  
+                                    400 ;	driver/dht12.c: 330: I2CDataInOut(I2CDataIn);  
       0001D6 4B 01            [ 1]  401 	push	#0x01
       0001D8 CDr00r36         [ 4]  402 	call	_I2CDataInOut
       0001DB 84               [ 1]  403 	pop	a
-                                    404 ;	driver/dht12.c: 333: for(i=0; i<8; i++)  
+                                    404 ;	driver/dht12.c: 334: for(i=0; i<8; i++)  
       0001DC 0F 02            [ 1]  405 	clr	(0x02, sp)
       0001DE                        406 00104$:
-                                    407 ;	driver/dht12.c: 337: ReadByte <<= 1;  
+                                    407 ;	driver/dht12.c: 338: ReadByte <<= 1;  
       0001DE 7B 01            [ 1]  408 	ld	a, (0x01, sp)
       0001E0 48               [ 1]  409 	sll	a
       0001E1 6B 01            [ 1]  410 	ld	(0x01, sp), a
-                                    411 ;	driver/dht12.c: 339: GPIO_WriteLow(I2C_PORT, I2CSCL);  
+                                    411 ;	driver/dht12.c: 340: GPIO_WriteLow(I2C_PORT, I2CSCL);  
       0001E3 4B 10            [ 1]  412 	push	#0x10
       0001E5 4B 05            [ 1]  413 	push	#0x05
       0001E7 4B 50            [ 1]  414 	push	#0x50
       0001E9 CDr00r00         [ 4]  415 	call	_GPIO_WriteLow
       0001EC 5B 03            [ 2]  416 	addw	sp, #3
-                                    417 ;	driver/dht12.c: 343: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
+                                    417 ;	driver/dht12.c: 344: GPIO_WriteHigh(I2C_PORT, I2CSCL);  
       0001EE 4B 10            [ 1]  418 	push	#0x10
       0001F0 4B 05            [ 1]  419 	push	#0x05
       0001F2 4B 50            [ 1]  420 	push	#0x50
       0001F4 CDr00r00         [ 4]  421 	call	_GPIO_WriteHigh
       0001F7 5B 03            [ 2]  422 	addw	sp, #3
-                                    423 ;	driver/dht12.c: 348: if(GPIO_ReadInputPin(I2C_PORT,I2CSDA) !=RESET)  
+                                    423 ;	driver/dht12.c: 349: if(GPIO_ReadInputPin(I2C_PORT,I2CSDA) !=RESET)  
       0001F9 4B 20            [ 1]  424 	push	#0x20
       0001FB 4B 05            [ 1]  425 	push	#0x05
       0001FD 4B 50            [ 1]  426 	push	#0x50
@@ -428,81 +428,81 @@
       000202 5B 03            [ 2]  428 	addw	sp, #3
       000204 4D               [ 1]  429 	tnz	a
       000205 27 06            [ 1]  430 	jreq	00105$
-                                    431 ;	driver/dht12.c: 350: {ReadByte |= 0x01;}  
+                                    431 ;	driver/dht12.c: 351: {ReadByte |= 0x01;}  
       000207 7B 01            [ 1]  432 	ld	a, (0x01, sp)
       000209 AA 01            [ 1]  433 	or	a, #0x01
       00020B 6B 01            [ 1]  434 	ld	(0x01, sp), a
       00020D                        435 00105$:
-                                    436 ;	driver/dht12.c: 333: for(i=0; i<8; i++)  
+                                    436 ;	driver/dht12.c: 334: for(i=0; i<8; i++)  
       00020D 0C 02            [ 1]  437 	inc	(0x02, sp)
       00020F 7B 02            [ 1]  438 	ld	a, (0x02, sp)
       000211 A1 08            [ 1]  439 	cp	a, #0x08
       000213 25 C9            [ 1]  440 	jrc	00104$
-                                    441 ;	driver/dht12.c: 356: GPIO_WriteLow(I2C_PORT, I2CSCL);  
+                                    441 ;	driver/dht12.c: 357: GPIO_WriteLow(I2C_PORT, I2CSCL);  
       000215 4B 10            [ 1]  442 	push	#0x10
       000217 4B 05            [ 1]  443 	push	#0x05
       000219 4B 50            [ 1]  444 	push	#0x50
       00021B CDr00r00         [ 4]  445 	call	_GPIO_WriteLow
       00021E 5B 03            [ 2]  446 	addw	sp, #3
-                                    447 ;	driver/dht12.c: 358: I2CDataInOut(I2CDataOut);  
+                                    447 ;	driver/dht12.c: 359: I2CDataInOut(I2CDataOut);  
       000220 4B 00            [ 1]  448 	push	#0x00
       000222 CDr00r36         [ 4]  449 	call	_I2CDataInOut
       000225 84               [ 1]  450 	pop	a
-                                    451 ;	driver/dht12.c: 362: return ReadByte;  
+                                    451 ;	driver/dht12.c: 363: return ReadByte;  
       000226 7B 01            [ 1]  452 	ld	a, (0x01, sp)
-                                    453 ;	driver/dht12.c: 364: }  
+                                    453 ;	driver/dht12.c: 365: }  
       000228 5B 02            [ 2]  454 	addw	sp, #2
       00022A 81               [ 4]  455 	ret
-                                    456 ;	driver/dht12.c: 383: bool I2C_Read(UCHAR wrDAdr,UCHAR wordAdr,UCHAR *pRdDat,UCHAR num)  
+                                    456 ;	driver/dht12.c: 384: bool I2C_Read(UCHAR wrDAdr,UCHAR wordAdr,UCHAR *pRdDat,UCHAR num)  
                                     457 ;	-----------------------------------------
                                     458 ;	 function I2C_Read
                                     459 ;	-----------------------------------------
       00022B                        460 _I2C_Read:
       00022B 52 09            [ 2]  461 	sub	sp, #9
-                                    462 ;	driver/dht12.c: 393: rdDAdr = wrDAdr+1; //读器件地址为写地址加1  
+                                    462 ;	driver/dht12.c: 394: rdDAdr = wrDAdr+1; //读器件地址为写地址加1  
       00022D 7B 0C            [ 1]  463 	ld	a, (0x0c, sp)
       00022F 4C               [ 1]  464 	inc	a
       000230 6B 08            [ 1]  465 	ld	(0x08, sp), a
-                                    466 ;	driver/dht12.c: 395: I2C_Start();  /*启动I2C*/  
+                                    466 ;	driver/dht12.c: 396: I2C_Start();  /*启动I2C*/  
       000232 CDr00r56         [ 4]  467 	call	_I2C_Start
-                                    468 ;	driver/dht12.c: 399: I2CAck = SendByte(wrDAdr); /*发写器件地址*/  
+                                    468 ;	driver/dht12.c: 400: I2CAck = SendByte(wrDAdr); /*发写器件地址*/  
       000235 7B 0C            [ 1]  469 	ld	a, (0x0c, sp)
       000237 88               [ 1]  470 	push	a
       000238 CDr01r22         [ 4]  471 	call	_SendByte
       00023B 5B 01            [ 2]  472 	addw	sp, #1
-                                    473 ;	driver/dht12.c: 401: if(!I2CAck)  
-      00023D 6B 03            [ 1]  474 	ld	(0x03, sp), a
+                                    473 ;	driver/dht12.c: 402: if(!I2CAck)  
+      00023D 6B 07            [ 1]  474 	ld	(0x07, sp), a
       00023F 26 03            [ 1]  475 	jrne	00102$
-                                    476 ;	driver/dht12.c: 405: return I2C_ERR;  
+                                    476 ;	driver/dht12.c: 406: return I2C_ERR;  
       000241 4F               [ 1]  477 	clr	a
       000242 20 64            [ 2]  478 	jra	00113$
       000244                        479 00102$:
-                                    480 ;	driver/dht12.c: 409: I2CAck = SendByte(wordAdr); /*发寄存器地址*/  
+                                    480 ;	driver/dht12.c: 410: I2CAck = SendByte(wordAdr); /*发寄存器地址*/  
       000244 7B 0D            [ 1]  481 	ld	a, (0x0d, sp)
       000246 88               [ 1]  482 	push	a
       000247 CDr01r22         [ 4]  483 	call	_SendByte
       00024A 5B 01            [ 2]  484 	addw	sp, #1
-                                    485 ;	driver/dht12.c: 411: if(!I2CAck)  
+                                    485 ;	driver/dht12.c: 412: if(!I2CAck)  
       00024C 4D               [ 1]  486 	tnz	a
       00024D 26 03            [ 1]  487 	jrne	00104$
-                                    488 ;	driver/dht12.c: 415: return I2C_ERR;  
+                                    488 ;	driver/dht12.c: 416: return I2C_ERR;  
       00024F 4F               [ 1]  489 	clr	a
       000250 20 56            [ 2]  490 	jra	00113$
       000252                        491 00104$:
-                                    492 ;	driver/dht12.c: 419: I2C_Start();   /*重启I2C*/  
+                                    492 ;	driver/dht12.c: 420: I2C_Start();   /*重启I2C*/  
       000252 CDr00r56         [ 4]  493 	call	_I2C_Start
-                                    494 ;	driver/dht12.c: 421: I2CAck = SendByte(rdDAdr); /*发读器件地址*/  
+                                    494 ;	driver/dht12.c: 422: I2CAck = SendByte(rdDAdr); /*发读器件地址*/  
       000255 7B 08            [ 1]  495 	ld	a, (0x08, sp)
       000257 88               [ 1]  496 	push	a
       000258 CDr01r22         [ 4]  497 	call	_SendByte
       00025B 5B 01            [ 2]  498 	addw	sp, #1
-                                    499 ;	driver/dht12.c: 423: if(!I2CAck)  
+                                    499 ;	driver/dht12.c: 424: if(!I2CAck)  
       00025D 4D               [ 1]  500 	tnz	a
       00025E 26 03            [ 1]  501 	jrne	00119$
-                                    502 ;	driver/dht12.c: 427: return I2C_ERR;  
+                                    502 ;	driver/dht12.c: 428: return I2C_ERR;  
       000260 4F               [ 1]  503 	clr	a
       000261 20 45            [ 2]  504 	jra	00113$
-                                    505 ;	driver/dht12.c: 433: for(i=0;i<num-1;i++)  
+                                    505 ;	driver/dht12.c: 434: for(i=0;i<num-1;i++)  
       000263                        506 00119$:
       000263 0F 09            [ 1]  507 	clr	(0x09, sp)
       000265                        508 00111$:
@@ -510,60 +510,60 @@
       000266 7B 10            [ 1]  510 	ld	a, (0x10, sp)
       000268 97               [ 1]  511 	ld	xl, a
       000269 5A               [ 2]  512 	decw	x
-      00026A 1F 01            [ 2]  513 	ldw	(0x01, sp), x
+      00026A 1F 05            [ 2]  513 	ldw	(0x05, sp), x
       00026C 7B 09            [ 1]  514 	ld	a, (0x09, sp)
-      00026E 6B 07            [ 1]  515 	ld	(0x07, sp), a
-      000270 0F 06            [ 1]  516 	clr	(0x06, sp)
-                                    517 ;	driver/dht12.c: 437: *(pRdDat+i) = RcvByte();  
+      00026E 6B 04            [ 1]  515 	ld	(0x04, sp), a
+      000270 0F 03            [ 1]  516 	clr	(0x03, sp)
+                                    517 ;	driver/dht12.c: 438: *(pRdDat+i) = RcvByte();  
       000272 5F               [ 1]  518 	clrw	x
       000273 7B 09            [ 1]  519 	ld	a, (0x09, sp)
       000275 97               [ 1]  520 	ld	xl, a
       000276 72 FB 0E         [ 2]  521 	addw	x, (0x0e, sp)
-      000279 1F 04            [ 2]  522 	ldw	(0x04, sp), x
-                                    523 ;	driver/dht12.c: 433: for(i=0;i<num-1;i++)  
-      00027B 1E 06            [ 2]  524 	ldw	x, (0x06, sp)
-      00027D 13 01            [ 2]  525 	cpw	x, (0x01, sp)
+      000279 1F 01            [ 2]  522 	ldw	(0x01, sp), x
+                                    523 ;	driver/dht12.c: 434: for(i=0;i<num-1;i++)  
+      00027B 1E 03            [ 2]  524 	ldw	x, (0x03, sp)
+      00027D 13 05            [ 2]  525 	cpw	x, (0x05, sp)
       00027F 2E 0D            [ 1]  526 	jrsge	00107$
-                                    527 ;	driver/dht12.c: 437: *(pRdDat+i) = RcvByte();  
+                                    527 ;	driver/dht12.c: 438: *(pRdDat+i) = RcvByte();  
       000281 CDr01rC7         [ 4]  528 	call	_RcvByte
-      000284 1E 04            [ 2]  529 	ldw	x, (0x04, sp)
+      000284 1E 01            [ 2]  529 	ldw	x, (0x01, sp)
       000286 F7               [ 1]  530 	ld	(x), a
-                                    531 ;	driver/dht12.c: 439: I2C_Rack();  
+                                    531 ;	driver/dht12.c: 440: I2C_Rack();  
       000287 CDr00rBC         [ 4]  532 	call	_I2C_Rack
-                                    533 ;	driver/dht12.c: 433: for(i=0;i<num-1;i++)  
+                                    533 ;	driver/dht12.c: 434: for(i=0;i<num-1;i++)  
       00028A 0C 09            [ 1]  534 	inc	(0x09, sp)
       00028C 20 D7            [ 2]  535 	jra	00111$
       00028E                        536 00107$:
-                                    537 ;	driver/dht12.c: 443: if(i==num-1)  
-      00028E 1E 06            [ 2]  538 	ldw	x, (0x06, sp)
-      000290 13 01            [ 2]  539 	cpw	x, (0x01, sp)
+                                    537 ;	driver/dht12.c: 444: if(i==num-1)  
+      00028E 1E 03            [ 2]  538 	ldw	x, (0x03, sp)
+      000290 13 05            [ 2]  539 	cpw	x, (0x05, sp)
       000292 26 0F            [ 1]  540 	jrne	00109$
-                                    541 ;	driver/dht12.c: 447: *(pRdDat+i) = RcvByte();  
+                                    541 ;	driver/dht12.c: 448: *(pRdDat+i) = RcvByte();  
       000294 CDr01rC7         [ 4]  542 	call	_RcvByte
-      000297 1E 04            [ 2]  543 	ldw	x, (0x04, sp)
+      000297 1E 01            [ 2]  543 	ldw	x, (0x01, sp)
       000299 F7               [ 1]  544 	ld	(x), a
-                                    545 ;	driver/dht12.c: 449: I2C_Rack();
+                                    545 ;	driver/dht12.c: 450: I2C_Rack();
       00029A CDr00rBC         [ 4]  546 	call	_I2C_Rack
-                                    547 ;	driver/dht12.c: 450: RcvByte();
+                                    547 ;	driver/dht12.c: 451: RcvByte();
       00029D CDr01rC7         [ 4]  548 	call	_RcvByte
-                                    549 ;	driver/dht12.c: 452: I2C_nAck();  
+                                    549 ;	driver/dht12.c: 453: I2C_nAck();  
       0002A0 CDr00rEF         [ 4]  550 	call	_I2C_nAck
       0002A3                        551 00109$:
-                                    552 ;	driver/dht12.c: 456: I2C_Stop();  
+                                    552 ;	driver/dht12.c: 457: I2C_Stop();  
       0002A3 CDr00r89         [ 4]  553 	call	_I2C_Stop
-                                    554 ;	driver/dht12.c: 457: return I2C_CRR;  
+                                    554 ;	driver/dht12.c: 458: return I2C_CRR;  
       0002A6 A6 01            [ 1]  555 	ld	a, #0x01
       0002A8                        556 00113$:
-                                    557 ;	driver/dht12.c: 459: }  
+                                    557 ;	driver/dht12.c: 460: }  
       0002A8 5B 09            [ 2]  558 	addw	sp, #9
       0002AA 81               [ 4]  559 	ret
-                                    560 ;	driver/dht12.c: 541: u8 i2c_read(u8 dev_addr,u8 Addr)
+                                    560 ;	driver/dht12.c: 542: u8 i2c_read(u8 dev_addr,u8 Addr)
                                     561 ;	-----------------------------------------
                                     562 ;	 function i2c_read
                                     563 ;	-----------------------------------------
       0002AB                        564 _i2c_read:
       0002AB 88               [ 1]  565 	push	a
-                                    566 ;	driver/dht12.c: 544: if(I2C_Read(dev_addr,Addr,&temp,1))
+                                    566 ;	driver/dht12.c: 545: if(I2C_Read(dev_addr,Addr,&temp,1))
       0002AC 96               [ 1]  567 	ldw	x, sp
       0002AD 5C               [ 1]  568 	incw	x
       0002AE 4B 01            [ 1]  569 	push	#0x01
@@ -576,25 +576,25 @@
       0002BA 5B 05            [ 2]  576 	addw	sp, #5
       0002BC 4D               [ 1]  577 	tnz	a
       0002BD 27 03            [ 1]  578 	jreq	00102$
-                                    579 ;	driver/dht12.c: 545: return temp;
+                                    579 ;	driver/dht12.c: 546: return temp;
       0002BF 7B 01            [ 1]  580 	ld	a, (0x01, sp)
-                                    581 ;	driver/dht12.c: 546: else return 0;
+                                    581 ;	driver/dht12.c: 547: else return 0;
       0002C1 21                     582 	.byte 0x21
       0002C2                        583 00102$:
       0002C2 4F               [ 1]  584 	clr	a
       0002C3                        585 00104$:
-                                    586 ;	driver/dht12.c: 547: }
+                                    586 ;	driver/dht12.c: 548: }
       0002C3 5B 01            [ 2]  587 	addw	sp, #1
       0002C5 81               [ 4]  588 	ret
-                                    589 ;	driver/dht12.c: 549: void ReadDHT12(DHT12_DATA *data) 
+                                    589 ;	driver/dht12.c: 550: void ReadDHT12(DHT12_DATA *data) 
                                     590 ;	-----------------------------------------
                                     591 ;	 function ReadDHT12
                                     592 ;	-----------------------------------------
       0002C6                        593 _ReadDHT12:
       0002C6 52 02            [ 2]  594 	sub	sp, #2
-                                    595 ;	driver/dht12.c: 551: i2c_init();
+                                    595 ;	driver/dht12.c: 552: i2c_init();
       0002C8 CDr00r00         [ 4]  596 	call	_i2c_init
-                                    597 ;	driver/dht12.c: 552: data->W=i2c_read(0xB8,0x00);
+                                    597 ;	driver/dht12.c: 553: data->W=i2c_read(0xB8,0x00);
       0002CB 16 05            [ 2]  598 	ldw	y, (0x05, sp)
       0002CD 17 01            [ 2]  599 	ldw	(0x01, sp), y
       0002CF 93               [ 1]  600 	ldw	x, y
@@ -607,7 +607,7 @@
       0002DA 5B 02            [ 2]  607 	addw	sp, #2
       0002DC 85               [ 2]  608 	popw	x
       0002DD F7               [ 1]  609 	ld	(x), a
-                                    610 ;	driver/dht12.c: 553: data->W1=i2c_read(0xB8,0x01);
+                                    610 ;	driver/dht12.c: 554: data->W1=i2c_read(0xB8,0x01);
       0002DE 1E 01            [ 2]  611 	ldw	x, (0x01, sp)
       0002E0 1C 00 03         [ 2]  612 	addw	x, #0x0003
       0002E3 89               [ 2]  613 	pushw	x
@@ -617,14 +617,14 @@
       0002EB 5B 02            [ 2]  617 	addw	sp, #2
       0002ED 85               [ 2]  618 	popw	x
       0002EE F7               [ 1]  619 	ld	(x), a
-                                    620 ;	driver/dht12.c: 554: data->T=i2c_read(0xB8,0x02);
+                                    620 ;	driver/dht12.c: 555: data->T=i2c_read(0xB8,0x02);
       0002EF 4B 02            [ 1]  621 	push	#0x02
       0002F1 4B B8            [ 1]  622 	push	#0xb8
       0002F3 CDr02rAB         [ 4]  623 	call	_i2c_read
       0002F6 5B 02            [ 2]  624 	addw	sp, #2
       0002F8 1E 01            [ 2]  625 	ldw	x, (0x01, sp)
       0002FA F7               [ 1]  626 	ld	(x), a
-                                    627 ;	driver/dht12.c: 555: data->T1=i2c_read(0xB8,0x03);
+                                    627 ;	driver/dht12.c: 556: data->T1=i2c_read(0xB8,0x03);
       0002FB 1E 01            [ 2]  628 	ldw	x, (0x01, sp)
       0002FD 5C               [ 1]  629 	incw	x
       0002FE 89               [ 2]  630 	pushw	x
@@ -634,7 +634,7 @@
       000306 5B 02            [ 2]  634 	addw	sp, #2
       000308 85               [ 2]  635 	popw	x
       000309 F7               [ 1]  636 	ld	(x), a
-                                    637 ;	driver/dht12.c: 556: data->sum=i2c_read(0xB8,0x04);
+                                    637 ;	driver/dht12.c: 557: data->sum=i2c_read(0xB8,0x04);
       00030A 1E 01            [ 2]  638 	ldw	x, (0x01, sp)
       00030C 1C 00 04         [ 2]  639 	addw	x, #0x0004
       00030F 89               [ 2]  640 	pushw	x
@@ -644,9 +644,9 @@
       000317 5B 02            [ 2]  644 	addw	sp, #2
       000319 85               [ 2]  645 	popw	x
       00031A F7               [ 1]  646 	ld	(x), a
-                                    647 ;	driver/dht12.c: 557: i2c_deinit();
+                                    647 ;	driver/dht12.c: 558: i2c_deinit();
       00031B CDr00r1B         [ 4]  648 	call	_i2c_deinit
-                                    649 ;	driver/dht12.c: 558: }
+                                    649 ;	driver/dht12.c: 559: }
       00031E 5B 02            [ 2]  650 	addw	sp, #2
       000320 81               [ 4]  651 	ret
                                     652 	.area CODE

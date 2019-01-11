@@ -1,3 +1,4 @@
+#include "driver_common.h"
 #include "eeprom.h"
 
 u8 eeprom_read(u32 num) {

@@ -1,3 +1,4 @@
+#include "driver_common.h"
 #include "adc.h"
 
 u16 ReadADC()

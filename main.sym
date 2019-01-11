@@ -55,17 +55,14 @@ Symbol Table
   5 __sdcc_program_startup                                         00006C R
   3 __start__stack                                                 000000 R
     _ds1302_active                                                 ****** GX
-    _ds1302_check                                                  ****** GX
-    _ds1302_port_deinit                                            ****** GX
-    _ds1302_port_init                                              ****** GX
+    _ds1302_read_time                                              ****** GX
+    _eeprom_read                                                   ****** GX
+    _key_init                                                      ****** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 2.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
-    _ds1302_read_time                                              ****** GX
-    _eeprom_read                                                   ****** GX
-    _key_init                                                      ****** GX
     _keycount                                                      ****** GX
   A _main                                                          00000A GR
   1 _main_count_196608_392                                         000000 R
@@ -95,6 +92,6 @@ Area Table
    7 GSFINAL                                    size      3   flags    0
    8 CONST                                      size     68   flags    0
    9 INITIALIZER                                size      0   flags    0
-   A CODE                                       size    2D1   flags    0
+   A CODE                                       size    2C1   flags    0
    B CABS                                       size      0   flags    8
 

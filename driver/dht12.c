@@ -1,3 +1,4 @@
+#include "driver_common.h"
 #include "dht12.h"
 #define I2C_ERR   0  
   

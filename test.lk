@@ -7,14 +7,14 @@
 -k /usr/local/bin/../share/sdcc/lib/stm8
 -k /usr/local/share/sdcc/lib/stm8
 -l stm8
-stm8s_it.rel
 main.rel
 driver/dht12.rel
 driver/ds1302.rel
 driver/uart.rel
-driver/eeprom.rel
+driver/stm8s_it.rel
 driver/key.rel
 driver/oled.rel
+driver/eeprom.rel
 driver/adc.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_flash.rel

@@ -32,14 +32,16 @@
 #include "stm8s_itc.h"
 #include "stm8s_uart2.h"
 #include "stm8s_clk.h"
-#include "oled.h"
-#include "bmp.h"
-#include "uart.h"
-#include "ds1302.h"
-#include "dht12.h"
-#include "key.h"
-#include "adc.h"
-#include "eeprom.h"
+
+//#include "oled.h"
+//#include "bmp.h"
+//#include "uart.h"
+//#include "ds1302.h"
+//#include "dht12.h"
+//#include "key.h"
+//#include "adc.h"
+//#include "eeprom.h"
+#include "driver_common.h"
 #include "stdio.h"
 /* Private defines -----------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -92,8 +94,8 @@ ds1302_active();
     OLED_ShowString(0,2,temp);
     }
     {
-    ds1302_port_init();
-    if(ds1302_check())
+   // ds1302_port_init();
+    //if(ds1302_check())
     {
     u8  temp[10];
     DS1302_TIME  ds_time;
@@ -103,7 +105,7 @@ ds1302_active();
     printf("\r\n");
     OLED_ShowString(0,4,temp);
     }
-    ds1302_port_deinit();
+   // ds1302_port_deinit();
    }
    {
     static u8 count=0;

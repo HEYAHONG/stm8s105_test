@@ -54,63 +54,63 @@ _keycount::
 ; code
 ;--------------------------------------------------------
 	.area CODE
-;	driver/key.c: 3: void key_init()
+;	driver/key.c: 4: void key_init()
 ;	-----------------------------------------
 ;	 function key_init
 ;	-----------------------------------------
 _key_init:
-;	driver/key.c: 5: GPIO_Init(GPIOD,GPIO_PIN_0,GPIO_MODE_IN_PU_IT);
+;	driver/key.c: 6: GPIO_Init(GPIOD,GPIO_PIN_0,GPIO_MODE_IN_PU_IT);
 	push	#0x60
 	push	#0x01
 	push	#0x0f
 	push	#0x50
 	call	_GPIO_Init
 	addw	sp, #4
-;	driver/key.c: 6: GPIO_Init(GPIOD,GPIO_PIN_1,GPIO_MODE_IN_PU_IT);
+;	driver/key.c: 7: GPIO_Init(GPIOD,GPIO_PIN_1,GPIO_MODE_IN_PU_IT);
 	push	#0x60
 	push	#0x02
 	push	#0x0f
 	push	#0x50
 	call	_GPIO_Init
 	addw	sp, #4
-;	driver/key.c: 7: GPIO_Init(GPIOD,GPIO_PIN_2,GPIO_MODE_IN_PU_IT);
+;	driver/key.c: 8: GPIO_Init(GPIOD,GPIO_PIN_2,GPIO_MODE_IN_PU_IT);
 	push	#0x60
 	push	#0x04
 	push	#0x0f
 	push	#0x50
 	call	_GPIO_Init
 	addw	sp, #4
-;	driver/key.c: 8: GPIO_Init(GPIOD,GPIO_PIN_3,GPIO_MODE_IN_PU_IT);
+;	driver/key.c: 9: GPIO_Init(GPIOD,GPIO_PIN_3,GPIO_MODE_IN_PU_IT);
 	push	#0x60
 	push	#0x08
 	push	#0x0f
 	push	#0x50
 	call	_GPIO_Init
 	addw	sp, #4
-;	driver/key.c: 9: GPIO_Init(GPIOD,GPIO_PIN_4,GPIO_MODE_IN_PU_IT);
+;	driver/key.c: 10: GPIO_Init(GPIOD,GPIO_PIN_4,GPIO_MODE_IN_PU_IT);
 	push	#0x60
 	push	#0x10
 	push	#0x0f
 	push	#0x50
 	call	_GPIO_Init
 	addw	sp, #4
-;	driver/key.c: 10: EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD,EXTI_SENSITIVITY_FALL_ONLY);
+;	driver/key.c: 11: EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD,EXTI_SENSITIVITY_FALL_ONLY);
 	push	#0x02
 	push	#0x03
 	call	_EXTI_SetExtIntSensitivity
 	addw	sp, #2
-;	driver/key.c: 11: EXTI_SetTLISensitivity(EXTI_TLISENSITIVITY_FALL_ONLY);
+;	driver/key.c: 12: EXTI_SetTLISensitivity(EXTI_TLISENSITIVITY_FALL_ONLY);
 	push	#0x00
 	call	_EXTI_SetTLISensitivity
 	pop	a
-;	driver/key.c: 12: }
+;	driver/key.c: 13: }
 	ret
-;	driver/key.c: 13: BitStatus key_read(u8 num)
+;	driver/key.c: 14: BitStatus key_read(u8 num)
 ;	-----------------------------------------
 ;	 function key_read
 ;	-----------------------------------------
 _key_read:
-;	driver/key.c: 16: return GPIO_ReadInputPin(GPIOD,GPIO_PIN_0 << num);
+;	driver/key.c: 17: return GPIO_ReadInputPin(GPIOD,GPIO_PIN_0 << num);
 	ld	a, #0x01
 	push	a
 	ld	a, (0x04, sp)
@@ -126,7 +126,7 @@ _key_read:
 	push	#0x50
 	call	_GPIO_ReadInputPin
 	addw	sp, #3
-;	driver/key.c: 18: }
+;	driver/key.c: 19: }
 	ret
 	.area CODE
 	.area CONST
