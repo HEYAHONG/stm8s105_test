@@ -78,15 +78,19 @@ void main(void)
  OLED_ShowString(0,0,"STM8 Started!");
  printf("STM8 Started!\r\n");
   {//测试峰鸣器（PD7）
-	GPIO_Init(GPIOD, GPIO_PIN_7, GPIO_MODE_OUT_PP_LOW_FAST);
-	GPIO_WriteHigh(GPIOD,GPIO_PIN_7);
+	//GPIO_Init(GPIOD, GPIO_PIN_7, GPIO_MODE_OUT_PP_LOW_FAST);
+	//GPIO_WriteHigh(GPIOD,GPIO_PIN_7);
+	beep_on();
 	Delay(0xffff);
-	GPIO_WriteLow(GPIOD,GPIO_PIN_7);
+	//GPIO_WriteLow(GPIOD,GPIO_PIN_7);
+	beep_off();
 
   }
+ OLED_Clear();
   /* Infinite loop */
   while (1)
   {
+//OLED_Clear();
   /* Toggles LEDs */
    { u8  temp[10];
     sprintf(temp,"V:%4d,S:%1d %d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1,eeprom_read(10));
