@@ -115,9 +115,9 @@ void main(void)
    // ds1302_port_deinit();
    }
    {
-    static u8 count=0;
+   // static u8 count=0;
 
-    if(count>=2)
+   // if(count>=2)
     {
     //DHT12_DATA data;
     unsigned char temp[20];
@@ -126,10 +126,10 @@ void main(void)
     printf("%s",temp);
     printf("\r\n");
     OLED_ShowString(0,6,temp);
-    count=0;
+   // count=0;
     
    }
-    count++;
+   // count++;
     }
     {
     u8  temp[20];
