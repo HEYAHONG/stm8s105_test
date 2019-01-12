@@ -90,6 +90,8 @@ void main(void)
   /* Infinite loop */
   while (1)
   {
+  //更新驱动数据
+  driver_loop();
 //OLED_Clear();
   /* Toggles LEDs */
    { u8  temp[10];
@@ -103,8 +105,8 @@ void main(void)
     //if(ds1302_check())
     {
     u8  temp[10];
-    DS1302_TIME  ds_time;
-    ds1302_read_time(&ds_time);
+   // DS1302_TIME  ds_time;
+   // ds1302_read_time(&ds_time);
     sprintf(temp,"%2d/%2d/%2d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16);
     printf("%s",temp);
     printf("\r\n");
@@ -117,10 +119,10 @@ void main(void)
 
     if(count>=2)
     {
-    DHT12_DATA data;
+    //DHT12_DATA data;
     unsigned char temp[20];
-    ReadDHT12(&data);
-    sprintf(temp,"%2d.%1dC/%2d.%1d%%/%3d",data.T,data.T1,data.W,data.W1,data.sum);
+   // ReadDHT12(&data);
+    sprintf(temp,"%2d.%1dC/%2d.%1d%%/%3d",dh_data.T,dh_data.T1,dh_data.W,dh_data.W1,dh_data.sum);
     printf("%s",temp);
     printf("\r\n");
     OLED_ShowString(0,6,temp);

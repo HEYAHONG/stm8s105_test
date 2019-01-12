@@ -12,7 +12,15 @@
 #include "beep.h"
 #include   "oled.h"
 // 将UART用作DEBUG，即printf的输出到串口。不用时取消注释
-//#define UART_DEBUG
+#define UART_DEBUG
 
+//驱动初始化
 void driver_init();
+//驱动循环执行, 用于从外部设备更新数据
+void driver_loop();
+// 实时时间
+extern DS1302_TIME  ds_time;
+//实时温湿度
+extern  DHT12_DATA dh_data;
+
 #endif
