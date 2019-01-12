@@ -29,7 +29,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s_it.h"
-#include "key.h"
+#include "driver_common.h"
 /** @addtogroup Template_Project
   * @{
   */
@@ -157,8 +157,8 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
-u8 temp=0;
-for(temp=0;temp<100;temp++) //延时去抖
+u16 temp=0;
+for(temp=0;temp<500;temp++) //延时去抖
 {
 nop();nop();nop();nop();nop();
 }
