@@ -18,47 +18,48 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000001  l_SSEG                          
      00000001  s_DATA                          
      00000003  l_GSFINAL                       
-     00000005  l_INITIALIZED                   
-     00000005  l_INITIALIZER                   
-     00000015  l_DATA                          
-     00000016  s_INITIALIZED                   
+     00000007  l_INITIALIZED                   
+     00000007  l_INITIALIZER                   
      0000001A  l_GSINIT                        
+     0000001D  l_DATA                          
+     0000001E  s_INITIALIZED                   
      0000006F  l_HOME                          
      00000667  l_CONST                         
-     000029CF  l_CODE                          
+     00002A58  l_CODE                          
      00008000  s_HOME                          
      0000806F  s_GSINIT                        
      00008089  s_GSFINAL                       
      0000808C  s_CONST                         
      000086F3  s_INITIALIZER                   
-     000086F8  s_CODE                          
+     000086FA  s_CODE                          
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-DATA                                00000001    00000015 =          21. bytes (REL,CON)
+DATA                                00000001    0000001D =          29. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000001  _ds_time                           driver_common
      00000008  _dh_data                           driver_common
      0000000E  _adc_data                          driver_common
-     00000011  _asm_addr                          stm8s_flash
-     00000015  _asm_val                           stm8s_flash
-
+     00000011  _modbus_buff                       modbus
+     00000019  _asm_addr                          stm8s_flash
+     0000001D  _asm_val                           stm8s_flash
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-INITIALIZED                         00000016    00000005 =           5. bytes (REL,CON)
+INITIALIZED                         0000001E    00000007 =           7. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000016  _keycount                          key
-
+     0000001E  _last_uart_receive_time            stm8s_it
+     0000001F  _modbus_status                     modbus
+     00000020  _keycount                          key
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -112,7 +113,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-INITIALIZER                         000086F3    00000005 =           5. bytes (REL,CON)
+INITIALIZER                         000086F3    00000007 =           7. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -121,232 +122,235 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CODE                                000086F8    000029CF =       10703. bytes (REL,CON)
+CODE                                000086FA    00002A58 =       10840. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000086F8  _Delay                             main
-     00008702  _main                              main
-     00008943  _i2c_init                          dht12
-     0000895E  _i2c_deinit                        dht12
-     00008979  _I2CDataInOut                      dht12
-     00008999  _I2C_Start                         dht12
-     000089CC  _I2C_Stop                          dht12
-     000089FF  _I2C_Rack                          dht12
-     00008A32  _I2C_nAck                          dht12
-     00008A65  _SendByte                          dht12
-     00008B0A  _RcvByte                           dht12
-     00008B6E  _I2C_Read                          dht12
-     00008BEE  _i2c_read                          dht12
-     00008C09  _ReadDHT12                         dht12
-     00008C64  _driver_init                       driver_common
-     00008C78  _driver_loop                       driver_common
-     00008CD2  _relay_read                        relay
-     00008CDE  _relay_on                          relay
-     00008CF7  _relay_off                         relay
-     00008D10  _Init_UART2                        uart
+     000086FA  _Delay                             main
+     00008704  _main                              main
+     00008945  _i2c_init                          dht12
+     00008960  _i2c_deinit                        dht12
+     0000897B  _I2CDataInOut                      dht12
+     0000899B  _I2C_Start                         dht12
+     000089CE  _I2C_Stop                          dht12
+     00008A01  _I2C_Rack                          dht12
+     00008A34  _I2C_nAck                          dht12
+     00008A67  _SendByte                          dht12
+     00008B0C  _RcvByte                           dht12
+     00008B70  _I2C_Read                          dht12
+     00008BF0  _i2c_read                          dht12
+     00008C0B  _ReadDHT12                         dht12
+     00008C66  _driver_init                       driver_common
+     00008C7A  _driver_loop                       driver_common
+     00008CD4  _relay_read                        relay
+     00008CE0  _relay_on                          relay
+     00008CF9  _relay_off                         relay
+     00008D12  _Init_UART2                        uart
      00008D56  _UART2_Send_Char                   uart
      00008D6A  _UART2_Send_STR                    uart
      00008D7B  _putchar                           uart
-     00008D90  _ds1302_port_deinit                ds1302
-     00008DB8  _ds1302_port_init                  ds1302
-     00008DF6  _read_IO                           ds1302
-     00008E04  _write_IO                          ds1302
-     00008E12  _ds1302_write_byte                 ds1302
-     00008E54  _ds1302_read_byte                  ds1302
-     00008E96  _ds1302_write                      ds1302
-     00008ED4  _ds1302_read                       ds1302
-     00008F15  _ds1302_read_time                  ds1302
-     00008F85  _ds1302_write_time                 ds1302
-     00009013  _ds1302_active                     ds1302
-     0000904D  _TRAP_IRQHandler                   stm8s_it
-     0000904E  _TLI_IRQHandler                    stm8s_it
-     0000904F  _AWU_IRQHandler                    stm8s_it
-     00009050  _CLK_IRQHandler                    stm8s_it
-     00009051  _EXTI_PORTA_IRQHandler             stm8s_it
-     00009052  _EXTI_PORTB_IRQHandler             stm8s_it
-     00009053  _EXTI_PORTC_IRQHandler             stm8s_it
-     00009054  _EXTI_PORTD_IRQHandler             stm8s_it
-     00009080  _EXTI_PORTE_IRQHandler             stm8s_it
-     00009081  _SPI_IRQHandler                    stm8s_it
-     00009082  _TIM1_UPD_OVF_TRG_BRK_IRQHandler   stm8s_it
-     00009083  _TIM1_CAP_COM_IRQHandler           stm8s_it
-     00009084  _TIM2_UPD_OVF_BRK_IRQHandler       stm8s_it
-     00009085  _TIM2_CAP_COM_IRQHandler           stm8s_it
-     00009086  _TIM3_UPD_OVF_BRK_IRQHandler       stm8s_it
-     00009087  _TIM3_CAP_COM_IRQHandler           stm8s_it
+     00008D7D  _ds1302_port_deinit                ds1302
+     00008DA5  _ds1302_port_init                  ds1302
+     00008DE3  _read_IO                           ds1302
+     00008DF1  _write_IO                          ds1302
+     00008DFF  _ds1302_write_byte                 ds1302
+     00008E41  _ds1302_read_byte                  ds1302
+     00008E83  _ds1302_write                      ds1302
+     00008EC1  _ds1302_read                       ds1302
+     00008F02  _ds1302_read_time                  ds1302
+     00008F72  _ds1302_write_time                 ds1302
+     00009000  _ds1302_active                     ds1302
+     0000903A  _TRAP_IRQHandler                   stm8s_it
+     0000903B  _TLI_IRQHandler                    stm8s_it
+     0000903C  _AWU_IRQHandler                    stm8s_it
+     0000903D  _CLK_IRQHandler                    stm8s_it
+     0000903E  _EXTI_PORTA_IRQHandler             stm8s_it
+     0000903F  _EXTI_PORTB_IRQHandler             stm8s_it
+     00009040  _EXTI_PORTC_IRQHandler             stm8s_it
+     00009041  _EXTI_PORTD_IRQHandler             stm8s_it
+     0000906D  _EXTI_PORTE_IRQHandler             stm8s_it
+     0000906E  _SPI_IRQHandler                    stm8s_it
+     0000906F  _TIM1_UPD_OVF_TRG_BRK_IRQHandler   stm8s_it
+     00009070  _TIM1_CAP_COM_IRQHandler           stm8s_it
+     00009071  _TIM2_UPD_OVF_BRK_IRQHandler       stm8s_it
+     00009072  _TIM2_CAP_COM_IRQHandler           stm8s_it
+     00009073  _TIM3_UPD_OVF_BRK_IRQHandler       stm8s_it
+     00009074  _TIM3_CAP_COM_IRQHandler           stm8s_it
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CODE                                000086F8    000029CF =       10703. bytes (REL,CON)
+CODE                                000086FA    00002A58 =       10840. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00009088  _I2C_IRQHandler                    stm8s_it
-     00009089  _UART2_TX_IRQHandler               stm8s_it
-     0000908A  _UART2_RX_IRQHandler               stm8s_it
-     000090E0  _ADC1_IRQHandler                   stm8s_it
-     000090E1  _TIM4_UPD_OVF_IRQHandler           stm8s_it
-     000090E2  _EEPROM_EEC_IRQHandler             stm8s_it
-     000090E3  _eeprom_read                       eeprom
-     000090FC  _eeprom_write                      eeprom
-     0000913F  _key_init                          key
-     00009190  _key_read                          key
-     000091A8  _beep_init                         beep
-     000091B6  _beep_read                         beep
-     000091C2  _beep_on                           beep
-     000091DB  _beep_off                          beep
-     000091F4  _delay_ms                          oled
-     00009212  _OLED_WR_Byte                      oled
-     0000928F  _OLED_Set_Pos                      oled
-     000092CC  _OLED_Display_On                   oled
-     000092E8  _OLED_Display_Off                  oled
-     00009304  _OLED_Clear                        oled
-     00009340  _OLED_ShowChar                     oled
-     000093B7  _oled_pow                          oled
-     000093EC  _OLED_ShowNum                      oled
-     00009489  _OLED_ShowString                   oled
-     000094BC  _OLED_Init                         oled
-     00009642  _ReadADC                           adc
-     00009694  _ReadDin                           adc
-     000096AD  _GPIO_DeInit                       stm8s_gpio
-     000096BC  _GPIO_Init                         stm8s_gpio
-     00009731  _GPIO_Write                        stm8s_gpio
-     00009737  _GPIO_WriteHigh                    stm8s_gpio
-     0000973E  _GPIO_WriteLow                     stm8s_gpio
-     0000974C  _GPIO_WriteReverse                 stm8s_gpio
-     00009753  _GPIO_ReadOutputData               stm8s_gpio
-     00009757  _GPIO_ReadInputData                stm8s_gpio
-     0000975C  _GPIO_ReadInputPin                 stm8s_gpio
-     00009763  _GPIO_ExternalPullUpConfig         stm8s_gpio
-     0000977F  _write_byte_address                stm8s_flash
-     00009796  _read_byte_address                 stm8s_flash
-     000097AC  _FLASH_Unlock                      stm8s_flash
-     000097C4  _FLASH_Lock                        stm8s_flash
-     000097CD  _FLASH_DeInit                      stm8s_flash
-     000097E5  _FLASH_ITConfig                    stm8s_flash
-     000097F8  _FLASH_EraseByte                   stm8s_flash
-     00009803  _FLASH_ProgramByte                 stm8s_flash
-     0000980F  _FLASH_ReadByte                    stm8s_flash
-     0000981B  _FLASH_ProgramWord                 stm8s_flash
-     00009867  _FLASH_ProgramOptionByte           stm8s_flash
-     0000989C  _FLASH_EraseOptionByte             stm8s_flash
-     000098CC  _FLASH_ReadOptionByte              stm8s_flash
-     00009908  _FLASH_SetLowPowerMode             stm8s_flash
+     00009075  _I2C_IRQHandler                    stm8s_it
+     00009076  _UART2_TX_IRQHandler               stm8s_it
+     00009077  _UART2_RX_IRQHandler               stm8s_it
+     000090ED  _ADC1_IRQHandler                   stm8s_it
+     000090EE  _TIM4_UPD_OVF_IRQHandler           stm8s_it
+     000090EF  _EEPROM_EEC_IRQHandler             stm8s_it
+     000090F0  _eeprom_read                       eeprom
+     00009109  _eeprom_write                      eeprom
+     0000914C  _CRC16                             modbus
+     000091A1  _modbus_send                       modbus
+     000091C7  _modbus_process                    modbus
+     000091CA  _key_init                          key
+     0000921B  _key_read                          key
+     00009233  _beep_init                         beep
+     00009241  _beep_read                         beep
+     0000924D  _beep_on                           beep
+     00009266  _beep_off                          beep
+     0000927F  _delay_ms                          oled
+     0000929D  _OLED_WR_Byte                      oled
+     0000931A  _OLED_Set_Pos                      oled
+     00009357  _OLED_Display_On                   oled
+     00009373  _OLED_Display_Off                  oled
+     0000938F  _OLED_Clear                        oled
+     000093CB  _OLED_ShowChar                     oled
+     00009442  _oled_pow                          oled
+     00009477  _OLED_ShowNum                      oled
+     00009514  _OLED_ShowString                   oled
+     00009547  _OLED_Init                         oled
+     000096CD  _ReadADC                           adc
+     0000971F  _ReadDin                           adc
+     00009738  _GPIO_DeInit                       stm8s_gpio
+     00009747  _GPIO_Init                         stm8s_gpio
+     000097BC  _GPIO_Write                        stm8s_gpio
+     000097C2  _GPIO_WriteHigh                    stm8s_gpio
+     000097C9  _GPIO_WriteLow                     stm8s_gpio
+     000097D7  _GPIO_WriteReverse                 stm8s_gpio
+     000097DE  _GPIO_ReadOutputData               stm8s_gpio
+     000097E2  _GPIO_ReadInputData                stm8s_gpio
+     000097E7  _GPIO_ReadInputPin                 stm8s_gpio
+     000097EE  _GPIO_ExternalPullUpConfig         stm8s_gpio
+     0000980A  _write_byte_address                stm8s_flash
+     00009821  _read_byte_address                 stm8s_flash
+     00009837  _FLASH_Unlock                      stm8s_flash
+     0000984F  _FLASH_Lock                        stm8s_flash
+     00009858  _FLASH_DeInit                      stm8s_flash
+     00009870  _FLASH_ITConfig                    stm8s_flash
+     00009883  _FLASH_EraseByte                   stm8s_flash
+     0000988E  _FLASH_ProgramByte                 stm8s_flash
+     0000989A  _FLASH_ReadByte                    stm8s_flash
+     000098A6  _FLASH_ProgramWord                 stm8s_flash
+     000098F2  _FLASH_ProgramOptionByte           stm8s_flash
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CODE                                000086F8    000029CF =       10703. bytes (REL,CON)
+CODE                                000086FA    00002A58 =       10840. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00009919  _FLASH_SetProgrammingTime          stm8s_flash
-     0000992A  _FLASH_GetLowPowerMode             stm8s_flash
-     00009930  _FLASH_GetProgrammingTime          stm8s_flash
-     00009936  _FLASH_GetBootSize                 stm8s_flash
-     0000995D  _FLASH_GetFlagStatus               stm8s_flash
-     00009969  _FLASH_WaitForLastOperation        stm8s_flash
-     00009999  _FLASH_EraseBlock                  stm8s_flash
-     000099D1  _FLASH_ProgramBlock                stm8s_flash
-     00009A49  _EXTI_DeInit                       stm8s_exti
-     00009A52  _EXTI_SetExtIntSensitivity         stm8s_exti
-     00009AE4  _EXTI_SetTLISensitivity            stm8s_exti
-     00009AF5  _EXTI_GetExtIntSensitivity         stm8s_exti
-     00009B3A  _EXTI_GetTLISensitivity            stm8s_exti
-     00009B40  _ADC1_DeInit                       stm8s_adc1
-     00009B71  _ADC1_Init                         stm8s_adc1
-     00009BA1  _ADC1_Cmd                          stm8s_adc1
-     00009BB4  _ADC1_ScanModeCmd                  stm8s_adc1
-     00009BC7  _ADC1_DataBufferCmd                stm8s_adc1
-     00009BDA  _ADC1_ITConfig                     stm8s_adc1
-     00009BF8  _ADC1_PrescalerConfig              stm8s_adc1
-     00009C09  _ADC1_SchmittTriggerConfig         stm8s_adc1
-     00009C87  _ADC1_ConversionConfig             stm8s_adc1
-     00009CBA  _ADC1_ExternalTriggerConfig        stm8s_adc1
-     00009CDE  _ADC1_StartConversion              stm8s_adc1
-     00009CE3  _ADC1_GetConversionValue           stm8s_adc1
-     00009D23  _ADC1_AWDChannelConfig             stm8s_adc1
-     00009D7B  _ADC1_SetHighThreshold             stm8s_adc1
-     00009D89  _ADC1_SetLowThreshold              stm8s_adc1
-     00009D97  _ADC1_GetBufferValue               stm8s_adc1
-     00009DE4  _ADC1_GetAWDChannelStatus          stm8s_adc1
-     00009E1E  _ADC1_GetFlagStatus                stm8s_adc1
-     00009E83  _ADC1_ClearFlag                    stm8s_adc1
-     00009EF3  _ADC1_GetITStatus                  stm8s_adc1
-     00009F46  _ADC1_ClearITPendingBit            stm8s_adc1
-     00009FA4  _UART2_DeInit                      stm8s_uart2
-     00009FCB  _UART2_Init                        stm8s_uart2
-     0000A130  _UART2_Cmd                         stm8s_uart2
-     0000A143  _UART2_ITConfig                    stm8s_uart2
-     0000A1EA  _UART2_IrDAConfig                  stm8s_uart2
-     0000A1FD  _UART2_IrDACmd                     stm8s_uart2
-     0000A210  _UART2_LINBreakDetectionConfig     stm8s_uart2
-     0000A223  _UART2_LINConfig                   stm8s_uart2
-     0000A25C  _UART2_LINCmd                      stm8s_uart2
-     0000A26F  _UART2_SmartCardCmd                stm8s_uart2
-     0000A282  _UART2_SmartCardNACKCmd            stm8s_uart2
-     0000A295  _UART2_WakeUpConfig                stm8s_uart2
-     0000A2A2  _UART2_ReceiverWakeUpCmd           stm8s_uart2
-     0000A2B5  _UART2_ReceiveData8                stm8s_uart2
-     0000A2B9  _UART2_ReceiveData9                stm8s_uart2
-     0000A2D7  _UART2_SendData8                   stm8s_uart2
-     0000A2DE  _UART2_SendData9                   stm8s_uart2
+     00009927  _FLASH_EraseOptionByte             stm8s_flash
+     00009957  _FLASH_ReadOptionByte              stm8s_flash
+     00009993  _FLASH_SetLowPowerMode             stm8s_flash
+     000099A4  _FLASH_SetProgrammingTime          stm8s_flash
+     000099B5  _FLASH_GetLowPowerMode             stm8s_flash
+     000099BB  _FLASH_GetProgrammingTime          stm8s_flash
+     000099C1  _FLASH_GetBootSize                 stm8s_flash
+     000099E8  _FLASH_GetFlagStatus               stm8s_flash
+     000099F4  _FLASH_WaitForLastOperation        stm8s_flash
+     00009A24  _FLASH_EraseBlock                  stm8s_flash
+     00009A5C  _FLASH_ProgramBlock                stm8s_flash
+     00009AD4  _EXTI_DeInit                       stm8s_exti
+     00009ADD  _EXTI_SetExtIntSensitivity         stm8s_exti
+     00009B6F  _EXTI_SetTLISensitivity            stm8s_exti
+     00009B80  _EXTI_GetExtIntSensitivity         stm8s_exti
+     00009BC5  _EXTI_GetTLISensitivity            stm8s_exti
+     00009BCB  _ADC1_DeInit                       stm8s_adc1
+     00009BFC  _ADC1_Init                         stm8s_adc1
+     00009C2C  _ADC1_Cmd                          stm8s_adc1
+     00009C3F  _ADC1_ScanModeCmd                  stm8s_adc1
+     00009C52  _ADC1_DataBufferCmd                stm8s_adc1
+     00009C65  _ADC1_ITConfig                     stm8s_adc1
+     00009C83  _ADC1_PrescalerConfig              stm8s_adc1
+     00009C94  _ADC1_SchmittTriggerConfig         stm8s_adc1
+     00009D12  _ADC1_ConversionConfig             stm8s_adc1
+     00009D45  _ADC1_ExternalTriggerConfig        stm8s_adc1
+     00009D69  _ADC1_StartConversion              stm8s_adc1
+     00009D6E  _ADC1_GetConversionValue           stm8s_adc1
+     00009DAE  _ADC1_AWDChannelConfig             stm8s_adc1
+     00009E06  _ADC1_SetHighThreshold             stm8s_adc1
+     00009E14  _ADC1_SetLowThreshold              stm8s_adc1
+     00009E22  _ADC1_GetBufferValue               stm8s_adc1
+     00009E6F  _ADC1_GetAWDChannelStatus          stm8s_adc1
+     00009EA9  _ADC1_GetFlagStatus                stm8s_adc1
+     00009F0E  _ADC1_ClearFlag                    stm8s_adc1
+     00009F7E  _ADC1_GetITStatus                  stm8s_adc1
+     00009FD1  _ADC1_ClearITPendingBit            stm8s_adc1
+     0000A02F  _UART2_DeInit                      stm8s_uart2
+     0000A056  _UART2_Init                        stm8s_uart2
+     0000A1BB  _UART2_Cmd                         stm8s_uart2
+     0000A1CE  _UART2_ITConfig                    stm8s_uart2
+     0000A275  _UART2_IrDAConfig                  stm8s_uart2
+     0000A288  _UART2_IrDACmd                     stm8s_uart2
+     0000A29B  _UART2_LINBreakDetectionConfig     stm8s_uart2
+     0000A2AE  _UART2_LINConfig                   stm8s_uart2
+     0000A2E7  _UART2_LINCmd                      stm8s_uart2
+     0000A2FA  _UART2_SmartCardCmd                stm8s_uart2
+     0000A30D  _UART2_SmartCardNACKCmd            stm8s_uart2
+     0000A320  _UART2_WakeUpConfig                stm8s_uart2
+     0000A32D  _UART2_ReceiverWakeUpCmd           stm8s_uart2
+     0000A340  _UART2_ReceiveData8                stm8s_uart2
 ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CODE                                000086F8    000029CF =       10703. bytes (REL,CON)
+CODE                                000086FA    00002A58 =       10840. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000A2FB  _UART2_SendBreak                   stm8s_uart2
-     0000A300  _UART2_SetAddress                  stm8s_uart2
-     0000A311  _UART2_SetGuardTime                stm8s_uart2
-     0000A318  _UART2_SetPrescaler                stm8s_uart2
-     0000A31F  _UART2_GetFlagStatus               stm8s_uart2
-     0000A378  _UART2_ClearFlag                   stm8s_uart2
-     0000A3A6  _UART2_GetITStatus                 stm8s_uart2
-     0000A442  _UART2_ClearITPendingBit           stm8s_uart2
-     0000A45F  _CLK_DeInit                        stm8s_clk
-     0000A496  _CLK_FastHaltWakeUpCmd             stm8s_clk
-     0000A4A9  _CLK_HSECmd                        stm8s_clk
-     0000A4BC  _CLK_HSICmd                        stm8s_clk
-     0000A4CF  _CLK_LSICmd                        stm8s_clk
-     0000A4E2  _CLK_CCOCmd                        stm8s_clk
-     0000A4F5  _CLK_ClockSwitchCmd                stm8s_clk
-     0000A508  _CLK_SlowActiveHaltWakeUpCmd       stm8s_clk
-     0000A51B  _CLK_PeripheralClockConfig         stm8s_clk
-     0000A565  _CLK_ClockSwitchConfig             stm8s_clk
-     0000A613  _CLK_HSIPrescalerConfig            stm8s_clk
-     0000A624  _CLK_CCOConfig                     stm8s_clk
-     0000A639  _CLK_ITConfig                      stm8s_clk
-     0000A679  _CLK_SYSCLKConfig                  stm8s_clk
-     0000A6AD  _CLK_SWIMConfig                    stm8s_clk
-     0000A6C0  _CLK_ClockSecuritySystemEnable     stm8s_clk
-     0000A6C5  _CLK_GetSYSCLKSource               stm8s_clk
-     0000A6C9  _CLK_GetClockFreq                  stm8s_clk
-     0000A71B  _CLK_AdjustHSICalibrationValue     stm8s_clk
-     0000A726  _CLK_SYSCLKEmergencyClear          stm8s_clk
-     0000A72B  _CLK_GetFlagStatus                 stm8s_clk
-     0000A76D  _CLK_GetITStatus                   stm8s_clk
-     0000A78D  _CLK_ClearITPendingBit             stm8s_clk
-     0000A79D  __modulong                         
-     0000A820  _vsprintf                          sprintf
-     0000A83B  _sprintf                           sprintf
-     0000A85B  __divulong                         
-     0000A8B5  _puts                              puts
-     0000A8E4  _vprintf                           vprintf
-     0000A8F6  _printf                            vprintf
-     0000A90C  __mullong                          
-     0000A988  __modsint                          
-     0000A99E  __divsint                          
-     0000AA58  __print_format                     printf_large
-     0000B0B8  _strlen                            _strlen
+     0000A344  _UART2_ReceiveData9                stm8s_uart2
+     0000A362  _UART2_SendData8                   stm8s_uart2
+     0000A369  _UART2_SendData9                   stm8s_uart2
+     0000A386  _UART2_SendBreak                   stm8s_uart2
+     0000A38B  _UART2_SetAddress                  stm8s_uart2
+     0000A39C  _UART2_SetGuardTime                stm8s_uart2
+     0000A3A3  _UART2_SetPrescaler                stm8s_uart2
+     0000A3AA  _UART2_GetFlagStatus               stm8s_uart2
+     0000A403  _UART2_ClearFlag                   stm8s_uart2
+     0000A431  _UART2_GetITStatus                 stm8s_uart2
+     0000A4CD  _UART2_ClearITPendingBit           stm8s_uart2
+     0000A4EA  _CLK_DeInit                        stm8s_clk
+     0000A521  _CLK_FastHaltWakeUpCmd             stm8s_clk
+     0000A534  _CLK_HSECmd                        stm8s_clk
+     0000A547  _CLK_HSICmd                        stm8s_clk
+     0000A55A  _CLK_LSICmd                        stm8s_clk
+     0000A56D  _CLK_CCOCmd                        stm8s_clk
+     0000A580  _CLK_ClockSwitchCmd                stm8s_clk
+     0000A593  _CLK_SlowActiveHaltWakeUpCmd       stm8s_clk
+     0000A5A6  _CLK_PeripheralClockConfig         stm8s_clk
+     0000A5F0  _CLK_ClockSwitchConfig             stm8s_clk
+     0000A69E  _CLK_HSIPrescalerConfig            stm8s_clk
+     0000A6AF  _CLK_CCOConfig                     stm8s_clk
+     0000A6C4  _CLK_ITConfig                      stm8s_clk
+     0000A704  _CLK_SYSCLKConfig                  stm8s_clk
+     0000A738  _CLK_SWIMConfig                    stm8s_clk
+     0000A74B  _CLK_ClockSecuritySystemEnable     stm8s_clk
+     0000A750  _CLK_GetSYSCLKSource               stm8s_clk
+     0000A754  _CLK_GetClockFreq                  stm8s_clk
+     0000A7A6  _CLK_AdjustHSICalibrationValue     stm8s_clk
+     0000A7B1  _CLK_SYSCLKEmergencyClear          stm8s_clk
+     0000A7B6  _CLK_GetFlagStatus                 stm8s_clk
+     0000A7F8  _CLK_GetITStatus                   stm8s_clk
+     0000A818  _CLK_ClearITPendingBit             stm8s_clk
+     0000A828  __modulong                         
+     0000A8AB  _vsprintf                          sprintf
+     0000A8C6  _sprintf                           sprintf
+     0000A8E6  __divulong                         
+     0000A940  _puts                              puts
+     0000A96F  _vprintf                           vprintf
+     0000A981  _printf                            vprintf
+     0000A997  __mullong                          
+     0000AA13  __modsint                          
+     0000AA29  __divsint                          
+     0000AAE3  __print_format                     printf_large
+     0000B143  _strlen                            _strlen
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 
 Files Linked                              [ module(s) ]
@@ -359,6 +363,7 @@ driver/uart.rel                           [ uart ]
 driver/ds1302.rel                         [ ds1302 ]
 driver/stm8s_it.rel                       [ stm8s_it ]
 driver/eeprom.rel                         [ eeprom ]
+driver/modbus.rel                         [ modbus ]
 driver/key.rel                            [ key ]
 driver/beep.rel                           [ beep ]
 driver/oled.rel                           [ oled ]

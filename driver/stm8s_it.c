@@ -422,28 +422,45 @@ INTERRUPT_HANDLER(I2C_IRQHandler, 19)
   * @param  None
   * @retval None
   */
+//上次接收时间,超时接收复位。
+u8 last_uart_receive_time=0;
  INTERRUPT_HANDLER(UART2_RX_IRQHandler, 21)
  {
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
-   if(UART2_GetITStatus(UART2_IT_RXNE))
-  {
-   while(UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET);
-   UART2_SendData8(UART2_ReceiveData8());
-  }
-         UART2_ClearITPendingBit(UART2_IT_RXNE);	
-	  
+if(UART2_GetITStatus(UART2_IT_RXNE))
+{
+   //while(UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET);
+   //UART2_SendData8(UART2_ReceiveData8());
+
+if(ds_time.second/2 == last_uart_receive_time/2)
+{
+modbus_buff[modbus_status]=UART2_ReceiveData8();
+modbus_status++;
+}
+else //超时重新接收
+{
+modbus_buff[0]=UART2_ReceiveData8();
+modbus_status=1;
+}
+}
+
+//接收完成，调用处理函数
+if(modbus_status>7)
+{
+modbus_process();
+modbus_status=0;
+}
+//更新接收时间
+last_uart_receive_time=ds_time.second;
+UART2_ClearITPendingBit(UART2_IT_RXNE);
+
 	 //如果发生了过载错误，则清除该中断标志。
-	 if(UART2_GetITStatus(UART2_IT_OR))
-	 {
-		UART2_ClearITPendingBit(UART2_IT_OR);
-	  }	 
-	if(UART2_GetFlagStatus(UART2_FLAG_OR_LHE))
-         {
-                UART2_ClearFlag(UART2_FLAG_OR_LHE);
-          }
-	
+//	 if(UART2_GetITStatus(UART2_IT_OR))
+//	 {
+//		UART2_ClearITPendingBit(UART2_IT_OR);
+//	  }
    //   UART2_ITConfig(UART2_IT_RXNE_OR, DISABLE);      
  }
 #endif /* (STM8S105) || (STM8AF626x) */

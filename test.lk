@@ -15,6 +15,7 @@ driver/uart.rel
 driver/ds1302.rel
 driver/stm8s_it.rel
 driver/eeprom.rel
+driver/modbus.rel
 driver/key.rel
 driver/beep.rel
 driver/oled.rel
