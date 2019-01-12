@@ -22,5 +22,6 @@ void driver_loop();
 extern DS1302_TIME  ds_time;
 //实时温湿度
 extern  DHT12_DATA dh_data;
-
+//ADC 采集值( YL-69的模拟输出和数字输出)
+extern  ADC_DATA adc_data;
 #endif
