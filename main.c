@@ -72,7 +72,7 @@ void main(void)
 //ds1302_active();
  //key_init();
  //OLED_Clear();
-// eeprom_write(10,108);
+// eeprom_write(0,1);
 // enableInterrupts(); //使能中断
 
  OLED_ShowString(0,0,"STM8 Started!");
@@ -95,7 +95,7 @@ void main(void)
 //OLED_Clear();
   /* Toggles LEDs */
    { u8  temp[10];
-    sprintf(temp,"V:%4d,S:%1d %d",adc_data.Ain,adc_data.Din==RESET?0:1,eeprom_read(10));
+    sprintf(temp,"V:%4d,S:%1d %d",adc_data.Ain,adc_data.Din==RESET?0:1,eeprom_read(0));
     printf("%s",temp);
     printf("\r\n");
     OLED_ShowString(0,2,temp);
