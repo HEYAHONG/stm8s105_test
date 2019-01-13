@@ -38,7 +38,8 @@ void modbus_process()
 {
 
 #ifndef NOCRC
-if(CRC16(modbus_buff,6)!=((u16)modbus_buff[6]+(u16)modbus_buff[[7]*256)) // 校验
+// 校验
+if(CRC16(modbus_buff,6)!=(((u16)modbus_buff[6])+(u16)(modbus_buff[7])*256)) 
 return;
 #endif
 

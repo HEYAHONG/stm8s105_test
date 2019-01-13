@@ -10,5 +10,5 @@ extern u8 modbus_buff[8];
 
 void modbus_process(); //处理modbus
 // 不进行CRC校验，用于调试。不用可注释
-#define NOCRC
+//#define NOCRC
 #endif
