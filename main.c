@@ -139,7 +139,7 @@ void main(void)
     OLED_ShowString(0,0,temp);
     }
     //GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
-   (relay_read()==RESET)?relay_on():relay_off();
+  // (relay_read()==RESET)?relay_on():relay_off();
     Delay(0xffff);
   }
 
