@@ -384,7 +384,8 @@ I2CDataInOut(I2CDataOut);
 bool I2C_Read(UCHAR wrDAdr,UCHAR wordAdr,UCHAR *pRdDat,UCHAR num)  
   
 {  
-  
+
+disableInterrupts();
 bool I2CAck;  
   
 UCHAR i=0;  
@@ -455,6 +456,8 @@ if(i==num-1)
   }  
 
 I2C_Stop();  
+
+enableInterrupts();
 return I2C_CRR;  
   
 }  
