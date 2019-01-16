@@ -93,10 +93,7 @@ u16 status=eeprom_read(2)*256+eeprom_read(3);
 
     if(!eeprom_read(1))//界面显示
     {
-
-    if(status==0)//主菜单
-    {
-        unsigned char temp[4][16],i;
+        static unsigned char temp[4][16],i;
         for(i=0;i<4;i++)//初始化temp
         {
         sprintf(temp[i],"");
@@ -104,6 +101,16 @@ u16 status=eeprom_read(2)*256+eeprom_read(3);
         sprintf(temp[0],"%2d:%2d:%2d Add:%3d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16,eeprom_read(0));
         sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
         sprintf(temp[2],"B:%s,R:%s",beep_read()?"on":"off",relay_read()?"on":"off");
+    if(status==0)//主菜单
+    {
+       // unsigned char temp[4][16],i;
+       // for(i=0;i<4;i++)//初始化temp
+       // {
+       // sprintf(temp[i],"");
+       // }
+       // sprintf(temp[0],"%2d:%2d:%2d Add:%3d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16,eeprom_read(0));
+       // sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
+       // sprintf(temp[2],"B:%s,R:%s",beep_read()?"on":"off",relay_read()?"on":"off");
         for(i=0;i<4;i++)//输出显示
         {
         OLED_ShowString(0,i*2,temp[i]);
@@ -111,14 +118,14 @@ u16 status=eeprom_read(2)*256+eeprom_read(3);
     }
     else if((status&0xff)==0)//规则选择菜单
     {
-        unsigned char temp[4][16],i;
-        for(i=0;i<4;i++)//初始化temp
-        {
-        sprintf(temp[i],"");
-        }
-        sprintf(temp[0],"%2d:%2d:%2d Add:%3d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16,eeprom_read(0));
-        sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
-        sprintf(temp[2],"B:%s,R:%s",beep_read()?"on":"off",relay_read()?"on":"off");
+        //unsigned char temp[4][16],i;
+        //for(i=0;i<4;i++)//初始化temp
+       // {
+       // sprintf(temp[i],"");
+        //}
+        //sprintf(temp[0],"%2d:%2d:%2d Add:%3d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16,eeprom_read(0));
+       // sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
+       // sprintf(temp[2],"B:%s,R:%s",beep_read()?"on":"off",relay_read()?"on":"off");
         sprintf(temp[3],"rule:%2d",(0xff00&status)>>8);
         for(i=0;i<4;i++)//输出显示
         {
@@ -128,14 +135,14 @@ u16 status=eeprom_read(2)*256+eeprom_read(3);
     }
     else //规则编辑菜单
     {
-        unsigned char temp[4][16],i;
-        for(i=0;i<4;i++)//初始化temp
-        {
-        sprintf(temp[i],"");
-        }
-        sprintf(temp[0],"%2d:%2d:%2d Add:%3d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16,eeprom_read(0));
-        sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
-        sprintf(temp[2],"B:%s,R:%s",beep_read()?"on":"off",relay_read()?"on":"off");
+        //unsigned char temp[4][16],i;
+        //for(i=0;i<4;i++)//初始化temp
+       // {
+       // sprintf(temp[i],"");
+        //}
+       // sprintf(temp[0],"%2d:%2d:%2d Add:%3d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16,eeprom_read(0));
+       // sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
+       // sprintf(temp[2],"B:%s,R:%s",beep_read()?"on":"off",relay_read()?"on":"off");
         sprintf(temp[3],"Addr:%2d,Val:%d",(status&0xff)-1,eeprom_read(((status&0xff00)>>8)*32+status&0xff-1));
         for(i=0;i<4;i++)//输出显示
         {
