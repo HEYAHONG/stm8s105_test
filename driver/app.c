@@ -93,7 +93,7 @@ u16 status=eeprom_read(2)*256+eeprom_read(3);
 
     if(!eeprom_read(1))//界面显示
     {
-        static unsigned char temp[4][17],i;
+        static unsigned char temp[4][25],i;
         for(i=0;i<4;i++)//初始化temp
         {
         sprintf(temp[i],"");

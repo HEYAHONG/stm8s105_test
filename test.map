@@ -21,9 +21,9 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000007  l_INITIALIZED                   
      00000007  l_INITIALIZER                   
      0000001A  l_GSINIT                        
-     00000062  l_DATA                          
-     00000063  s_INITIALIZED                   
      0000006F  l_HOME                          
+     00000082  l_DATA                          
+     00000083  s_INITIALIZED                   
      00000655  l_CONST                         
      00003045  l_CODE                          
      00008000  s_HOME                          
@@ -38,7 +38,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-DATA                                00000001    00000062 =          98. bytes (REL,CON)
+DATA                                00000001    00000082 =         130. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -46,20 +46,20 @@ DATA                                00000001    00000062 =          98. bytes (R
      00000008  _dh_data                           driver_common
      0000000E  _adc_data                          driver_common
      00000011  _modbus_buff                       modbus
-     0000005E  _asm_addr                          stm8s_flash
-     00000062  _asm_val                           stm8s_flash
+     0000007E  _asm_addr                          stm8s_flash
+     00000082  _asm_val                           stm8s_flash
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-INITIALIZED                         00000063    00000007 =           7. bytes (REL,CON)
+INITIALIZED                         00000083    00000007 =           7. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000063  _last_uart_receive_time            stm8s_it
-     00000064  _modbus_status                     modbus
-     00000065  _keycount                          key
+     00000083  _last_uart_receive_time            stm8s_it
+     00000084  _modbus_status                     modbus
+     00000085  _keycount                          key
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
