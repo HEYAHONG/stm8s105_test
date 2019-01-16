@@ -18,6 +18,7 @@ driver/eeprom.rel
 driver/modbus.rel
 driver/key.rel
 driver/beep.rel
+driver/app.rel
 driver/oled.rel
 driver/adc.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.rel
