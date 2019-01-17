@@ -51,7 +51,7 @@ $(PROJECT).ihx:$(OBJ_SRC)
 	$(SDAS)  $^ -o $@
 
 flash:$(PROJECT).hex
-	sudo $(STM8FLASH) -c stlinkv2 -p stm8s105k4 -w $(PROJECT).hex
+	sudo $(STM8FLASH) -c stlinkv2 -p stm8s105k6 -w $(PROJECT).hex
 clean:
 	-rm -rf $(OBJ_SRC) $(ASM_DST) $(LST_DST) $(RST_DST) $(SYM_DST)
 	-rm -rf $(PROJECT).ihx $(PROJECT).hex $(PROJECT).lk $(PROJECT).mem  $(PROJECT).map $(PROJECT).cdb
