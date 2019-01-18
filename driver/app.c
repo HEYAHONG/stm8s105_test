@@ -237,7 +237,7 @@ u16 status=eeprom_read(2)*256+eeprom_read(3);
         static unsigned char temp[4][25],i;
         for(i=0;i<4;i++)//初始化temp
         {
-        sprintf(temp[i],"");
+        sprintf(temp[i],"                ");
         }
         sprintf(temp[0],"%2d:%2d:%2d Add:%3d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16,eeprom_read(0));
         sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
