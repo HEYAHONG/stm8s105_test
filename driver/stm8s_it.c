@@ -457,10 +457,10 @@ last_uart_receive_time=ds_time.second;
 UART2_ClearITPendingBit(UART2_IT_RXNE);
 
 	 //如果发生了过载错误，则清除该中断标志。
-//	 if(UART2_GetITStatus(UART2_IT_OR))
-//	 {
-//		UART2_ClearITPendingBit(UART2_IT_OR);
-//	  }
+	 if(UART2_GetITStatus(UART2_IT_OR))
+	 {
+		UART2_ClearITPendingBit(UART2_IT_OR);
+	  }
    //   UART2_ITConfig(UART2_IT_RXNE_OR, DISABLE);      
  }
 #endif /* (STM8S105) || (STM8AF626x) */
