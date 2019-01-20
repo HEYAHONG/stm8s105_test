@@ -9,11 +9,11 @@ ADC1_ClearFlag(ADC1_FLAG_EOC);//软件清除
 
 GPIO_Init(ADC_GPIO,ADC_PIN,GPIO_MODE_IN_FL_NO_IT);//AIN4 IO设置为悬浮输入
 
-  ADC1_PrescalerConfig(ADC1_PRESSEL_FCPU_D2);//预分频2
+ADC1_PrescalerConfig(ADC1_PRESSEL_FCPU_D2);//预分频2
 
-  ADC1_ExternalTriggerConfig(ADC1_EXTTRIG_TIM,DISABLE);//不使用外部触发
+ADC1_ExternalTriggerConfig(ADC1_EXTTRIG_TIM,DISABLE);//不使用外部触发
 
- // ADC1_SchmittTriggerConfig(ADC_SCHMITTTRIG,DISABLE);
+ADC1_SchmittTriggerConfig(ADC_SCHMITTTRIG,DISABLE);
 
   //禁止AIN2 AIN4的施密特触发器，降低IO静态功耗
 
