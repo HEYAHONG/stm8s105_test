@@ -1,7 +1,7 @@
 #include "beep.h"
 void beep_init()
 {
-GPIO_Init(GPIOD, GPIO_PIN_7, GPIO_MODE_IN_FL_NO_IT);
+GPIO_Init(GPIOD, GPIO_PIN_7, GPIO_MODE_OUT_OD_LOW_SLOW);
 }
 
 BitStatus beep_read()
