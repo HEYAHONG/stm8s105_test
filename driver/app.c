@@ -3,7 +3,8 @@
 #include "stdio.h"
 u8 Is_In_Area(u16 rule_address,u8 data)
 {
-u8 flag=0;
+static u8 flag;
+flag=0;
 if(data<eeprom_read(rule_address)) flag|=0x01;//置位0
 if(eeprom_read(rule_address)<=data && data <=eeprom_read(rule_address+1)) flag|=0x02;//置位1
 if(eeprom_read(rule_address+1)<data) flag|=0x04;
@@ -24,7 +25,8 @@ eeprom_write(3,0);
 }
 void app_loop()
 {
-u16 status=eeprom_read(2)*256+eeprom_read(3);
+static u16 status;
+status=eeprom_read(2)*256+eeprom_read(3);
     if(eeprom_read(4))//启用规则
     {
         static u8 adcH,adcL,h,m,s;//准备需要的数据
