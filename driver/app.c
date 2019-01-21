@@ -1,6 +1,16 @@
 #include "app.h"
 #include "driver_common.h"
 #include "stdio.h"
+u8 Is_In_Area(u16 rule_address,u8 data)
+{
+u8 flag=0;
+if(data<eeprom_read(rule_address)) flag|=0x01;//置位0
+if(eeprom_read(rule_address)<=data && data <=eeprom_read(rule_address+1)) flag|=0x02;//置位1
+if(eeprom_read(rule_address+1)<data) flag|=0x04;
+if((eeprom_read(rule_address+2)&flag)) return 1;
+else return 0;
+
+}
 void app_init()
 {
 beep_off();
@@ -26,66 +36,73 @@ u16 status=eeprom_read(2)*256+eeprom_read(3);
         u8 i,beep_flag=0,relay_flag=0;//准备相应标志位
         for(i=0;i<16;i++)//共16条规则
             {
-            u8 baseadd=32*(i+1);//规则偏移地址
+            static u8 baseadd;
+            baseadd=32*(i+1);//规则偏移地址
             if(eeprom_read(baseadd))//当前规则已启用
                 {
+                    static u8 data,conbase;
                     {//小时
-                    u8 data=h,conbase=1;//当前需要判断的数据，当前条件在规则中的偏移
+                    data=h,conbase=1;//当前需要判断的数据，当前条件在规则中的偏移
                     if(eeprom_read(baseadd+conbase+2) && eeprom_read(baseadd+conbase)<=eeprom_read(baseadd+conbase+1))           //当前规则已启用
                         {
-                        u8 flag=0;
-                        if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
-                        if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
-                        if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
-                        if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        //u8 flag=0;
+                        //if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
+                        //if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
+                        //if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
+                        //if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        if(!Is_In_Area(baseadd+conbase,data)) continue;
 
                         }
                     }
                     {//分钟
-                    u8 data=m,conbase=4;//当前需要判断的数据，当前条件在规则中的偏移
+                    data=m,conbase=4;//当前需要判断的数据，当前条件在规则中的偏移
                     if(eeprom_read(baseadd+conbase+2) && eeprom_read(baseadd+conbase)<=eeprom_read(baseadd+conbase+1))           //当前规则已启用
                         {
-                        u8 flag=0;
-                        if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
-                        if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
-                        if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
-                        if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        //u8 flag=0;
+                        //if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
+                        //if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
+                        //if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
+                        //if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        if(!Is_In_Area(baseadd+conbase,data)) continue;
 
                         }
                     }
                     {//秒
-                    u8 data=s,conbase=7;//当前需要判断的数据，当前条件在规则中的偏移
+                    data=s,conbase=7;//当前需要判断的数据，当前条件在规则中的偏移
                     if(eeprom_read(baseadd+conbase+2) && eeprom_read(baseadd+conbase)<=eeprom_read(baseadd+conbase+1))           //当前规则已启用
                         {
-                        u8 flag=0;
-                        if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
-                        if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
-                        if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
-                        if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        //u8 flag=0;
+                        //if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
+                        //if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
+                        //if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
+                        //if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        if(!Is_In_Area(baseadd+conbase,data)) continue;
 
                         }
                     }
                     {//adcH
-                    u8 data=adcH,conbase=10;//当前需要判断的数据，当前条件在规则中的偏移
+                    data=adcH,conbase=10;//当前需要判断的数据，当前条件在规则中的偏移
                     if(eeprom_read(baseadd+conbase+2) && eeprom_read(baseadd+conbase)<=eeprom_read(baseadd+conbase+1))           //当前规则已启用
                         {
-                        u8 flag=0;
-                        if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
-                        if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
-                        if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
-                        if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                       // u8 flag=0;
+                        //if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
+                        //if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
+                       // if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
+                        //if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        if(!Is_In_Area(baseadd+conbase,data)) continue;
 
                         }
                     }
                      {//adcL
-                    u8 data=adcL,conbase=13;//当前需要判断的数据，当前条件在规则中的偏移
+                    data=adcL,conbase=13;//当前需要判断的数据，当前条件在规则中的偏移
                     if(eeprom_read(baseadd+conbase+2) && eeprom_read(baseadd+conbase)<=eeprom_read(baseadd+conbase+1))           //当前规则已启用
                         {
-                        u8 flag=0;
-                        if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
-                        if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
-                        if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
-                        if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        //u8 flag=0;
+                        //if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
+                        //if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
+                        //if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
+                        //if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        if(!Is_In_Area(baseadd+conbase,data)) continue;
 
                         }
                     }
@@ -94,50 +111,54 @@ u16 status=eeprom_read(2)*256+eeprom_read(3);
                         if(!adc_data.Din) continue;
                         }
                      {//T
-                    u8 data=dh_data.T,conbase=17;//当前需要判断的数据，当前条件在规则中的偏移
+                    data=dh_data.T,conbase=17;//当前需要判断的数据，当前条件在规则中的偏移
                     if(eeprom_read(baseadd+conbase+2) && eeprom_read(baseadd+conbase)<=eeprom_read(baseadd+conbase+1))           //当前规则已启用
                         {
-                        u8 flag=0;
-                        if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
-                        if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
-                        if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
-                        if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        //u8 flag=0;
+                       // if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
+                        //if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
+                        //if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
+                        //if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
 
+                        if(!Is_In_Area(baseadd+conbase,data)) continue;
                         }
                     }
                     {//T1
-                    u8 data=dh_data.T1,conbase=20;//当前需要判断的数据，当前条件在规则中的偏移
+                    data=dh_data.T1,conbase=20;//当前需要判断的数据，当前条件在规则中的偏移
                     if(eeprom_read(baseadd+conbase+2) && eeprom_read(baseadd+conbase)<=eeprom_read(baseadd+conbase+1))           //当前规则已启用
                         {
-                        u8 flag=0;
-                        if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
-                        if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
-                        if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
-                        if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        //u8 flag=0;
+                        //if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
+                        //if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
+                        //if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
+                       // if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                       if(!Is_In_Area(baseadd+conbase,data)) continue;
 
                         }
                     }
                     {//W
-                    u8 data=dh_data.W,conbase=23;//当前需要判断的数据，当前条件在规则中的偏移
+                    data=dh_data.W,conbase=23;//当前需要判断的数据，当前条件在规则中的偏移
                     if(eeprom_read(baseadd+conbase+2) && eeprom_read(baseadd+conbase)<=eeprom_read(baseadd+conbase+1))           //当前规则已启用
                         {
-                        u8 flag=0;
-                        if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
-                        if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
-                        if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
-                        if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        //u8 flag=0;
+                        //if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
+                        //if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
+                        //if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
+                        //if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        if(!Is_In_Area(baseadd+conbase,data)) continue;
 
                         }
                     }
                     {//W1
-                    u8 data=dh_data.W1,conbase=26;//当前需要判断的数据，当前条件在规则中的偏移
+                    data=dh_data.W1,conbase=26;//当前需要判断的数据，当前条件在规则中的偏移
                     if(eeprom_read(baseadd+conbase+2) && eeprom_read(baseadd+conbase)<=eeprom_read(baseadd+conbase+1))           //当前规则已启用
                         {
-                        u8 flag=0;
-                        if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
-                        if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
-                        if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
-                        if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        //u8 flag=0;
+                        //if(data<eeprom_read(baseadd+conbase)) flag|=0x01;//置位0
+                        //if(eeprom_read(baseadd+conbase)<=data && data <=eeprom_read(baseadd+conbase+1)) flag|=0x02;//置位1
+                        //if(eeprom_read(baseadd+conbase+1)<data) flag|=0x04;
+                        //if(!(eeprom_read(baseadd+conbase+2)&flag)) continue; //判断标志位
+                        if(!Is_In_Area(baseadd+conbase,data)) continue;
 
                         }
                     }
