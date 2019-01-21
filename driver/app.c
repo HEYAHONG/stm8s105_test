@@ -29,17 +29,17 @@ static u16 status;
 status=eeprom_read(2)*256+eeprom_read(3);
     if(eeprom_read(4))//启用规则
     {
-        static u8 adcH,adcL,h,m,s;//准备需要的数据
+        static u8 adcH,adcL,h,m,s,i,beep_flag,relay_flag;//准备需要的数据
         adcH=adc_data.Ain>>8;
         adcL=adc_data.Ain&0xff;
         h=ds_time.hour/16*10+ds_time.hour%16;
         m=ds_time.minute/16*10+ds_time.minute%16;
         s=ds_time.second/16*10+ds_time.second%16;
-        u8 i,beep_flag=0,relay_flag=0;//准备相应标志位
+        beep_flag=0,relay_flag=0;//准备相应标志位
         for(i=0;i<16;i++)//共16条规则
             {
-            static u8 baseadd;
-            baseadd=32*(i+1);//规则偏移地址
+            static u16 baseadd;
+            baseadd=(u16)32*(i+1);//规则偏移地址
             if(eeprom_read(baseadd))//当前规则已启用
                 {
                     static u8 data,conbase;
