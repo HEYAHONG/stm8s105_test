@@ -213,6 +213,15 @@ status=eeprom_read(2)*256+eeprom_read(3);
         }
     if(keycount[3]) //数值加
         {
+        if(status==0) {//修改小时数
+        static u8 h;
+        h=ds_time.hour/16*10+ds_time.hour%16;
+        h++;
+        if(h>=24) h=0;
+        ds_time.hour=h/10*16+h%10;
+        ds1302_write_time(&ds_time);
+
+        }
         if(status&0xff)//加数值
         {
         eeprom_write((status>>8)*32+status&0xff-1,eeprom_read((status>>8)*32+status&0xff-1)+1);
@@ -234,6 +243,14 @@ status=eeprom_read(2)*256+eeprom_read(3);
         }
         if(keycount[4]) //数值减
         {
+        if(status==0) {//修改分钟数
+        static u8 m;
+        m=ds_time.minute/16*10+ds_time.minute%16;
+        m++;
+        if(m>=60) m=0;
+        ds_time.minute=m/10*16+m%10;
+        ds1302_write_time(&ds_time);
+        }
         if(status&0xff)//减数值
         {
         eeprom_write((status>>8)*32+(status&0xff)-1,eeprom_read((status>>8)*32+(status&0xff)-1)-1);
