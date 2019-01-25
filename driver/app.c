@@ -190,6 +190,7 @@ status=eeprom_read(2)*256+eeprom_read(3);
 
     if(keycount[1]) //上一级菜单
         {
+        if(status==0) eeprom_read(4)?eeprom_write(4,0):eeprom_write(4,1);//控制规则总开关
         if(status&0xff) {status=status&0xff00;eeprom_write(3,0);}
         else {status=0;eeprom_write(2,0);}
         keycount[1]=0;
@@ -275,6 +276,7 @@ status=eeprom_read(2)*256+eeprom_read(3);
        // sprintf(temp[0],"%2d:%2d:%2d Add:%3d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16,eeprom_read(0));
        // sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
        // sprintf(temp[2],"B:%s,R:%s",beep_read()?"on":"off",relay_read()?"on":"off");
+       sprintf(temp[3],"%s",eeprom_read(4)?"running":"stopped");
         for(i=0;i<4;i++)//输出显示
         {
         u8 j=0;
