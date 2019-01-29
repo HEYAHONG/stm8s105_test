@@ -105,7 +105,7 @@ CONST                               0000808C    00000678 =        1656. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000808C  _F8X16                             oled
+     00008105  _F8X16                             oled
      000086F5  _HSIDivFactor                      stm8s_clk
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
@@ -142,40 +142,40 @@ CODE                                0000870B    000039CA =       14794. bytes (R
      00008A09  _ReadDHT12                         dht12
      00008A64  _driver_init                       driver_common
      00008A78  _driver_loop                       driver_common
-     00008AD2  _Init_UART2                        uart
-     00008B1F  _UART2_Send_Char                   uart
-     00008B33  _UART2_Send_STR                    uart
-     00008B44  _putchar                           uart
-     00008B46  _ds1302_port_deinit                ds1302
-     00008B6E  _ds1302_port_init                  ds1302
-     00008BAC  _read_IO                           ds1302
-     00008BBA  _write_IO                          ds1302
-     00008BC8  _ds1302_write_byte                 ds1302
-     00008C0A  _ds1302_read_byte                  ds1302
-     00008C4C  _ds1302_write                      ds1302
-     00008C8A  _ds1302_read                       ds1302
-     00008CCB  _ds1302_read_time                  ds1302
-     00008D3B  _ds1302_write_time                 ds1302
-     00008DC9  _ds1302_active                     ds1302
-     00008E03  _TRAP_IRQHandler                   stm8s_it
-     00008E04  _TLI_IRQHandler                    stm8s_it
-     00008E05  _AWU_IRQHandler                    stm8s_it
-     00008E06  _CLK_IRQHandler                    stm8s_it
-     00008E07  _EXTI_PORTA_IRQHandler             stm8s_it
-     00008E08  _EXTI_PORTB_IRQHandler             stm8s_it
-     00008E09  _EXTI_PORTC_IRQHandler             stm8s_it
-     00008E0A  _EXTI_PORTD_IRQHandler             stm8s_it
-     00008E36  _EXTI_PORTE_IRQHandler             stm8s_it
-     00008E37  _SPI_IRQHandler                    stm8s_it
-     00008E38  _TIM1_UPD_OVF_TRG_BRK_IRQHandler   stm8s_it
-     00008E39  _TIM1_CAP_COM_IRQHandler           stm8s_it
-     00008E3A  _TIM2_UPD_OVF_BRK_IRQHandler       stm8s_it
-     00008E3B  _TIM2_CAP_COM_IRQHandler           stm8s_it
-     00008E3C  _TIM3_UPD_OVF_BRK_IRQHandler       stm8s_it
-     00008E3D  _TIM3_CAP_COM_IRQHandler           stm8s_it
-     00008E3E  _I2C_IRQHandler                    stm8s_it
-     00008E3F  _UART2_TX_IRQHandler               stm8s_it
-     00008E40  _UART2_RX_IRQHandler               stm8s_it
+     00008AD2  _relay_read                        relay
+     00008ADE  _relay_on                          relay
+     00008AF7  _relay_off                         relay
+     00008B10  _Init_UART2                        uart
+     00008B5D  _UART2_Send_Char                   uart
+     00008B71  _UART2_Send_STR                    uart
+     00008B82  _putchar                           uart
+     00008B84  _ds1302_port_deinit                ds1302
+     00008BAC  _ds1302_port_init                  ds1302
+     00008BEA  _read_IO                           ds1302
+     00008BF8  _write_IO                          ds1302
+     00008C06  _ds1302_write_byte                 ds1302
+     00008C48  _ds1302_read_byte                  ds1302
+     00008C8A  _ds1302_write                      ds1302
+     00008CC8  _ds1302_read                       ds1302
+     00008D09  _ds1302_read_time                  ds1302
+     00008D79  _ds1302_write_time                 ds1302
+     00008E07  _ds1302_active                     ds1302
+     00008E41  _TRAP_IRQHandler                   stm8s_it
+     00008E42  _TLI_IRQHandler                    stm8s_it
+     00008E43  _AWU_IRQHandler                    stm8s_it
+     00008E44  _CLK_IRQHandler                    stm8s_it
+     00008E45  _EXTI_PORTA_IRQHandler             stm8s_it
+     00008E46  _EXTI_PORTB_IRQHandler             stm8s_it
+     00008E47  _EXTI_PORTC_IRQHandler             stm8s_it
+     00008E48  _EXTI_PORTD_IRQHandler             stm8s_it
+     00008E74  _EXTI_PORTE_IRQHandler             stm8s_it
+     00008E75  _SPI_IRQHandler                    stm8s_it
+     00008E76  _TIM1_UPD_OVF_TRG_BRK_IRQHandler   stm8s_it
+     00008E77  _TIM1_CAP_COM_IRQHandler           stm8s_it
+     00008E78  _TIM2_UPD_OVF_BRK_IRQHandler       stm8s_it
+     00008E79  _TIM2_CAP_COM_IRQHandler           stm8s_it
+     00008E7A  _TIM3_UPD_OVF_BRK_IRQHandler       stm8s_it
+     00008E7B  _TIM3_CAP_COM_IRQHandler           stm8s_it
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
 
@@ -185,39 +185,39 @@ CODE                                0000870B    000039CA =       14794. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00008ECD  _ADC1_IRQHandler                   stm8s_it
-     00008ECE  _TIM4_UPD_OVF_IRQHandler           stm8s_it
-     00008ECF  _EEPROM_EEC_IRQHandler             stm8s_it
-     00008ED0  _CRC16                             modbus
-     00008F25  _modbus_send                       modbus
-     00008F4D  _modbus_virtual_write              modbus
-     00008FC9  _modbus_virtual_read               modbus
-     00009181  _modbus_process                    modbus
-     00009356  _delay_ms                          oled
-     00009374  _OLED_WR_Byte                      oled
-     000093F1  _OLED_Set_Pos                      oled
-     0000942E  _OLED_Display_On                   oled
-     0000944A  _OLED_Display_Off                  oled
-     00009466  _OLED_Clear                        oled
-     000094A2  _OLED_ShowChar                     oled
-     00009519  _oled_pow                          oled
-     0000954E  _OLED_ShowNum                      oled
-     000095EB  _OLED_ShowString                   oled
-     0000961E  _OLED_Init                         oled
-     000097A4  _key_init                          key
-     000097FE  _key_read                          key
-     00009816  _beep_init                         beep
-     00009824  _beep_read                         beep
-     00009830  _beep_on                           beep
-     00009849  _beep_off                          beep
-     00009862  _relay_read                        relay
-     0000986E  _relay_on                          relay
-     00009887  _relay_off                         relay
-     000098A0  _Is_In_Area                        app
-     00009929  _app_init                          app
-     0000995A  _app_loop                          app
-     0000A481  _eeprom_read                       eeprom
-     0000A49A  _eeprom_write                      eeprom
+     00008E7C  _I2C_IRQHandler                    stm8s_it
+     00008E7D  _UART2_TX_IRQHandler               stm8s_it
+     00008E7E  _UART2_RX_IRQHandler               stm8s_it
+     00008F0B  _ADC1_IRQHandler                   stm8s_it
+     00008F0C  _TIM4_UPD_OVF_IRQHandler           stm8s_it
+     00008F0D  _EEPROM_EEC_IRQHandler             stm8s_it
+     00008F0E  _eeprom_read                       eeprom
+     00008F27  _eeprom_write                      eeprom
+     00008F6A  _CRC16                             modbus
+     00008FBF  _modbus_send                       modbus
+     00008FE7  _modbus_virtual_write              modbus
+     00009063  _modbus_virtual_read               modbus
+     0000921B  _modbus_process                    modbus
+     000093F0  _key_init                          key
+     0000944A  _key_read                          key
+     00009462  _beep_init                         beep
+     00009470  _beep_read                         beep
+     0000947C  _beep_on                           beep
+     00009495  _beep_off                          beep
+     000094AE  _Is_In_Area                        app
+     00009537  _app_init                          app
+     00009568  _app_loop                          app
+     0000A08F  _delay_ms                          oled
+     0000A0AD  _OLED_WR_Byte                      oled
+     0000A12A  _OLED_Set_Pos                      oled
+     0000A167  _OLED_Display_On                   oled
+     0000A183  _OLED_Display_Off                  oled
+     0000A19F  _OLED_Clear                        oled
+     0000A1DB  _OLED_ShowChar                     oled
+     0000A252  _oled_pow                          oled
+     0000A287  _OLED_ShowNum                      oled
+     0000A324  _OLED_ShowString                   oled
+     0000A357  _OLED_Init                         oled
      0000A4DD  _ReadADC                           adc
      0000A538  _ReadDin                           adc
      0000A551  _GPIO_DeInit                       stm8s_gpio
@@ -353,8 +353,8 @@ CODE                                0000870B    000039CA =       14794. bytes (R
      0000B885  _vsprintf                          sprintf
      0000B8A0  _sprintf                           sprintf
      0000B8C0  __divulong                         
-     0000B91A  __modsint                          
-     0000B930  __mullong                          
+     0000B91A  __mullong                          
+     0000B996  __modsint                          
      0000B9AC  __divsint                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]
@@ -375,16 +375,16 @@ Files Linked                              [ module(s) ]
 main.rel                                  [ main ]
 driver/dht12.rel                          [ dht12 ]
 driver/driver_common.rel                  [ driver_common ]
+driver/relay.rel                          [ relay ]
 driver/uart.rel                           [ uart ]
 driver/ds1302.rel                         [ ds1302 ]
 driver/stm8s_it.rel                       [ stm8s_it ]
+driver/eeprom.rel                         [ eeprom ]
 driver/modbus.rel                         [ modbus ]
-driver/oled.rel                           [ oled ]
 driver/key.rel                            [ key ]
 driver/beep.rel                           [ beep ]
-driver/relay.rel                          [ relay ]
 driver/app.rel                            [ app ]
-driver/eeprom.rel                         [ eeprom ]
+driver/oled.rel                           [ oled ]
 driver/adc.rel                            [ adc ]
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.rel
                                           [ stm8s_gpio ]
@@ -411,9 +411,9 @@ Libraries Linked                          [ object file ]
 /usr/local/bin/../share/sdcc/lib/stm8/stm8.lib
                                           [ _divulong.rel ]
 /usr/local/bin/../share/sdcc/lib/stm8/stm8.lib
-                                          [ _modsint.rel ]
-/usr/local/bin/../share/sdcc/lib/stm8/stm8.lib
                                           [ _mullong.rel ]
+/usr/local/bin/../share/sdcc/lib/stm8/stm8.lib
+                                          [ _modsint.rel ]
 /usr/local/bin/../share/sdcc/lib/stm8/stm8.lib
                                           [ _divsint.rel ]
 /usr/local/bin/../share/sdcc/lib/stm8/stm8.lib

@@ -1,0 +1,14 @@
+Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~毕业设计.PrjPCB|ReportField=ProjectFullPath~G:\毕业设计资料\电路资料\毕业设计.PrjPCB|ReportField=Title~Bill of Materials For Project [毕业设计.PrjPCB] (No PCB Document Selected)|ReportField=TotalQuantity~21|ReportField=ReportTime~8:15:36|ReportField=ReportDate~2019/1/29|ReportField=ReportDateTime~2019/1/29 8:15:36|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~|ReportField=Address2~|ReportField=Address3~|ReportField=Address4~|ReportField=ApprovedBy~|ReportField=Author~|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=CurrentDate~2019/1/29|ReportField=CurrentTime~8:15:35|ReportField=Date~|ReportField=DocumentFullPathAndName~G:\毕业设计资料\电路资料\主底板.SchDoc|ReportField=DocumentName~主底板.SchDoc|ReportField=DocumentNumber~|ReportField=DrawnBy~|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~2019/1/29|ReportField=Organization~|ReportField=ProjectName~毕业设计.PrjPCB|ReportField=Revision~|ReportField=Rule~|ReportField=SheetNumber~|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~|ReportField=DataSourceFileName~毕业设计.PrjPCB|ReportField=DataSourceFullPath~G:\毕业设计资料\电路资料\毕业设计.PrjPCB
+STM8S105核心板|Header, 15-Pin|P1|MHDR1X15|MHDR1X15|1
+STM8S105核心板|Header, 15-Pin|P2|MHDR1X15|MHDR1X15|1
+DS1302|Header, 5-Pin|P3|MHDR1X5|MHDR1X5|1
+DHT12|Header, 4-Pin|P4|MHDR1X4|MHDR1X4|1
+UART接口|Header, 3-Pin|P4|HDR1X3|Header 3|1
+YL-69土壤湿度?|Header, 4-Pin|P5|MHDR1X4|MHDR1X4|1
+蜂鸣器模块|Header, 3-Pin|P6|MHDR1X3|MHDR1X3|1
+电源输入/继电?|Header, 3-Pin|P7|MHDR1X3|MHDR1X3|1
+OLED12864|Header, 7-Pin|P8|MHDR1X7|MHDR1X7|1
+电源输出/继电?|Header, 3-Pin|P9|HDR1X3|Header 3|1
+水泵继电器模块|Header, 3-Pin|P10|MHDR1X3|MHDR1X3|1
+Res2|Resistor|R1, R2, R3, R4, R5|AXIAL-0.4|Res2|5
+SW-PB|Switch|S0, S1, S2, S3, S4|SPST-2|SW-PB|5
