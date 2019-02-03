@@ -1,8 +1,11 @@
 ifndef PROJECT
 PROJECT=test
 endif
-ifndef WIN32
+IS_LINUX := $(shell echo $(OS)|grep -i linux)
+ifdef IS_LINUX
 SUDO=sudo
+else
+SUDO=
 endif
 SDCC=sdcc
 PACKIHX=packihx
