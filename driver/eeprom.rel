@@ -1,0 +1,46 @@
+XH3
+H B areas 9 global symbols
+M eeprom
+O -mstm8
+S _FLASH_GetFlagStatus Ref000000
+S _FLASH_Unlock Ref000000
+S _FLASH_ProgramByte Ref000000
+S .__.ABS. Def000000
+S _FLASH_WaitForLastOperation Ref000000
+S _FLASH_Lock Ref000000
+S _FLASH_ReadByte Ref000000
+A _CODE size 0 flags 0 addr 0
+A DATA size 0 flags 0 addr 0
+A INITIALIZED size 0 flags 0 addr 0
+A DABS size 0 flags 8 addr 0
+A HOME size 0 flags 0 addr 0
+A GSINIT size 0 flags 0 addr 0
+A GSFINAL size 0 flags 0 addr 0
+A CONST size 0 flags 0 addr 0
+A INITIALIZER size 0 flags 0 addr 0
+A CODE size 5C flags 0 addr 0
+S _eeprom_read Def000000
+S _eeprom_write Def000019
+A CABS size 0 flags 8 addr 0
+T 00 00 00
+R 00 00 00 09
+T 00 00 00 16 05 72 A9 40 00 7B 04 A9 00 97 7B 03
+R 00 00 00 09
+T 00 00 0D A9 00 95 90 89 89 CD 00 00 5B 04 81
+R 00 00 00 09 02 0A 00 06
+T 00 00 19
+R 00 00 00 09
+T 00 00 19 4B F7 CD 00 00 84
+R 00 00 00 09 02 06 00 01
+T 00 00 1F
+R 00 00 00 09
+T 00 00 1F 4B 08 CD 00 00 5B 01 4D 27 F6 16 05 72
+R 00 00 00 09 02 06 00 00
+T 00 00 2C A9 40 00 7B 04 A9 00 97 7B 03 A9 00 95
+R 00 00 00 09
+T 00 00 39 7B 07 88 90 89 89 CD 00 00 5B 05 4B F7
+R 00 00 00 09 02 0A 00 02
+T 00 00 46 CD 00 00 84 4B F7 CD 00 00 84 1E 05 89
+R 00 00 00 09 02 04 00 04 02 0A 00 05
+T 00 00 53 1E 05 89 CD 00 00 5B 04 81
+R 00 00 00 09 00 07 00 09

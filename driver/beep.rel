@@ -1,0 +1,46 @@
+XH3
+H B areas 9 global symbols
+M beep
+O -mstm8
+S _GPIO_Init Ref000000
+S .__.ABS. Def000000
+S _GPIO_ReadInputPin Ref000000
+S _GPIO_WriteLow Ref000000
+S _GPIO_WriteHigh Ref000000
+A _CODE size 0 flags 0 addr 0
+A DATA size 0 flags 0 addr 0
+A INITIALIZED size 0 flags 0 addr 0
+A DABS size 0 flags 8 addr 0
+A HOME size 0 flags 0 addr 0
+A GSINIT size 0 flags 0 addr 0
+A GSFINAL size 0 flags 0 addr 0
+A CONST size 0 flags 0 addr 0
+A INITIALIZER size 0 flags 0 addr 0
+A CODE size 4C flags 0 addr 0
+S _beep_init Def000000
+S _beep_off Def000033
+S _beep_read Def00000E
+S _beep_on Def00001A
+A CABS size 0 flags 8 addr 0
+T 00 00 00
+R 00 00 00 09
+T 00 00 00 4B 80 4B 80 4B 0F 4B 50 CD 00 00 5B 04
+R 00 00 00 09 02 0C 00 00
+T 00 00 0D 81
+R 00 00 00 09
+T 00 00 0E
+R 00 00 00 09
+T 00 00 0E 4B 80 4B 0F 4B 50 CD 00 00 5B 03 81
+R 00 00 00 09 02 0A 00 02
+T 00 00 1A
+R 00 00 00 09
+T 00 00 1A 4B D0 4B 80 4B 0F 4B 50 CD 00 00 5B 04
+R 00 00 00 09 02 0C 00 00
+T 00 00 27 4B 80 4B 0F 4B 50 CD 00 00 5B 03 81
+R 00 00 00 09 02 0A 00 04
+T 00 00 33
+R 00 00 00 09
+T 00 00 33 4B C0 4B 80 4B 0F 4B 50 CD 00 00 5B 04
+R 00 00 00 09 02 0C 00 00
+T 00 00 40 4B 80 4B 0F 4B 50 CD 00 00 5B 03 81
+R 00 00 00 09 02 0A 00 03

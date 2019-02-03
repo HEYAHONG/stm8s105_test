@@ -1,7 +1,7 @@
 ifndef PROJECT
 PROJECT=test
 endif
-IS_LINUX := $(shell echo $(OS)|grep -i linux)
+IS_LINUX := $(shell uname -o |grep -i linux)
 ifdef IS_LINUX
 SUDO=sudo
 else

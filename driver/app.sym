@@ -1,0 +1,77 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 1.
+Hexadecimal [24-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  002710 L
+    .__.ABS.                                                    =  000000 G
+    .__.CPU.                                                    =  000000 L
+    .__.H$L.                                                    =  000001 L
+  9 _Is_In_Area                                                    000000 GR
+  1 _Is_In_Area_flag_65536_384                                     000000 R
+    _OLED_Clear                                                    ****** GX
+    _OLED_ShowString                                               ****** GX
+  7 ___str_0                                                       000000 R
+  7 ___str_1                                                       000011 R
+  7 ___str_10                                                      000069 R
+  7 ___str_2                                                       000025 R
+  7 ___str_3                                                       00003C R
+  7 ___str_4                                                       000046 R
+  7 ___str_5                                                       000049 R
+  7 ___str_6                                                       00004D R
+  7 ___str_7                                                       000050 R
+  7 ___str_8                                                       000058 R
+  7 ___str_9                                                       000060 R
+    __divsint                                                      ****** GX
+    __modsint                                                      ****** GX
+    _adc_data                                                      ****** GX
+  9 _app_init                                                      000089 GR
+  9 _app_loop                                                      0000BA GR
+  1 _app_loop_adcH_131072_387                                      000003 R
+  1 _app_loop_adcL_131072_387                                      000004 R
+  1 _app_loop_baseadd_262144_389                                   00000B R
+  1 _app_loop_beep_flag_131072_387                                 000009 R
+  1 _app_loop_conbase_327680_390                                   00000E R
+  1 _app_loop_data_327680_390                                      00000D R
+  1 _app_loop_h_131072_387                                         000005 R
+  1 _app_loop_h_262144_421                                         000010 R
+  1 _app_loop_i_131072_387                                         000008 R
+  1 _app_loop_i_131072_432                                         000076 R
+  1 _app_loop_is_rule_on_196608_411                                00000F R
+  1 _app_loop_m_131072_387                                         000006 R
+  1 _app_loop_m_262144_427                                         000011 R
+  1 _app_loop_relay_flag_131072_387                                00000A R
+  1 _app_loop_s_131072_387                                         000007 R
+  1 _app_loop_status_65536_386                                     000001 R
+  1 _app_loop_temp_131072_432                                      000012 R
+    _beep_off                                                      ****** GX
+    _beep_on                                                       ****** GX
+    _beep_read                                                     ****** GX
+    _dh_data                                                       ****** GX
+    _ds1302_write_time                                             ****** GX
+    _ds_time                                                       ****** GX
+    _eeprom_read                                                   ****** GX
+    _eeprom_write                                                  ****** GX
+    _keycount                                                      ****** GX
+    _relay_off                                                     ****** GX
+    _relay_on                                                      ****** GX
+    _relay_read                                                    ****** GX
+    _sprintf                                                       ****** GX
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (STMicroelectronics STM8), page 2.
+Hexadecimal [24-Bits]
+
+Area Table
+
+   0 _CODE                                      size      0   flags    0
+   1 DATA                                       size     77   flags    0
+   2 INITIALIZED                                size      0   flags    0
+   3 DABS                                       size      0   flags    8
+   4 HOME                                       size      0   flags    0
+   5 GSINIT                                     size      0   flags    0
+   6 GSFINAL                                    size      0   flags    0
+   7 CONST                                      size     79   flags    0
+   8 INITIALIZER                                size      0   flags    0
+   9 CODE                                       size    BE1   flags    0
+   A CABS                                       size      0   flags    8
+

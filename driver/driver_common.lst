@@ -1,0 +1,153 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.8.0 #10562 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module driver_common
+                                      6 	.optsdcc -mstm8
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _OLED_Clear
+                                     12 	.globl _OLED_Init
+                                     13 	.globl _beep_init
+                                     14 	.globl _Init_UART2
+                                     15 	.globl _key_init
+                                     16 	.globl _ds1302_read_time
+                                     17 	.globl _ds1302_active
+                                     18 	.globl _ReadDHT12
+                                     19 	.globl _ReadADC
+                                     20 	.globl _ReadDin
+                                     21 	.globl _adc_data
+                                     22 	.globl _dh_data
+                                     23 	.globl _ds_time
+                                     24 	.globl _driver_init
+                                     25 	.globl _driver_loop
+                                     26 ;--------------------------------------------------------
+                                     27 ; ram data
+                                     28 ;--------------------------------------------------------
+                                     29 	.area DATA
+      000000                         30 _ds_time::
+      000000                         31 	.ds 7
+      000007                         32 _dh_data::
+      000007                         33 	.ds 5
+      00000C                         34 _last_read_dh_time:
+      00000C                         35 	.ds 1
+      00000D                         36 _adc_data::
+      00000D                         37 	.ds 3
+                                     38 ;--------------------------------------------------------
+                                     39 ; ram data
+                                     40 ;--------------------------------------------------------
+                                     41 	.area INITIALIZED
+                                     42 ;--------------------------------------------------------
+                                     43 ; absolute external ram data
+                                     44 ;--------------------------------------------------------
+                                     45 	.area DABS (ABS)
+                                     46 
+                                     47 ; default segment ordering for linker
+                                     48 	.area HOME
+                                     49 	.area GSINIT
+                                     50 	.area GSFINAL
+                                     51 	.area CONST
+                                     52 	.area INITIALIZER
+                                     53 	.area CODE
+                                     54 
+                                     55 ;--------------------------------------------------------
+                                     56 ; global & static initialisations
+                                     57 ;--------------------------------------------------------
+                                     58 	.area HOME
+                                     59 	.area GSINIT
+                                     60 	.area GSFINAL
+                                     61 	.area GSINIT
+                                     62 ;--------------------------------------------------------
+                                     63 ; Home
+                                     64 ;--------------------------------------------------------
+                                     65 	.area HOME
+                                     66 	.area HOME
+                                     67 ;--------------------------------------------------------
+                                     68 ; code
+                                     69 ;--------------------------------------------------------
+                                     70 	.area CODE
+                                     71 ;	driver/driver_common.c: 2: void driver_init()
+                                     72 ;	-----------------------------------------
+                                     73 ;	 function driver_init
+                                     74 ;	-----------------------------------------
+      000000                         75 _driver_init:
+                                     76 ;	driver/driver_common.c: 4: key_init();
+      000000 CDr00r00         [ 4]   77 	call	_key_init
+                                     78 ;	driver/driver_common.c: 5: beep_init();
+      000003 CDr00r00         [ 4]   79 	call	_beep_init
+                                     80 ;	driver/driver_common.c: 7: Init_UART2();
+      000006 CDr00r00         [ 4]   81 	call	_Init_UART2
+                                     82 ;	driver/driver_common.c: 8: OLED_Init();
+      000009 CDr00r00         [ 4]   83 	call	_OLED_Init
+                                     84 ;	driver/driver_common.c: 9: OLED_Clear();
+      00000C CDr00r00         [ 4]   85 	call	_OLED_Clear
+                                     86 ;	driver/driver_common.c: 10: ds1302_active();
+      00000F CDr00r00         [ 4]   87 	call	_ds1302_active
+                                     88 ;	driver/driver_common.c: 11: enableInterrupts(); 
+      000012 9A               [ 1]   89 	rim
+                                     90 ;	driver/driver_common.c: 12: }
+      000013 81               [ 4]   91 	ret
+                                     92 ;	driver/driver_common.c: 21: void driver_loop()
+                                     93 ;	-----------------------------------------
+                                     94 ;	 function driver_loop
+                                     95 ;	-----------------------------------------
+      000014                         96 _driver_loop:
+      000014 52 06            [ 2]   97 	sub	sp, #6
+                                     98 ;	driver/driver_common.c: 23: ds1302_read_time(&ds_time);
+      000016 4Br00            [ 1]   99 	push	#<_ds_time
+      000018 4Bs00            [ 1]  100 	push	#(_ds_time >> 8)
+      00001A CDr00r00         [ 4]  101 	call	_ds1302_read_time
+      00001D 5B 02            [ 2]  102 	addw	sp, #2
+                                    103 ;	driver/driver_common.c: 26: if(ds_time.second/3 != last_read_dh_time/3)
+      00001F AEr00r06         [ 2]  104 	ldw	x, #_ds_time+6
+      000022 1F 03            [ 2]  105 	ldw	(0x03, sp), x
+      000024 F6               [ 1]  106 	ld	a, (x)
+      000025 5F               [ 1]  107 	clrw	x
+      000026 97               [ 1]  108 	ld	xl, a
+      000027 4B 03            [ 1]  109 	push	#0x03
+      000029 4B 00            [ 1]  110 	push	#0x00
+      00002B 89               [ 2]  111 	pushw	x
+      00002C CDr00r00         [ 4]  112 	call	__divsint
+      00002F 5B 04            [ 2]  113 	addw	sp, #4
+      000031 1F 01            [ 2]  114 	ldw	(0x01, sp), x
+      000033 5F               [ 1]  115 	clrw	x
+      000034 C6u00u0C         [ 1]  116 	ld	a, _last_read_dh_time+0
+      000037 97               [ 1]  117 	ld	xl, a
+      000038 4B 03            [ 1]  118 	push	#0x03
+      00003A 4B 00            [ 1]  119 	push	#0x00
+      00003C 89               [ 2]  120 	pushw	x
+      00003D CDr00r00         [ 4]  121 	call	__divsint
+      000040 5B 04            [ 2]  122 	addw	sp, #4
+      000042 1F 05            [ 2]  123 	ldw	(0x05, sp), x
+      000044 1E 01            [ 2]  124 	ldw	x, (0x01, sp)
+      000046 13 05            [ 2]  125 	cpw	x, (0x05, sp)
+      000048 27 0F            [ 1]  126 	jreq	00102$
+                                    127 ;	driver/driver_common.c: 28: ReadDHT12(&dh_data);
+      00004A 4Br07            [ 1]  128 	push	#<_dh_data
+      00004C 4Bs00            [ 1]  129 	push	#(_dh_data >> 8)
+      00004E CDr00r00         [ 4]  130 	call	_ReadDHT12
+      000051 5B 02            [ 2]  131 	addw	sp, #2
+                                    132 ;	driver/driver_common.c: 29: last_read_dh_time=ds_time.second;
+      000053 1E 03            [ 2]  133 	ldw	x, (0x03, sp)
+      000055 F6               [ 1]  134 	ld	a, (x)
+      000056 C7u00u0C         [ 1]  135 	ld	_last_read_dh_time+0, a
+      000059                        136 00102$:
+                                    137 ;	driver/driver_common.c: 33: adc_data.Ain=ReadADC();
+      000059 CDr00r00         [ 4]  138 	call	_ReadADC
+      00005C 90 AEr00r0D      [ 2]  139 	ldw	y, #_adc_data
+      000060 90 FF            [ 2]  140 	ldw	(y), x
+                                    141 ;	driver/driver_common.c: 34: adc_data.Din=ReadDin();
+      000062 AEr00r0F         [ 2]  142 	ldw	x, #_adc_data+2
+      000065 89               [ 2]  143 	pushw	x
+      000066 CDr00r00         [ 4]  144 	call	_ReadDin
+      000069 85               [ 2]  145 	popw	x
+      00006A F7               [ 1]  146 	ld	(x), a
+                                    147 ;	driver/driver_common.c: 35: }
+      00006B 5B 06            [ 2]  148 	addw	sp, #6
+      00006D 81               [ 4]  149 	ret
+                                    150 	.area CODE
+                                    151 	.area CONST
+                                    152 	.area INITIALIZER
+                                    153 	.area CABS (ABS)

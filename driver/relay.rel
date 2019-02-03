@@ -1,0 +1,39 @@
+XH3
+H B areas 8 global symbols
+M relay
+O -mstm8
+S _GPIO_Init Ref000000
+S .__.ABS. Def000000
+S _GPIO_ReadInputPin Ref000000
+S _GPIO_WriteLow Ref000000
+S _GPIO_WriteHigh Ref000000
+A _CODE size 0 flags 0 addr 0
+A DATA size 0 flags 0 addr 0
+A INITIALIZED size 0 flags 0 addr 0
+A DABS size 0 flags 8 addr 0
+A HOME size 0 flags 0 addr 0
+A GSINIT size 0 flags 0 addr 0
+A GSFINAL size 0 flags 0 addr 0
+A CONST size 0 flags 0 addr 0
+A INITIALIZER size 0 flags 0 addr 0
+A CODE size 3E flags 0 addr 0
+S _relay_off Def000025
+S _relay_read Def000000
+S _relay_on Def00000C
+A CABS size 0 flags 8 addr 0
+T 00 00 00
+R 00 00 00 09
+T 00 00 00 4B 20 4B 14 4B 50 CD 00 00 5B 03 81
+R 00 00 00 09 02 0A 00 02
+T 00 00 0C
+R 00 00 00 09
+T 00 00 0C 4B D0 4B 20 4B 14 4B 50 CD 00 00 5B 04
+R 00 00 00 09 02 0C 00 00
+T 00 00 19 4B 20 4B 14 4B 50 CD 00 00 5B 03 81
+R 00 00 00 09 02 0A 00 04
+T 00 00 25
+R 00 00 00 09
+T 00 00 25 4B C0 4B 20 4B 14 4B 50 CD 00 00 5B 04
+R 00 00 00 09 02 0C 00 00
+T 00 00 32 4B 20 4B 14 4B 50 CD 00 00 5B 03 81
+R 00 00 00 09 02 0A 00 03

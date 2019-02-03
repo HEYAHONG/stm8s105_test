@@ -10,26 +10,14 @@
 ;--------------------------------------------------------
 	.globl _main
 	.globl _Delay
-	.globl _puts
-	.globl _sprintf
-	.globl _printf
+	.globl _app_loop
+	.globl _app_init
+	.globl _driver_loop
 	.globl _driver_init
-	.globl _OLED_ShowString
-	.globl _eeprom_read
-	.globl _ds1302_read_time
-	.globl _ReadDHT12
-	.globl _ReadADC
-	.globl _GPIO_ReadInputPin
-	.globl _GPIO_WriteReverse
-	.globl _GPIO_WriteLow
-	.globl _GPIO_WriteHigh
-	.globl _GPIO_Init
 ;--------------------------------------------------------
 ; ram data
 ;--------------------------------------------------------
 	.area DATA
-_main_count_196608_392:
-	.ds 1
 ;--------------------------------------------------------
 ; ram data
 ;--------------------------------------------------------
@@ -112,8 +100,6 @@ __sdcc_init_data:
 	jrne	00003$
 00004$:
 ; stm8_genXINIT() end
-;	main.c: 112: static u8 count=0;
-	clr	_main_count_196608_392+0
 	.area GSFINAL
 	jp	__sdcc_program_startup
 ;--------------------------------------------------------
@@ -128,438 +114,53 @@ __sdcc_program_startup:
 ; code
 ;--------------------------------------------------------
 	.area CODE
-;	main.c: 51: void Delay(uint16_t nCount)
+;	main.c: 5: void Delay(u32 i)
 ;	-----------------------------------------
 ;	 function Delay
 ;	-----------------------------------------
 _Delay:
-;	main.c: 54: while (nCount != 0)
-	ldw	x, (0x03, sp)
+	sub	sp, #8
+;	main.c: 7: while(i--);
+	ldw	y, (0x0b, sp)
+	ldw	(0x05, sp), y
+	ldw	y, (0x0d, sp)
 00101$:
+	ldw	x, (0x05, sp)
+	ldw	(0x01, sp), x
+	ldw	x, y
+	subw	y, #0x0001
+	ld	a, (0x06, sp)
+	sbc	a, #0x00
+	ld	(0x06, sp), a
+	ld	a, (0x05, sp)
+	sbc	a, #0x00
+	ld	(0x05, sp), a
 	tnzw	x
-	jrne	00117$
+	jrne	00101$
+	ldw	x, (0x01, sp)
+	jrne	00101$
+;	main.c: 8: }
+	addw	sp, #8
 	ret
-00117$:
-;	main.c: 56: nCount--;
-	decw	x
-	jra	00101$
-;	main.c: 58: }
-	ret
-;	main.c: 62: void main(void)
+;	main.c: 9: int main()
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-	sub	sp, #75
-;	main.c: 66: GPIO_Init(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS, GPIO_MODE_OUT_PP_LOW_FAST);
-	push	#0xe0
-	push	#0x20
-	push	#0x14
-	push	#0x50
-	call	_GPIO_Init
-	addw	sp, #4
-;	main.c: 67: GPIO_Init(GPIOF,GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
-	push	#0x00
-	push	#0x10
-	push	#0x19
-	push	#0x50
-	call	_GPIO_Init
-	addw	sp, #4
-;	main.c: 68: driver_init(); //驱动初始化
+;	main.c: 11: driver_init();
 	call	_driver_init
-;	main.c: 78: OLED_ShowString(0,0,"STM8 Started!");
-	push	#<___str_0
-	push	#(___str_0 >> 8)
-	push	#0x00
-	push	#0x00
-	call	_OLED_ShowString
-	addw	sp, #4
-;	main.c: 79: printf("STM8 Started!\r\n");
-	push	#<___str_2
-	push	#(___str_2 >> 8)
-	call	_puts
-	addw	sp, #2
-;	main.c: 81: GPIO_Init(GPIOD, GPIO_PIN_7, GPIO_MODE_OUT_PP_LOW_FAST);
-	push	#0xe0
-	push	#0x80
-	push	#0x0f
-	push	#0x50
-	call	_GPIO_Init
-	addw	sp, #4
-;	main.c: 82: GPIO_WriteHigh(GPIOD,GPIO_PIN_7);
-	push	#0x80
-	push	#0x0f
-	push	#0x50
-	call	_GPIO_WriteHigh
-	addw	sp, #3
-;	main.c: 83: Delay(0xffff);
-	push	#0xff
-	push	#0xff
-	call	_Delay
-	addw	sp, #2
-;	main.c: 84: GPIO_WriteLow(GPIOD,GPIO_PIN_7);
-	push	#0x80
-	push	#0x0f
-	push	#0x50
-	call	_GPIO_WriteLow
-	addw	sp, #3
-;	main.c: 88: while (1)
-00104$:
-;	main.c: 92: sprintf(temp,"V:%4d,S:%1d %d",ReadADC(),GPIO_ReadInputPin(GPIOF,GPIO_PIN_4)==RESET?0:1,eeprom_read(10));
-	push	#0x0a
-	clrw	x
-	pushw	x
-	push	#0x00
-	call	_eeprom_read
-	addw	sp, #4
-	ld	(0x3f, sp), a
-	clr	(0x3e, sp)
-	push	#0x10
-	push	#0x19
-	push	#0x50
-	call	_GPIO_ReadInputPin
-	addw	sp, #3
-	tnz	a
-	jrne	00108$
-	clrw	x
-	ldw	(0x2c, sp), x
-	jra	00109$
-00108$:
-	ldw	x, #0x0001
-	ldw	(0x2c, sp), x
-00109$:
-	call	_ReadADC
-	ldw	y, sp
-	addw	y, #16
-	ldw	(0x44, sp), y
-	ld	a, (0x3f, sp)
-	push	a
-	ld	a, (0x3f, sp)
-	push	a
-	ld	a, (0x2f, sp)
-	push	a
-	ld	a, (0x2f, sp)
-	push	a
-	pushw	x
-	push	#<___str_3
-	push	#(___str_3 >> 8)
-	pushw	y
-	call	_sprintf
-	addw	sp, #10
-;	main.c: 93: printf("%s",temp);
-	ldw	x, (0x44, sp)
-	pushw	x
-	push	#<___str_4
-	push	#(___str_4 >> 8)
-	call	_printf
-	addw	sp, #4
-;	main.c: 94: printf("\r\n");
-	push	#<___str_6
-	push	#(___str_6 >> 8)
-	call	_puts
-	addw	sp, #2
-;	main.c: 95: OLED_ShowString(0,2,temp);
-	ldw	x, (0x44, sp)
-	pushw	x
-	push	#0x02
-	push	#0x00
-	call	_OLED_ShowString
-	addw	sp, #4
-;	main.c: 103: ds1302_read_time(&ds_time);
-	ldw	x, sp
-	addw	x, #9
-	ldw	(0x1a, sp), x
-	pushw	x
-	call	_ds1302_read_time
-	addw	sp, #2
-;	main.c: 104: sprintf(temp,"%2d/%2d/%2d",ds_time.hour/16*10+ds_time.hour%16,ds_time.minute/16*10+ds_time.minute%16,ds_time.second/16*10+ds_time.second%16);
-	ldw	x, (0x1a, sp)
-	ld	a, (0x6, x)
-	ld	(0x43, sp), a
-	clr	(0x42, sp)
-	push	#0x10
-	push	#0x00
-	ldw	x, (0x44, sp)
-	pushw	x
-	call	__divsint
-	addw	sp, #4
-	pushw	x
-	sllw	x
-	sllw	x
-	addw	x, (1, sp)
-	sllw	x
-	addw	sp, #2
-	ldw	(0x40, sp), x
-	push	#0x10
-	push	#0x00
-	ldw	x, (0x44, sp)
-	pushw	x
-	call	__modsint
-	addw	sp, #4
-	addw	x, (0x40, sp)
-	ldw	(0x2a, sp), x
-	ldw	x, (0x1a, sp)
-	ld	a, (0x5, x)
-	ld	(0x3d, sp), a
-	clr	(0x3c, sp)
-	push	#0x10
-	push	#0x00
-	ldw	x, (0x3e, sp)
-	pushw	x
-	call	__divsint
-	addw	sp, #4
-	pushw	x
-	sllw	x
-	sllw	x
-	addw	x, (1, sp)
-	sllw	x
-	addw	sp, #2
-	ldw	(0x3a, sp), x
-	push	#0x10
-	push	#0x00
-	ldw	x, (0x3e, sp)
-	pushw	x
-	call	__modsint
-	addw	sp, #4
-	addw	x, (0x3a, sp)
-	ldw	(0x30, sp), x
-	ldw	x, (0x1a, sp)
-	ld	a, (0x4, x)
-	ld	(0x2f, sp), a
-	clr	(0x2e, sp)
-	push	#0x10
-	push	#0x00
-	ldw	x, (0x30, sp)
-	pushw	x
-	call	__divsint
-	addw	sp, #4
-	pushw	x
-	sllw	x
-	sllw	x
-	addw	x, (1, sp)
-	sllw	x
-	addw	sp, #2
-	ldw	(0x34, sp), x
-	push	#0x10
-	push	#0x00
-	ldw	x, (0x30, sp)
-	pushw	x
-	call	__modsint
-	addw	sp, #4
-	addw	x, (0x34, sp)
-	exgw	x, y
-	ldw	x, sp
-	addw	x, #16
-	ldw	(0x32, sp), x
-	ld	a, (0x2b, sp)
-	push	a
-	ld	a, (0x2b, sp)
-	push	a
-	ld	a, (0x33, sp)
-	push	a
-	ld	a, (0x33, sp)
-	push	a
-	pushw	y
-	push	#<___str_7
-	push	#(___str_7 >> 8)
-	pushw	x
-	call	_sprintf
-	addw	sp, #10
-;	main.c: 105: printf("%s",temp);
-	ldw	x, (0x32, sp)
-	pushw	x
-	push	#<___str_4
-	push	#(___str_4 >> 8)
-	call	_printf
-	addw	sp, #4
-;	main.c: 106: printf("\r\n");
-	push	#<___str_6
-	push	#(___str_6 >> 8)
-	call	_puts
-	addw	sp, #2
-;	main.c: 107: OLED_ShowString(0,4,temp);
-	ldw	x, (0x32, sp)
-	pushw	x
-	push	#0x04
-	push	#0x00
-	call	_OLED_ShowString
-	addw	sp, #4
-;	main.c: 114: if(count>=2)
-	ld	a, _main_count_196608_392+0
-	cp	a, #0x02
-	jrnc	00126$
-	jp	00102$
-00126$:
-;	main.c: 118: ReadDHT12(&data);
-	ldw	y, sp
-	addw	y, #21
-	ldw	x, y
-	pushw	y
-	pushw	x
-	call	_ReadDHT12
-	addw	sp, #2
-	popw	y
-;	main.c: 119: sprintf(temp,"%2d.%1dC/%2d.%1d%%/%3d",data.T,data.T1,data.W,data.W1,data.sum);
-	ldw	x, y
-	ld	a, (0x4, x)
-	ld	(0x29, sp), a
-	clr	(0x28, sp)
-	ldw	x, y
-	ld	a, (0x3, x)
-	ld	(0x27, sp), a
-	clr	(0x26, sp)
-	ldw	x, y
-	ld	a, (0x2, x)
-	ld	(0x25, sp), a
-	clr	(0x24, sp)
-	ldw	x, y
-	ld	a, (0x1, x)
-	ld	(0x4b, sp), a
-	clr	(0x4a, sp)
-	ld	a, (y)
-	clr	(0x48, sp)
-	ldw	x, sp
-	incw	x
-	ldw	(0x46, sp), x
-	ldw	y, x
-	ldw	x, (0x28, sp)
-	pushw	x
-	ldw	x, (0x28, sp)
-	pushw	x
-	ldw	x, (0x28, sp)
-	pushw	x
-	ldw	x, (0x50, sp)
-	pushw	x
-	push	a
-	ld	a, (0x51, sp)
-	push	a
-	push	#<___str_9
-	push	#(___str_9 >> 8)
-	pushw	y
-	call	_sprintf
-	addw	sp, #14
-;	main.c: 120: printf("%s",temp);
-	ldw	x, (0x46, sp)
-	pushw	x
-	push	#<___str_4
-	push	#(___str_4 >> 8)
-	call	_printf
-	addw	sp, #4
-;	main.c: 121: printf("\r\n");
-	push	#<___str_6
-	push	#(___str_6 >> 8)
-	call	_puts
-	addw	sp, #2
-;	main.c: 122: OLED_ShowString(0,6,temp);
-	ldw	x, (0x46, sp)
-	pushw	x
-	push	#0x06
-	push	#0x00
-	call	_OLED_ShowString
-	addw	sp, #4
-;	main.c: 123: count=0;
-	clr	_main_count_196608_392+0
+;	main.c: 12: app_init();
+	call	_app_init
+;	main.c: 13: while(1)
 00102$:
-;	main.c: 126: count++;
-	inc	_main_count_196608_392+0
-;	main.c: 130: sprintf(temp,"%2d/%2d/%2d/%2d/%2d",keycount[0],keycount[1],keycount[2],keycount[3],keycount[4]);
-	ldw	y, #_keycount+0
-	ldw	x, y
-	ld	a, (0x4, x)
-	ld	(0x23, sp), a
-	clr	(0x22, sp)
-	ldw	x, y
-	ld	a, (0x3, x)
-	ld	(0x21, sp), a
-	clr	(0x20, sp)
-	ldw	x, y
-	ld	a, (0x2, x)
-	ld	(0x1f, sp), a
-	clr	(0x1e, sp)
-	ldw	x, y
-	ld	a, (0x1, x)
-	ld	(0x1d, sp), a
-	clr	(0x1c, sp)
-	ld	a, (y)
-	clr	(0x38, sp)
-	ldw	x, sp
-	addw	x, #6
-	ldw	(0x36, sp), x
-	ldw	y, x
-	ldw	x, (0x22, sp)
-	pushw	x
-	ldw	x, (0x22, sp)
-	pushw	x
-	ldw	x, (0x22, sp)
-	pushw	x
-	ldw	x, (0x22, sp)
-	pushw	x
-	push	a
-	ld	a, (0x41, sp)
-	push	a
-	push	#<___str_11
-	push	#(___str_11 >> 8)
-	pushw	y
-	call	_sprintf
-	addw	sp, #14
-;	main.c: 131: printf("%s",temp);
-	ldw	x, (0x36, sp)
-	pushw	x
-	push	#<___str_4
-	push	#(___str_4 >> 8)
-	call	_printf
-	addw	sp, #4
-;	main.c: 132: printf("\r\n");
-	push	#<___str_6
-	push	#(___str_6 >> 8)
-	call	_puts
-	addw	sp, #2
-;	main.c: 133: OLED_ShowString(0,0,temp);
-	ldw	x, (0x36, sp)
-	pushw	x
-	push	#0x00
-	push	#0x00
-	call	_OLED_ShowString
-	addw	sp, #4
-;	main.c: 135: GPIO_WriteReverse(LED_GPIO_PORT, (GPIO_Pin_TypeDef)LED_GPIO_PINS);
-	push	#0x20
-	push	#0x14
-	push	#0x50
-	call	_GPIO_WriteReverse
-	addw	sp, #3
-;	main.c: 136: Delay(0xffff);
-	push	#0xff
-	push	#0xff
-	call	_Delay
-	addw	sp, #2
-;	main.c: 139: }
-	jp	00104$
+;	main.c: 15: driver_loop();
+	call	_driver_loop
+;	main.c: 16: app_loop();
+	call	_app_loop
+	jra	00102$
+;	main.c: 19: }
+	ret
 	.area CODE
 	.area CONST
-___str_0:
-	.ascii "STM8 Started!"
-	.db 0x00
-___str_2:
-	.ascii "STM8 Started!"
-	.db 0x0d
-	.db 0x00
-___str_3:
-	.ascii "V:%4d,S:%1d %d"
-	.db 0x00
-___str_4:
-	.ascii "%s"
-	.db 0x00
-___str_6:
-	.db 0x0d
-	.db 0x00
-___str_7:
-	.ascii "%2d/%2d/%2d"
-	.db 0x00
-___str_9:
-	.ascii "%2d.%1dC/%2d.%1d%%/%3d"
-	.db 0x00
-___str_11:
-	.ascii "%2d/%2d/%2d/%2d/%2d"
-	.db 0x00
 	.area INITIALIZER
 	.area CABS (ABS)
