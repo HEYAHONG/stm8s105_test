@@ -7,8 +7,8 @@ void driver_init()
  Init_UART2();
  OLED_Init();
  OLED_Clear();
-ds1302_active();
- enableInterrupts(); 
+//ds1302_active();
+ enableInterrupts();
 }
 // 实时时间
 DS1302_TIME  ds_time;

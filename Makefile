@@ -13,8 +13,8 @@ MAKEBIN=makebin
 STM8FLASH=stm8flash
 SDAS=sdasstm8
 
-#select stm8s103
-CFLAGS+=  -DSTM8S105 -mstm8  -DUSE_STDPERIPH_DRIVER
+#select stm8s105
+CFLAGS+=  -DSTM8S105 -mstm8  -DUSE_STDPERIPH_DRIVER -pstm8s105 --stack-auto --all-callee-saves
 
 #use std_periph_driver
 CFLAGS+= -I./STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/inc
