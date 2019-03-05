@@ -40,6 +40,9 @@ status=eeprom_read(2)*256+eeprom_read(3);
             {
             static u16 baseadd;
             baseadd=(u16)32*(i+1);//规则偏移地址
+
+            WitchDog_reset();//喂狗
+
             if(eeprom_read(baseadd))//当前规则已启用
                 {
                     static u8 data,conbase;
@@ -176,6 +179,9 @@ status=eeprom_read(2)*256+eeprom_read(3);
             if(relay_flag) relay_on(); else relay_off();
 
     }
+
+    WitchDog_reset();//喂狗
+
     if(keycount[0]||keycount[1]||keycount[2]||keycount[3]||keycount[4]) //按键处理
     {
       OLED_Clear();
@@ -270,6 +276,8 @@ status=eeprom_read(2)*256+eeprom_read(3);
         keycount[4]=0;
         }
     }
+
+    WitchDog_reset();//喂狗
 
     if(!eeprom_read(1))//界面显示
     {
