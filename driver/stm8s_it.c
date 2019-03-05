@@ -157,7 +157,6 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
-WitchDog_reset();
 u16 temp=0;
 for(temp=0;temp<500;temp++) //延时去抖
 {
@@ -430,7 +429,6 @@ u8 last_uart_receive_time=0;
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
-WitchDog_reset();
 if(UART2_GetITStatus(UART2_IT_RXNE))
 {
    //while(UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET);
