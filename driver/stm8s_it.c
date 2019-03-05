@@ -5,7 +5,7 @@
   * @version V2.3.0
   * @date    16-June-2017
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all peripherals interrupt service 
+  *          This file provides template for all peripherals interrupt service
   *          routine.
    ******************************************************************************
   * @attention
@@ -18,14 +18,14 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s_it.h"
@@ -157,6 +157,7 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+WitchDog_reset();
 u16 temp=0;
 for(temp=0;temp<500;temp++) //延时去抖
 {
@@ -181,7 +182,7 @@ INTERRUPT_HANDLER(EXTI_PORTE_IRQHandler, 7)
   */
 }
 
-#if defined (STM8S903) || defined (STM8AF622x) 
+#if defined (STM8S903) || defined (STM8AF622x)
 /**
   * @brief External Interrupt PORTF Interrupt routine.
   * @param  None
@@ -269,7 +270,7 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
      it is recommended to set a breakpoint on the following instruction.
   */
  }
- 
+
 /**
   * @brief Timer5 Capture/Compare Interrupt routine.
   * @param  None
@@ -362,7 +363,7 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
 	// UART1_ClearITPendingBit(UART1_IT_RXNE);
 	//UART1_SendData8(UART1_ReceiveData8());
 //	while(1);
-	
+
  }
 #endif /* (STM8S208) || (STM8S207) || (STM8S103) || (STM8S001) || (STM8S903) || (STM8AF62Ax) || (STM8AF52Ax) */
 
@@ -429,6 +430,7 @@ u8 last_uart_receive_time=0;
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
+WitchDog_reset();
 if(UART2_GetITStatus(UART2_IT_RXNE))
 {
    //while(UART2_GetFlagStatus(UART2_FLAG_TXE)==RESET);
@@ -461,7 +463,7 @@ UART2_ClearITPendingBit(UART2_IT_RXNE);
 	 {
 		UART2_ClearITPendingBit(UART2_IT_OR);
 	  }
-   //   UART2_ITConfig(UART2_IT_RXNE_OR, DISABLE);      
+   //   UART2_ITConfig(UART2_IT_RXNE_OR, DISABLE);
  }
 #endif /* (STM8S105) || (STM8AF626x) */
 
@@ -508,7 +510,7 @@ UART2_ClearITPendingBit(UART2_IT_RXNE);
   * @brief ADC1 interrupt routine.
   * @par Parameters:
   * None
-  * @retval 
+  * @retval
   * None
   */
  INTERRUPT_HANDLER(ADC1_IRQHandler, 22)

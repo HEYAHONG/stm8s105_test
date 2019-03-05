@@ -9,6 +9,7 @@ void driver_init()
  OLED_Clear();
 //ds1302_active();
  enableInterrupts();
+ WitchDog_init();
 }
 // 实时时间
 DS1302_TIME  ds_time;
@@ -20,6 +21,7 @@ static u8 last_read_dh_time;
 ADC_DATA adc_data;
 void driver_loop()
 {
+WitchDog_reset();
 ds1302_read_time(&ds_time);
 
 //间隔2～3秒读取一次

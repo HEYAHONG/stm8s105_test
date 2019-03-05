@@ -277,6 +277,10 @@
 		<Unit filename="driver/eeprom.h">
 			<Option target="Hex" />
 		</Unit>
+		<Unit filename="driver/iwdg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="driver/iwdg.h" />
 		<Unit filename="driver/key.c">
 			<Option compilerVar="CC" />
 			<Option target="Hex" />

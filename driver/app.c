@@ -176,7 +176,7 @@ status=eeprom_read(2)*256+eeprom_read(3);
             if(relay_flag) relay_on(); else relay_off();
 
     }
-
+    WitchDog_reset();
     if(keycount[0]||keycount[1]||keycount[2]||keycount[3]||keycount[4]) //按键处理
     {
       OLED_Clear();
@@ -272,7 +272,7 @@ status=eeprom_read(2)*256+eeprom_read(3);
         }
     }
 
-
+    WitchDog_reset();
     if(!eeprom_read(1))//界面显示
     {
         static unsigned char temp[4][25],i;
