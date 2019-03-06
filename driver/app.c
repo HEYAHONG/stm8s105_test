@@ -184,7 +184,7 @@ status=eeprom_read(2)*256+eeprom_read(3);
 
     if(keycount[0]||keycount[1]||keycount[2]||keycount[3]||keycount[4]) //按键处理
     {
-      OLED_Clear();
+      //OLED_Clear();
     if(keycount[0])//浇水按键
         {
         static u8 is_rule_on;
@@ -300,7 +300,7 @@ status=eeprom_read(2)*256+eeprom_read(3);
        // sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
        // sprintf(temp[2],"B:%s,R:%s",beep_read()?"on":"off",relay_read()?"on":"off");
        sprintf(temp[3],"%s",eeprom_read(4)?"running":"stopped");
-        for(i=0;i<4;i++)//输出显示
+       /* for(i=0;i<4;i++)//输出显示
         {
         u8 j=0;
         for(j=0;j<16;j++)
@@ -308,7 +308,7 @@ status=eeprom_read(2)*256+eeprom_read(3);
         if(temp[i][j]=='\0') temp[i][j]=' ';
         }
         OLED_ShowString(0,i*2,temp[i]);
-        }
+        }*/
     }
     else if((status&0xff)==0)//规则选择菜单
     {
@@ -321,7 +321,7 @@ status=eeprom_read(2)*256+eeprom_read(3);
        // sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
        // sprintf(temp[2],"B:%s,R:%s",beep_read()?"on":"off",relay_read()?"on":"off");
         sprintf(temp[3],"rule:%2d",status>>8);
-        for(i=0;i<4;i++)//输出显示
+        /*for(i=0;i<4;i++)//输出显示
         {
          u8 j=0;
         for(j=0;j<16;j++)
@@ -329,7 +329,7 @@ status=eeprom_read(2)*256+eeprom_read(3);
         if(temp[i][j]=='\0') temp[i][j]=' ';
         }
         OLED_ShowString(0,i*2,temp[i]);
-        }
+        }*/
 
     }
     else //规则编辑菜单
@@ -343,6 +343,16 @@ status=eeprom_read(2)*256+eeprom_read(3);
        // sprintf(temp[1],"%2d.%1dC/%2d.%1d%%/%4d",dh_data.T,dh_data.T1&0x0f,dh_data.W,dh_data.W1&0x0f,adc_data.Ain);
        // sprintf(temp[2],"B:%s,R:%s",beep_read()?"on":"off",relay_read()?"on":"off");
         sprintf(temp[3],"Addr:%2d,Val:%d",(status&0xff)-1,eeprom_read((status>>8)*32+(status&0xff)-1));
+        /*for(i=0;i<4;i++)//输出显示
+        {
+         u8 j=0;
+        for(j=0;j<16;j++)
+        {
+        if(temp[i][j]=='\0') temp[i][j]=' ';
+        }
+        OLED_ShowString(0,i*2,temp[i]);
+        }*/
+    }
         for(i=0;i<4;i++)//输出显示
         {
          u8 j=0;
@@ -352,7 +362,6 @@ status=eeprom_read(2)*256+eeprom_read(3);
         }
         OLED_ShowString(0,i*2,temp[i]);
         }
-    }
     }
     else // 关闭显示
         OLED_Clear();
