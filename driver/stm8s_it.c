@@ -438,7 +438,7 @@ if(UART2_GetITStatus(UART2_IT_RXNE))
    //UART2_SendData8(UART2_ReceiveData8());
 
 //if(ds_time.second/2 == last_uart_receive_time/2)
-if(modbus_timer<10)
+if(modbus_timer<7)
 {
 modbus_buff[modbus_status]=UART2_ReceiveData8();
 modbus_status++;
