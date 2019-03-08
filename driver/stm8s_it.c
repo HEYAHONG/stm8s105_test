@@ -294,6 +294,7 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
      it is recommended to set a breakpoint on the following instruction.
   */
  modbus_timer++;
+ dht12_timer++;
  ds_1302_timer++;
  TIM2_ClearFlag(TIM2_FLAG_UPDATE);
  }

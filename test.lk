@@ -9,7 +9,6 @@
 -l stm8
 main.rel
 driver/dht12.rel
-driver/driver_common.rel
 driver/relay.rel
 driver/uart.rel
 driver/ds1302.rel
@@ -23,6 +22,7 @@ driver/app.rel
 driver/oled.rel
 driver/time2.rel
 driver/adc.rel
+driver/driver_common.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_tim2.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_iwdg.rel
