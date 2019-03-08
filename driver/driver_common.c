@@ -8,6 +8,7 @@ void driver_init()
  OLED_Init();
  OLED_Clear();
 //ds1302_active();
+ Tim2_Init();
  enableInterrupts();
  WitchDog_init();
 }
@@ -25,8 +26,10 @@ WitchDog_reset();
 ds1302_read_time(&ds_time);
 
 //间隔2～3秒读取一次
-if(ds_time.second/3 != last_read_dh_time/3)
+//if(ds_time.second/3 != last_read_dh_time/3)
+if(ds_1302_timer>1200)
 {
+ds_1302_timer=0;
 ReadDHT12(&dh_data);
 last_read_dh_time=ds_time.second;
 }

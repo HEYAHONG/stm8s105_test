@@ -13,6 +13,7 @@
 #include "beep.h"
 #include   "oled.h"
 #include  "iwdg.h"
+#include "time2.h"
 // 将UART用作DEBUG，即printf的输出到串口。不用时取消注释
 //#define UART_DEBUG
 
