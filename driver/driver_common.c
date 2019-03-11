@@ -1,6 +1,7 @@
 #include "driver_common.h"
 void driver_init()
 {
+ CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV2);//设置为内部高速时钟
  key_init();
  beep_init();
 //Initialize UART

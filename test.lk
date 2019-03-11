@@ -4,25 +4,24 @@
 -b HOME = 0x8000
 -b DATA = 0x0001
 -b SSEG = 0xffffffff
--k /usr/local/bin/../share/sdcc/lib/stm8
--k /usr/local/share/sdcc/lib/stm8
+-k C:\Program Files (x86)\SDCC\bin\..\lib\stm8
 -l stm8
 main.rel
-driver/dht12.rel
-driver/relay.rel
-driver/uart.rel
-driver/ds1302.rel
-driver/stm8s_it.rel
-driver/eeprom.rel
-driver/iwdg.rel
-driver/modbus.rel
-driver/key.rel
-driver/beep.rel
-driver/app.rel
-driver/oled.rel
-driver/time2.rel
 driver/adc.rel
+driver/time2.rel
+driver/oled.rel
+driver/app.rel
+driver/beep.rel
+driver/key.rel
+driver/modbus.rel
+driver/iwdg.rel
+driver/eeprom.rel
+driver/stm8s_it.rel
+driver/ds1302.rel
+driver/uart.rel
+driver/relay.rel
 driver/driver_common.rel
+driver/dht12.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_gpio.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_tim2.rel
 STM8S_StdPeriph_Lib/Libraries/STM8S_StdPeriph_Driver/src/stm8s_iwdg.rel
