@@ -31,7 +31,7 @@ ds1302_read_time(&ds_time);
 }
 //间隔2～3秒读取一次
 //if(ds_time.second/3 != last_read_dh_time/3)
-if(dht12_timer>1200)
+if(dht12_timer>2500)
 {
 dht12_timer=0;
 ReadDHT12(&dh_data);
