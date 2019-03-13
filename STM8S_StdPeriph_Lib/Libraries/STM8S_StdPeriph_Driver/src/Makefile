@@ -1,8 +1,8 @@
 CC=sdcc
 AR=sdar
-CFLAGS=-c -mstm8 -DSTM8S103 -I ../../inc -I../../src --opt-code-size -I.
+CFLAGS=-c -mstm8 -DSTM8S105 -DUSE_STDPERIPH_DRIVER -pstm8s105 --stack-auto --all-callee-saves  --allow-unsafe-read  -I../inc -I../src --opt-code-size -I.
 LDFLAGS=-rc 
-SOURCES=$(wildcard stm*.c)
+#SOURCES=$(wildcard stm*.c)
 
 LIBSOURCES= \
 stm8s_adc1.c \
@@ -20,21 +20,14 @@ stm8s_spi.c \
 stm8s_tim1.c \
 stm8s_tim2.c \
 stm8s_tim4.c \
-stm8s_uart1.c \
-stm8s_wwdg.c
-# not used for stm8s103:
-#stm8s_adc2.c
-#stm8s_can.c \
-#stm8s_tim3.c \
-#stm8s_tim5.c \
-#stm8s_tim6.c \
-#stm8s_uart2.c \
-#stm8s_uart3.c \
-#stm8s_uart4.c
+stm8s_wwdg.c \
+stm8s_tim3.c \
+stm8s_uart2.c \
 
-OBJECTS=$(SOURCES:.c=.o)
-OBJECTS_LINK=$(SOURCES:.c=.rel)
-EXECUTABLE=stm8s103.lib
+
+OBJECTS=$(LIBSOURCES:.c=.o)
+OBJECTS_LINK=$(LIBSOURCES:.c=.rel)
+EXECUTABLE=stm8s105.lib
 
 all: $(SOURCES) $(EXECUTABLE)
 	
