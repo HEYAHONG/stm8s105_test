@@ -296,6 +296,7 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
  modbus_timer++;
  dht12_timer++;
  ds_1302_timer++;
+ adc_timer++;
  TIM2_ClearFlag(TIM2_FLAG_UPDATE);
  }
 

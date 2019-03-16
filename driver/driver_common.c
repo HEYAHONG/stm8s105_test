@@ -38,7 +38,11 @@ ReadDHT12(&dh_data);
 //last_read_dh_time=ds_time.second;
 }
 
+if(adc_timer>10000)//10秒采集一次
+{
 //读取ADC
+adc_timer=0;
 adc_data.Ain=ReadADC();
 adc_data.Din=ReadDin();
+}
 }

@@ -1,5 +1,5 @@
 #include "time2.h"
-u16 modbus_timer=0,dht12_timer,ds_1302_timer=0;
+u16 modbus_timer=0,dht12_timer=60000,ds_1302_timer=0,adc_timer=60000;
 void Tim2_Init(void)
 {
   TIM2_DeInit();
