@@ -158,13 +158,17 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
      it is recommended to set a breakpoint on the following instruction.
   */
 u16 temp=0;
-for(temp=0;temp<500;temp++) //延时去抖
+for(temp=0;temp<4000;temp++) //延时去抖
 {
 nop();nop();nop();nop();nop();
 }
 for(temp=0;temp<5;temp++)
 {
-if(key_read(temp)==RESET) keycount[temp]++;
+if(key_read(temp)==RESET) 
+	{
+		keycount[temp]++;
+		while(key_read(temp)==RESET);//松手检测
+	}
 }
 
 }
