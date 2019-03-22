@@ -24,21 +24,21 @@ ADC_DATA adc_data;
 void driver_loop()
 {
 WitchDog_reset();
-if(ds_1302_timer>100)
+if(ds_1302_timer>eeprom_read(5)*100)
 {
 ds_1302_timer=0;
 ds1302_read_time(&ds_time);
 }
 //间隔2～3秒读取一次
 //if(ds_time.second/3 != last_read_dh_time/3)
-if(dht12_timer>2500)
+if(dht12_timer>eeprom_read(6)*1000)
 {
 dht12_timer=0;
 ReadDHT12(&dh_data);
 //last_read_dh_time=ds_time.second;
 }
 
-if(adc_timer>10000)//10秒采集一次
+if(adc_timer>eeprom_read(7)*1000)//
 {
 //读取ADC
 adc_timer=0;
