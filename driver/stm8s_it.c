@@ -164,7 +164,7 @@ nop();nop();nop();nop();nop();
 }
 for(temp=0;temp<5;temp++)
 {
-if(key_read(temp)==RESET) 
+if(key_read(temp)==RESET)
 	{
 		keycount[temp]++;
 		while(key_read(temp)==RESET);//松手检测
@@ -301,6 +301,7 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
  dht12_timer++;
  ds_1302_timer++;
  adc_timer++;
+ app_rule_timer++;
  TIM2_ClearFlag(TIM2_FLAG_UPDATE);
  }
 

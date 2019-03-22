@@ -227,102 +227,65 @@
 		</Unit>
 		<Unit filename="driver/adc.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/adc.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/adc.h" />
 		<Unit filename="driver/app.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/app.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/app.h" />
 		<Unit filename="driver/beep.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/beep.h">
-			<Option target="Hex" />
-		</Unit>
-		<Unit filename="driver/bmp.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/beep.h" />
+		<Unit filename="driver/bmp.h" />
 		<Unit filename="driver/dht12.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/dht12.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/dht12.h" />
 		<Unit filename="driver/driver_common.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/driver_common.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/driver_common.h" />
 		<Unit filename="driver/ds1302.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/ds1302.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/ds1302.h" />
 		<Unit filename="driver/eeprom.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/eeprom.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/eeprom.h" />
 		<Unit filename="driver/iwdg.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="driver/iwdg.h" />
 		<Unit filename="driver/key.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/key.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/key.h" />
 		<Unit filename="driver/modbus.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/modbus.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/modbus.h" />
 		<Unit filename="driver/oled.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/oled.h">
-			<Option target="Hex" />
-		</Unit>
-		<Unit filename="driver/oledfont.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/oled.h" />
+		<Unit filename="driver/oledfont.h" />
 		<Unit filename="driver/relay.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/relay.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/relay.h" />
 		<Unit filename="driver/stm8s_it.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
+		<Unit filename="driver/time2.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="driver/time2.h" />
 		<Unit filename="driver/uart.c">
 			<Option compilerVar="CC" />
-			<Option target="Hex" />
 		</Unit>
-		<Unit filename="driver/uart.h">
-			<Option target="Hex" />
-		</Unit>
+		<Unit filename="driver/uart.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 			<Option target="Hex" />

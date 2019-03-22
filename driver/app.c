@@ -27,6 +27,9 @@ void app_loop()
 {
 static u16 status;
 status=eeprom_read(2)*256+eeprom_read(3);
+    if(app_rule_timer>eeprom_read(8)*1000)//到达执行间隔
+    {
+    app_rule_timer=0;
     if(eeprom_read(4))//启用规则
     {
         static u8 adcH,adcL,h,m,s,i,beep_flag,relay_flag;//准备需要的数据
@@ -180,6 +183,7 @@ status=eeprom_read(2)*256+eeprom_read(3);
 
     }
 
+    }
     WitchDog_reset();//喂狗
 
     if(keycount[0]||keycount[1]||keycount[2]||keycount[3]||keycount[4]) //按键处理
