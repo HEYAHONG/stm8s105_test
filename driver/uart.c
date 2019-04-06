@@ -39,3 +39,11 @@ int putchar(int dat) //support printf function
 #endif
 return 0;
 }
+
+void UART2_Init_Send()
+{
+//初始化BT-08B蓝牙蓝牙透传模块
+UART2_Send_STR("AT\r\n");
+UART2_Send_STR("AT+NAMEHYH\r\n");
+UART2_Send_STR("AT+PIN1122\r\n");
+}

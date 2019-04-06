@@ -4,8 +4,10 @@ void driver_init()
  CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);//设置为内部高速时钟
  key_init();
  beep_init();
+ extend_board_init();
 //Initialize UART
  Init_UART2();
+ UART2_Init_Send();
  OLED_Init();
  OLED_Clear();
 //ds1302_active();
@@ -44,5 +46,10 @@ if(adc_timer>eeprom_read(7)*1000)//
 adc_timer=0;
 adc_data.Ain=ReadADC();
 adc_data.Din=ReadDin();
+}
+if(extend_channel_timer>eeprom_read(10)*1000)//切换扩展板通道
+{
+extend_channel_timer=0;
+extend_board_channel_change();
 }
 }

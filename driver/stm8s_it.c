@@ -302,6 +302,7 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
  ds_1302_timer++;
  adc_timer++;
  app_rule_timer++;
+ extend_channel_timer++;
  TIM2_ClearFlag(TIM2_FLAG_UPDATE);
  }
 

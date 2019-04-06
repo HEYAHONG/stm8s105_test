@@ -16,4 +16,6 @@ BitStatus Din;
 
 BitStatus ReadDin();
 u16 ReadADC();
+void extend_board_init();//扩展板控制线初始化
+void extend_board_channel_change();//切换通道
 #endif

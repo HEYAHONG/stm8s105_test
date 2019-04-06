@@ -19,7 +19,7 @@ ADC1_SchmittTriggerConfig(ADC_SCHMITTTRIG,DISABLE);
 
   //PD5,PD6上的通道如果施密特方式禁用会导致串口无法收发数据！
 
-  
+
 
    ADC1_ConversionConfig(ADC1_CONVERSIONMODE_SINGLE,//单次转换
 
@@ -43,3 +43,44 @@ BitStatus ReadDin()
 GPIO_Init(GPIOF, GPIO_PIN_4, GPIO_MODE_IN_FL_NO_IT);
 return  GPIO_ReadInputPin(GPIOF,GPIO_PIN_4);
 }
+void extend_board_init()
+{
+//数据线
+GPIO_Init(GPIOC, GPIO_PIN_6, GPIO_Mode_Out_PP_High_Fast);
+GPIO_LOW(GPIOC,GPIO_PIN_6);
+//时钟线
+GPIO_Init(GPIOC, GPIO_PIN_7, GPIO_Mode_Out_PP_High_Fast);
+GPIO_LOW(GPIOC,GPIO_PIN_7);
+u8 i;
+for(i=0;i<eeprom_read(9);i++)
+{
+    GPIO_LOW(GPIOC,GPIO_PIN_7);
+    GPIO_HIGH(GPIOC,GPIO_PIN_7);
+
+}
+GPIO_LOW(GPIOC,GPIO_PIN_7);
+}
+
+void extend_board_channel_change()
+{
+GPIO_LOW(GPIOC,GPIO_PIN_6);
+u8 i;
+for(i=0;i<eeprom_read(9);i++)
+{
+    GPIO_LOW(GPIOC,GPIO_PIN_7);
+    GPIO_HIGH(GPIOC,GPIO_PIN_7);
+
+}
+static u8 pos=0;
+for(i=0;i<eeprom_read(9);i++)
+{
+    if(pos==i) GPIO_HIGH(GPIOC,GPIO_PIN_6);
+    else        GPIO_LOW(GPIOC,GPIO_PIN_6);
+    GPIO_LOW(GPIOC,GPIO_PIN_7);
+    GPIO_HIGH(GPIOC,GPIO_PIN_7);
+
+}
+if(pos>=(eeprom_read(9)-1)) pos=0;
+else pos++;
+}
+
