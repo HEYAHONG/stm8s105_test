@@ -57,6 +57,10 @@ $(PROJECT).ihx:$(OBJ_SRC)
 
 flash:$(PROJECT).hex
 	$(SUDO) $(STM8FLASH) -c stlinkv2 -p stm8s105k6 -w $(PROJECT).hex
+eeprom_backup:
+	$(SUDO) $(STM8FLASH) -c stlinkv2 -p stm8s105k6 -s eeprom -r eeprom.bin
+eeprom_write: eeprom.bin
+	$(SUDO) $(STM8FLASH) -c stlinkv2 -p stm8s105k6 -s eeprom -w eeprom.bin
 clean:
 	-rm -rf $(OBJ_SRC) $(ASM_DST) $(LST_DST) $(RST_DST) $(SYM_DST)
 	-rm -rf $(PROJECT).ihx $(PROJECT).hex $(PROJECT).lk $(PROJECT).mem  $(PROJECT).map $(PROJECT).cdb
