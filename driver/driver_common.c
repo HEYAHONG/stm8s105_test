@@ -26,28 +26,28 @@ ADC_DATA adc_data;
 void driver_loop()
 {
 WitchDog_reset();
-if(ds_1302_timer>eeprom_read(5)*100)
+if(ds_1302_timer>eeprom_read(5)*100uL)
 {
 ds_1302_timer=0;
 ds1302_read_time(&ds_time);
 }
 //间隔2～3秒读取一次
 //if(ds_time.second/3 != last_read_dh_time/3)
-if(dht12_timer>eeprom_read(6)*1000)
+if(dht12_timer>eeprom_read(6)*1000uL)
 {
 dht12_timer=0;
 ReadDHT12(&dh_data);
 //last_read_dh_time=ds_time.second;
 }
 
-if(adc_timer>eeprom_read(7)*1000)//
+if(adc_timer>eeprom_read(7)*1000uL)//
 {
 //读取ADC
 adc_timer=0;
 adc_data.Ain=ReadADC();
 adc_data.Din=ReadDin();
 }
-if(extend_channel_timer>eeprom_read(10)*1000)//切换扩展板通道
+if(extend_channel_timer>eeprom_read(10)*1000uL)//切换扩展板通道
 {
 extend_channel_timer=0;
 extend_board_channel_change();
