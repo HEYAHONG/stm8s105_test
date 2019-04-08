@@ -49,6 +49,8 @@ case 1070:
     if(data) beep_on(); else beep_off();break;
 case 1080:
     if(data) relay_on(); else relay_off();break;
+case 1090:
+    pos=data;extend_board_channel_change(); break;
 }
 }
 void modbus_virtual_read(u32 address)//虚拟地址读取
@@ -91,6 +93,8 @@ case 1070:
     modbus_buff[4]=beep_read();break;
 case 1080:
     modbus_buff[4]=relay_read();break;
+case 1090:
+    modbus_buff[4]=((pos==0)?(eeprom_read(11)-1):(pos-1));break;
 
 }
 

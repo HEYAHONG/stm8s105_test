@@ -61,6 +61,7 @@ for(i=0;i<eeprom_read(9);i++)
 GPIO_LOW(GPIOC,GPIO_PIN_7);
 }
 
+u8 pos=0;
 void extend_board_channel_change()
 {
 GPIO_LOW(GPIOC,GPIO_PIN_6);
@@ -71,7 +72,6 @@ for(i=0;i<eeprom_read(9);i++)
     GPIO_HIGH(GPIOC,GPIO_PIN_7);
 
 }
-static u8 pos=0;
 for(i=0;i<eeprom_read(9);i++)
 {
     if(pos==i) GPIO_HIGH(GPIOC,GPIO_PIN_6);
@@ -80,7 +80,7 @@ for(i=0;i<eeprom_read(9);i++)
     GPIO_HIGH(GPIOC,GPIO_PIN_7);
 
 }
-if(pos>=(eeprom_read(9)-1)) pos=0;
+if(pos>=(eeprom_read(11)-1)) pos=0;
 else pos++;
 }
 
