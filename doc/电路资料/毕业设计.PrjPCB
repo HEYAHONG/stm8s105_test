@@ -32,7 +32,7 @@ DItemRevisionGUID=
 
 [Document1]
 DocumentPath=Ö÷µ×°å.SchDoc
-AnnotationEnabled=1
+AnnotationEnabled=0
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
@@ -96,7 +96,7 @@ GenerateClassCluster=0
 
 [Document5]
 DocumentPath=À©Õ¹°å.SchDoc
-AnnotationEnabled=0
+AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
